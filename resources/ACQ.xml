@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<BioAxialAcquisitionRequest>
+    <Microscope_parameters>
+        <ObjectiveMagnification>60.00</ObjectiveMagnification>
+        <ObjectiveNumericalAperture>1.49</ObjectiveNumericalAperture>
+        <AuxiliaryCameraAdditionalMagnification>1.00</AuxiliaryCameraAdditionalMagnification>
+        <MainCameraAdditionalMagnification>1.50</MainCameraAdditionalMagnification>
+        <ObjectiveName>Apo TIRF 60x Oil DIC N2</ObjectiveName>
+        <Stimulation_wavelength>488</Stimulation_wavelength>
+    </Microscope_parameters>
+    <ROI_parameters>
+        <ROI_Size>Custom</ROI_Size>
+        <ROI_X>0</ROI_X>
+        <ROI_Y>0</ROI_Y>
+    </ROI_parameters>
+    <Documentation_parameters>
+        <Comment_ACQ/>
+    </Documentation_parameters>
+    <Z_parameters>
+        <Z_Values>[1988.875]</Z_Values>
+        <ZToBeRestored>1988.875</ZToBeRestored>
+    </Z_parameters>
+    <Time_Lapse_parameters>
+        <TimeLapseEnabled>false</TimeLapseEnabled>
+        <Duration>0</Duration>
+        <FrameInterval>0</FrameInterval>
+        <Loops>1</Loops>
+    </Time_Lapse_parameters>
+    <Camera_parameters>
+        <AuxiliaryCameraGain>1.00</AuxiliaryCameraGain>
+        <AuxiliaryCameraCamera_std_dev>1.00</AuxiliaryCameraCamera_std_dev>
+        <MainCameraGain>1.00</MainCameraGain>
+        <AuxiliaryCameraE_count_ratio>1.00</AuxiliaryCameraE_count_ratio>
+        <MainCameraE_count_ratio>0.50</MainCameraE_count_ratio>
+        <MainCameraCamera_std_dev>1.60</MainCameraCamera_std_dev>
+        <MainCameraPixel_size>6500</MainCameraPixel_size>
+        <AuxiliaryCameraPixel_size>5500</AuxiliaryCameraPixel_size>
+        <MainCameraXROIOffset>940</MainCameraXROIOffset>
+        <MainCameraYROIOffset>488</MainCameraYROIOffset>
+        <AuxiliaryCameraXROIOffset>952</AuxiliaryCameraXROIOffset>
+        <AuxiliaryCameraYROIOffset>884</AuxiliaryCameraYROIOffset>
+        <MainCameraXROICenter>1038</MainCameraXROICenter>
+        <MainCameraYROICenter>530</MainCameraYROICenter>
+        <AuxiliaryCameraXROICenter>1032</AuxiliaryCameraXROICenter>
+        <AuxiliaryCameraYROICenter>923</AuxiliaryCameraYROICenter>
+        <XROISize>150</XROISize>
+        <YROISize>58</YROISize>
+        <PixelSize_nm>83</PixelSize_nm>
+    </Camera_parameters>
+    <System_parameters>
+        <ScannDir>BACKWARD</ScannDir>
+    </System_parameters>
+    <Cycle_parameters>
+        <AcquisitionSequenceMode>Measurement</AcquisitionSequenceMode>
+    </Cycle_parameters>
+    <Lasers_parameters>
+        <LasersPowers>[0.00 30.00 0.00 0.00]</LasersPowers>
+        <LasersWavelengths>[405 488 561 640]</LasersWavelengths>
+    </Lasers_parameters>
+    <Measurement_parameters>
+        <BlackFrameCount>256</BlackFrameCount>
+    </Measurement_parameters>
+    <Sample_parameters>
+        <Emission_wavelength>520</Emission_wavelength>
+    </Sample_parameters>
+    <Calibration_parameters>
+        <VoltageY>0.1357206</VoltageY>
+        <Bead_diameter>100.00</Bead_diameter>
+        <VoltageX>-0.07051601</VoltageX>
+        <Bead_type>Volumic</Bead_type>
+    </Calibration_parameters>
+    <LambdaParameters>
+        <LambdaParameter>
+            <MainCameraXROISize>192</MainCameraXROISize>
+            <Distrib_1>Demi_lune_135</Distrib_1>
+            <Distrib_3>Demi_lune_0</Distrib_3>
+            <dy>[88 88 88 88]</dy>
+            <Distrib_2>Demi_lune_90</Distrib_2>
+            <AuxiliaryCameraIntegrationTime>0.0002</AuxiliaryCameraIntegrationTime>
+            <LaserPulseTime_sec>0.0002</LaserPulseTime_sec>
+            <Distrib_4>Demi_lune_45</Distrib_4>
+            <dx>[230 230 230 230]</dx>
+            <AuxiliaryCameraXROISize>156</AuxiliaryCameraXROISize>
+            <MainCameraYROISize>84</MainCameraYROISize>
+            <AuxiliaryCameraYROISize>72</AuxiliaryCameraYROISize>
+            <NumberOfIlluminations>4</NumberOfIlluminations>
+            <Wavelength>488</Wavelength>
+        </LambdaParameter>
+    </LambdaParameters>
+</BioAxialAcquisitionRequest>

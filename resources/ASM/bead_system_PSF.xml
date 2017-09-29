@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Image_Contents>
+	<Image_File default_path="0" absolute_path="0" path_type="Local" format="Bin" type="File">bead_system_PSF.bin</Image_File>
+	<Nb_Distrib>1</Nb_Distrib>
+	<Nb_ScannerPos>1</Nb_ScannerPos>
+	<Nb_Rows>27</Nb_Rows>
+	<Nb_Cols>27</Nb_Cols>
+	<Format radix="16">0240</Format>
+	<Pixel_Size_nm>[33.33333,33.33333]</Pixel_Size_nm>
+	<Image_Info>
+		<Image Index_From="0" Index_To="0"><Distrib>1</Distrib></Image>
+	</Image_Info>
+</Image_Contents>

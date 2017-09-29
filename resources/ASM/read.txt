@@ -1,0 +1,6 @@
+Dans la suite, toutes les coordonnées indiquées sont en base 0.
+
+1 seul émetteur en (21,21) sur l'image originale de taille (45,83) (qui doit correspondre à une tuile)
+une seule position laser en (7,7), une ROI qui commence en (2,2), de taille (11,11) (tout ça dans le referenciel MI)
+(-> la position laser est sur un pixel de la MI)
+Distributions à 1

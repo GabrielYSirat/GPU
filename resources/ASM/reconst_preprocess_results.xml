@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--User Comment: PR_2016_10_03_14_29_ChromCust (using BeadCalib = PR_2016_10_02_15_05_BeadNakaLP5 (using ScannerCalib = PR_2016_10_02_14_19_scan60x488_1 ) )-->
+<Reconstruction_Preproc_Results>
+	<Camera_and_Algo_Params>
+		<Zoom_Factor>2</Zoom_Factor>
+		<Camera_Std>1.6</Camera_Std>
+		<Z_Slice_nm>-316.095</Z_Slice_nm>
+		<Pixel_Size_nm>[72.2222 72.2222]</Pixel_Size_nm>
+		<Airy_Radius_nm>212.067</Airy_Radius_nm>
+		<Emission_WaveLength_nm>518</Emission_WaveLength_nm>
+		<Numeric_Aperture>0.95</Numeric_Aperture>
+		<Resolution_Gain_XY>2.4</Resolution_Gain_XY>
+		<Flip_X>true</Flip_X>
+		<Flip_Y>true</Flip_Y>
+		<Initial_Step>1</Initial_Step>
+		<Epsilon>0.5</Epsilon>
+		<Meas_AOI_Radius_nm>275.687</Meas_AOI_Radius_nm>
+		<Meas_AOI_Radius_pix>4</Meas_AOI_Radius_pix>
+		<Rec_AOI_Radius_nm>487.754</Rec_AOI_Radius_nm>
+		<Rec_AOI_Radius_pix>14</Rec_AOI_Radius_pix>
+		<Descent_Parameters>
+			<Max_Iterations>500</Max_Iterations>
+			<Tolerance>0.0001</Tolerance>
+			<Projection2_Max_Iterations>10</Projection2_Max_Iterations>
+			<Projection2_Precision>1e-07</Projection2_Precision>
+		</Descent_Parameters>
+	</Camera_and_Algo_Params>
+	<Descan_Results>
+		<Origin_Pix>[1036.07,530.089]</Origin_Pix>
+		<Spot_Position_Pix>[95.8299,41.6916]</Spot_Position_Pix>
+		<Translation_Pix>[60.75,11.75]</Translation_Pix>
+		<Offset_Pix>[0.224408 0.523927]</Offset_Pix>
+		<Max_Correlation>0.960549</Max_Correlation>
+		<Images>descan_images.xml</Images>
+		<Refs>descan_refs.xml</Refs>
+		<Origin_Distrib_Index>1</Origin_Distrib_Index>
+		<Origin_Image_Index>11385</Origin_Image_Index>
+	</Descan_Results>
+	<Measurement_AOIs>
+		<Distrib index="0" length="1">[ [0,0,9,9] ] </Distrib>
+	</Measurement_AOIs>
+	<Laser_Positions>
+		<Distrib index="0" length="1">[ [3.0,3.0] ] </Distrib>
+	</Laser_Positions>
+	<Cropped_Measurements>cropped_measurements.xml</Cropped_Measurements>
+	<Bead_Distributions>bead_distributions_ext.xml</Bead_Distributions>
+	<Conventional_Image>conventional_image.xml</Conventional_Image>
+	<Pixel_Count_Image>pixel_count_image.xml</Pixel_Count_Image>
+</Reconstruction_Preproc_Results>

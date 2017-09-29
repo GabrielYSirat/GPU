@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Image_Contents>
+	<Image_File default_path="0" absolute_path="0" path_type="Local" format="Bin" type="File">bead_distributions.bin</Image_File>
+	<Nb_Distrib>4</Nb_Distrib>
+	<Nb_ScannerPos>1</Nb_ScannerPos>
+	<Nb_Rows>64</Nb_Rows>
+	<Nb_Cols>64</Nb_Cols>
+	<Format radix="16">0240</Format>
+	<Pixel_Size_nm>[72.222200,72.222200]</Pixel_Size_nm>
+	<Image_Info>
+		<Image Index_From="0" Index_To="0"><Distrib>1</Distrib></Image>
+		<Image Index_From="1" Index_To="1"><Distrib>2</Distrib></Image>
+		<Image Index_From="2" Index_To="2"><Distrib>3</Distrib></Image>
+		<Image Index_From="3" Index_To="3"><Distrib>4</Distrib></Image>
+	</Image_Info>
+</Image_Contents>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Image_Contents>
+	<Image_File default_path="0" absolute_path="0" path_type="Local" format="Bin" type="File">cropped_measurements.bin</Image_File>
+	<Nb_Distrib>4</Nb_Distrib>
+	<Nb_ScannerPos>20240</Nb_ScannerPos>
+	<Nb_Rows>9</Nb_Rows>
+	<Nb_Cols>9</Nb_Cols>
+	<Format radix="16">0240</Format>
+	<Image_Info>
+		<Image Index_From="0" Index_To="20239"><Distrib>1</Distrib></Image>
+		<Image Index_From="20240" Index_To="40479"><Distrib>2</Distrib></Image>
+		<Image Index_From="40480" Index_To="60719"><Distrib>3</Distrib></Image>
+		<Image Index_From="60720" Index_To="80959"><Distrib>4</Distrib></Image>
+	</Image_Info>
+</Image_Contents>
