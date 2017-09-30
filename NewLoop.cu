@@ -41,7 +41,7 @@ __global__ void PSFvalidateondevice(int Nb_Rows_PSF, int Nb_Cols_PSF) {
 		for (int col = 0; col < Nb_Cols_PSF; col++) {
 			int tempp = row * Nb_Cols_PSF + col;
 			tempv = *(original_PSF+tempp);
-			PSFARRAY[tempp] = *(original_PSF+tempp)+0.002;
+			PSFARRAY[tempp] = *(original_PSF+tempp);
 			if (verboseNewLoop)
 				if ((row == (Nb_Rows_PSF / 2)) && !(col % 8))
 					printf(" PSF \u2776 device: tempv,%g row %d column %d, tempp %d\n", tempv, row, col, tempp);
@@ -71,7 +71,7 @@ __global__ void validate_distrib(int Nb_Rows_distrib, int Nb_Cols_distrib, int N
 				tempp = (idistrib * Nb_Rows_distrib + row) * Nb_Cols_distrib + col;
 				tempv = *(original_distrib + tempp);
 				if (verboseNewLoop)
-					if (!(row%21))
+					if (!(row%31))
 						if (!(col % 25))
 							printf(" DISTRIBUTIONS \u2777  device: tempv,%g idistrib %d row %d"
 									" column %d, tempp %d\n", tempv, idistrib, row, col, tempp);

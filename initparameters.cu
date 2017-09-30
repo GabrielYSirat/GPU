@@ -123,6 +123,21 @@ bool initparameters( int argc, char **argv) {
 	NThreads, THREADSVAL, THreadsRatio);
 	printf(" INIT PROG \u23f3 Data parameters in device memory ...\n");
 
+
+	/********************************Reconstruction parameters *************************/
+	filenamexml = resourcesdirectory + "reconstruction.xml";
+	printf("INIT PROG \u24EA reconstruction xml:  %s \n", filenamexml.c_str());
+	doc.LoadFile(filenamexml.c_str());
+
+	TA.Nb_Rows_reconstruction = atoi(doc.FirstChildElement("Image_Contents")
+			->FirstChildElement("Nb_Rows")->GetText());
+	TA.Nb_Cols_reconstruction = atoi(doc.FirstChildElement("Image_Contents")
+			->FirstChildElement("Nb_Cols")->GetText());
+	TA.reconstruction_size = TA.Nb_Cols_reconstruction*TA.Nb_Rows_reconstruction;
+	printf("INIT PROG \u24EA reconstruction from tiles: Rows: %d Cols %d size %d \n",
+				TA.Nb_Rows_reconstruction, TA.Nb_Cols_reconstruction, TA.reconstruction_size);
+
+	/***********************Sizes in nm *************************************************/
 	filename = resourcesdirectory + "ACQ.xml";
 	int LoadACQOK = XMLError(ACQXML.LoadFile(filename.c_str()));
 	pRoot = ACQXML.FirstChildElement("BioAxialAcquisitionRequest");
@@ -138,65 +153,8 @@ bool initparameters( int argc, char **argv) {
 	TA.XTileSize = (XTile * TA.Pixel_size_nm)/(1000.*pZOOM); 	// Tile size in nm
 	TA.YTileSize = (YTile * TA.Pixel_size_nm)/(1000.*pZOOM);	// Tile size in nm
 	printf(" INIT PROG \u24EA TILE   : XTILE %d YTILE %d  size : XTILE:%6.3f µm YTILE %6.3f µm\n",  XTile, YTile, TA.XTileSize, TA.YTileSize);
-
-	printf(" INIT PROG \u24EA  scan points:  %s \n", filename.c_str());
-	pParm = pRoot->FirstChildElement("LambdaParameters")->FirstChildElement("LambdaParameter")->FirstChildElement("dx");
-	sstr = pParm->GetText();
-	for (unsigned int i = 0; i < strlen(chars); ++i)
-		sstr.erase(std::remove(sstr.begin(), sstr.end(), chars[i]), sstr.end());
-	stringstream stream_x(sstr);
-	stream_x.getline(buff, 10, ',');
-	TA.dx = max(atoi(buff), TA.dx);
-
-	pParm = pRoot->FirstChildElement("LambdaParameters")->FirstChildElement("LambdaParameter")->FirstChildElement("dy");
-	sstr = pParm->GetText();
-	for (unsigned int i = 0; i < strlen(chars); ++i)
-		sstr.erase(std::remove(sstr.begin(), sstr.end(), chars[i]), sstr.end());
-	stringstream streamy(sstr);
-	streamy.getline(buff, 10, ',');
-	TA.dy = max(atoi(buff), TA.dy);
-	printf(" INIT PROG \u24EA maximum number of scan points in x and y, x: %d, y:%d \n", TA.dx, TA.dy);
-
-
-	printf("******************Retrieving microimages size **************\n");
-	filename = resourcesdirectory + "cropped_measurements.xml";
-	printf(" INIT PROG \u24EA  microimages:  %s \n", filename.c_str());
-	LoadACQOK = XMLError(ACQXML.LoadFile(filename.c_str()));
-	pRoot = ACQXML.FirstChildElement("Image_Contents");
-	pParm = pRoot->FirstChildElement("Nb_Rows");
-	if (verbose)
-		printf(" INIT PROG \u24EA  Nb_Rows ");
-	sstr = pParm->GetText();
-	stringstream streamRows(sstr);
-	streamRows.getline(buff, 10, ',');
-	TA.Nb_Rows_microimages = atoi(buff);
-
-	pParm = pRoot->FirstChildElement("Nb_Cols");
-	sstr = pParm->GetText();
-	stringstream streamCols(sstr);
-	streamCols.getline(buff, 10, ',');
-	TA.Nb_Cols_microimages = atoi(buff);
-	printf(" INIT PROG \u24EA microimages Rows %d, columns in file %d and in constants %d\n\n", TA.Nb_Rows_microimages,
-			TA.Nb_Cols_microimages, Npixel);
-
-	if ((TA.Nb_Cols_microimages != TA.Nb_Rows_microimages)||(TA.Nb_Cols_microimages != Npixel)) {
-		printf(" INIT PROG \u24EA non square image, Nb_Rows_microimages %d\n\n", TA.Nb_Cols_microimages);
-		printf(" INIT PROG \u24EA non square image, Nb_Rows_microimages %d\n\n", TA.Nb_Cols_microimages);
-		printf(" INIT PROG \u24EA Number of pixels does not fit %d\n\n", TA.Nb_Cols_microimages);
-		exit(1);
-	}
-
-	filenamexml = resourcesdirectory + "reconstruction.xml";
-	printf("INIT PROG \u24EA reconstruction xml:  %s \n", filenamexml.c_str());
-	doc.LoadFile(filenamexml.c_str());
-
-	TA.Nb_Rows_reconstruction = atoi(doc.FirstChildElement("Image_Contents")
-			->FirstChildElement("Nb_Rows")->GetText());
-	TA.Nb_Cols_reconstruction = atoi(doc.FirstChildElement("Image_Contents")
-			->FirstChildElement("Nb_Cols")->GetText());
-	TA.reconstruction_size = TA.Nb_Cols_reconstruction*TA.Nb_Rows_reconstruction;
-	printf("INIT PROG \u24EA reconstruction from tiles: Rows: %d Cols %d size %d \n",
-				TA.Nb_Rows_reconstruction, TA.Nb_Cols_reconstruction, TA.reconstruction_size);
+	printf(" INIT PROG \u24EA RECONSTRUCTION in nm   : X %6.3f µm Y %6.3f µm\n",
+			 TA.Nb_Cols_reconstruction*TA.Pixel_size_nm/1000., TA.Nb_Rows_reconstruction*TA.Pixel_size_nm/1000.);
 
 	return (dimfit);
 }

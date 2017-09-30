@@ -6,6 +6,7 @@
  */
 
 #include "NewLoop.h"
+string PSFDATA = "/lambda_488/Calib/system_PSF.bin";
 double *double_PSF;
 float  *original_PSF=NULL;
 float MaxPSF=0.0f, SumPSF = 0.0f;
@@ -16,20 +17,11 @@ void PSFprepare(void) {
 	XMLDocument doc;
 	MaxPSF = 0.; // also used as extern
 
-	string PSFraw = resourcesdirectory + "psf__27x27.raw";
+	string PSFraw = resourcesdirectory + PSFDATA;
 	const char * PSFImagefile = "results/PSFImagefile.pgm";
 
-	filename = resourcesdirectory + "bead_system_PSF.xml";
-	printf(" PSF \u24F5 bead_system_PSF:  %s \n", filename.c_str());
-	doc.LoadFile(filename.c_str());
-	int Nb_Rows_PSF_file = atoi(doc.FirstChildElement("Image_Contents")->FirstChildElement("Nb_Rows")->GetText());
-	int Nb_Cols_PSF_file = atoi(doc.FirstChildElement("Image_Contents")->FirstChildElement("Nb_Cols")->GetText());
-	if ((Nb_Rows_PSF_file != TA.PSF_Rows)||(Nb_Cols_PSF_file != TA.Nb_Cols_PSF))
-		printf(" PSF \u24F5 values stored in xml file differs from parameters File x: %d y: %d parameters x: %d y: %d \n",
-				Nb_Rows_PSF_file, Nb_Cols_PSF_file, TA.PSF_Rows, TA.Nb_Cols_PSF);
-
 	unsigned char *i_PSF = (unsigned char *) calloc(TA.PSF_size, sizeof(unsigned char)); // on host
-    double* double_PSF = (double*)std::malloc(Nb_Rows_PSF_file*Nb_Cols_PSF_file * sizeof(double));
+    double* double_PSF = (double*)std::malloc(TA.PSF_Rows*TA.Nb_Cols_PSF * sizeof(double));
 	cudaMallocManaged(&original_PSF, PSFZoom * PSFZoom * sizeof(float));
 	cudaMallocManaged(&PSFARRAY, PSFZoom * PSFZoom *  sizeof(float));
 
@@ -43,7 +35,7 @@ void PSFprepare(void) {
 	PSFile.close();
 
 	double_PSF = (double*) memblock; //reinterpret the chars stored in the file as double
-	for (int i = 0; i < Nb_Rows_PSF_file*Nb_Cols_PSF_file; i++) {
+	for (int i = 0; i < TA.PSF_Rows*TA.Nb_Cols_PSF; i++) {
 				*(original_PSF + i) = *(double_PSF + i)+0.000001;			// change to float
 				SumPSF += *(original_PSF+i);
 				if (MaxPSF < *(original_PSF + i))

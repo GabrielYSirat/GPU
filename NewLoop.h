@@ -36,6 +36,7 @@ using namespace std;
 #define min(a,b) (a) < (b) ? (a) : (b)
 #define max(a,b) (a) > (b) ? (a) : (b)
 
+/*****************DATA FILES *******************/
 extern std::string resourcesdirectory, filename;
 extern char buff[BUFFSIZE], chars[]; // a buffer to temporarily park the data
 extern cudaEvent_t start, stop;

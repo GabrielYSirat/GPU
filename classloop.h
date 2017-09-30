@@ -50,8 +50,6 @@ public:
 	unsigned int Nb_Cols_microimages;
 	uint Nb_LaserPositions;
 	unsigned Images_perdistrib[MAXNBDISTRIB];
-	int dx, dy;
-//	int Nb_Rows, Nb_Cols;
 
 	int maxROIx, maxROIy, minROIx, minROIy;
 	double maxLaserx, minLaserx, maxLasery, minLasery;
