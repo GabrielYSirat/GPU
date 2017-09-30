@@ -7,18 +7,6 @@
 
 #include "NewLoop.h"
 
-/*******************PARAMETERS**************/
-char buff[BUFFSIZE]; // a buffer to temporarily park the data
-double Timestep[16];
-char chars[] = "[]()", delimeter('=');
-int clockRate, devID, stepval = 0; // in KHz
-__managed__ clock_t timer, time_init, time_start, time_loop_stop; // in KHz
-__managed__ int pPSF, Npixel, RDISTRIB, pZOOM, Ndistrib;
-__managed__ double  Energy_Global =0.0f;
-
-cudaEvent_t start, stop, init_t;
-float time_event;
-std::string resourcesdirectory, filename, name, value;
 
 /************* Classes and structures*******/
 GPU_init TA;
@@ -26,7 +14,7 @@ COS OFSCAL;
 Ctile tile;
 devicedata onhost;
 
-__managed__ double Energy_global;
+int clockRate, devID, stepval = 0; // in KHz
 
 ////////////////////////////////////////////////////////////////////////////////
 // Program main
@@ -91,7 +79,7 @@ int main(int argc, char **argv) {
 
 	/*step 11 *********************Energy  ********************/
 Energy_global = EnergyCal();
-	bool testEnergy = (Energy_Global !=0.0f);
+	bool testEnergy = (Energy_global !=0.0f);
 	stepinit(testEnergy, stepval);
 
 	/*step 12 *********************Inspect results  ***********/

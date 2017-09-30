@@ -99,7 +99,7 @@ __global__ void validateLaserPositions_device(int Nb_LaserPositions) {
 		d_PosLaserx[ipos] = PosLaserx[ipos];
 		d_PosLasery[ipos] = PosLasery[ipos];
 		if (verboseNewLoop && (ipos < 10)) {
-			printf(" Laser \u2778 DEVICE: laser position n° %d original position x:%f , y: %f ....  ",
+			printf(" Laser \u2778 DEVICE: laser position n° %d original position x:%f , y: %f ....  \n",
 					ipos, PosLaserx[ipos],PosLasery[ipos]);
 			printf(" Laser \u2778 DEVICE: copy position: %f y: %f\n", d_PosLaserx[ipos], d_PosLasery[ipos]);
 		}
