@@ -18,6 +18,8 @@
 #define MAX_EPSILON_ERROR 5e-3f
 #define TRUE 1
 #define FALSE 0
+#define X 0
+#define Y 1
 #define verbose 0
 #define BUFFSIZE 80
 
@@ -41,7 +43,8 @@
  *
  */
 #define PixZoom (Npixel*pZOOM)// verifier
-#define PixZoomSquare (PixZoom*PixZoom)
+#define PixZoomSquare (Npixel*Npixel)
+#define PixSquare (Npixel*Npixel)
 #define PixZoomo2 (PixZoom/2)// verifier
 #define PSFZoom (pPSF*pZOOM)
 #define PSFZoomo2 (PSFZoom/2)

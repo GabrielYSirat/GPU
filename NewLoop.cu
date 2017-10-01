@@ -15,6 +15,11 @@ __managed__ float *MicroImages = NULL, *v_MicroImages = NULL;				 // on device o
 __managed__ float *LaserPositions = NULL, *v_LaserPositions = NULL;		 // on device original and for validation
 __managed__ float *PosLaserx = NULL, *PosLasery = NULL;
 __managed__ float *d_PosLaserx, *d_PosLasery;
+__managed__ int *PosxScratch = NULL, *PosyScratch = NULL;
+__managed__ int *posxREC, *posyREC, *offsetFULL;
+__managed__ int *d_PosxScratch = NULL, *d_PosyScratch = NULL;
+__managed__ int *d_posxREC, *d_posyREC, *d_offsetFULL;
+
 
 __managed__ int *ROIx, *ROIy;
 __managed__ int *d_ROIx, *d_ROIy;
@@ -98,9 +103,13 @@ __global__ void validateLaserPositions_device(int Nb_LaserPositions) {
 	for (int ipos = 0; ipos < Nb_LaserPositions; ipos++) {
 		d_PosLaserx[ipos] = PosLaserx[ipos];
 		d_PosLasery[ipos] = PosLasery[ipos];
-		if (verboseNewLoop && (ipos < 10)) {
+	//	d_PosxScratch[ipos] = PosxScratch[ipos];
+	//	d_PosyScratch[ipos] = PosyScratch[ipos];
+		if (verboseNewLoop && (ipos < 20)) {
 			printf(" Laser \u2778 DEVICE: laser position n° %d original position x:%f , y: %f ....  \n",
 					ipos, PosLaserx[ipos],PosLasery[ipos]);
+	/*		printf(" Laser \u2778 DEVICE: ipos %d rounded x:%d y:%d Scratch n°    .... %d \n",
+					ipos, PosxScratch[ipos],PosyScratch[ipos], offsetFULL[ipos]);*/
 			printf(" Laser \u2778 DEVICE: copy position: %f y: %f\n", d_PosLaserx[ipos], d_PosLasery[ipos]);
 		}
 
@@ -110,7 +119,7 @@ __global__ void validateLaserPositions_device(int Nb_LaserPositions) {
 		if (minLaserPositiony > PosLasery[ipos]) minLaserPositiony = PosLasery[ipos];
 	}
 		printf(
-				" Laser \u2778  DEVICE: LaserPosition x max %f min %f ... LaserPositiony max %f min %f \n",
+				"\n Laser \u2778  DEVICE: MAX & MIN: LaserPosition x max %f min %f ... LaserPositiony max %f min %f \n",
 				maxLaserPositionx, minLaserPositionx, maxLaserPositiony, minLaserPositiony);
 	timer = clock64();
 

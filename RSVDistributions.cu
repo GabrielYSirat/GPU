@@ -8,6 +8,8 @@
 int byte_skipped = 16;
 float Maxdistrib = 0.0f, Sumdistrib = 0.0f;
 std::string DISDATA = "/lambda_488/Calib/distribution";
+std::string enddistrib = ".bin";
+
 const char * distribImagefile = "results/distribImagefile.pgm";
 
 
@@ -22,7 +24,7 @@ void readstoredistrib(void) {
 
 	for(int idistrib = 0; idistrib < Ndistrib; idistrib++)
 	{
-	std::string beadraw = resourcesdirectory + DISDATA + std::to_string(idistrib+1) + ".bin";
+	std::string beadraw = resourcesdirectory + DISDATA + std::to_string(idistrib+1) + enddistrib;
 	printf("DISTRIBUTIONS \u2461: data file %s\n",beadraw.c_str());
 
 	//read distrib bin file

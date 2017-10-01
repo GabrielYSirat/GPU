@@ -18,6 +18,7 @@
 #include <string.h>
 #include <string>
 #include <math.h>
+#include <fstream>
 #include "device_functions.h"
 #include <cuda_runtime.h>			// Includes CUDA
 #include <helper_functions.h>    	// CUDA helper functions: includes cuda.h and cuda_runtime_api.h
@@ -131,7 +132,6 @@ float EnergyCal(void);
 bool tile_organization(void);
 extern __managed__ float *PSFvalidationdata_managed;
 extern __managed__ float  *original_PSF;
-extern __managed__ float *PosLaserx, *PosLasery, *d_PosLaserx, *d_PosLasery;
 extern __managed__ int *ROIx, *ROIy, *d_ROIx, *d_ROIy;
 extern __managed__ float *microimages, *d_microimages;
 extern __managed__ float *original_distrib,  *val_distrib, *test_distrib;
@@ -143,9 +143,12 @@ extern __managed__ double *double_rec;
 extern __managed__ float *scratchpad_matrix,  *val_scratchpad, *val2_scratchpad;
 extern __managed__ float *PSFARRAY;
 
-extern __managed__ int *posxREC, *PosLaserxScratch, *PosLaseryRec, *PosLaseryScratch;
-extern __managed__ int  *PosxScratch,  *PosyScratch;
-extern __managed__ int *offsetFULL;
+extern __managed__ float *PosLaserx, *PosLasery, *d_PosLaserx, *d_PosLasery;
+extern __managed__ int *posxREC, *posyREC;
+extern __managed__ int  *PosxScratch,  *PosyScratch, *offsetFULL;
+extern __managed__ int *d_PosxScratch, *d_PosyScratch;
+extern __managed__ int *d_posxREC, *d_posyREC, *d_offsetFULL;
+
 
 extern __managed__ int *image_to_scratchpad_offset, *valid_image;
 // intermediate data of BigLoop

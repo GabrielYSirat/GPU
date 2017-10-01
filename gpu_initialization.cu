@@ -9,7 +9,7 @@
 string stepname[] = {"initialization  ", "pPSF            ", "distrib  ",
 		"Laser positions", "Measurement ROI  ", "microimages", " laser in tile ", "microimages in tile",  "reconstruction  ",
 		"scratchpad    ", "bigLoop" , "end bigloop", "bigloop results"};
-int smallnumber =16;
+int smallnumber =20;
 double Sumdel[16] = { 0 };
 string Stepdiag[16] = NULL;
 
