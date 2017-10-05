@@ -1,0 +1,12 @@
+[CALIB DATA INFO]
+
+n_distributions = 2
+distrib_nx = 59
+distrib_ny = 59
+nb_slices = 1
+wavelength = 488.000000
+NA = 0.950000
+data_type = 2D
+z_values = [0.000000]
+res_calib = [100.000000 100.000000]
+calib_origin = [30 30]

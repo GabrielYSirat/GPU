@@ -133,6 +133,7 @@ bool tile_organization(void);
 extern __managed__ float *PSFvalidationdata_managed;
 extern __managed__ float  *original_PSF;
 extern __managed__ int *ROIx, *ROIy, *d_ROIx, *d_ROIy;
+extern __managed__ int *ROIxScratch, *ROIyScratch, *offsetROI;
 extern __managed__ float *microimages, *d_microimages;
 extern __managed__ float *original_distrib,  *val_distrib, *test_distrib;
 extern __managed__ double *double_distrib;

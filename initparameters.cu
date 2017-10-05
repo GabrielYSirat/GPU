@@ -38,7 +38,7 @@ bool initparameters( int argc, char **argv) {
 
 	// acquire information on the CUDA device: name and number of multiprocessors
 	devID = gpuDeviceInit(devID);
-	std::cout << "MAIN PROGRAM  \u24EA NewLoop starting...";
+	std::cout << "MAIN PROGRAM  \u24EA NewLoop starting...\n";
 	if (devID < 0) {
 		printf("exiting...\n");
 		exit(EXIT_FAILURE);
@@ -91,7 +91,7 @@ bool initparameters( int argc, char **argv) {
 		XDistrib = (PixZoomo2+PSFZoomo2)*2+1;
 		YDistrib = (PixZoomo2+PSFZoomo2)*2+1;
 		YDistrib_extended = NThreads/PixZoom+PSFZoom;
-		lostlines = ceil((1.0*NThreads)/PixZoom) - PixZoom;
+		lostlines = NThreads/PixZoom - PixZoom +1;
 
 		float tempe = XDistrib * YDistrib_extended;
 		ADistrib = CEILING_POS(tempe/THREADSVAL)*THREADSVAL;
@@ -104,12 +104,13 @@ bool initparameters( int argc, char **argv) {
 								// We add lostpixels  at start and end of the scratchpad
 								// for "spillover" of the first and last line
 	YTile = YSCRATCH - dySCR - lostlines; 	// in y we need the full size
+	printf("%d %d %d %d\n\n",YTile ,YSCRATCH, dySCR, lostlines);
 	if((YTile%2)==0) YTile--;				// We insure that YTile is odd
 	ATile = XTile * YTile;										// Total size in pixels
 
 
 	printf("************** DATA: PARAMETERS OF MEASUREMENT *******************\n"
-			" INIT PROG \u24EA BASIC  : NThreads %d Npixel %d pZOOM %d, pPSF %d RDISTRIB %d\n", NThreads, Npixel, pZOOM,
+			" INIT PROG \u24EA BASIC  : THreadsRatio %d NThreads %d Npixel %d pZOOM %d, pPSF %d RDISTRIB %d\n", THreadsRatio, NThreads, Npixel, pZOOM,
 			pPSF, RDISTRIB);
 	printf(" INIT PROG \u24EA PIXEL  : Npixel %d PixZoom %d PixZoomo2 %d\n", Npixel, PixZoom, PixZoomo2);
 	printf(" INIT PROG \u24EA PIXEL  : lost lines %d additional lines at the end of microimage\n", lostlines);
@@ -134,8 +135,8 @@ bool initparameters( int argc, char **argv) {
 	TA.Nb_Cols_reconstruction = atoi(doc.FirstChildElement("Image_Contents")
 			->FirstChildElement("Nb_Cols")->GetText());
 	TA.reconstruction_size = TA.Nb_Cols_reconstruction*TA.Nb_Rows_reconstruction;
-	printf("INIT PROG \u24EA reconstruction from tiles: Rows: %d Cols %d size %d \n",
-				TA.Nb_Rows_reconstruction, TA.Nb_Cols_reconstruction, TA.reconstruction_size);
+	printf("INIT PROG \u24EA reconstruction from tiles: Cols %d Rows: %d size %d \n",
+				 TA.Nb_Cols_reconstruction, TA.Nb_Rows_reconstruction, TA.reconstruction_size);
 
 	/***********************Sizes in nm *************************************************/
 	filename = resourcesdirectory + "ACQ.xml";

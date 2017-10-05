@@ -1,0 +1,2 @@
+nb_wavelengths = 1
+lambda = [488]

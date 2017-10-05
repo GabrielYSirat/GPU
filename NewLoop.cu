@@ -23,6 +23,7 @@ __managed__ int *d_posxREC, *d_posyREC, *d_offsetFULL;
 
 __managed__ int *ROIx, *ROIy;
 __managed__ int *d_ROIx, *d_ROIy;
+__managed__ int *ROIxScratch, *ROIyScratch, *offsetROI;
 __managed__ float *microimages, *d_microimages;
 __managed__ float *original_distrib, *val_distrib, *test_distrib;
 __managed__ double *double_distrib;
@@ -97,20 +98,27 @@ __global__ void validate_distrib(int Nb_Rows_distrib, int Nb_Cols_distrib, int N
 __global__ void validateLaserPositions_device(int Nb_LaserPositions) {
 	double maxLaserPositionx = 0, maxLaserPositiony = 0; // in LaserPosition the max in x is xmax
 	double minLaserPositionx = 1E6, minLaserPositiony = 1E6; // in LaserPosition the max in x is xmax
+	int xREC, yREC, tilex, tiley;
 // calculate LaserPositions Sum and max
 	time_start = clock64();
 
 	for (int ipos = 0; ipos < Nb_LaserPositions; ipos++) {
 		d_PosLaserx[ipos] = PosLaserx[ipos];
 		d_PosLasery[ipos] = PosLasery[ipos];
-	//	d_PosxScratch[ipos] = PosxScratch[ipos];
-	//	d_PosyScratch[ipos] = PosyScratch[ipos];
+		// Laser positions in y zoomed in integer
+		xREC = nearbyintf(pZOOM * *(PosLaserx + ipos));
+		tilex = xREC/XTile;
+		*(PosxScratch + ipos) = (xREC % XTile) + dxSCR/2; // Laser positions in x zoomed integer in the scratchpad of tile
+		yREC = nearbyintf(pZOOM * *(PosLasery + ipos));
+		tiley = yREC/YTile;
+		*(PosyScratch + ipos) = (yREC % YTile) + dySCR/2; // Laser positions in x zoomed integer in the scratchpad of tile
+		*(offsetFULL + ipos) = *(PosxScratch + ipos) + *(PosyScratch + ipos) * XSCRATCH;
 		if (verboseNewLoop && (ipos < 20)) {
-			printf(" Laser \u2778 DEVICE: laser position n° %d original position x:%f , y: %f ....  \n",
+			printf(" Laser \u2778 DEVICE A: laser position n° %d original position x:%f , y: %f ....\n",
 					ipos, PosLaserx[ipos],PosLasery[ipos]);
-	/*		printf(" Laser \u2778 DEVICE: ipos %d rounded x:%d y:%d Scratch n°    .... %d \n",
-					ipos, PosxScratch[ipos],PosyScratch[ipos], offsetFULL[ipos]);*/
-			printf(" Laser \u2778 DEVICE: copy position: %f y: %f\n", d_PosLaserx[ipos], d_PosLasery[ipos]);
+			printf(" Laser \u2778 DEVICE B:  ....xREC %d yREC %d tilex %d tiley %d Scratchx %d Scratchy %d \n",
+					xREC, yREC, tilex, tiley, PosxScratch[ipos], PosyScratch[ipos]);
+			printf(" Laser \u2778 DEVICE C: copy position: %f y: %f\n", d_PosLaserx[ipos], d_PosLasery[ipos]);
 		}
 
 		if (minLaserPositionx > PosLaserx[ipos]) minLaserPositionx = PosLaserx[ipos];
@@ -156,22 +164,24 @@ __global__ void validate_microimages(int Nb_LaserPositions) {
 	int iprint = threadIdx.x + threadIdx.y;
 	int iblock = blockIdx.x + blockIdx.y;
 	col = threadIdx.x;
-	colz =  threadIdx.x * pZOOM + blockIdx.x;
+	colz = threadIdx.x * pZOOM + blockIdx.x;
 	row = threadIdx.y;
-	rowz = threadIdx.y * pZOOM+ blockIdx.y;
-	if(!(iprint+iblock)) 	time_start = clock64();
+	rowz = threadIdx.y * pZOOM + blockIdx.y;
+	if(!(iprint+iblock)) time_start = clock64();
 	__syncthreads();
 
 	for (int ilaser = 0; ilaser < Nb_LaserPositions; ilaser++) {
 
 		tempp = (ilaser * Npixel + row) * Npixel + col;
-		tempz = (ilaser * Npixel*pZOOM + rowz) * Npixel*pZOOM + colz;
+		tempz = (ilaser * PixZoom + rowz) * PixZoom + colz;
 		tempv = *(original_microimages + tempp);
 
 		*(valmicroimages + tempp) = tempv;
 		*(zoomed_microimages + tempz) = tempv;
 		__syncthreads();
 	}
+	if(!(iprint+iblock)) timer = clock64();
+
 
 }
 

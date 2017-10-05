@@ -66,12 +66,13 @@ public:
 	int NbTile0x, NbTile0y;
 	int tileperaggregatex, tileperaggregatey;
 
-	int Nblaserperdistribution[MAXNBDISTRIB] = { 0 };
+	int Nblaserperdistribution[MAXNBDISTRIB] = { 0 }, maxlaserperdistribution = 0;
 	int maxLaserintile = 32, minLaserintile =1.E6, blocks;
 	int reconstructionsizex, reconstructionsizey;
 	int NbLaserpertile[MAXTILE] = { 0 };
 	float expectedmax;
 	float Bconstant = 1.0;
+	int startx, starty;
 	void print() const;
 };
 

@@ -86,7 +86,7 @@ Timestep[stepval] = ((float) (timer - time_start)) / clockRate;
 		cout << "       +++" << stepname[stepval]<< "           Test validated++++ Result = " << Stepdiag[stepval] << endl;
 	else
 		cout << "---" << stepname[stepval]<< " Test not validated++++  Sumdel =  " << Sumdel[stepval] << endl;
-	if(stepval != 0) std::cout << std::fixed << "TIME \u23F1  " << stepname[stepval] << "step time in msec on device  "  << Timestep[stepval]  << "  total time in msec  " << Timetotal << endl;
+	if(stepval != 0) std::cout << std::fixed << "TIME \u23F1  " << stepname[stepval] << "  step time in msec on device  "  << Timestep[stepval]  << "  total time in msec  " << Timetotal << endl;
 	cout << "END STEP	*******end of step  " << stepval << "  " << stepname[stepval] << "****************" << endl << endl;
 	stepval++;
 	if(stepval != 9)

@@ -13,8 +13,8 @@ __managed__ float *new_simus = { 0 }, *Data = { 0 }, *Rfactor = { 0 }, *distribv
 
 bool tileorganization(void) {
 	bool Lasertile = TRUE;
-	int organization_x[16] = { 0, 1, 2, 3, 3, 3, 3, 3, 4, 3, 3 };
-	int organization_y[16] = { 0, 1, 1, 1, 1, 1, 2, 2, 2, 3, 3 };
+	int organization_x[16] = { 0, 1, 2, 3, 2, 3, 3, 3, 4, 3, 3 };
+	int organization_y[16] = { 0, 1, 1, 1, 2, 1, 2, 2, 2, 3, 3 };
 	int tilex, tiley, tilenumber, posintile, ilasertile;
 
 	cudaMallocManaged(&image_to_scratchpad_offset, MAXNUMBERLASERTILE * MAXTILE * sizeof(int));
@@ -32,9 +32,9 @@ bool tileorganization(void) {
 
 	int temptile0x = TA.Nb_Cols_reconstruction / XTile;
 	int temptile0y = TA.Nb_Rows_reconstruction / YTile;
-	tile.NbTile0x = CEILING_POS((float )(AmaxLaserx - AminLaserx) / XTile);
+	tile.NbTile0x = CEILING_POS((float )pZOOM*(AmaxLaserx - AminLaserx) / XTile);
 	tile.NbTile0x = max(tile.NbTile0x, temptile0x);
-	tile.NbTile0y = CEILING_POS((float )(AmaxLasery - AminLasery) / YTile);
+	tile.NbTile0y = CEILING_POS((float )pZOOM*(AmaxLasery - AminLasery) / YTile);
 	tile.NbTile0y = max(tile.NbTile0y, temptile0y);
 	if(((AmaxLaserx - AminLaserx) > TA.Nb_Cols_reconstruction) ||
 			((AmaxLasery - AminLasery) > TA.Nb_Rows_reconstruction))
@@ -80,6 +80,10 @@ bool tileorganization(void) {
 	TA.Nb_Cols_reconstruction = tile.reconstructionsizex;
 	tile.reconstructionsizey = tile.NbTiley * YTile; //+ (YSCRATCH - YTILE);
 	TA.Nb_Rows_reconstruction = tile.reconstructionsizey;
+	tile.startx = AminLaserx; //floor(pZOOM*((AminLaserx + AmaxLaserx)/2 - (tile.NbTilex * XTile)/2));
+	tile.starty = AminLasery ; //floor(pZOOM*((AminLasery + AmaxLasery)/2 - (tile.NbTiley * YTile)/2));
+	printf("INIT PROG \u24FA start x %d y %d MinLaser %d %d in REC pixels %d %d  \n",
+			tile.startx, tile.starty, AminLaserx, AminLasery, tile.startx*pZOOM, tile.starty*pZOOM);
 
 
 	TA.reconstruction_size = TA.Nb_Rows_reconstruction * TA.Nb_Cols_reconstruction;
@@ -91,8 +95,8 @@ bool tileorganization(void) {
 		for (int iLaser = disdelta; iLaser < disdelta + tile.Nblaserperdistribution[idistrib]; iLaser++) {
 			// ATTENTION: REDEFINE BY THE TILE ORIGIN!!
 			// position in tiles, tilex and tiley and overall tile number (including distrib)
-			tilex = pZOOM * (*(PosLaserx + iLaser) - AminLaserx) / XTile;
-			tiley = pZOOM * (*(PosLasery + iLaser) - AminLasery) / YTile;
+			tilex = pZOOM * (*(PosLaserx + iLaser) - tile.startx) / XTile;
+			tiley = pZOOM * (*(PosLasery + iLaser) - tile.starty) / YTile;
 			tilenumber = tilex + tile.NbTilex * tiley + tile.NbTilex * tile.NbTiley * idistrib;
 			float deltilex = *(PosLaserx + iLaser) * pZOOM - tilex * XTile;
 			float deltiley = *(PosLasery + iLaser) * pZOOM - tiley * YTile;

@@ -43,7 +43,7 @@
  *
  */
 #define PixZoom (Npixel*pZOOM)// verifier
-#define PixZoomSquare (Npixel*Npixel)
+#define PixZoomSquare (PixZoom*PixZoom)
 #define PixSquare (Npixel*Npixel)
 #define PixZoomo2 (PixZoom/2)// verifier
 #define PSFZoom (pPSF*pZOOM)
