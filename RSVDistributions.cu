@@ -9,31 +9,27 @@ int byte_skipped = 16;
 float Maxdistrib = 0.0f, Sumdistrib = 0.0f;
 std::string DISDATA = "/lambda_488/Calib/distribution";
 std::string enddistrib = ".bin";
-
 const char * distribImagefile = "results/distribImagefile.pgm";
-
 
 void readstoredistrib(void) {
 	char * memblock;
 	int size;
 
 	unsigned char *ii_distrib = (unsigned char *) calloc( YDistrib_extended * XDistrib * Ndistrib, sizeof(unsigned char)); // on host
-	cudaMallocManaged(&original_distrib, ADistrib * Ndistrib * sizeof(double));
-	cudaMallocManaged(&double_distrib, YDistrib_extended * XDistrib * Ndistrib * sizeof(float));
-	cudaMallocManaged(&test_distrib, XDistrib * YDistrib * Ndistrib * sizeof(double));
+	cudaMallocManaged(&original_distrib, ADistrib * Ndistrib * sizeof(float));
+	cudaMallocManaged(&test2_distrib, ADistrib * TA.MP * sizeof(float));
+	cudaMallocManaged(&double_distrib, YDistrib_extended * XDistrib * Ndistrib * sizeof(double));
 
 	for(int idistrib = 0; idistrib < Ndistrib; idistrib++)
 	{
 	std::string beadraw = resourcesdirectory + DISDATA + std::to_string(idistrib+1) + enddistrib;
-	printf("DISTRIBUTIONS \u2461: data file %s\n",beadraw.c_str());
-
-	//read distrib bin file
-	std::ifstream distribile(beadraw.c_str(), ios::in | ios::binary | ios::ate);
+	printf("DISTRIBUTIONS \u2461: data file %s\n",beadraw.c_str()); //read distrib bin file
+		std::ifstream distribile(beadraw.c_str(), ios::in | ios::binary | ios::ate);
 	size = (distribile.tellg()); // the data is stored in doubles of 8 bytes in the file
-	size -= byte_skipped;  				// removes the 4 first bytes, Why??
+	size -= byte_skipped;  				// removes the "bytes skipped"
 	cout << "DISTRIBUTIONS \u2461 function read: distribution # " << idistrib << " size distrib = "<< size << endl;
 	memblock = new char[size];
-	distribile.seekg(byte_skipped, ios::beg); // 4 first bytes are offset
+	distribile.seekg(byte_skipped, ios::beg); // bytes skipped are offset
 	distribile.read(memblock, size);
 	distribile.close();
 
@@ -83,11 +79,11 @@ bool Distribvalidate_host(void) {
 	for (int i = 0; i < YDistrib_extended * XDistrib * Ndistrib; i++)
 		ii_distrib[i] = (255.0 * val_distrib[i]) / max3distrib;// Validation image value
 
-	printf(" DISTRIBUTIONS \u2461 Path to distrib validation %s .....\n", distribValImagefile);
+	printf("DISTRIBUTIONS \u2461 Path to distrib validation %s .....\n", distribValImagefile);
 
 	sdkSavePGM(distribValImagefile, ii_distrib, XDistrib, YDistrib_extended * Ndistrib);
 
-	printf(" DISTRIBUTIONS \u2461 Comparing files ... ");
+	printf("DISTRIBUTIONS \u2461 Comparing files ... ");
 	testdistrib = compareData(val_distrib, original_distrib,
 			XDistrib * YDistrib_extended * Ndistrib,
 			MAX_EPSILON_ERROR, 0.15f);

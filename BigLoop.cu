@@ -7,10 +7,8 @@
 /** version without tiles and aggregates: Contains  the next simulation of microimages, in the full measured surface
  *  with optionally number of laser positions below 16 the value of NIMAGESPARALLEL!!
  *  */
-//#define VERBOSEGPU
 #include "NewLoop.h"
-
-#define VERBOSE 0 // inverted VERBOSE = 0 represent the verbose case!
+#define VERBOSELOOP 1
 #include "include.tst"
 
 __managed__ float EnergyGlobal;
@@ -18,20 +16,17 @@ __global__ void BigLoop(devicedata DD) {
 
 	extern __shared__ int shared[]; /***************semi-global variables stored in shared memory ***************/
 	int *image_to_scratchpad_offset_tile = (int *) shared;// Offset of each image in NIMAGESPARALLEL block
-	float *Scratchpad =
-			(float *) &image_to_scratchpad_offset_tile[NIMAGESPARALLEL]; // ASCRATCH floats for Scratchpad
+	float *Scratchpad = (float *) &image_to_scratchpad_offset_tile[NIMAGESPARALLEL]; // ASCRATCH floats for Scratchpad
 	float *shared_distrib = (float*) &Scratchpad[ASCRATCH]; // XDISTRIB*YDISTRIB floats for distrib
 
-	float MaxNewSimus = 0.0f;
-
 	int MemoryOffsetscratch = 0; // to be redefine with aggregates
+	float MaxNewSimus = 0.0f;
 	float * scrglobal;
 
 	/*****************constant values & auxiliary variables stored in registers *****************/
 	register float PSFDISVAL[MAXTHRRATIO] = { 0.0f };// multiplication of pPSF and distribution
 	register int tmpi[MAXTHRRATIO], ipixel[MAXTHRRATIO], jpixel[MAXTHRRATIO],
-			valid_pixel[MAXTHRRATIO], distribpos0[MAXTHRRATIO],
-			distribpos[MAXTHRRATIO];
+			valid_pixel[MAXTHRRATIO], distribpos0[MAXTHRRATIO], distribpos[MAXTHRRATIO];
 
 	/****************Larger segmented areas to be stored in registers **************************/
 	// new simus values kept in registers for speed issues
@@ -46,7 +41,12 @@ __global__ void BigLoop(devicedata DD) {
 	DD.step = 0;
 	int ithreads = threadIdx.x;
 	int itb = ithreads + blockIdx.x + blockIdx.y + blockIdx.z;
-	int iprint = VERBOSE + itb;
+	int itc = blockIdx.x + blockIdx.y * gridDim.x + blockIdx.z * gridDim.x * gridDim.y;
+
+	int distrib_number = blockIdx.z;
+	if(!ithreads) printf("block x %d y %d z %d distrib number %d itc %d\n", blockIdx.x, blockIdx.y, blockIdx.z, distrib_number, itc );
+	__syncthreads();
+	int iprint = !VERBOSELOOP + itb;
 	int center_distrib = ((YDistrib / 2) * XDistrib) + XDistrib / 2;
 	int center_microimage = (PixZoomo2) * PixZoom + PixZoomo2;
 	time_init = clock64();
@@ -63,7 +63,6 @@ __global__ void BigLoop(devicedata DD) {
 		valid_pixel[apix] = tmpi[apix] < PixZoomSquare;
 		distribpos0[apix] = center_distrib + ipixel[apix] - PSFZoomo2
 				+ (jpixel[apix] - PSFZoomo2) * XDistrib;
-//		distribpos0[apix] = center_distrib + ipixel[apix] + jpixel[apix]  * XDistrib;
 	}
 #include "testthreads.cu"
 
@@ -75,7 +74,8 @@ __global__ void BigLoop(devicedata DD) {
 	 /************************************************************************************************/
 #pragma unroll
 	for (int idistrub = ithreads; idistrub < ADistrib; idistrub += THREADSVAL)
-		*(shared_distrib + idistrub) = *(original_distrib + idistrub);
+			*(shared_distrib + idistrub) = *(original_distrib + idistrub + distrib_number * ADistrib);
+
 #include "testdistrib.tst"
 
 	/*********************  ***********/
@@ -206,7 +206,7 @@ __global__ void BigLoop(devicedata DD) {
 				}
 				for (int apix = 0; apix < THreadsRatio; apix++) {
 					if ((ithreads + THREADSVAL * apix) == center_microimage) {
-						*(distribvalidGPU + iPSF + jPSF * PSFZoom) =
+						*(distribvalidGPU + iPSF + jPSF * PSFZoom + itc*PSFZOOMSQUARE) =
 								*(shared_distrib + distribpos[apix]);
 						distribpos[apix]++;  // update intermediate value of distrib
 					}
@@ -215,7 +215,7 @@ __global__ void BigLoop(devicedata DD) {
 
 			for (int apix = 0; apix < THreadsRatio; apix++) {
 				if ((ithreads + THREADSVAL * apix) == center_microimage) {
-					*(distribvalidGPU + jPSF * PSFZoom) = *(shared_distrib + distribpos[apix]);
+					*(distribvalidGPU + jPSF * PSFZoom + itc *PSFZOOMSQUARE) = *(shared_distrib + distribpos[apix]);
 					distribpos[apix] += XDistrib - PSFZoom; // update intermediate value of distrib for a full line
 				}
 			}

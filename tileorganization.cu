@@ -9,12 +9,12 @@
 
 __managed__ int *image_to_scratchpad_offset = { 0 }, *valid_image = { 0 };
 __managed__ float *image_to_scratchpad_offset_global = { 0 };
-__managed__ float *new_simus = { 0 }, *Data = { 0 }, *Rfactor = { 0 }, *distribvalidGPU = { 0 };
+__managed__ float *new_simus , *Data , *Rfactor, *distribvalidGPU;
 
 bool tileorganization(void) {
 	bool Lasertile = TRUE;
-	int organization_x[16] = { 0, 1, 2, 3, 2, 3, 3, 3, 4, 3, 3 };
-	int organization_y[16] = { 0, 1, 1, 1, 2, 1, 2, 2, 2, 3, 3 };
+	int organization_x[16] = { 0, 1, 2, 3, 2, 2, 3, 3, 4, 3, 3 };
+	int organization_y[16] = { 0, 1, 1, 1, 2, 2, 2, 2, 2, 3, 3 };
 	int tilex, tiley, tilenumber, posintile, ilasertile;
 
 	cudaMallocManaged(&image_to_scratchpad_offset, MAXNUMBERLASERTILE * MAXTILE * sizeof(int));
@@ -49,8 +49,8 @@ bool tileorganization(void) {
 			organization_y[TA.MP_perdistrib]);
 
 	/************************Aggregates********************************************/
-	tile.NbAggregx = ceil((float) tile.NbTile0x / organization_x[TA.MP_perdistrib]);
-	tile.NbAggregy = ceil((float) tile.NbTile0y / organization_y[TA.MP_perdistrib]);
+	tile.NbAggregx = ceil((float) tile.NbTile0x / organization_x[TA.MP_perdistrib/Ndistrib]);
+	tile.NbAggregy = ceil((float) tile.NbTile0y / organization_y[TA.MP_perdistrib/Ndistrib]);
 	printf(" INIT PROG \u24FA Number of aggregates x:%d y:%d  \n", tile.NbAggregx, tile.NbAggregy);
 
 	/**********************************Tiles****************************************/
@@ -58,8 +58,8 @@ bool tileorganization(void) {
 		tile.NbTilex = tile.NbTile0x;
 		tile.tileperaggregatex = tile.NbTile0x;
 	} else {
-		tile.NbTilex = tile.NbAggregx * organization_x[TA.MP_perdistrib];
-		tile.tileperaggregatex = organization_x[TA.MP_perdistrib];
+		tile.NbTilex = tile.NbAggregx * organization_x[TA.MP_perdistrib/Ndistrib];
+		tile.tileperaggregatex = organization_x[TA.MP_perdistrib/Ndistrib];
 	}
 
 	if (tile.NbAggregy == 1) {
@@ -162,7 +162,8 @@ printf("TILE ORG \u2466 size simus %d \n", tempa);
 cudaMallocManaged(&new_simus, tempa*sizeof(float));
 cudaMallocManaged(&Data, tempa*sizeof(float));
 cudaMallocManaged(&Rfactor, tempa*sizeof(float));
-cudaMallocManaged(&distribvalidGPU, PSFZOOMSQUARE*sizeof(float));
+cudaMallocManaged(&distribvalidGPU, TA.MP * PSFZOOMSQUARE*sizeof(float));
+for(int itemp = 0 ; itemp < Ndistrib* PSFZOOMSQUARE; itemp++) *(distribvalidGPU + itemp) = 0.0;
 
 for (int ii = 0; ii < tempa; ii++) {
 	new_simus[ii] = 0.0f;
@@ -176,10 +177,10 @@ printf("HOST: \u2466 DATA:  n_rowintern %d n_colintern %d, total %d Max data %g\
 int disdelta = 0;
 for (int idistrib = 0; idistrib < Ndistrib; idistrib++) {
 	for (int iLaser = disdelta; iLaser < disdelta + tile.Nblaserperdistribution[idistrib]; iLaser++) {
-		tilex = pZOOM * (*(PosLaserx + iLaser) - AminLaserx) / XTile;
-		tiley = pZOOM * (*(PosLasery + iLaser) - AminLasery) / YTile;
+		tilex = pZOOM * (*(PosLaserx + iLaser) - tile.startx) / XTile;
+		tiley = pZOOM * (*(PosLasery + iLaser) - tile.starty) / YTile;
 		tilenumber = tilex + tile.NbTilex * tiley + tile.NbTilex * tile.NbTiley * idistrib;
-		ilasertile = tilenumber * MAXNUMBERLASERTILE + tile.NbLaserpertile[tilenumber];
+		ilasertile = tilenumber * tile.maxLaserintile + tile.NbLaserpertile[tilenumber];
 		for(int ipix = 0; ipix < PixZoomSquare; ipix++) // copy microimage to its position in the Data
 			*(Data + ilasertile*PixZoomSquare + ipix) =  *(zoomed_microimages + iLaser* PixZoomSquare + ipix);
 	}

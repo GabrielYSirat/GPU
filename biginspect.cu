@@ -58,13 +58,23 @@ bool biginspect(int stepval) {
 
 	boolinspect = ((onhost.MaxSimus == 0.0f)&&(onhost.MaxRfactor==0.0f));
 
-	unsigned char *i_distribpos = (unsigned char *) calloc(PSFZOOMSQUARE, sizeof(unsigned char)); // on host
+	unsigned char *i_distribpos = (unsigned char *) calloc(TA.MP* PSFZOOMSQUARE, sizeof(unsigned char)); // on host
+	unsigned char *j_distribpos = (unsigned char *) calloc(XDistrib * TA.MP * YDistrib_extended, sizeof(unsigned char)); // on host
 	const char * DistribPosImage = "results/DistribPos.pgm";
+	const char * DistribTestImage = "results/DistribTest.pgm";
 	printf("SCRATCHPAD \u24EC Path to DistribPos validation %s .....\n", DistribPosImage);
 
 
-	for (int i = 0; i < PSFZOOMSQUARE; i++)	i_distribpos[i] = 255.0 * distribvalidGPU[i] / Maxdistrib;			// Validation image value
-	sdkSavePGM(DistribPosImage, i_distribpos, PSFZoom, PSFZoom);
+	for (int i = 0; i < TA.MP * PSFZOOMSQUARE; i++)	i_distribpos[i] = 255.0 * distribvalidGPU[i] / Maxdistrib;			// Validation image value
+	sdkSavePGM(DistribPosImage, i_distribpos, PSFZoom, TA.MP * PSFZoom);
+
+	for (int i = 0; i < TA.MP * ADistrib; i++)	{
+		int tempa = i%ADistrib;
+		int tempb = i/ADistrib;
+		if (tempa < XDistrib * YDistrib_extended)
+		j_distribpos[tempa + tempb * XDistrib * YDistrib_extended ] = 255.0 * test2_distrib[i] / Maxdistrib;			// Validation image value
+	}
+	sdkSavePGM(DistribTestImage, j_distribpos, XDistrib, TA.MP * YDistrib_extended);
 
 	return (boolinspect);
 }

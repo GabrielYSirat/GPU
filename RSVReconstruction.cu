@@ -5,8 +5,10 @@
  *      Author: gabriel
  */
 #include "NewLoop.h"
-__managed__ float *f_reconstruction;
-string filenameimage;
+std::string filenameimage;
+std::string RECFILE = "image_iteration_0__63x114_4em";
+std::string endREC = ".raw";
+
 
 
 void Recprepare(void) {
@@ -17,7 +19,7 @@ void Recprepare(void) {
 	char * memblock;
 	int size;
 
-	filenameimage = resourcesdirectory + "image_iteration.raw";
+	filenameimage = resourcesdirectory + RECFILE + endREC;
 	printf("REC \u24FC reconstruction image:  %s \n", filenameimage.c_str());
 
 	/** *****************************data arrays allocation*********************************/
@@ -50,7 +52,7 @@ void Recprepare(void) {
 			MaxRec = *(original_rec + i); // sanity check, check max
 	}
 
-	std::cout << "  max =" << MaxRec << "  Sum =" << SumRec;
+	std::cout << "REC \u24FC ***  max =" << MaxRec << "  Sum =" << SumRec << endl;
 	const char * reconstructionImagefile = "results/reconstruction.pgm";
 	unsigned char *i_reconstruction = (unsigned char *) calloc(TA.reconstruction_size, sizeof(unsigned char)); // on host
 	double* double_rec = (double*) std::malloc(TA.reconstruction_size * sizeof(double)); // on host
@@ -58,6 +60,7 @@ void Recprepare(void) {
 	/////////////////////////////////
 	for (int i = 0; i < TA.reconstruction_size; i++)
 		i_reconstruction[i] = 255.0 * original_rec[i] / MaxRec;			// image value
+
 	printf("REC \u24FC Path to reconstruction original %s .....\n", reconstructionImagefile);
 	sdkSavePGM(reconstructionImagefile, i_reconstruction, TA.Nb_Cols_reconstruction, TA.Nb_Rows_reconstruction);
 	free(i_reconstruction);
@@ -96,9 +99,12 @@ bool Recvalidate_host(void) {
 			MaXTile = max(MaXTile, val_rec[i]); // sanity check, check max
 		}
 	std::cout << "max device =" << MaXTile << "\n";
-	for (int i = 0; i < TA.reconstruction_size; i++)
+	for (int i = 0; i < TA.reconstruction_size; i++){
 		i_rec[i] = 255.0 * val_rec[i] / MaXTile;			// Validation image value
-
+	if(VERBOSE)
+		if(i_rec[i] > 1)
+	printf("i %d, col %d x %d y %d\n", i, TA.Nb_Cols_reconstruction, i % TA.Nb_Cols_reconstruction, i / TA.Nb_Cols_reconstruction);
+	}
 	printf("REC \u24FC Path to rec validation %s .....\n", recValImagefile);
 
 	sdkSavePGM(recValImagefile, i_rec, TA.Nb_Cols_reconstruction, TA.Nb_Rows_reconstruction);
@@ -148,6 +154,10 @@ void Scratchprepare(void) {
 			int itemp2 = col +  row  * TA.Nb_Cols_reconstruction;
 			*(tile_rec + itemp) = *(original_rec + itemp2);
 			i_tilerec[itemp] = 255. * *(tile_rec + itemp) / maxTile;
+			if(VERBOSE)
+				if(i_tilerec[itemp] > 1)
+			printf("itemp %d, col %d x %d y %d\n", itemp, XTile*tile.NbTilex, itemp % (XTile*tile.NbTilex), itemp / (XTile*tile.NbTilex));
+
 		}
 
 	sdkSavePGM(rectilereconstructionfile, i_tilerec, XTile*tile.NbTilex, YTile * tile.NbTiley);

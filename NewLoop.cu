@@ -4,14 +4,17 @@ using namespace tinyxml2;
 using namespace std;
 
 #define TEST 1
-#define verboseNewLoop 1
+#define VERBOSEINITLOOP 0
+
+const char * Laserfile = "results/LaserDevice.txt";
+
 
 //////////////pPSF parameters
 //__device__ float PSF_array[pPSF*pZOOM*pPSF*pZOOM]; // pPSF in constant memory
 
-__managed__ float *PSFvalidationdata_managed = NULL;
-__managed__ float *distrib = NULL, *v_distrib = NULL;			 // on device original and for validation
-__managed__ float *MicroImages = NULL, *v_MicroImages = NULL;				 // on device original and for validation
+__managed__ float *PSF_valid = NULL, *PSFARRAY = NULL, *original_PSF=NULL;
+__managed__ float *distrib = NULL;			 // on device original and for validation
+__managed__ float *MicroImages = NULL;				 // on device original and for validation
 __managed__ float *LaserPositions = NULL, *v_LaserPositions = NULL;		 // on device original and for validation
 __managed__ float *PosLaserx = NULL, *PosLasery = NULL;
 __managed__ float *d_PosLaserx, *d_PosLasery;
@@ -20,12 +23,11 @@ __managed__ int *posxREC, *posyREC, *offsetFULL;
 __managed__ int *d_PosxScratch = NULL, *d_PosyScratch = NULL;
 __managed__ int *d_posxREC, *d_posyREC, *d_offsetFULL;
 
-
 __managed__ int *ROIx, *ROIy;
 __managed__ int *d_ROIx, *d_ROIy;
 __managed__ int *ROIxScratch, *ROIyScratch, *offsetROI;
 __managed__ float *microimages, *d_microimages;
-__managed__ float *original_distrib, *val_distrib, *test_distrib;
+__managed__ float *original_distrib, *val_distrib, *test_distrib, *test2_distrib;
 __managed__ double *double_distrib;
 __managed__ float *original_microimages, *valmicroimages, *MIintile, *zoomed_microimages;
 __managed__ double *double_microimages;
@@ -33,7 +35,6 @@ __managed__ float *original_rec, *val_rec;
 __managed__ double *double_rec;
 __managed__ float *scratchpad_matrix, *val_scratchpad, *val2_scratchpad;
 
-__managed__ float *PSFARRAY;
 __managed__ float *Sumdevmicroimages, *Maxdevmicroimages, *Sumdevzoommicroimages, *Maxdevzoommicroimages;
 
 __global__ void PSFvalidateondevice(int Nb_Rows_PSF, int Nb_Cols_PSF) {
@@ -46,21 +47,22 @@ __global__ void PSFvalidateondevice(int Nb_Rows_PSF, int Nb_Cols_PSF) {
 	for (int row = 0; row < Nb_Rows_PSF; row++)
 		for (int col = 0; col < Nb_Cols_PSF; col++) {
 			int tempp = row * Nb_Cols_PSF + col;
-			tempv = *(original_PSF+tempp);
-			PSFARRAY[tempp] = *(original_PSF+tempp);
-			if (verboseNewLoop)
-				if ((row == (Nb_Rows_PSF / 2)) && !(col % 8))
+			tempv = *(original_PSF + tempp);
+			PSFARRAY[tempp] = *(original_PSF + tempp);
+			if (VERBOSEINITLOOP)
+				if ((row == (Nb_Rows_PSF / 4)) && !(col % 8))
 					printf(" PSF \u2776 device: tempv,%g row %d column %d, tempp %d\n", tempv, row, col, tempp);
-			*(PSFvalidationdata_managed + tempp) = tempv;
-			Sum2PSF += *(PSFvalidationdata_managed + tempp);
+			*(PSF_valid + tempp) = tempv;
+			Sum2PSF += *(PSF_valid + tempp);
 			SumPSF += PSFARRAY[tempp];
 			if (maxPSF < PSFARRAY[tempp])
 				maxPSF = PSFARRAY[tempp];
-			if (max2PSF < *(PSFvalidationdata_managed + row * Nb_Cols_PSF + col))
-				max2PSF = *(PSFvalidationdata_managed + row * Nb_Cols_PSF + col);
+			if (max2PSF < *(PSF_valid + row * Nb_Cols_PSF + col))
+				max2PSF = *(PSF_valid + row * Nb_Cols_PSF + col);
 		}
 	if ((threadIdx.x == 0) && (threadIdx.y == 0))
-		printf(" PSF \u2776 device: SumPSF %f Sum2PSF %f maxPSF %f max2PSF %f ...  \n", SumPSF, Sum2PSF, maxPSF, max2PSF);
+		printf(" PSF \u2776 device: SumPSF %f Sum2PSF %f maxPSF %f max2PSF %f ...  \n", SumPSF, Sum2PSF, maxPSF,
+				max2PSF);
 	timer = clock64();
 }
 
@@ -69,17 +71,18 @@ __global__ void validate_distrib(int Nb_Rows_distrib, int Nb_Cols_distrib, int N
 	float tempv;
 	int tempp;
 	time_start = clock64();
-	printf(" DISTRIBUTIONS \u2777  device: Nb_Row %d, Nb_col %d, Nb_distrib %d\n", Nb_Rows_distrib, Nb_Cols_distrib, Nb_Distrib);
+	printf("DISTRIBUTIONS \u2777  device: Nb_Row %d, Nb_col %d, Nb_distrib %d\n", Nb_Rows_distrib, Nb_Cols_distrib,
+			Nb_Distrib);
 // calculate distrib Sum and max
 	for (int idistrib = 0; idistrib < Nb_Distrib; idistrib++)
 		for (int row = 0; row < Nb_Rows_distrib; row++)
 			for (int col = 0; col < Nb_Cols_distrib; col++) {
 				tempp = (idistrib * Nb_Rows_distrib + row) * Nb_Cols_distrib + col;
 				tempv = *(original_distrib + tempp);
-				if (verboseNewLoop)
-					if (!(row%31))
+				if (VERBOSEINITLOOP)
+					if (!(row % 31))
 						if (!(col % 25))
-							printf(" DISTRIBUTIONS \u2777  device: tempv,%g idistrib %d row %d"
+							printf("DISTRIBUTIONS \u2777  device: tempv,%g idistrib %d row %d"
 									" column %d, tempp %d\n", tempv, idistrib, row, col, tempp);
 				*(val_distrib + tempp) = tempv;
 				Sum2distrib += *(val_distrib + row * Nb_Cols_distrib + col);
@@ -89,8 +92,9 @@ __global__ void validate_distrib(int Nb_Rows_distrib, int Nb_Cols_distrib, int N
 				if (max2distrib < *(val_distrib + row * Nb_Cols_distrib + col))
 					max2distrib = *(val_distrib + row * Nb_Cols_distrib + col);
 			}
-		printf(" DISTRIBUTIONS \u2777 device: Sum distrib %f Sum2distrib %f \n"
-				" DISTRIBUTIONS \u2777           max distrib %f max2distrib %f ...  \n", Sumdistrib, Sum2distrib, maxdistrib, max2distrib);
+	printf("DISTRIBUTIONS \u2777 device: Sum distrib %f Sum2distrib %f \n"
+			"DISTRIBUTIONS \u2777           max distrib %f max2distrib %f ...  \n", Sumdistrib, Sum2distrib,
+			maxdistrib, max2distrib);
 	timer = clock64();
 
 }
@@ -107,28 +111,31 @@ __global__ void validateLaserPositions_device(int Nb_LaserPositions) {
 		d_PosLasery[ipos] = PosLasery[ipos];
 		// Laser positions in y zoomed in integer
 		xREC = nearbyintf(pZOOM * *(PosLaserx + ipos));
-		tilex = xREC/XTile;
-		*(PosxScratch + ipos) = (xREC % XTile) + dxSCR/2; // Laser positions in x zoomed integer in the scratchpad of tile
+		tilex = xREC / XTile;
+		*(PosxScratch + ipos) = (xREC % XTile) + dxSCR / 2; // Laser positions in x zoomed integer in the scratchpad of tile
 		yREC = nearbyintf(pZOOM * *(PosLasery + ipos));
-		tiley = yREC/YTile;
-		*(PosyScratch + ipos) = (yREC % YTile) + dySCR/2; // Laser positions in x zoomed integer in the scratchpad of tile
+		tiley = yREC / YTile;
+		*(PosyScratch + ipos) = (yREC % YTile) + dySCR / 2; // Laser positions in x zoomed integer in the scratchpad of tile
 		*(offsetFULL + ipos) = *(PosxScratch + ipos) + *(PosyScratch + ipos) * XSCRATCH;
-		if (verboseNewLoop && (ipos < 20)) {
-			printf(" Laser \u2778 DEVICE A: laser position n° %d original position x:%f , y: %f ....\n",
-					ipos, PosLaserx[ipos],PosLasery[ipos]);
-			printf(" Laser \u2778 DEVICE B:  ....xREC %d yREC %d tilex %d tiley %d Scratchx %d Scratchy %d \n",
-					xREC, yREC, tilex, tiley, PosxScratch[ipos], PosyScratch[ipos]);
-			printf(" Laser \u2778 DEVICE C: copy position: %f y: %f\n", d_PosLaserx[ipos], d_PosLasery[ipos]);
+		if (VERBOSEINITLOOP && (ipos < 20)) {
+			printf(" Laser \u2778 DEVICE 1: laser position n° %d original position x:%f , y: %f ....\n", ipos,
+					PosLaserx[ipos], PosLasery[ipos]);
+			printf(" Laser \u2778 DEVICE 2:  ....xREC %d yREC %d tilex %d tiley %d Scratchx %d Scratchy %d \n", xREC,
+					yREC, tilex, tiley, PosxScratch[ipos], PosyScratch[ipos]);
+			printf(" Laser \u2778 DEVICE 3: copy position: %f y: %f\n\n", d_PosLaserx[ipos], d_PosLasery[ipos]);
 		}
 
-		if (minLaserPositionx > PosLaserx[ipos]) minLaserPositionx = PosLaserx[ipos];
-		if (maxLaserPositionx < PosLaserx[ipos]) maxLaserPositionx = PosLaserx[ipos];
-		if (maxLaserPositiony < PosLasery[ipos]) maxLaserPositiony = PosLasery[ipos];
-		if (minLaserPositiony > PosLasery[ipos]) minLaserPositiony = PosLasery[ipos];
+		if (minLaserPositionx > PosLaserx[ipos])
+			minLaserPositionx = PosLaserx[ipos];
+		if (maxLaserPositionx < PosLaserx[ipos])
+			maxLaserPositionx = PosLaserx[ipos];
+		if (maxLaserPositiony < PosLasery[ipos])
+			maxLaserPositiony = PosLasery[ipos];
+		if (minLaserPositiony > PosLasery[ipos])
+			minLaserPositiony = PosLasery[ipos];
 	}
-		printf(
-				"\n Laser \u2778  DEVICE: MAX & MIN: LaserPosition x max %f min %f ... LaserPositiony max %f min %f \n",
-				maxLaserPositionx, minLaserPositionx, maxLaserPositiony, minLaserPositiony);
+	printf(" Laser \u2778  DEVICE: MAX & MIN: LaserPosition x max %f min %f ... LaserPositiony max %f min %f \n",
+			maxLaserPositionx, minLaserPositionx, maxLaserPositiony, minLaserPositiony);
 	timer = clock64();
 
 }
@@ -141,18 +148,19 @@ __global__ void validateCroppedROI_device(int Nb_ROI) {
 	for (uint row = 0; row < Nb_ROI; row++) {
 		d_ROIx[row] = ROIx[row];
 		d_ROIy[row] = ROIy[row];
-		if ((verboseNewLoop) && ((row < 10) || !(row % 512))) {
-				printf("ROI \u2779 DEVICE:  original ROIx,%d row %d, ROIy %d ....  ", ROIx[row], row, ROIy[row]);
-				printf(" copy d_ROIx,%d row %d, d_ROIy %d\n", d_ROIx[row], row, d_ROIy[row]);
-			}
+		if ((VERBOSEINITLOOP) && ((row < 10) || !(row % 512))) {
+			printf("ROI \u2779 DEVICE:  original ROIx,%d row %d, ROIy %d ....  ", ROIx[row], row, ROIy[row]);
+			printf(" copy d_ROIx,%d row %d, d_ROIy %d\n", d_ROIx[row], row, d_ROIy[row]);
+		}
 
 		maxROIx = max(maxROIx, d_ROIx[row]);
 		max2ROIx = max(max2ROIx, ROIx[row]);
 		maxROIy = max(maxROIy, d_ROIy[row]);
 		max2ROIy = max(max2ROIy, ROIy[row]);
 	}
-		printf("ROI \u2779 DEVICE: \u21C8 ROI maxROI %d max2ROI %d ...  maxROI %d max2ROI %d .....Nb_ROI %d\n",
-				maxROIx, max2ROIx, maxROIy,max2ROIy, Nb_ROI);
+	if (VERBOSEINITLOOP)
+		printf("ROI \u2779 DEVICE: \u21C8 ROI maxROI %d max2ROI %d ...  maxROI %d max2ROI %d .....Nb_ROI %d\n", maxROIx,
+			max2ROIx, maxROIy, max2ROIy, Nb_ROI);
 	timer = clock64();
 }
 __managed__ float * SumMI;
@@ -160,28 +168,30 @@ __managed__ float * SumMI;
 __global__ void validate_microimages(int Nb_LaserPositions) {
 	float tempv;
 	int tempp, tempz;
-	int row, col, rowz, colz;
+	int rowz, colz;
 	int iprint = threadIdx.x + threadIdx.y;
 	int iblock = blockIdx.x + blockIdx.y;
-	col = threadIdx.x;
-	colz = threadIdx.x * pZOOM + blockIdx.x;
-	row = threadIdx.y;
-	rowz = threadIdx.y * pZOOM + blockIdx.y;
-	if(!(iprint+iblock)) time_start = clock64();
+	if (!(iprint + iblock))
+		time_start = clock64();
 	__syncthreads();
 
-	for (int ilaser = 0; ilaser < Nb_LaserPositions; ilaser++) {
+	for (int ilaser = 0; ilaser < Nb_LaserPositions; ilaser++)
+		for (int row = 0; row < Npixel; row++)
+			for (int col = 0; col < Npixel; col++) {
+				tempp = (ilaser * Npixel + row) * Npixel + col;
+				tempv = *(original_microimages + tempp);
+				*(valmicroimages + tempp) = tempv;
 
-		tempp = (ilaser * Npixel + row) * Npixel + col;
-		tempz = (ilaser * PixZoom + rowz) * PixZoom + colz;
-		tempv = *(original_microimages + tempp);
-
-		*(valmicroimages + tempp) = tempv;
-		*(zoomed_microimages + tempz) = tempv;
-		__syncthreads();
-	}
-	if(!(iprint+iblock)) timer = clock64();
-
+				for (int yz = 0; yz < pZOOM; yz++)
+					for (int xz = 0; xz < pZOOM; xz++) {
+						tempz = ilaser * PixZoomSquare + (row * pZOOM + yz) * PixZoom
+								+ pZOOM * col + xz;
+				*(zoomed_microimages + tempz) = tempv;
+					}
+				__syncthreads();
+			}
+	if (!(iprint + iblock))
+		timer = clock64();
 
 }
 
@@ -200,17 +210,20 @@ __global__ void Recvalidate_device(int Nb_Rows_reconstruction, int Nb_Cols_recon
 			tempp = row * Nb_Cols_reconstruction + col;
 			tempv = *(original_rec + tempp);
 			*(val_rec + tempp) = tempv;
-			if ((tempv != 0.0f) && (TEST)){
-				printf("REC \u277C DEVICE ----------------------------------------------------------------------------------------------------\n");
-				printf("REC \u277C DEVICE position %d position x: %d y: %d value %f\n", tempp, tempp % Nb_Cols_reconstruction,
-						tempp / Nb_Cols_reconstruction, tempv);
-				printf("REC \u277C DEVICE ----------------------------------------------------------------------------------------------------\n");
+			if ((tempv != 0.0f) && (TEST)) {
+				printf(
+						"REC \u277D DEVICE ----------------------------------------------------------------------------------------------------\n");
+				printf("REC \u277D DEVICE position %d position x: %d y: %d value %f\n", tempp,
+						tempp % Nb_Cols_reconstruction, tempp / Nb_Cols_reconstruction, tempv);
+				printf(
+						"REC \u277D DEVICE ----------------------------------------------------------------------------------------------------\n");
 			}
 			Sumreconstruction += *(original_rec + row * Nb_Cols_reconstruction + col);
 			if (maxreconstruction < *(original_rec + row * Nb_Cols_reconstruction + col))
 				maxreconstruction = *(original_rec + row * Nb_Cols_reconstruction + col);
 		}
-	printf("REC \u277C DEVICE:  Sum reconstruction %f max reconstruction %f ...  ", Sumreconstruction, maxreconstruction);
+	printf("REC \u277D DEVICE:  Sum reconstruction %f max reconstruction %f ...  ", Sumreconstruction,
+			maxreconstruction);
 	__syncthreads();
 	if ((threadIdx.x == 0) && (threadIdx.y == 0))
 		timer = clock64();
@@ -235,8 +248,8 @@ __global__ void Scratchvalidate_device(int NbTilex, int NbTiley, int dels) {
 			int positionx = (tempp - dels) % (XSCRATCH * NbTilex);
 			int positiony = (tempp - dels) / (XSCRATCH * NbTilex);
 
-			printf("SCRATCHPAD \u24EC DEVICE TEST:  position %d position x: %d y: %d value %f\n",
-					tempp, positionx, positiony, tempv);
+			printf("SCRATCHPAD \u24EC DEVICE TEST:  position %d position x: %d y: %d value %f\n", tempp, positionx,
+					positiony, tempv);
 		}
 
 	}
@@ -245,5 +258,4 @@ __global__ void Scratchvalidate_device(int NbTilex, int NbTiley, int dels) {
 	__syncthreads();
 
 }
-
 

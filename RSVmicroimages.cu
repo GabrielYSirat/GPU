@@ -92,8 +92,8 @@ bool validatemicroimages_control(void) {
 	unsigned char *i_MIVal = (unsigned char*) calloc(TA.Nb_LaserPositions * PixSquare, sizeof(char));
 	unsigned char *i_MIzoom = (unsigned char*) calloc(TA.Nb_LaserPositions * PixZoom * PixZoom, sizeof(char));
 
-	dim3 dimBlock(Npixel, Npixel, 1);
-	dim3 dimGrid(pZOOM, pZOOM, 1);
+	dim3 dimBlock(1, 1, 1);
+	dim3 dimGrid(1, 1, 1);
 	// Execute the microimages kernel
 	validate_microimages<<<dimBlock, dimGrid,  0>>>(TA.Nb_LaserPositions);
 	cudaDeviceSynchronize();
@@ -134,7 +134,7 @@ bool validatemicroimages_control(void) {
 				int itemp2 = itemp;
 				if (valmicroimages[itemp2] > 0.0f)
 					i_MIVal[itemp] = 255.0 * valmicroimages[itemp2] / Maxmicroimages;			// image value
-
+			}
 				for (int ilaser = 0; ilaser < TA.Nb_LaserPositions; ilaser++)
 					for (int xpixzoom = 0; xpixzoom < PixZoom; xpixzoom++)
 						for (int ypixzoom = 0; ypixzoom < PixZoom; ypixzoom++) {
@@ -142,8 +142,6 @@ bool validatemicroimages_control(void) {
 							int itemp2 = itemp;
 							if (zoomed_microimages[itemp2] > 0.0f)
 								i_MIzoom[itemp] = 255.0 * zoomed_microimages[itemp2] / max4microimages;			// image value
-						}
-
 				}
 	printf("MICROIMAGES \u2464 host: Path to microimages copy %s .....\n", MIValfile);
 

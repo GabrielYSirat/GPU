@@ -7,21 +7,20 @@
 
 #include "NewLoop.h"
 string PSFDATA = "/lambda_488/Calib/system_PSF.bin";
-double *double_PSF;
-float  *original_PSF=NULL;
+double *double_PSF;			// on host
 float MaxPSF=0.0f, SumPSF = 0.0f;
 
 void PSFprepare(void) {
 	char * memblock;
 	int size;
-	XMLDocument doc;
-	MaxPSF = 0.; // also used as extern
+//	XMLDocument doc;
+//	MaxPSF = 0.; // also used as extern
 
 	string PSFraw = resourcesdirectory + PSFDATA;
 	const char * PSFImagefile = "results/PSFImagefile.pgm";
 
 	unsigned char *i_PSF = (unsigned char *) calloc(TA.PSF_size, sizeof(unsigned char)); // on host
-    double* double_PSF = (double*)std::malloc(TA.PSF_Rows*TA.Nb_Cols_PSF * sizeof(double));
+	double* double_PSF = (double*)std::malloc(TA.PSF_Rows*TA.Nb_Cols_PSF * sizeof(double));
 	cudaMallocManaged(&original_PSF, PSFZoom * PSFZoom * sizeof(float));
 	cudaMallocManaged(&PSFARRAY, PSFZoom * PSFZoom *  sizeof(float));
 
@@ -65,7 +64,7 @@ bool PSFvalidateonhost(void) {
 	bool testPSF;
 	double MaxPSF;
 	double Sum3PSF = 0, max3PSF =0;
-		cudaMallocManaged(&PSFvalidationdata_managed, TA.PSF_size * sizeof(float)); // representation of pPSF available in global memory
+		cudaMallocManaged(&PSF_valid, TA.PSF_size * sizeof(float)); // representation of pPSF available in global memory
 	unsigned char *i_PSF = (unsigned char *) calloc(TA.PSF_size, sizeof(unsigned char)); // on host
 	const char * PSFValidationimage = "results/PSFValidationimage.pgm";
 
@@ -78,8 +77,8 @@ bool PSFvalidateonhost(void) {
    for(int row = 0; row < TA.PSF_Rows; row++)
     	for( int col = 0; col < TA.Nb_Cols_PSF; col++)
     		{
-    		Sum3PSF += *(PSFvalidationdata_managed + row*TA.Nb_Cols_PSF + col);
-     		if (max3PSF < *(PSFvalidationdata_managed + row*TA.Nb_Cols_PSF + col)) max3PSF = *(PSFvalidationdata_managed + row*TA.Nb_Cols_PSF + col);
+    		Sum3PSF += *(PSF_valid + row*TA.Nb_Cols_PSF + col);
+     		if (max3PSF < *(PSF_valid + row*TA.Nb_Cols_PSF + col)) max3PSF = *(PSF_valid + row*TA.Nb_Cols_PSF + col);
     		}
 	printf(" PSF \u24F5 Sum3PSF  %f max3PSF %f ", Sum3PSF, max3PSF);
 
@@ -87,25 +86,25 @@ bool PSFvalidateonhost(void) {
 	/////////////////////////////////
 	MaxPSF = 0.0f;
 	for (int i = 0; i <= TA.PSF_size; i++) {
-		MaxPSF = max(MaxPSF, PSFvalidationdata_managed[i]); // sanity check, check max
+		MaxPSF = max(MaxPSF, PSF_valid[i]); // sanity check, check max
 	}
 	cout << "max device = (3 digits) " << MaxPSF << "\n";
 	for (int i = 0; i <= TA.PSF_size; i++)
-		i_PSF[i] = 255.0*PSFvalidationdata_managed[i]/MaxPSF;			// Validation image value
+		i_PSF[i] = 255.0*PSF_valid[i]/MaxPSF;			// Validation image value
 
-	printf(" PSF \u24F5 Path to pPSF validation %s .....\n", PSFValidationimage);
+	printf(" PSF \u24F5 Path to pPSF validation %s .....", PSFValidationimage);
 
 	    	sdkSavePGM(PSFValidationimage, i_PSF, TA.PSF_Rows, TA.Nb_Cols_PSF);
 
 	        printf(" PSF \u24F5 Comparing files ... \n");
-	    	testPSF = compareData(PSFvalidationdata_managed,
+	    	testPSF = compareData(PSF_valid,
 	                                 original_PSF,
 	                                 TA.Nb_Cols_PSF*TA.PSF_Rows,
 	                                 MAX_EPSILON_ERROR/1000,
 	                                 0.15f);
 
 	        for (int jPSF = 0; jPSF < TA.PSF_size; jPSF++)
-	        	Sumdel[1] += fabsf(*(PSFvalidationdata_managed+jPSF)- *(original_PSF+jPSF));
-cudaFree(PSFvalidationdata_managed);
+	        	Sumdel[1] += fabsf(*(PSF_valid+jPSF)- *(original_PSF+jPSF));
+cudaFree(PSF_valid);
 return(testPSF);
 }

@@ -20,7 +20,7 @@
 #define FALSE 0
 #define X 0
 #define Y 1
-#define verbose 0
+#define VERBOSE 0
 #define BUFFSIZE 80
 
 // Maximum for values which cannot be determined at compile time

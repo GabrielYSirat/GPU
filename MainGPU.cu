@@ -13,15 +13,18 @@ GPU_init TA;
 COS OFSCAL;
 Ctile tile;
 devicedata onhost;
-
+const char* fname = "verbose.txt";
 int clockRate, devID, stepval = 0; // in KHz
+
 
 ////////////////////////////////////////////////////////////////////////////////
 // Program main
 ////////////////////////////////////////////////////////////////////////////////
 int main(int argc, char **argv) {
 
-
+	  FILE* f = fopen(fname, "w");
+fprintf(f, "test\n\n");
+fclose(f);
 	/***********initialization of  parameters step 0 *******/
 	bool InitParameters = initparameters(argc, argv);
 	stepinit(InitParameters, stepval);
@@ -81,6 +84,11 @@ int main(int argc, char **argv) {
 Energy_global = EnergyCal();
 	bool testEnergy = (Energy_global !=0.0f);
 	stepinit(testEnergy, stepval);
+
+
+	/*step 11 *********************Gradient  ********************/
+
+
 
 	/*step 12 *********************Inspect results  ***********/
 

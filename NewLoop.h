@@ -49,13 +49,12 @@ extern float Maxdistrib, Sumdistrib;
 extern float MaxPSF, SumPSF;
 extern float MaxRec, SumRec;
 
-
 /************Extern read in command line*************/
 extern __managed__ int pPSF, Npixel, pZOOM, RDISTRIB, Ndistrib;
 extern __managed__ float *Sumdevmicroimages, *Maxdevmicroimages,*Sumdevzoommicroimages, *Maxdevzoommicroimages ;
 /************Extern defined in main*************/
 extern int clockRate, devID; // in KHz
-extern __managed__ clock_t timer, time_init, time_start, time_loop_stop;
+extern __managed__ clock_t timer, time_init, time_start;
 
 /** parameters derived from the basic parameters
  *
@@ -130,12 +129,12 @@ __global__ void BigLoop(devicedata DD);
 float EnergyCal(void);
 
 bool tile_organization(void);
-extern __managed__ float *PSFvalidationdata_managed;
+extern __managed__ float *PSF_valid;
 extern __managed__ float  *original_PSF;
 extern __managed__ int *ROIx, *ROIy, *d_ROIx, *d_ROIy;
 extern __managed__ int *ROIxScratch, *ROIyScratch, *offsetROI;
 extern __managed__ float *microimages, *d_microimages;
-extern __managed__ float *original_distrib,  *val_distrib, *test_distrib;
+extern __managed__ float *original_distrib,  *val_distrib, *test_distrib, *test2_distrib;
 extern __managed__ double *double_distrib;
 extern __managed__ float *original_microimages,  *valmicroimages, *MIintile, *zoomed_microimages;
 extern __managed__  double *double_microimages;

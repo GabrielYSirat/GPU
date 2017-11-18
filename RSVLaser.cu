@@ -61,7 +61,7 @@ void readstoreLaserPositions(void) {
 	int ilaserpos = 0;
 	for (int idistrib = 0; idistrib < Ndistrib; idistrib++) {
 		filename = resourcesdirectory + LaserFILE + std::to_string(idistrib + 1) + endlaser;
-		printf("Laser \u2462: filename %s \n", filename.c_str());
+		printf(" Laser \u2462: filename %s \n", filename.c_str());
 		inFile.open(filename);
 		if (!inFile) {
 			printf("unable to open filename %s\n\n", filename.c_str());
@@ -101,7 +101,7 @@ bool validateLaserPositions_control(void) {
 	validateLaserPositions_device<<<dimGrid, dimBlock, 0>>> (TA.Nb_LaserPositions);
 	cudaDeviceSynchronize();
 
-	if (TA.Nb_LaserPositions < smallnumber)
+	if (TA.Nb_LaserPositions < smallnumber && VERBOSE)
 		for (int ival = 0; ival < TA.Nb_LaserPositions; ival++) {
 			if(!ival) printf(" Laser \u2462 ----------------------------------------------------------------------------------------------------\n");
 			printf(" Laser \u2462 Laser position %d  Laser position x: %f  y: %f\n",
@@ -112,7 +112,7 @@ bool validateLaserPositions_control(void) {
 					*(offsetFULL + ival));
 			printf(" Laser \u2462 ----------------------------------------------------------------------------------------------------\n");
 		}
-	printf(" Laser \u2462 ----------------------------------------------------------------------------------------------------\n");
+	if (VERBOSE) printf(" Laser \u2462 ----------------------------------------------------------------------------------------------------\n");
 	for (int iLaser = 0; iLaser < TA.Nb_LaserPositions; iLaser++) {
 		Delx += PosLaserx[iLaser] - d_PosLaserx[iLaser];
 		Dely += PosLasery[iLaser] - d_PosLasery[iLaser];
@@ -164,7 +164,7 @@ void readstoreCroppedROI(void) {
 		inFile.close();
 	}
 
-	printf(" ROI \u2463 min and max x %d %d, min and max y %d %d ... ",
+	printf("ROI \u2463 min and max x %d %d, min and max y %d %d ... \n",
 			TA.maxROIx, TA.minROIx, TA.maxROIy, TA.minROIy);
 }
 
@@ -178,7 +178,7 @@ bool validateCroppedROI_control(void) {
 	validateCroppedROI_device<<<dimGrid, dimBlock, 0>>>(TA.Nb_LaserPositions);
 	cudaDeviceSynchronize();
 
-	if (TA.Nb_LaserPositions < smallnumber)
+	if (TA.Nb_LaserPositions < smallnumber && VERBOSE)
 		for (int ival = 0; ival < TA.Nb_LaserPositions; ival++) {
 			if(!ival) printf(" ROI \u2463 ----------------------------------------------------------------------------------------------------\n");
 			printf(" ROI \u2463 ROI position %d  ROI position x: %d  y: %d\n",

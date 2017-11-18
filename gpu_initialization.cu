@@ -6,7 +6,7 @@
  */
 
 #include"NewLoop.h"
-string stepname[] = {"initialization  ", "pPSF            ", "distrib  ",
+string stepname[] = {"initialization  ", "PSF   ", "distrib  ",
 		"Laser positions", "Measurement ROI  ", "microimages", " laser in tile ", "microimages in tile",  "reconstruction  ",
 		"scratchpad    ", "bigLoop" , "end bigloop", "bigloop results"};
 int smallnumber =20;
@@ -83,11 +83,11 @@ Timestep[stepval] = ((float) (timer - time_start)) / clockRate;
 		Stepdiag[stepval] = Sumdel[stepval];
 
 	if (test)
-		cout << "       +++" << stepname[stepval]<< "           Test validated++++ Result = " << Stepdiag[stepval] << endl;
+		cout << "+++" << stepname[stepval]<< "   Test validated++++ " << Stepdiag[stepval];
 	else
-		cout << "---" << stepname[stepval]<< " Test not validated++++  Sumdel =  " << Sumdel[stepval] << endl;
-	if(stepval != 0) std::cout << std::fixed << "TIME \u23F1  " << stepname[stepval] << "  step time in msec on device  "  << Timestep[stepval]  << "  total time in msec  " << Timetotal << endl;
-	cout << "END STEP	*******end of step  " << stepval << "  " << stepname[stepval] << "****************" << endl << endl;
+		cout << "---" << stepname[stepval]<< " Test not validated++++  Sumdel =  " << Sumdel[stepval];
+	if(stepval != 0) std::cout << std::fixed << "TIME \u23F1  " <<"  step time in msec on device  "  << Timestep[stepval]  << "  total time in msec  " << Timetotal << endl;
+	cout << "END STEP	*******end of step  " << stepval << "  " << stepname[stepval] << "**********************************" << endl << endl;
 	stepval++;
 	if(stepval != 9)
 	cout << "STEP	*************  step " << stepval << "  " << stepname[stepval] << "*************" << endl;
