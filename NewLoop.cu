@@ -30,7 +30,6 @@ __managed__ float *microimages, *d_microimages;
 __managed__ float *original_distrib, *val_distrib, *test_distrib, *test2_distrib;
 __managed__ double *double_distrib;
 __managed__ float *original_microimages, *valmicroimages, *MIintile, *zoomed_microimages;
-__managed__ double *double_microimages;
 __managed__ float *original_rec, *val_rec;
 __managed__ double *double_rec;
 __managed__ float *scratchpad_matrix, *val_scratchpad, *val2_scratchpad;
@@ -168,7 +167,6 @@ __managed__ float * SumMI;
 __global__ void validate_microimages(int Nb_LaserPositions) {
 	float tempv;
 	int tempp, tempz;
-	int rowz, colz;
 	int iprint = threadIdx.x + threadIdx.y;
 	int iblock = blockIdx.x + blockIdx.y;
 	if (!(iprint + iblock))

@@ -59,6 +59,7 @@ fclose(f);
 	stepinit(Lasertile, stepval);
 
 	/*step 7 ************************µimages in tile **********/
+	initializesimusData();
 	bool boolMI = microimagesintile();
 	onhost.MaxData = displaydata( Data,  stepval);
 	stepinit(boolMI, stepval);

@@ -20,7 +20,7 @@ __managed__ int pPSF, Npixel, RDISTRIB, pZOOM, Ndistrib;
 __managed__ double  Energy_global =0.0f;
 __managed__ clock_t timer, time_init, time_start; // in KHz
 
-std::string resourcesdirectory, filename, name, value;
+std::string resourcesdirectory, filename, name, value, MIFILE, PSFFILE, DISTRIBFILE;
 
 __managed__ int XTile, YTile, ATile;
 __managed__ int THreadsRatio, NThreads;
@@ -32,7 +32,6 @@ bool initparameters( int argc, char **argv) {
 	XMLDocument XMLdoc, ACQXML, doc;
 	XMLElement *pRoot, *pParm;
 	string sstr, filenamexml;
-
 	bool dimfit = TRUE;
 
 	// acquire information on the CUDA device: name and number of multiprocessors
@@ -58,6 +57,7 @@ bool initparameters( int argc, char **argv) {
 	RDISTRIB = retrieveargv(argv[4]);
 	pZOOM = retrieveargv(argv[5]);
 	Ndistrib = retrieveargv(argv[6]);
+	MIFILE = argv[7];
 	// to read the values in the program and to add tests
 
 	std::cout << "MAIN PROGRAM  \u24EA ARG: EXE arguments number argc: " << argc << endl;
@@ -69,6 +69,7 @@ bool initparameters( int argc, char **argv) {
 	std::cout << "MAIN PROGRAM  \u24EA ARG: argv[4]: RDISTRIB: " << RDISTRIB << endl;
 	std::cout << "MAIN PROGRAM  \u24EA ARG: argv[5]: pZOOM: " << pZOOM << endl;
 	std::cout << "MAIN PROGRAM  \u24EA ARG: argv[6]: NDISTRIB: " << Ndistrib << endl;
+	std::cout << "MAIN PROGRAM  \u24EA ARG: argv[7]: MI directory: " << resourcesdirectory + MIFILE << endl;
 	std::cout << "MAIN PROGRAM  \u24EA command line parameters: " << "******************************************"
 			<< endl <<endl;
 

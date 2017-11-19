@@ -67,7 +67,8 @@ public:
 	int tileperaggregatex, tileperaggregatey;
 
 	int Nblaserperdistribution[MAXNBDISTRIB] = { 0 }, maxlaserperdistribution = 0;
-	int maxLaserintile = 32, minLaserintile =1.E6, blocks;
+	int maxLaserintile = NIMAGESPARALLEL, minLaserintile =1.E6, blocks;
+	int NbLaserTotal;
 	int reconstructionsizex, reconstructionsizey;
 	int NbLaserpertile[MAXTILE] = { 0 };
 	float expectedmax;

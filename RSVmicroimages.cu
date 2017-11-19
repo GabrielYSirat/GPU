@@ -7,30 +7,30 @@
 
 #include "NewLoop.h"
 
-std::string MIFILE = "lambda_488/Measure/T_0/Z_0/DATA";
+double * double_microimages;
 std::string endMI = ".bin";
-float Maxmicroimages = 0.0f, Summicroimages = 0.0f;
+float Maxmicroimages = 0.0f, Summicroimages = 0.0f, Minmicroimages = 1.e20;
 
 void readstoremicroimages(void) {
 	char * memblock;
 	long size;
 	const char * MIRawfile = "results/MIRawfile.pgm";
 
-	printf("MICROIMAGES \u2464 ******************Read raw microimages **************\n");
-
 	// buffer allocation, buffer in double for original data, buffer in float for working (to go to FP16) character for display
-	cudaMallocManaged(&double_microimages, TA.Nb_LaserPositions * PixSquare * sizeof(double));
+	double_microimages = (double *) calloc(TA.Nb_LaserPositions * PixSquare, sizeof(double));
 	cudaMallocManaged(&original_microimages, TA.Nb_LaserPositions * PixSquare * sizeof(float));
 	cudaMallocManaged(&zoomed_microimages, TA.Nb_LaserPositions * PixZoomSquare * sizeof(float));
 	cudaMallocManaged(&MIintile, tile.NbTile * tile.maxLaserintile * PixZoomSquare * sizeof(float));
-	unsigned char *i_MIraw = (unsigned char*) calloc(TA.Nb_LaserPositions * PixSquare, sizeof(char));
+	unsigned char *i_MIraw = (unsigned char*) calloc(Ndistrib*PixSquare * tile.maxlaserperdistribution, sizeof(char));
 
+	printf("MICROIMAGES \u2464 Total number of images for all distributions %d\n", TA.Nb_LaserPositions);
 	int numberofpixels = 0;
 	for (int idistrib = 0; idistrib < Ndistrib; idistrib++) {
 		;
 		std::string MIraw = resourcesdirectory + MIFILE + std::to_string(idistrib + 1) + endMI;
-		printf("MICROIMAGES \u2464 function read: distribution n°%d Path to distrib original %s .....\n", idistrib,
+		printf("MICROIMAGES \u2464 function read: distribution n°%d Path to distrib original .....\n %s \n", idistrib,
 				MIraw.c_str());
+
 		//read distrib bin file
 		std::ifstream MIrawfile(MIraw.c_str(), ios::in | ios::binary | ios::ate);
 		size = (MIrawfile.tellg()); 	// the data is stored in doubles of 8 bytes in the file
@@ -43,38 +43,30 @@ void readstoremicroimages(void) {
 		MIrawfile.close();
 
 		double_microimages = (double*) memblock; //reinterpret the chars stored in the file as double
-		printf("number of images %d Number of pixels %d \n\n", tile.Nblaserperdistribution[idistrib],
+		printf("number of images %d Number of pixels %d \n", tile.Nblaserperdistribution[idistrib],
 				tile.Nblaserperdistribution[idistrib] * PixSquare);
 		for (int i = 0; i < tile.Nblaserperdistribution[idistrib] * PixSquare; i++) {
 			*(original_microimages + i + numberofpixels) = *(double_microimages + i);			// change to float
 			Summicroimages += original_microimages[i];
 			Maxmicroimages = max(Maxmicroimages, *(original_microimages + i));
+			Minmicroimages = min(Minmicroimages, *(original_microimages + i));
 		}
 		numberofpixels += tile.Nblaserperdistribution[idistrib] * PixSquare;
 		printf("MICROIMAGES \u2464 original on host: Average  %f max microimages %f \n",
 				Summicroimages / numberofpixels, Maxmicroimages);
 
 	}
-	// write microimages original to disk
-	/////////////////////////////////
-/*	for (int idistrib = 0; idistrib < Ndistrib; idistrib++)
+	for (int idistrib = 0; idistrib < Ndistrib; idistrib++)
 		for (int ilaser = 0; ilaser < tile.Nblaserperdistribution[idistrib]; ilaser++)
 			for (int xpix = 0; xpix < Npixel; xpix++)
 				for (int ypix = 0; ypix < Npixel; ypix++) {
-					int itemp = xpix + idistrib * Npixel + (ypix + ilaser * Npixel) * Npixel * Ndistrib;
-					int itemp2 = xpix + idistrib * PixSquare * tile.maxlaserperdistribution
-							+ (ypix * Npixel + ilaser * PixSquare);*/
-	for (int ilaser = 0; ilaser < TA.Nb_LaserPositions; ilaser++)
-		for (int xpix = 0; xpix < Npixel; xpix++)
-			for (int ypix = 0; ypix < Npixel; ypix++) {
-				int itemp = xpix + Npixel * ypix + PixSquare * ilaser;
-				int itemp2 = itemp;
-				if (original_microimages[itemp2] > 0.0f)
-					i_MIraw[itemp] = 255.0 * original_microimages[itemp2] / Maxmicroimages;			// image value
+					int itemp = xpix + Npixel * ypix + PixSquare * ilaser + idistrib*PixSquare * tile.maxlaserperdistribution;
+					i_MIraw[itemp] = 255.0 * (original_microimages[itemp] - Minmicroimages)
+							/ (Maxmicroimages - Minmicroimages);
 				}
 	printf("MICROIMAGES \u2464 host: Path to microimages original %s .....\n", MIRawfile);
 
-	sdkSavePGM(MIRawfile, i_MIraw,  Npixel, TA.Nb_LaserPositions * Npixel);
+	sdkSavePGM(MIRawfile, i_MIraw,  Npixel * Ndistrib, tile.maxlaserperdistribution * Npixel);
 
 	free(i_MIraw);
 
@@ -127,30 +119,29 @@ bool validatemicroimages_control(void) {
 
 	// write microimages copy to disk
 	/////////////////////////////////
-	for (int ilaser = 0; ilaser < TA.Nb_LaserPositions; ilaser++)
-		for (int xpix = 0; xpix < Npixel; xpix++)
-			for (int ypix = 0; ypix < Npixel; ypix++) {
-				int itemp = xpix + Npixel * ypix + PixSquare * ilaser;
-				int itemp2 = itemp;
-				if (valmicroimages[itemp2] > 0.0f)
-					i_MIVal[itemp] = 255.0 * valmicroimages[itemp2] / Maxmicroimages;			// image value
-			}
-				for (int ilaser = 0; ilaser < TA.Nb_LaserPositions; ilaser++)
+	for (int idistrib = 0; idistrib < Ndistrib; idistrib++)
+		for (int ilaser = 0; ilaser < tile.Nblaserperdistribution[idistrib]; ilaser++)
+			for (int xpix = 0; xpix < Npixel; xpix++)
+				for (int ypix = 0; ypix < Npixel; ypix++) {
+					int itemp = xpix + Npixel * ypix + PixSquare * ilaser
+							+ idistrib * PixSquare * tile.maxlaserperdistribution;
+					i_MIVal[itemp] = 255.0 * (valmicroimages[itemp] - Minmicroimages)
+							/ (Maxmicroimages - Minmicroimages);
 					for (int xpixzoom = 0; xpixzoom < PixZoom; xpixzoom++)
 						for (int ypixzoom = 0; ypixzoom < PixZoom; ypixzoom++) {
-							int itemp = xpixzoom + PixZoom * ypixzoom + PixZoomSquare * ilaser;
-							int itemp2 = itemp;
-							if (zoomed_microimages[itemp2] > 0.0f)
-								i_MIzoom[itemp] = 255.0 * zoomed_microimages[itemp2] / max4microimages;			// image value
+							int itemp = xpixzoom + PixZoom * ypixzoom + PixZoomSquare * ilaser
+									+ idistrib * PixZoomSquare * tile.maxlaserperdistribution;
+							i_MIzoom[itemp] = 255.0 * (zoomed_microimages[itemp] - Minmicroimages)
+									/ (Maxmicroimages - Minmicroimages);
+						}
 				}
 	printf("MICROIMAGES \u2464 host: Path to microimages copy %s .....\n", MIValfile);
 
-	sdkSavePGM(MIValfile, i_MIVal,  Npixel, TA.Nb_LaserPositions * Npixel);
-	sdkSavePGM(MIzoomfile, i_MIzoom, PixZoom, TA.Nb_LaserPositions * PixZoom);
+	sdkSavePGM(MIValfile, i_MIVal,  Npixel * Ndistrib, tile.maxlaserperdistribution * Npixel);
+	sdkSavePGM(MIzoomfile, i_MIzoom, PixZoom * Ndistrib, tile.maxlaserperdistribution * PixZoom);
 
 	free(i_MIVal);	free(i_MIzoom);
 	cudaFree(valmicroimages);
-
 	return (testmicroimages);
 }
 

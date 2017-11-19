@@ -10,6 +10,7 @@
 #include "NewLoop.h"
 #define VERBOSELOOP 1
 #include "include.tst"
+__managed__ float *new_simus , *Data , *Rfactor, *distribvalidGPU;
 
 __managed__ float EnergyGlobal;
 __global__ void BigLoop(devicedata DD) {

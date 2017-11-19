@@ -38,7 +38,7 @@ using namespace std;
 #define max(a,b) (a) > (b) ? (a) : (b)
 
 /*****************DATA FILES *******************/
-extern std::string resourcesdirectory, filename;
+extern std::string resourcesdirectory, filename, MIFILE, PSFFILE, DISTRIBFILE;
 extern char buff[BUFFSIZE], chars[]; // a buffer to temporarily park the data
 extern cudaEvent_t start, stop;
 extern double Sumdel[16], Timestep[16];
@@ -109,6 +109,7 @@ void readstoremicroimages(void);
 bool validatemicroimages_control(void);
 __global__ void validate_microimages(int Nb_LaserPositions);
 bool microimagesintile(void);
+bool initializesimusData(void);
 
 
 /************************Reconstruction *********/
@@ -137,7 +138,6 @@ extern __managed__ float *microimages, *d_microimages;
 extern __managed__ float *original_distrib,  *val_distrib, *test_distrib, *test2_distrib;
 extern __managed__ double *double_distrib;
 extern __managed__ float *original_microimages,  *valmicroimages, *MIintile, *zoomed_microimages;
-extern __managed__  double *double_microimages;
 extern __managed__ float *original_rec,  *val_rec;
 extern __managed__ double *double_rec;
 extern __managed__ float *scratchpad_matrix,  *val_scratchpad, *val2_scratchpad;
