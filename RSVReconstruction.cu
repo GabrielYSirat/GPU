@@ -38,8 +38,7 @@ void Recprepare(void) {
 	RecFile.seekg(byte_skipped, ios::beg); // byte_skipped first bytes are skipped
 	RecFile.read(memblock, size);
 	RecFile.close();
-	std::cout << "REC \u24FC ************XML data: size  " << TA.reconstruction_size << "  Size in Bytes " << TA.reconstruction_size * sizeof(double)
-			<< endl;
+	std::cout << "REC \u24FC *******complete size  " << TA.reconstruction_size << "  Size in Bytes " << TA.reconstruction_size * sizeof(double) << endl;
 
 	/** read reconstruction data from file in double, transfer to float on the global memory of the device and create a normalized image
 	 *
@@ -48,18 +47,16 @@ void Recprepare(void) {
 	for (int i = 0; i < TA.reconstruction_size; i++) {
 		*(original_rec + i) = *(double_rec + i);
 		SumRec += *(original_rec + i);
-		if (MaxRec < *(original_rec + i))
-			MaxRec = *(original_rec + i); // sanity check, check max
-	}
+		MaxRec = max(*(original_rec + i), MaxRec);
+	}	// sanity check, check max and sum
+
 
 	std::cout << "REC \u24FC ***  max =" << MaxRec << "  Sum =" << SumRec << endl;
 	const char * reconstructionImagefile = "results/reconstruction.pgm";
 	unsigned char *i_reconstruction = (unsigned char *) calloc(TA.reconstruction_size, sizeof(unsigned char)); // on host
 	double* double_rec = (double*) std::malloc(TA.reconstruction_size * sizeof(double)); // on host
-	// write reconstruction image to disk
-	/////////////////////////////////
-	for (int i = 0; i < TA.reconstruction_size; i++)
-		i_reconstruction[i] = 255.0 * original_rec[i] / MaxRec;			// image value
+	// write reconstruction image to disk /////////////////////////////////
+	for (int i = 0; i < TA.reconstruction_size; i++) i_reconstruction[i] = 255.0 * original_rec[i] / MaxRec;			// image value
 
 	printf("REC \u24FC Path to reconstruction original %s .....\n", reconstructionImagefile);
 	sdkSavePGM(reconstructionImagefile, i_reconstruction, TA.Nb_Cols_reconstruction, TA.Nb_Rows_reconstruction);
@@ -184,7 +181,7 @@ void Scratchprepare(void) {
 					int iscratch2D = iscratch2Dx + iscratch2Dy * XSCRATCH * tile.NbTilex;
 					scratchpad_matrix[iscratch] = tile_rec[itile];
 					i_scratchpad[iscratch2D] = 255.0 * tile_rec[itile] / Maxscratch;
-					if(!(i_scratchpad[iscratch2D] ==0)){
+					if(!(i_scratchpad[iscratch2D] ==0) && VERBOSE){
 					printf("SCRATCHPAD \u24FC itile %d, iscratch %d iscratch2Dx %d, iscratch2Dy %d iscratch2D %d\n",
 							itile, iscratch, iscratch2Dx, iscratch2Dy, iscratch2D);
 					printf("SCRATCHPAD \u24FC itile %d, i_scratchpad[iscratch2D] %d scratchpad_matrix[iscratch] %f tile_rec[itile] %f\n",

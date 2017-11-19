@@ -71,6 +71,7 @@ public:
 	int NbLaserTotal;
 	int reconstructionsizex, reconstructionsizey;
 	int NbLaserpertile[MAXTILE] = { 0 };
+	int posintile[NUMLASERPOSITIONS];
 	float expectedmax;
 	float Bconstant = 1.0;
 	int startx, starty;

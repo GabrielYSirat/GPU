@@ -48,6 +48,7 @@ extern float MaxPSF;
 extern float Maxdistrib, Sumdistrib;
 extern float MaxPSF, SumPSF;
 extern float MaxRec, SumRec;
+extern float Maxmicroimages, Minmicroimages;
 
 /************Extern read in command line*************/
 extern __managed__ int pPSF, Npixel, pZOOM, RDISTRIB, Ndistrib;

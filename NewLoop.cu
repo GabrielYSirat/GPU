@@ -208,7 +208,7 @@ __global__ void Recvalidate_device(int Nb_Rows_reconstruction, int Nb_Cols_recon
 			tempp = row * Nb_Cols_reconstruction + col;
 			tempv = *(original_rec + tempp);
 			*(val_rec + tempp) = tempv;
-			if ((tempv != 0.0f) && (TEST)) {
+			if ((tempv != 0.0f) && (TEST) && VERBOSE) {
 				printf(
 						"REC \u277D DEVICE ----------------------------------------------------------------------------------------------------\n");
 				printf("REC \u277D DEVICE position %d position x: %d y: %d value %f\n", tempp,
@@ -245,13 +245,14 @@ __global__ void Scratchvalidate_device(int NbTilex, int NbTiley, int dels) {
 		if ((*(val_scratchpad + tempp) != 0.0f) && (TEST)) {
 			int positionx = (tempp - dels) % (XSCRATCH * NbTilex);
 			int positiony = (tempp - dels) / (XSCRATCH * NbTilex);
-
-			printf("SCRATCHPAD \u24EC DEVICE TEST:  position %d position x: %d y: %d value %f\n", tempp, positionx,
-					positiony, tempv);
+			if (VERBOSE)
+				printf("SCRATCHPAD \u24EC DEVICE TEST:  position %d position x: %d y: %d value %f\n", tempp,
+						positionx, positiony, tempv);
 		}
 
 	}
-	printf("SCRATCHPAD \u24EC DEVICE:  Sum scratchpad %f max scratchpad %f ... \n", Sumscratchpad, maxscratchpad);
+	printf("SCRATCHPAD \u24EC DEVICE:  Sum scratchpad %f max scratchpad %f ... \n", Sumscratchpad,
+			maxscratchpad);
 	timer = clock64();
 	__syncthreads();
 

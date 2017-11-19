@@ -26,36 +26,33 @@ void readstoremicroimages(void) {
 	printf("MICROIMAGES \u2464 Total number of images for all distributions %d\n", TA.Nb_LaserPositions);
 	int numberofpixels = 0;
 	for (int idistrib = 0; idistrib < Ndistrib; idistrib++) {
-		;
 		std::string MIraw = resourcesdirectory + MIFILE + std::to_string(idistrib + 1) + endMI;
-		printf("MICROIMAGES \u2464 function read: distribution n°%d Path to distrib original .....\n %s \n", idistrib,
-				MIraw.c_str());
+		printf("MICROIMAGES \u2464 function read: distribution n°%d Path to distrib original .....\n %s \n", idistrib, MIraw.c_str());
 
-		//read distrib bin file
-		std::ifstream MIrawfile(MIraw.c_str(), ios::in | ios::binary | ios::ate);
-		size = (MIrawfile.tellg()); 	// the data is stored in doubles of 8 bytes in the file
-		size -= byte_skipped;  				// removes the 4 first bytes, Why??
-		std::cout << "MICROIMAGES \u2464 function read: distrib n°" << idistrib << " number laser positions "
-				<< tile.Nblaserperdistribution[idistrib] << " size microimages = " << size << endl;
+		std::ifstream MIrawfile(MIraw.c_str(), ios::in | ios::binary | ios::ate); 		//read distrib bin file
+		size = (MIrawfile.tellg()) ; 	// the data is stored in doubles of 8 bytes in the file
+		size -= byte_skipped;
 		memblock = new char[size];
 		MIrawfile.seekg(byte_skipped, ios::beg); // byte_skipped first bytes are offset
 		MIrawfile.read(memblock, size);
 		MIrawfile.close();
+		std::cout << "MICROIMAGES \u2464 function read: distrib n°" << idistrib << " number laser positions "
+				<< tile.Nblaserperdistribution[idistrib] << " size microimages = " << size << endl;
+		printf("MICROIMAGES \u2464 number of images %d Number of pixels %d \n", tile.Nblaserperdistribution[idistrib],
+				tile.Nblaserperdistribution[idistrib] * PixSquare);
 
 		double_microimages = (double*) memblock; //reinterpret the chars stored in the file as double
-		printf("number of images %d Number of pixels %d \n", tile.Nblaserperdistribution[idistrib],
-				tile.Nblaserperdistribution[idistrib] * PixSquare);
 		for (int i = 0; i < tile.Nblaserperdistribution[idistrib] * PixSquare; i++) {
 			*(original_microimages + i + numberofpixels) = *(double_microimages + i);			// change to float
-			Summicroimages += original_microimages[i];
-			Maxmicroimages = max(Maxmicroimages, *(original_microimages + i));
-			Minmicroimages = min(Minmicroimages, *(original_microimages + i));
+			Summicroimages += original_microimages[i + numberofpixels];
+			Maxmicroimages = max(Maxmicroimages, *(original_microimages + i + numberofpixels));
+			Minmicroimages = min(Minmicroimages, *(original_microimages + i + numberofpixels));
 		}
 		numberofpixels += tile.Nblaserperdistribution[idistrib] * PixSquare;
-		printf("MICROIMAGES \u2464 original on host: Average  %f max microimages %f \n",
-				Summicroimages / numberofpixels, Maxmicroimages);
-
+		printf("MICROIMAGES \u2464 original on host: Average  %g microimages: max  %g min %g\n",
+				Summicroimages / numberofpixels, Maxmicroimages, Minmicroimages);
 	}
+
 	for (int idistrib = 0; idistrib < Ndistrib; idistrib++)
 		for (int ilaser = 0; ilaser < tile.Nblaserperdistribution[idistrib]; ilaser++)
 			for (int xpix = 0; xpix < Npixel; xpix++)

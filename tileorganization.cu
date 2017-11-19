@@ -15,7 +15,7 @@ bool tileorganization(void) {
 	bool Lasertile = TRUE;
 	int organization_x[16] = { 0, 1, 2, 3, 2, 2, 3, 3, 4, 3, 3 };
 	int organization_y[16] = { 0, 1, 1, 1, 2, 2, 2, 2, 2, 3, 3 };
-	int tilex, tiley, tilenumber, posintile, ilasertile;
+	int tilex, tiley, tilenumber, ilasertile;
 
 	filename = resourcesdirectory + "rec_image.xml";
 	cudaMallocManaged(&image_to_scratchpad_offset, MAXNUMBERLASERTILE * MAXTILE * sizeof(int));
@@ -98,8 +98,11 @@ bool tileorganization(void) {
 			float deltiley = *(PosLasery + iLaser) * pZOOM - tiley * YTile;
 			float delscratchx = deltilex + (XSCRATCH - XTile) / 2;  // XSCRATCH and XTile are odd
 			float delscratchy = deltiley + (YSCRATCH - YTile) / 2;  // ySCRATCH and YTile are odd
-			posintile = tile.NbLaserpertile[tilenumber]++;
-			ilasertile = tilenumber * MAXNUMBERLASERTILE + posintile;
+			tile.posintile[iLaser] = tile.NbLaserpertile[tilenumber]++;
+			if(VERBOSE)
+				printf("TILE ORG \u2479 POS IN TILE: iLaser %d,tilenumber %d tile.posintile[iLaser]  %d\n",
+						iLaser, tilenumber, tile.posintile[iLaser]);
+			ilasertile = tilenumber * MAXNUMBERLASERTILE + tile.posintile[iLaser];
 			valid_image[ilasertile] = 1;
 			image_to_scratchpad_offset[ilasertile] = *(offsetFULL + iLaser);
 			tile.maxLaserintile = max(tile.maxLaserintile, tile.NbLaserpertile[tilenumber]); // acquiring the max value per tile
@@ -109,8 +112,7 @@ bool tileorganization(void) {
 			// add 1 - to go to 32 - to NbLaserpertile, because we added an image
 
 			if (VERBOSE)
-				printf(
-						"TILE ORG \u24FA POS IN SCRATCH: numeral %d laser pos in x %f in y: %f  tile x: %d y: %d \n"
+				printf("TILE ORG \u2479 POS IN SCRATCH: numeral %d laser pos in x %f in y: %f  tile x: %d y: %d \n"
 								"TILE ORG \u24FA POS IN SCRATCH: deltile x: %f and y %f del scratch x:%f y:%f\n"
 								"TILE ORG \u24FA POS IN SCRATCH: ilasertile %d SCRATCH POSITION %d\n"
 								"********************ilasertile %d offset scratchpad interaction****************** %d\n",
@@ -120,15 +122,15 @@ bool tileorganization(void) {
 						image_to_scratchpad_offset[ilasertile]);
 
 			if (VERBOSE)
-				printf("TILE ORG \u24FA POS IN SCRATCH: image number %d tilenumber %d position in tile %d\n",
-						iLaser, tilenumber, posintile);
+				printf("TILE ORG \u2479 POS IN SCRATCH: image number %d tilenumber %d position in tile %d\n",
+						iLaser, tilenumber, tile.posintile[iLaser]);
 		}
 		printf("TILE ORG \u24FA  idistrib n°%d number of laser positions in tile in distribution %d\n",
 				idistrib, tile.Nblaserperdistribution[idistrib]);
 		if (VERBOSE){
 		int it0 = tile.NbTilex*tile.NbTiley*idistrib;
 		for(int it=it0; it < it0 +tile.NbTilex*tile.NbTiley; it++)
-			printf("tile %d: #lasers %d ...\n", it, tile.NbLaserpertile[it]);
+			printf(" \u2479 tile %d: #lasers %d ...\n", it, tile.NbLaserpertile[it]);
 		printf("\n");
 		}
 		tile.NbLaserTotal += tile.Nblaserperdistribution[idistrib];
@@ -137,7 +139,7 @@ bool tileorganization(void) {
 
 	for (int it1 = 0; it1 < tile.NbTile; it1++) {
 		if (VERBOSE)
-			printf("TILE ORG \u24FA Tile number %d tile in x %d tile in y %d distrib %d number of microimages %d\n",
+			printf("TILE ORG \u2479 Tile number %d tile in x %d tile in y %d distrib %d number of microimages %d\n",
 					it1, it1 % (Ndistrib * tile.NbTiley), (it1 / tile.NbTilex) % Ndistrib,
 					it1 / (tile.NbTilex * tile.NbTiley), tile.NbLaserpertile[it1]);
 
@@ -174,59 +176,33 @@ bool initializesimusData(void) {
 }
 
 bool microimagesintile(void) {
-	float Maxdata = 0.0f;
-	int n_colintern = PixZoom * tile.blocks * tile.NbTilex;
-	int n_rowintern = PixZoom * NIMAGESPARALLEL * tile.NbTiley;
-	int tilex, tiley, tilenumber, ilasertile;
+	bool micimintile = FALSE;
 
-printf("HOST: \u2466 DATA:  n_rowintern %d n_colintern %d, total %d Max data %g\n",
-		n_rowintern, n_colintern, tile.maxLaserintile * NThreads, Maxdata);
-
-int disdelta = 0;
-for (int idistrib = 0; idistrib < Ndistrib; idistrib++) {
-	for (int iLaser = disdelta; iLaser < disdelta + tile.Nblaserperdistribution[idistrib]; iLaser++) {
-		tilex = pZOOM * (*(PosLaserx + iLaser) - tile.startx) / XTile;
-		tiley = pZOOM * (*(PosLasery + iLaser) - tile.starty) / YTile;
-		tilenumber = tilex + tile.NbTilex * tiley + tile.NbTilex * tile.NbTiley * idistrib;
-		ilasertile = tilenumber * tile.maxLaserintile + tile.NbLaserpertile[tilenumber];
-		printf("temp idistrib %d, iLaser %d tilex %d tiley %d, tilenumber %d ilasertiel %d\n",
-				idistrib, iLaser, tilex, tiley, tilenumber, ilasertile);
-		for(int ipix = 0; ipix < PixZoomSquare; ipix++) // copy microimage to its position in the Data
-			*(Data + ilasertile*PixZoomSquare + ipix) =  *(zoomed_microimages + iLaser* PixZoomSquare + ipix);
-	}
-	disdelta += tile.Nblaserperdistribution[idistrib];
-	printf("TILE ORG \u24FA Max Laser in tile rounded to multiple NIMAGESPARALLEL  .. %d\n", tile.maxLaserintile);
-}
-
+printf("TILE ORG \u24FA Max Laser in tile rounded to multiple NIMAGESPARALLEL  .. %d MaxMicroimages %f MinMicroimages %f\n", tile.maxLaserintile, Maxmicroimages, Minmicroimages);
+unsigned char *i_data = (unsigned char *) calloc(PixZoomSquare * tile.NbTile * tile.maxLaserintile, sizeof(unsigned char)); // on host
 const char * DataFile = "results/DataFile.pgm";
-unsigned char *i_data = (unsigned char *) calloc(n_colintern * n_rowintern, sizeof(unsigned char)); // on host
-for (int i = 0; i < tile.maxLaserintile * NThreads; i++) Maxdata = max(Maxdata, *(Data + i));
-printf("HOST: \u277D DATA:  n_rowintern %d n_colintern %d, total %d Max data %g\n",
-		n_rowintern, n_colintern, tile.maxLaserintile * NThreads, Maxdata);
 
-bool micimintile = FALSE;
-for (int idistrib = 0; idistrib < Ndistrib; idistrib++) {
-
-	for (int j_rowintern = 0; j_rowintern < n_rowintern; j_rowintern++)
-		for (int i_colintern = 0; i_colintern < n_colintern; i_colintern++) {
-			int i_microimage = i_colintern % PixZoom;
-			int i_blocknumber = (i_colintern % tile.NbTilex) / PixZoom;
-			int i_tile = i_colintern / (PixZoom * tile.blocks);
-			int j_microimage = j_rowintern % PixZoom;
-			int j_positioninblock = (j_rowintern % tile.NbTiley) / PixZoom;
-			int j_tile = j_rowintern / (PixZoom * NIMAGESPARALLEL);
-
-			int i = i_microimage + j_microimage * PixZoom
-					+ (j_positioninblock + i_blocknumber * NIMAGESPARALLEL) * PixZoomSquare // microimage
-					+ (i_tile + j_tile * tile.NbTilex) * PixZoomSquare * tile.maxLaserintile; // list of microimages
-			int tempi = 255.0 * Data[i] / Maxdata;
-			i_data[(i_microimage + i_blocknumber * PixZoom + i_tile * PixZoom * tile.blocks) + 			// x value
-					(j_microimage + j_positioninblock * PixZoom + j_tile * PixZoom * NIMAGESPARALLEL) 	// y value
-					* PixZoom * tile.blocks] = tempi;
+	for (int idistrib = 0, disdelta = 0; idistrib < Ndistrib;
+			idistrib++, disdelta += tile.Nblaserperdistribution[idistrib])
+		for (int iLaser = disdelta; iLaser < disdelta + tile.Nblaserperdistribution[idistrib]; iLaser++) {
+			int tilex = pZOOM * (*(PosLaserx + iLaser) - tile.startx) / XTile;
+			int tiley = pZOOM * (*(PosLasery + iLaser) - tile.starty) / YTile;
+			int tilenumber = tilex + tile.NbTilex * tiley + tile.NbTilex * tile.NbTiley * idistrib;
+			int ilasertile = tilenumber * tile.maxLaserintile + tile.posintile[iLaser];
+			printf("TILE ORG \u2479 idistrib %d, iLaser %d tilenumber %d ilasertile %d\n", idistrib, iLaser,
+					tilenumber, ilasertile);
+			for (int ipix = 0; ipix < PixZoomSquare; ipix++) { // copy microimage to its position in the Data
+				*(Data + ilasertile * PixZoomSquare + ipix) = *(zoomed_microimages + iLaser * PixZoomSquare + ipix);
+				int xpix = ipix%PixZoom; int ypix = ipix/PixZoom;
+				i_data[xpix + ypix * PixZoom * tile.maxLaserintile + ilasertile%tile.maxLaserintile * PixZoomSquare + (ilasertile/tile.maxLaserintile) * tile.maxLaserintile * PixZoomSquare]
+				       = 255.0 * (*(Data + ilasertile * PixZoomSquare + ipix) - Minmicroimages)
+						/(Maxmicroimages - Minmicroimages);
+			}
 		}
+
 	printf("HOST: \u277D DEVICE TEST in biginspect.cu: Path to calculated new simulations %s .....\n", DataFile);
-	sdkSavePGM(DataFile, i_data, n_colintern, n_rowintern);
-}
+	sdkSavePGM(DataFile, i_data, PixZoom * tile.maxLaserintile, tile.NbTile * PixZoom);
+
 return (micimintile);
 }
 
