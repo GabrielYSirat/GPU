@@ -21,7 +21,7 @@ bool biglaunch() {
 	std::cout << "To be transferred to device: Number of Tiles in x:" << tile.NbTilex << " in y:" << tile.NbTiley
 			<< endl;
 	std::cout << "To be transferred to device: Max number of laser position in Tile:" << tile.maxLaserintile
-			<< " min value" << tile.minLaserintile << endl << endl;
+			<< " min  " << tile.minLaserintile << endl << endl;
 	printf("**************HOST: PARAMETERS OF MEASUREMENT *******************\n"
 			"Npixel %d pZOOM %d, pPSF %d\n", Npixel, pZOOM, pPSF);
 	printf("pPSF %d XDistrib %d YDistrib %d\n", pPSF, XDistrib, YDistrib);
@@ -45,9 +45,16 @@ bool biglaunch() {
 	onhost.minLaserintile = tile.minLaserintile;
 	onhost.Nb_LaserPositions = TA.Nb_LaserPositions;
 	onhost.expectedmax = tile.expectedmax;
-	onhost.imalimitpertile = onhost.Nb_LaserPositions - (onhost.NbTile - 1) * onhost.maxLaserintile;
+	std::cout << "HOST: \u24F3  ";
+	for(int itile = 0; itile < tile.NbTile; itile ++) {
+		onhost.NbLaserpertile[itile] = tile.NbLaserpertile[itile];
+		printf("tile n° %d #laser %d .. ", itile, onhost.NbLaserpertile[itile]);
+	}
+	std::cout << endl;
+//	onhost.imalimitpertile = onhost.Nb_LaserPositions - (onhost.NbTile - 1) * onhost.maxLaserintile;
 	onhost.Bconstant = tile.Bconstant;
-	printf("Number of laser positions %d imalimitpertile %d\n", onhost.Nb_LaserPositions, onhost.imalimitpertile);
+//	printf("Number of laser positions %d onhost.NbTile %d imalimitpertile %d onhost.maxLaserintile %d\n",
+//			onhost.Nb_LaserPositions, onhost.NbTile, onhost.imalimitpertile, onhost.maxLaserintile);
 	bool testbig = FALSE;
 
 	dim3 dimBlock(tile.tileperaggregatex, tile.tileperaggregatey, Ndistrib);

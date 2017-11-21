@@ -126,14 +126,15 @@ __global__ void BigLoop(devicedata DD) {
 
 			// C_1. Transfer from global to shared memory the relative position of the beginning of the scratchpad
 			// region impacted by the pPSF,relative to the scratchpad start for each image  of the small group
-			if ((iblockima + iglobal) < DD.imalimitpertile)
+			if ((iblockima + iglobal) < DD.NbLaserpertile[tile])
 				*(image_to_scratchpad_offset_tile + iblockima) =
 						*(image_to_scratchpad_offset + iglobal + iblockima)
 								- (XSCRATCH + 1) * PSFZoomo2;
 			else
 				*(image_to_scratchpad_offset_tile + iblockima) =
 				dySCR * XSCRATCH + dxSCR - (XSCRATCH + 1) * PSFZoomo2;
-//			if(!iprint)printf("OFFSET:iblockima %d offset %d\n", iblockima,*(image_to_scratchpad_offset_tile + iblockima) );
+			if(!iprint)printf("OFFSET:iblockima %d offset %d iglobal %d DD.NbLaserpertile[tile] %d\n",
+					iblockima,*(image_to_scratchpad_offset_tile + iblockima), iglobal, DD.NbLaserpertile[tile]);
 			// validé
 		}
 

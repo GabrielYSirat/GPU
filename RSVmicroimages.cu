@@ -57,8 +57,9 @@ void readstoremicroimages(void) {
 		for (int ilaser = 0; ilaser < tile.Nblaserperdistribution[idistrib]; ilaser++)
 			for (int xpix = 0; xpix < Npixel; xpix++)
 				for (int ypix = 0; ypix < Npixel; ypix++) {
-					int itemp = xpix + Npixel * ypix + PixSquare * ilaser + idistrib*PixSquare * tile.maxlaserperdistribution;
-					i_MIraw[itemp] = 255.0 * (original_microimages[itemp] - Minmicroimages)
+					int itemp = xpix + idistrib* Npixel + Npixel *Ndistrib * ypix + Ndistrib * PixSquare * ilaser;
+					int itemp2 = xpix + Npixel*ypix + PixSquare * (idistrib * tile.Nblaserperdistribution[idistrib] + ilaser);
+					i_MIraw[itemp] = 255.0 * (original_microimages[itemp2] - Minmicroimages)
 							/ (Maxmicroimages - Minmicroimages);
 				}
 	printf("MICROIMAGES \u2464 host: Path to microimages original %s .....\n", MIRawfile);
@@ -120,18 +121,23 @@ bool validatemicroimages_control(void) {
 		for (int ilaser = 0; ilaser < tile.Nblaserperdistribution[idistrib]; ilaser++)
 			for (int xpix = 0; xpix < Npixel; xpix++)
 				for (int ypix = 0; ypix < Npixel; ypix++) {
-					int itemp = xpix + Npixel * ypix + PixSquare * ilaser
-							+ idistrib * PixSquare * tile.maxlaserperdistribution;
-					i_MIVal[itemp] = 255.0 * (valmicroimages[itemp] - Minmicroimages)
+					int itemp = xpix + idistrib* Npixel + Npixel *Ndistrib * ypix + Ndistrib * PixSquare * ilaser;
+					int itemp2 = xpix + Npixel*ypix + PixSquare * (idistrib * tile.Nblaserperdistribution[idistrib] + ilaser);
+					i_MIVal[itemp] = 255.0 * (valmicroimages[itemp2] - Minmicroimages)
 							/ (Maxmicroimages - Minmicroimages);
-					for (int xpixzoom = 0; xpixzoom < PixZoom; xpixzoom++)
-						for (int ypixzoom = 0; ypixzoom < PixZoom; ypixzoom++) {
-							int itemp = xpixzoom + PixZoom * ypixzoom + PixZoomSquare * ilaser
-									+ idistrib * PixZoomSquare * tile.maxlaserperdistribution;
-							i_MIzoom[itemp] = 255.0 * (zoomed_microimages[itemp] - Minmicroimages)
-									/ (Maxmicroimages - Minmicroimages);
-						}
 				}
+
+	for (int idistrib = 0; idistrib < Ndistrib; idistrib++)
+		for (int ilaser = 0; ilaser < tile.Nblaserperdistribution[idistrib]; ilaser++)
+			for (int xpix = 0; xpix < PixZoom; xpix++)
+				for (int ypix = 0; ypix < PixZoom; ypix++) {
+					int itemp = xpix + idistrib* PixZoom + PixZoom *Ndistrib * ypix + Ndistrib * PixZoomSquare * ilaser;
+					int itemp2 = xpix + PixZoom*ypix + PixZoomSquare * (idistrib * tile.Nblaserperdistribution[idistrib] + ilaser);
+					i_MIzoom[itemp] = 255.0 * (zoomed_microimages[itemp2] - Minmicroimages)
+							/ (Maxmicroimages - Minmicroimages);
+				}
+
+
 	printf("MICROIMAGES \u2464 host: Path to microimages copy %s .....\n", MIValfile);
 
 	sdkSavePGM(MIValfile, i_MIVal,  Npixel * Ndistrib, tile.maxlaserperdistribution * Npixel);

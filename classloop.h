@@ -86,6 +86,7 @@ public:
 	int maxLaserintile, minLaserintile, blocks;
 	uint Nb_LaserPositions;
 	int imalimitpertile;
+	uint NbLaserpertile[MAXTILE] = { 0 };
 	float expectedmax;
 	float Bconstant;
 	float MaxRfactor, MaxSimus, MaxData;

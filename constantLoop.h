@@ -25,7 +25,7 @@
 
 // Maximum for values which cannot be determined at compile time
 #define NUMLASERPOSITIONS 250000
-#define MAXTILE 4096
+#define MAXTILE 512
 #define MAXNBDISTRIB 8
 #define MAXNUMBERLASERTILE 256
 #define MAXTHRRATIO 4
