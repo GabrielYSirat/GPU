@@ -203,22 +203,26 @@ bool microimagesintile(void) {
 			int tiley = pZOOM * (*(PosLasery + iLaser) - tile.starty) / YTile;
 			int tilenumber = tilex + tile.NbTilex * tiley + tile.NbTilex * tile.NbTiley * idistrib;
 			int ilasertile = tilenumber * tile.maxLaserintile + tile.posintile[iLaser];
-			if (VERBOSE) printf("TILE ORG \u247A idistrib %d, iLaser %d tilenumber %d ilasertile %d\n", idistrib, iLaser,
-					tilenumber, ilasertile);
+			if (VERBOSE)
+				printf("TILE ORG \u247A idistrib %d, iLaser %d tilenumber %d ilasertile %d\n", idistrib,
+						iLaser, tilenumber, ilasertile);
 			for (int ipix = 0; ipix < PixZoomSquare; ipix++) { // copy microimage to its position in the Data
 				*(Data + ilasertile * PixZoomSquare + ipix) = *(zoomed_microimages + iLaser * PixZoomSquare
 						+ ipix);
 				int xpix = ipix % PixZoom;
 				int ypix = ipix / PixZoom;
-//				i_data[+ ilasertile * PixZoomSquare + ipix]
-				i_data[tilenumber * PixZoom + tile.posintile[iLaser] * PixZoomSquare * tile.maxLaserintile + xpix + PixZoom * tile.maxLaserintile * ypix]
-				       = 255.0 * (*(Data + ilasertile * PixZoomSquare + ipix) - Minmicroimages) /(Maxmicroimages - Minmicroimages);
+				i_data[tilenumber * (PixZoomSquare)
+						+ tile.posintile[iLaser] * PixZoomSquare * tile.maxLaserintile + xpix
+						+ PixZoom * tile.maxLaserintile * ypix] = 255.0
+						* (*(Data + ilasertile * PixZoomSquare + ipix) - Minmicroimages)
+						/ (Maxmicroimages - Minmicroimages);
+			}
 		}
-	}
 
-printf("HOST: \u277D DEVICE TEST in biginspect.cu: Path to calculated new simulations %s .....\n", DataFile);
-sdkSavePGM(DataFile, i_data, tile.maxLaserintile *PixZoom , tile.NbTile * PixZoom );
+	printf("HOST: \u277D DEVICE TEST in biginspect.cu: Path to calculated new simulations %s .....\n",
+			DataFile);
+	sdkSavePGM(DataFile, i_data, tile.maxLaserintile * PixZoom, tile.NbTile * PixZoom);
 
-return (micimintile);
+	return (micimintile);
 }
 

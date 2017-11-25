@@ -31,7 +31,7 @@
 									<listOptionValue builtIn="false" value="/usr/local/cuda-8.0/samples/common/inc"/>
 									<listOptionValue builtIn="false" value="/home/gabriel/cuda-workspace/TestSpatial/aux"/>
 								</option>
-								<option id="nvcc.compiler.cpp11option.1203800511" superClass="nvcc.compiler.cpp11option" value="true" valueType="boolean"/>
+								<option id="nvcc.compiler.cpp11option.1203800511" name="Enable C++11 support (-std=c++11)" superClass="nvcc.compiler.cpp11option" value="true" valueType="boolean"/>
 								<inputType id="nvcc.compiler.input.cu.1457876500" superClass="nvcc.compiler.input.cu"/>
 								<inputType id="nvcc.compiler.input.cpp.1532731655" superClass="nvcc.compiler.input.cpp"/>
 								<inputType id="nvcc.compiler.input.c.1385738276" superClass="nvcc.compiler.input.c"/>

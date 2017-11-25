@@ -135,27 +135,27 @@ float displaydata( float * datavalues, int stepval)
 
 	for (int idistrib = 0; idistrib < Ndistrib; idistrib++){
 
-		const char * DataFile =  filebase.c_str ();
-	for (int j_rowintern = 0; j_rowintern < n_rowintern; j_rowintern++)
-		for (int i_colintern = 0; i_colintern < n_colintern; i_colintern++) {
-			int i_microimage = i_colintern % PixZoom;
-			int i_blocknumber =  (i_colintern % tile.NbTilex)/ PixZoom;
-			int i_tile = i_colintern/(PixZoom * tile.blocks);
-			int j_microimage = j_rowintern % PixZoom;
-			int j_positioninblock = (j_rowintern % tile.NbTiley) / PixZoom;
-			int j_tile = j_rowintern/(PixZoom *NIMAGESPARALLEL);
+		const char * DataFile = filebase.c_str ();
 
-			int i = i_microimage + j_microimage * PixZoom +	// microimage
-					(j_positioninblock + i_blocknumber * NIMAGESPARALLEL) * PixZoomSquare +
-					(i_tile + j_tile * tile.NbTilex) * PixZoomSquare * tile.maxLaserintile ; // liste of microimages
-			int tempi = 255.0 * datavalues[i] / MaxData;
-			i_data[(i_microimage + i_blocknumber * PixZoom + i_tile * PixZoom * tile.blocks) + // x value
-			        		(j_microimage + j_positioninblock * PixZoom + j_tile*PixZoom * NIMAGESPARALLEL)
-			        					* PixZoom * tile.blocks] = tempi;// y value
+		for (int idistrib = 0, disdelta = 0; idistrib < Ndistrib; idistrib++, disdelta += tile.Nblaserperdistribution[idistrib])
+			for (int iLaser = disdelta; iLaser < disdelta + tile.Nblaserperdistribution[idistrib]; iLaser++) {
+				int tilex = pZOOM * (*(PosLaserx + iLaser) - tile.startx) / XTile;
+				int tiley = pZOOM * (*(PosLasery + iLaser) - tile.starty) / YTile;
+				int tilenumber = tilex + tile.NbTilex * tiley + tile.NbTilex * tile.NbTiley * idistrib;
+				int ilasertile = tilenumber * tile.maxLaserintile + tile.posintile[iLaser];
+				if (VERBOSE) printf("TILE ORG \u247A idistrib %d, iLaser %d tilenumber %d ilasertile %d\n", idistrib, iLaser,
+						tilenumber, ilasertile);
+				for (int ipix = 0; ipix < PixZoomSquare; ipix++) { // copy microimage to its position in the Data
+					*(Data + ilasertile * PixZoomSquare + ipix) = *(zoomed_microimages + iLaser * PixZoomSquare + ipix);
+					int xpix = ipix % PixZoom;	int ypix = ipix / PixZoom;
+					i_data[tilenumber * PixZoom + tile.posintile[iLaser] * PixZoomSquare * tile.maxLaserintile + xpix + PixZoom * tile.maxLaserintile * ypix]
+					       = 255.0 * (*(datavalues + ilasertile * PixZoomSquare + ipix) - Minmicroimages) /(Maxmicroimages - Minmicroimages);
+			}
 		}
-	printf("HOST: %s %d results %s in %s:: %s .....\n",
+
+		printf("HOST: %s %d results %s in %s:: %s .....\n",
 			 stepnumber.c_str(), stepval, dataliteral.c_str(), callprogram.c_str(),DataFile);
-	sdkSavePGM(DataFile, i_data, n_colintern, n_rowintern);
+	sdkSavePGM(DataFile, i_data,tile.maxLaserintile *PixZoom , tile.NbTile * PixZoom);
 	printf("HOST: %s %d ******************************************\n\n",
 			 stepnumber.c_str(), stepval);
 }
