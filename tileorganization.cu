@@ -4,7 +4,7 @@
  *  Created on: Jul 3, 2017
  *      Author: gabriel
  */
-#include "NewLoop.h"
+#include "0_NewLoop.h"
 
 __managed__ int *image_to_scratchpad_offset = { 0 }, *valid_image = { 0 };
 __managed__ float *image_to_scratchpad_offset_global = { 0 };

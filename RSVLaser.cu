@@ -13,7 +13,7 @@
  * this software and related documentation outside the terms of the EULA
  * is strictly prohibited.
  */
-#include "NewLoop.h"
+#include "0_NewLoop.h"
 ifstream inFile;
 std::string LaserFILE = "lambda_488/Measure/T_0/Z_0/laser_positions_";
 std::string endlaser = ".txt";

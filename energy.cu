@@ -5,7 +5,7 @@
  *      Author: gabriel
  */
 
-#include "NewLoop.h"
+#include "0_NewLoop.h"
 	__managed__ double Energy = 0.0f, absdiff = 0.0f;
 float EnergyCal(void) {
 	int it;

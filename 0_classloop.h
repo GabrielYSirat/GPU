@@ -1,5 +1,5 @@
 /*
- * classloop.h
+ * 0_classloop.h
  *
  *  Created on: Jul 6, 2017
  *      Author: gabriel
@@ -7,7 +7,7 @@
 
 #ifndef CLASSLOOP_H_
 #define CLASSLOOP_H_
-#include"constantLoop.h"
+#include "0_constantLoop.h"
 
 class COS {
 public:
@@ -92,6 +92,7 @@ public:
 	float MaxRfactor, MaxSimus, MaxData;
 	int step;
 	int *stepval;
+	int clockRate;
 
 };
 

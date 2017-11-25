@@ -1,5 +1,5 @@
 /*
- * NewLoop.h
+ * 0_Newloop.h
  *
  *  Created on: Apr 10, 2017
  *      Author: gabriel
@@ -30,12 +30,17 @@
 using namespace tinyxml2;
 using namespace std;
 
-#include "classloop.h"
+#include "0_classloop.h"
+#include "0_constantLoop.h"
 
 //#define SINGLETILE
 #define DOUBLETILE
 #define min(a,b) (a) < (b) ? (a) : (b)
 #define max(a,b) (a) > (b) ? (a) : (b)
+
+/*************************FILES*****************/
+extern ofstream verbosefile;
+
 
 /*****************DATA FILES *******************/
 extern std::string resourcesdirectory, filename, MIFILE, PSFFILE, DISTRIBFILE;

@@ -5,7 +5,11 @@
  *      Author: gabriel Sirat
  */
 
-#include "NewLoop.h"
+#include "0_NewLoop.h"
+#include <iostream>
+#include <fstream>
+	  ofstream verbosefile;
+
 
 
 /************* Classes and structures*******/
@@ -13,7 +17,6 @@ GPU_init TA;
 COS OFSCAL;
 Ctile tile;
 devicedata onhost;
-const char* fname = "verbose.txt";
 int clockRate, devID, stepval = 0; // in KHz
 
 
@@ -22,10 +25,8 @@ int clockRate, devID, stepval = 0; // in KHz
 ////////////////////////////////////////////////////////////////////////////////
 int main(int argc, char **argv) {
 
-	  FILE* f = fopen(fname, "w");
-fprintf(f, "test\n\n");
-fclose(f);
-	/***********initialization of  parameters step 0 *******/
+	  verbosefile.open ("results/verbosefile.txt");
+	  /***********initialization of  parameters step 0 *******/
 	bool InitParameters = initparameters(argc, argv);
 	stepinit(InitParameters, stepval);
 
@@ -95,6 +96,8 @@ Energy_global = EnergyCal();
 
 	bool testinspect = biginspect(stepval);
 	stepinit(testinspect, stepval);
+	verbosefile.close();
+
 
 }
 

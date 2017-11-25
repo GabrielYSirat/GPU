@@ -4,7 +4,7 @@
  *  Created on: Jul 6, 2017
  *      Author: gabriel
  */
-#include "NewLoop.h"
+#include "0_NewLoop.h"
 bool biglaunch() {
 
 	std::cout << "TESTS RETURN:  " << "initialization:  " << Stepdiag[0] << ";  pPSF:  " << Stepdiag[1];
@@ -45,6 +45,7 @@ bool biglaunch() {
 	onhost.minLaserintile = tile.minLaserintile;
 	onhost.Nb_LaserPositions = TA.Nb_LaserPositions;
 	onhost.expectedmax = tile.expectedmax;
+	onhost.clockRate = clockRate;
 	std::cout << "HOST: \u24F3  ";
 	for(int itile = 0; itile < tile.NbTile; itile ++) {
 		onhost.NbLaserpertile[itile] = tile.NbLaserpertile[itile];

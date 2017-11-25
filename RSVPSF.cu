@@ -5,7 +5,7 @@
  *      Author: gabriel
  */
 
-#include "NewLoop.h"
+#include "0_NewLoop.h"
 string PSFDATA = "/lambda_488/Calib/system_PSF.bin";
 double *double_PSF;			// on host
 float MaxPSF=0.0f, SumPSF = 0.0f;
@@ -41,8 +41,11 @@ void PSFprepare(void) {
 					MaxPSF = *(original_PSF + i); // sanity check, check max
 	}
 
-	printf(" PSF \u24F5  Nb_Rows: %d Nb_Cols_PSF %d size pPSF = %d max %g Sum %g \n",
-			TA.PSF_Rows, TA.Nb_Cols_PSF, size, MaxPSF,SumPSF );
+	verbosefile << " PSF \u24F5  Nb_Rows: " << TA.PSF_Rows << " Nb_Cols " << TA.Nb_Cols_PSF;
+	verbosefile << " size " << size << " Max: " << MaxPSF << " Sum " << SumPSF << std::endl;
+	std::cout << " PSF \u24F5  Nb_Rows: " << TA.PSF_Rows << " Nb_Cols " << TA.Nb_Cols_PSF;
+	std::cout << " size " << size << " Max: " << MaxPSF << " Sum " << SumPSF << std::endl;
+
 	tile.expectedmax = MaxPSF; // to be updated later on
 
 	//    cudaMemcpyToSymbol(PSFARRAY, original_PSF, PSFZOOMSQUARE*sizeof(float));
@@ -52,7 +55,7 @@ void PSFprepare(void) {
 	/////////////////////////////////
 	for (int i = 0; i <= TA.PSF_size; i++)
 		i_PSF[i] = 255.0*original_PSF[i]/MaxPSF;			// image value
-	printf(" PSF \u24F5 function read: Path to pPSF original %s .....\n", PSFImagefile);
+//	fprintf(verbosefile," PSF \u24F5 function read: Path to pPSF original %s .....\n", PSFImagefile);
 
 	sdkSavePGM(PSFImagefile, i_PSF, TA.PSF_Rows, TA.Nb_Cols_PSF);
 	free(i_PSF);
@@ -80,7 +83,7 @@ bool PSFvalidateonhost(void) {
     		Sum3PSF += *(PSF_valid + row*TA.Nb_Cols_PSF + col);
      		if (max3PSF < *(PSF_valid + row*TA.Nb_Cols_PSF + col)) max3PSF = *(PSF_valid + row*TA.Nb_Cols_PSF + col);
     		}
-	printf(" PSF \u24F5 Sum3PSF  %f max3PSF %f ", Sum3PSF, max3PSF);
+//	fprintf(verbosefile," PSF \u24F5 Sum3PSF  %f max3PSF %f ", Sum3PSF, max3PSF);
 
 	// write pPSF image validation to disk
 	/////////////////////////////////
@@ -88,15 +91,15 @@ bool PSFvalidateonhost(void) {
 	for (int i = 0; i <= TA.PSF_size; i++) {
 		MaxPSF = max(MaxPSF, PSF_valid[i]); // sanity check, check max
 	}
-	cout << "max device = (3 digits) " << MaxPSF << "\n";
+
 	for (int i = 0; i <= TA.PSF_size; i++)
 		i_PSF[i] = 255.0*PSF_valid[i]/MaxPSF;			// Validation image value
 
-	printf(" PSF \u24F5 Path to pPSF validation %s .....", PSFValidationimage);
+//	fprintf(verbosefile," PSF \u24F5 Path to pPSF validation %s .....", PSFValidationimage);
 
 	    	sdkSavePGM(PSFValidationimage, i_PSF, TA.PSF_Rows, TA.Nb_Cols_PSF);
 
-	        printf(" PSF \u24F5 Comparing files ... \n");
+//	        fprintf(verbosefile," PSF \u24F5 Comparing files ... \n");
 	    	testPSF = compareData(PSF_valid,
 	                                 original_PSF,
 	                                 TA.Nb_Cols_PSF*TA.PSF_Rows,

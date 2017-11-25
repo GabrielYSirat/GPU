@@ -1,4 +1,4 @@
-#include "NewLoop.h"
+#include "0_NewLoop.h"
 
 using namespace tinyxml2;
 using namespace std;
@@ -41,7 +41,7 @@ __global__ void PSFvalidateondevice(int Nb_Rows_PSF, int Nb_Cols_PSF) {
 	float tempv;
 	time_start = clock64();
 	time_init = clock64();
-	printf(" PSF \u2776 test: Rows: %d cols: %d \n", Nb_Rows_PSF, Nb_Cols_PSF);
+	printf(" PSF \u2776 device: Rows: %d cols: %d ...", Nb_Rows_PSF, Nb_Cols_PSF);
 // calculate pPSF on device Sum and max
 	for (int row = 0; row < Nb_Rows_PSF; row++)
 		for (int col = 0; col < Nb_Cols_PSF; col++) {
@@ -50,7 +50,7 @@ __global__ void PSFvalidateondevice(int Nb_Rows_PSF, int Nb_Cols_PSF) {
 			PSFARRAY[tempp] = *(original_PSF + tempp);
 			if (VERBOSEINITLOOP)
 				if ((row == (Nb_Rows_PSF / 4)) && !(col % 8))
-					printf(" PSF \u2776 device: tempv,%g row %d column %d, tempp %d\n", tempv, row, col, tempp);
+					printf(" PSF \u2776  VERBOSE tempv,%g row %d column %d, tempp %d\n", tempv, row, col, tempp);
 			*(PSF_valid + tempp) = tempv;
 			Sum2PSF += *(PSF_valid + tempp);
 			SumPSF += PSFARRAY[tempp];
@@ -60,7 +60,7 @@ __global__ void PSFvalidateondevice(int Nb_Rows_PSF, int Nb_Cols_PSF) {
 				max2PSF = *(PSF_valid + row * Nb_Cols_PSF + col);
 		}
 	if ((threadIdx.x == 0) && (threadIdx.y == 0))
-		printf(" PSF \u2776 device: SumPSF %f Sum2PSF %f maxPSF %f max2PSF %f ...  \n", SumPSF, Sum2PSF, maxPSF,
+		printf("  SumPSF %f Sum2PSF %f maxPSF %f max2PSF %f ...  \n", SumPSF, Sum2PSF, maxPSF,
 				max2PSF);
 	timer = clock64();
 }

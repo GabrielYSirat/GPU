@@ -5,7 +5,7 @@
  *      Author: gabriel
  */
 
-#include"NewLoop.h"
+#include"0_NewLoop.h"
 string stepname[] = {"initialization  ", "PSF   ", "distrib  ",
 		"Laser positions", "Measurement ROI  ", "microimages", " laser in tile ", "microimages in tile",  "reconstruction  ",
 		"scratchpad    ", "bigLoop" , "end bigloop", "bigloop results"};
@@ -90,7 +90,7 @@ Timestep[stepval] = ((float) (timer - time_start)) / clockRate;
 	cout << "END STEP	*******end of step  " << stepval << "  " << stepname[stepval] << "**********************************" << endl << endl;
 	stepval++;
 	if(stepval != 9)
-	cout << "STEP	*************  step " << stepval << "  " << stepname[stepval] << "*************" << endl;
+	cout << "START STEP	*************  step " << stepval << "  " << stepname[stepval] << "*************" << endl;
 
 }
 

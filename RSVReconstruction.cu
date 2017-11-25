@@ -4,7 +4,7 @@
  *  Created on: Jul 8, 2017
  *      Author: gabriel
  */
-#include "NewLoop.h"
+#include "0_NewLoop.h"
 std::string filenameimage;
 std::string RECFILE = "image_iteration_0__63x114_4em";
 std::string endREC = ".raw";
