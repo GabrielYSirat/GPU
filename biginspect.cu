@@ -21,11 +21,11 @@ bool biginspect(int stepval) {
 
 	std::cout << "HOST: \u24F3 *************************BigLoop terminated ***************************" << endl;
 	std::cout << "HOST: \u24F3 ***********************************************************************" << endl << endl;
-	unsigned char *i_Scratchpad = (unsigned char *) calloc(XSCRATCH * YSCRATCH * tile.NbTile, sizeof(unsigned char)); // on host
+	unsigned char *i_Scratchpad = (unsigned char *) calloc(XSCRATCH * YSCRATCH * tile.NbTileXY, sizeof(unsigned char)); // on host
 	const char * ScratchpadVal2Imagefile = "results/ScratchpadVal2Imagefile.pgm";
 
-	for (int arg = 0; arg < ASCRATCH * tile.NbTile; arg++)		SumScratchpad += *(val_scratchpad + arg);
-	for (int arg = 0; arg < ASCRATCH * tile.NbTile; arg++)   	MaxScratchpad = max(MaxScratchpad, *(val_scratchpad + arg));
+	for (int arg = 0; arg < ASCRATCH * tile.NbTileXY; arg++)		SumScratchpad += *(val_scratchpad + arg);
+	for (int arg = 0; arg < ASCRATCH * tile.NbTileXY; arg++)   	MaxScratchpad = max(MaxScratchpad, *(val_scratchpad + arg));
 	for (int ity = 0; ity < tile.NbTiley; ity++)
 		for (int itx = 0; itx < tile.NbTilex; itx++) {
 			int it = itx + ity * tile.NbTilex;

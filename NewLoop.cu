@@ -232,10 +232,10 @@ __global__ void Recvalidate_device(int Nb_Rows_reconstruction, int Nb_Cols_recon
 __global__ void Scratchvalidate_device(int NbTilex, int NbTiley, int dels) {
 	float Sumscratchpad = 0.0f, maxscratchpad = 0.0f;
 	float tempv;
-	int NbTile = NbTilex * NbTiley;
+	int NbTileXY = NbTilex * NbTiley; // local copy ??
 // calculate scratchpad Sum and max
 	time_start = clock64();
-	for (int tempp = 0; tempp < ASCRATCH * NbTile; tempp++) {
+	for (int tempp = 0; tempp < ASCRATCH * NbTileXY; tempp++) {
 		tempv = *(scratchpad_matrix + tempp);
 		*(val_scratchpad + tempp) = tempv;
 		Sumscratchpad += *(val_scratchpad + tempp);

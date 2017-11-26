@@ -126,10 +126,10 @@ void Scratchprepare(void) {
 	const char * rectilereconstructionfile = "results/tilerec.pgm";
 	const char * scratchpadImagefile = "results/scratchpad.pgm";
 
-	float *tile_rec = (float*) std::calloc(ATile * tile.NbTile , sizeof(float)); 					// on host
-	unsigned char *i_tilerec = (unsigned char *) calloc(ATile * tile.NbTile, sizeof(unsigned char));// on host
-	cudaMallocManaged(&scratchpad_matrix, tile.NbTile * ASCRATCH * sizeof(float));
-	unsigned char *i_scratchpad = (unsigned char *) calloc(tile.NbTile * XSCRATCH * YSCRATCH, sizeof(unsigned char)); // on host
+	float *tile_rec = (float*) std::calloc(ATile * tile.NbTileXY , sizeof(float)); 					// on host
+	unsigned char *i_tilerec = (unsigned char *) calloc(ATile * tile.NbTileXY, sizeof(unsigned char));// on host
+	cudaMallocManaged(&scratchpad_matrix, tile.NbTileXY * ASCRATCH * sizeof(float));
+	unsigned char *i_scratchpad = (unsigned char *) calloc(tile.NbTileXY * XSCRATCH * YSCRATCH, sizeof(unsigned char)); // on host
 
 /***********************************TILE RECONSTRUCTION ************************/
 	printf("TILE \u24FC Path to tile reconstruction  %s .....", rectilereconstructionfile);
@@ -192,7 +192,7 @@ void Scratchprepare(void) {
 	printf("SCRATCHPAD \u24FC :Image of scratchpad matrix  %s .....\n", scratchpadImagefile);
 	printf("SCRATCHPAD \u24FC : Max Scratchpad %f Sum scratchpad %f \n", Maxscratch, Sumscratch);
 	printf("SCRATCHPAD \u24FC : size of one SCRATCHPAD 2D %d of full SCRATCHPAD 2D %d\n", XSCRATCH * YSCRATCH,
-			XSCRATCH * YSCRATCH * tile.NbTile);
+			XSCRATCH * YSCRATCH * tile.NbTileXY);
 	sdkSavePGM(scratchpadImagefile, i_scratchpad, XSCRATCH * tile.NbTilex, YSCRATCH * tile.NbTiley);
 	free(i_scratchpad);
 
@@ -203,9 +203,9 @@ bool Scratchvalidate_host(void) {
 	float MaxScratchpad = 0.0f, Sum3Scratchpad = 0.0f, max3Scratchpad = 0.0f;
 
 	// write Scratchpad in memory and validate
-	unsigned char *i_Scratchpad = (unsigned char *) calloc(tile.NbTile * XSCRATCH * YSCRATCH, sizeof(unsigned char)); // on host
-	cudaMallocManaged(&val_scratchpad, tile.NbTile * ASCRATCH * sizeof(float));
-	cudaMallocManaged(&val2_scratchpad, tile.NbTile * ASCRATCH * sizeof(float));
+	unsigned char *i_Scratchpad = (unsigned char *) calloc(tile.NbTileXY * XSCRATCH * YSCRATCH, sizeof(unsigned char)); // on host
+	cudaMallocManaged(&val_scratchpad, tile.NbTileXY * ASCRATCH * sizeof(float));
+	cudaMallocManaged(&val2_scratchpad, tile.NbTileXY * ASCRATCH * sizeof(float));
 	const char * ScratchpadValImagefile = "results/ScratchpadValImagefile.pgm";
 
 	dim3 dimBlock(1, 1, 1);
@@ -214,7 +214,7 @@ bool Scratchvalidate_host(void) {
 	Scratchvalidate_device<<<dimGrid, dimBlock, 0>>>(tile.NbTilex,tile.NbTiley, lostpixels);
 	cudaDeviceSynchronize();
 
-	for (int arg = 0; arg < ASCRATCH*tile.NbTile; arg++) {
+	for (int arg = 0; arg < ASCRATCH*tile.NbTileXY; arg++) {
 			Sum3Scratchpad += *(val_scratchpad + arg);
 			max3Scratchpad  = max(max3Scratchpad, *(val_scratchpad + arg));
 		}
@@ -225,7 +225,7 @@ bool Scratchvalidate_host(void) {
 	MaxScratchpad = 0.0f;
 
 	for (int idistrib = 0; idistrib < Ndistrib; idistrib++)
-		for (int i = 0; i < ASCRATCH *tile.NbTile; i++) {
+		for (int i = 0; i < ASCRATCH *tile.NbTileXY; i++) {
 			MaxScratchpad = max(MaxScratchpad, val_scratchpad[i]); // sanity check, check max
 		}
 	std::cout << "max device =" << MaxScratchpad << "\n";
@@ -246,9 +246,9 @@ bool Scratchvalidate_host(void) {
 	sdkSavePGM(ScratchpadValImagefile, i_Scratchpad, XSCRATCH*tile.NbTilex, YSCRATCH*tile.NbTiley);
 
 	printf("SCRATCHPAD \u24FC Comparing files ... ");
-	testScratchpad = compareData(val_scratchpad, scratchpad_matrix, ASCRATCH *tile.NbTile,MAX_EPSILON_ERROR, 0.15f);
+	testScratchpad = compareData(val_scratchpad, scratchpad_matrix, ASCRATCH *tile.NbTileXY,MAX_EPSILON_ERROR, 0.15f);
 
-	for (int jScratchpad = 0; jScratchpad < ASCRATCH *tile.NbTile; jScratchpad++) {
+	for (int jScratchpad = 0; jScratchpad < ASCRATCH *tile.NbTileXY; jScratchpad++) {
 		Sumdel[8] += fabsf(*(val_scratchpad + jScratchpad) - *(scratchpad_matrix + jScratchpad));
 	}
 	printf("Sumdel[8] %f  ", Sumdel[8]);

@@ -48,18 +48,14 @@ void PSFprepare(void) {
 
 	tile.expectedmax = MaxPSF; // to be updated later on
 
-	//    cudaMemcpyToSymbol(PSFARRAY, original_PSF, PSFZOOMSQUARE*sizeof(float));
-
-
 	// write pPSF original image to disk
 	/////////////////////////////////
 	for (int i = 0; i <= TA.PSF_size; i++)
 		i_PSF[i] = 255.0*original_PSF[i]/MaxPSF;			// image value
-//	fprintf(verbosefile," PSF \u24F5 function read: Path to pPSF original %s .....\n", PSFImagefile);
+	verbosefile << " PSF \u24F5 function read: Path to pPSF original" << PSFImagefile << endl;
 
 	sdkSavePGM(PSFImagefile, i_PSF, TA.PSF_Rows, TA.Nb_Cols_PSF);
 	free(i_PSF);
-
  }
 
 
@@ -78,12 +74,11 @@ bool PSFvalidateonhost(void) {
     cudaDeviceSynchronize();
 
    for(int row = 0; row < TA.PSF_Rows; row++)
-    	for( int col = 0; col < TA.Nb_Cols_PSF; col++)
-    		{
+    	for( int col = 0; col < TA.Nb_Cols_PSF; col++){
     		Sum3PSF += *(PSF_valid + row*TA.Nb_Cols_PSF + col);
-     		if (max3PSF < *(PSF_valid + row*TA.Nb_Cols_PSF + col)) max3PSF = *(PSF_valid + row*TA.Nb_Cols_PSF + col);
+     		max3PSF = max(*(PSF_valid + row*TA.Nb_Cols_PSF + col), max3PSF);
     		}
-//	fprintf(verbosefile," PSF \u24F5 Sum3PSF  %f max3PSF %f ", Sum3PSF, max3PSF);
+	verbosefile << " PSF \u24F5 Sum3PSF " << Sum3PSF << " max3PSF " << max3PSF << endl;
 
 	// write pPSF image validation to disk
 	/////////////////////////////////
@@ -95,11 +90,11 @@ bool PSFvalidateonhost(void) {
 	for (int i = 0; i <= TA.PSF_size; i++)
 		i_PSF[i] = 255.0*PSF_valid[i]/MaxPSF;			// Validation image value
 
-//	fprintf(verbosefile," PSF \u24F5 Path to pPSF validation %s .....", PSFValidationimage);
+	verbosefile << " PSF \u24F5 Path to pPSF validation ..." << PSFValidationimage << endl;
 
 	    	sdkSavePGM(PSFValidationimage, i_PSF, TA.PSF_Rows, TA.Nb_Cols_PSF);
 
-//	        fprintf(verbosefile," PSF \u24F5 Comparing files ... \n");
+	    	verbosefile << " PSF \u24F5  Comparing files ... \n";
 	    	testPSF = compareData(PSF_valid,
 	                                 original_PSF,
 	                                 TA.Nb_Cols_PSF*TA.PSF_Rows,

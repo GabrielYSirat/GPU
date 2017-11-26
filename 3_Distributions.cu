@@ -19,15 +19,15 @@ void readstoredistrib(void) {
 	cudaMallocManaged(&original_distrib, ADistrib * Ndistrib * sizeof(float));
 	cudaMallocManaged(&test2_distrib, ADistrib * TA.MP * sizeof(float));
 	cudaMallocManaged(&double_distrib, YDistrib_extended * XDistrib * Ndistrib * sizeof(double));
-
+	verbosefile << endl ;
 	for(int idistrib = 0; idistrib < Ndistrib; idistrib++)
 	{
 	std::string beadraw = resourcesdirectory + DISDATA + std::to_string(idistrib+1) + enddistrib;
-	printf("DISTRIBUTIONS \u2461: data file %s\n",beadraw.c_str()); //read distrib bin file
+	verbosefile << "DISTRIBUTIONS \u2461: data file " << beadraw.c_str() << endl; //read distrib bin file
 		std::ifstream distribile(beadraw.c_str(), ios::in | ios::binary | ios::ate);
 	size = (distribile.tellg()); // the data is stored in doubles of 8 bytes in the file
 	size -= byte_skipped;  				// removes the "bytes skipped"
-	cout << "DISTRIBUTIONS \u2461 function read: distribution # " << idistrib << " size distrib = "<< size << endl;
+	verbosefile << "DISTRIBUTIONS \u2461 function read: distribution # " << idistrib << " size distrib = "<< size << endl;
 	memblock = new char[size];
 	distribile.seekg(byte_skipped, ios::beg); // bytes skipped are offset
 	distribile.read(memblock, size);
@@ -46,9 +46,7 @@ void readstoredistrib(void) {
 	/////////////////////////////////
 	for (int i = 0; i < YDistrib_extended * XDistrib * Ndistrib; i++)
 		ii_distrib[i] = 255.0 * original_distrib[i] / Maxdistrib;// image value
-	printf(
-			"DISTRIBUTIONS \u2461 function read: Path to distrib original %s .....\n",
-			distribImagefile);
+	verbosefile << "DISTRIBUTIONS \u2461 function read: Path to distrib original " << distribImagefile << endl;
 
 	sdkSavePGM(distribImagefile, ii_distrib, XDistrib, YDistrib_extended * Ndistrib);
 
@@ -79,11 +77,11 @@ bool Distribvalidate_host(void) {
 	for (int i = 0; i < YDistrib_extended * XDistrib * Ndistrib; i++)
 		ii_distrib[i] = (255.0 * val_distrib[i]) / max3distrib;// Validation image value
 
-	printf("DISTRIBUTIONS \u2461 Path to distrib validation %s .....\n", distribValImagefile);
+	verbosefile << "DISTRIBUTIONS \u2461 Path to distrib validation " << distribValImagefile << endl;
 
 	sdkSavePGM(distribValImagefile, ii_distrib, XDistrib, YDistrib_extended * Ndistrib);
 
-	printf("DISTRIBUTIONS \u2461 Comparing files ... ");
+	verbosefile << "DISTRIBUTIONS \u2461 Comparing files ... ";
 	testdistrib = compareData(val_distrib, original_distrib,
 			XDistrib * YDistrib_extended * Ndistrib,
 			MAX_EPSILON_ERROR, 0.15f);

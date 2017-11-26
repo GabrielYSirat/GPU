@@ -34,7 +34,8 @@ bool biglaunch() {
 	std::cout << "******************************************************************" << endl;
 	onhost.NbTilex = tile.NbTilex;
 	onhost.NbTiley = tile.NbTiley;
-	onhost.NbTile = tile.NbTile;
+	onhost.NbTileXY = tile.NbTileXY;
+	onhost.NbTileXYD = tile.NbTileXYD;
 	onhost.NbAggregx = tile.NbAggregx;
 	onhost.NbAggregy = tile.NbAggregy;
 	onhost.tileperaggregatex = tile.tileperaggregatex;
@@ -47,15 +48,15 @@ bool biglaunch() {
 	onhost.expectedmax = tile.expectedmax;
 	onhost.clockRate = clockRate;
 	std::cout << "HOST: \u24F3  ";
-	for(int itile = 0; itile < tile.NbTile; itile ++) {
+	for(int itile = 0; itile < tile.NbTileXYD; itile ++) {
 		onhost.NbLaserpertile[itile] = tile.NbLaserpertile[itile];
 		printf("tile n° %d #laser %d .. ", itile, onhost.NbLaserpertile[itile]);
 	}
 	std::cout << endl;
 //	onhost.imalimitpertile = onhost.Nb_LaserPositions - (onhost.NbTile - 1) * onhost.maxLaserintile;
 	onhost.Bconstant = tile.Bconstant;
-//	printf("Number of laser positions %d onhost.NbTile %d imalimitpertile %d onhost.maxLaserintile %d\n",
-//			onhost.Nb_LaserPositions, onhost.NbTile, onhost.imalimitpertile, onhost.maxLaserintile);
+//	printf("Number of laser positions %d onhost.NbTileXY %d imalimitpertile %d onhost.maxLaserintile %d\n",
+//			onhost.Nb_LaserPositions, onhost.NbTileXY, onhost.imalimitpertile, onhost.maxLaserintile);
 	bool testbig = FALSE;
 
 	dim3 dimBlock(tile.tileperaggregatex, tile.tileperaggregatey, Ndistrib);

@@ -61,7 +61,7 @@ public:
 class Ctile {
 public:
 
-	int NbTilex, NbTiley, NbTile;
+	int NbTilex, NbTiley, NbTileXY, NbTileXYD;
 	int NbAggregx, NbAggregy;
 	int NbTile0x, NbTile0y;
 	int tileperaggregatex, tileperaggregatey;
@@ -80,7 +80,7 @@ public:
 
 class devicedata {
 public:
-	int NbTilex, NbTiley, NbTile;
+	int NbTilex, NbTiley, NbTileXY, NbTileXYD;
 	int NbAggregx, NbAggregy;
 	int tileperaggregatex, tileperaggregatey;
 	int maxLaserintile, minLaserintile, blocks;

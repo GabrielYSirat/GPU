@@ -1,1 +1,94 @@
- PSF ⓵  Nb_Rows: 27 Nb_Cols 27 size 5832 Max: 0.0146406 Sum 1.00073
+MAIN PROGRAM  ⓪ NewLoop start ...
+MAIN PROGRAM  ⓪ ARG: EXE arguments number argc: 8
+MAIN PROGRAM  ⓪ command line parameters: ******************************************
+MAIN PROGRAM  ⓪ ARG: argv[1]: working directory: /home/gabriel/cuda-workspace2/NewGPU/resources/1039/
+MAIN PROGRAM  ⓪ ARG: argv[2]: pPSF: 9
+MAIN PROGRAM  ⓪ ARG: argv[3]: Npixel: 11
+MAIN PROGRAM  ⓪ ARG: argv[4]: RDISTRIB: 15
+MAIN PROGRAM  ⓪ ARG: argv[5]: pZOOM: 3
+MAIN PROGRAM  ⓪ ARG: argv[6]: NDISTRIB: 2
+MAIN PROGRAM  ⓪ ARG: argv[7]: MI directory: /home/gabriel/cuda-workspace2/NewGPU/resources/1039/lambda_488/Measure/T_0/Z_0/DATA
+MAIN PROGRAM  ⓪ command line parameters: ******************************************
+
+************** DATA: PARAMETERS OF MEASUREMENT ************************************* INIT PROG ⓪ BASIC  : THreadsRatio 4 NThreads 1280 Npixel 11 pZOOM 3 pPSF 9 RDISTRIB 15
+ INIT PROG ⓪ BASIC  : YTile 57 YSCRATCH 122 dySCR 58
+INIT PROG ⓪ PIXEL  : Npixel 11 PixZoom 33 PixZoomo2 16
+INIT PROG ⓪ PIXEL  : lost lines 6 additional lines at the end of microimage
+
+INIT PROG ⓪ pPSF   : pPSF 9 PSFZoom 27 PSFZoomo2 13
+************** DATA: PARAMETERS OF MEASUREMENT *************************************
+
+ INIT PROG ⏳ Data parameters in device memory ...
+ INIT PROG ⓪ reconstruction xml: /home/gabriel/cuda-workspace2/NewGPU/resources/1039/reconstruction.xml
+ INIT PROG ⓪ reconstruction from tiles: Cols 42 size 114 size 4788 PSF ⓵  Nb_Rows: 27 Nb_Cols 27 size 5832 Max: 0.0146406 Sum 1.00073
+ PSF ⓵ function read: Path to pPSF originalresults/PSFImagefile.pgm
+ PSF ⓵ Sum3PSF 1.00073 max3PSF 0.0146406
+ PSF ⓵ Path to pPSF validation ...results/PSFValidationimage.pgm
+ PSF ⓵  Comparing files ... 
+
+DISTRIBUTIONS ②: data file /home/gabriel/cuda-workspace2/NewGPU/resources/1039//lambda_488/Calib/distribution1.bin
+DISTRIBUTIONS ② function read: distribution # 0 size distrib = 27848
+DISTRIBUTIONS ②: data file /home/gabriel/cuda-workspace2/NewGPU/resources/1039//lambda_488/Calib/distribution2.bin
+DISTRIBUTIONS ② function read: distribution # 1 size distrib = 27848
+DISTRIBUTIONS ② function read: Path to distrib original results/distribImagefile.pgm
+DISTRIBUTIONS ② Path to distrib validation results/distribValImagefile.pgm
+DISTRIBUTIONS ② Comparing files ...  Laser ③ Laser position %d  Laser position x: %f  y: %f
+0  5.4  5.4
+Laser ③ Position in scratchpad38  45
+ Laser ③ ***************SCRATCHPAD FULL OFFSET 2963 **************
+ Laser ③ ----------------------------------------------------------------------------------------------------
+ Laser ③ Laser position %d  Laser position x: %f  y: %f
+1  5.4  15.4
+Laser ③ Position in scratchpad38  75
+ Laser ③ ***************SCRATCHPAD FULL OFFSET 4913 **************
+ Laser ③ ----------------------------------------------------------------------------------------------------
+ Laser ③ Laser position %d  Laser position x: %f  y: %f
+2  5.4  25.4
+Laser ③ Position in scratchpad38  48
+ Laser ③ ***************SCRATCHPAD FULL OFFSET 3158 **************
+ Laser ③ ----------------------------------------------------------------------------------------------------
+ Laser ③ Laser position %d  Laser position x: %f  y: %f
+3  15.4  5.4
+Laser ③ Position in scratchpad26  45
+ Laser ③ ***************SCRATCHPAD FULL OFFSET 2951 **************
+ Laser ③ ----------------------------------------------------------------------------------------------------
+ Laser ③ Laser position %d  Laser position x: %f  y: %f
+4  15.4  15.4
+Laser ③ Position in scratchpad26  75
+ Laser ③ ***************SCRATCHPAD FULL OFFSET 4901 **************
+ Laser ③ ----------------------------------------------------------------------------------------------------
+ Laser ③ Laser position %d  Laser position x: %f  y: %f
+5  15.4  25.4
+Laser ③ Position in scratchpad26  48
+ Laser ③ ***************SCRATCHPAD FULL OFFSET 3146 **************
+ Laser ③ ----------------------------------------------------------------------------------------------------
+ Laser ③ Laser position %d  Laser position x: %f  y: %f
+6  5.4  5.4
+Laser ③ Position in scratchpad38  45
+ Laser ③ ***************SCRATCHPAD FULL OFFSET 2963 **************
+ Laser ③ ----------------------------------------------------------------------------------------------------
+ Laser ③ Laser position %d  Laser position x: %f  y: %f
+7  5.4  15.4
+Laser ③ Position in scratchpad38  75
+ Laser ③ ***************SCRATCHPAD FULL OFFSET 4913 **************
+ Laser ③ ----------------------------------------------------------------------------------------------------
+ Laser ③ Laser position %d  Laser position x: %f  y: %f
+8  5.4  25.4
+Laser ③ Position in scratchpad38  48
+ Laser ③ ***************SCRATCHPAD FULL OFFSET 3158 **************
+ Laser ③ ----------------------------------------------------------------------------------------------------
+ Laser ③ Laser position %d  Laser position x: %f  y: %f
+9  15.4  5.4
+Laser ③ Position in scratchpad26  45
+ Laser ③ ***************SCRATCHPAD FULL OFFSET 2951 **************
+ Laser ③ ----------------------------------------------------------------------------------------------------
+ Laser ③ Laser position %d  Laser position x: %f  y: %f
+10  15.4  15.4
+Laser ③ Position in scratchpad26  75
+ Laser ③ ***************SCRATCHPAD FULL OFFSET 4901 **************
+ Laser ③ ----------------------------------------------------------------------------------------------------
+ Laser ③ Laser position %d  Laser position x: %f  y: %f
+11  15.4  25.4
+Laser ③ Position in scratchpad26  48
+ Laser ③ ***************SCRATCHPAD FULL OFFSET 3146 **************
+ Laser ③ ----------------------------------------------------------------------------------------------------

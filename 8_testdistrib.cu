@@ -1,7 +1,7 @@
 #ifdef TESTDISTRIBDEVICE
 	DD.step++;
 	for (int idistrub = ithreads; idistrub < ADistrib; idistrub += THREADSVAL)
-			*(test2_distrib + idistrub + itc * ADistrib) = *(shared_distrib + idistrub);
+			*(test2_distrib + idistrub + itb * ADistrib) = *(shared_distrib + idistrub);
 	timer = clock64();
 	if (!iprint)
 		printf( "DEVICE: \u23f1**DEVICE:  step %d   TIMING (msec) ** processing  %f from start  %g  total %g \n",

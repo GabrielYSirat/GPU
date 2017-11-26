@@ -155,7 +155,7 @@ float displaydata( float * datavalues, int stepval)
 
 		printf("HOST: %s %d results %s in %s:: %s .....\n",
 			 stepnumber.c_str(), stepval, dataliteral.c_str(), callprogram.c_str(),DataFile);
-	sdkSavePGM(DataFile, i_data,tile.maxLaserintile *PixZoom , tile.NbTile * PixZoom);
+	sdkSavePGM(DataFile, i_data,tile.maxLaserintile *PixZoom , tile.NbTileXYD * PixZoom);
 	printf("HOST: %s %d ******************************************\n\n",
 			 stepnumber.c_str(), stepval);
 }

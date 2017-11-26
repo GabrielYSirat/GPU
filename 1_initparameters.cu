@@ -36,7 +36,7 @@ bool initparameters( int argc, char **argv) {
 
 	// acquire information on the CUDA device: name and number of multiprocessors
 	devID = gpuDeviceInit(devID);
-	std::cout << "MAIN PROGRAM  \u24EA NewLoop start ...\n";
+	verbosefile << "MAIN PROGRAM  \u24EA NewLoop start ...\n";
 	if (devID < 0) {
 		printf("exiting...\n");
 		exit(EXIT_FAILURE);
@@ -60,17 +60,17 @@ bool initparameters( int argc, char **argv) {
 	MIFILE = argv[7];
 	// to read the values in the program and to add tests
 
-	std::cout << "MAIN PROGRAM  \u24EA ARG: EXE arguments number argc: " << argc << endl;
-	std::cout << "MAIN PROGRAM  \u24EA command line parameters: " << "******************************************"
+	verbosefile << "MAIN PROGRAM  \u24EA ARG: EXE arguments number argc: " << argc << endl;
+	verbosefile << "MAIN PROGRAM  \u24EA command line parameters: " << "******************************************"
 			<< endl;
-	std::cout << "MAIN PROGRAM  \u24EA ARG: argv[1]: working directory: " << resourcesdirectory << endl;
-	std::cout << "MAIN PROGRAM  \u24EA ARG: argv[2]: pPSF: " << pPSF << endl;
-	std::cout << "MAIN PROGRAM  \u24EA ARG: argv[3]: Npixel: " << Npixel << endl;
-	std::cout << "MAIN PROGRAM  \u24EA ARG: argv[4]: RDISTRIB: " << RDISTRIB << endl;
-	std::cout << "MAIN PROGRAM  \u24EA ARG: argv[5]: pZOOM: " << pZOOM << endl;
-	std::cout << "MAIN PROGRAM  \u24EA ARG: argv[6]: NDISTRIB: " << Ndistrib << endl;
-	std::cout << "MAIN PROGRAM  \u24EA ARG: argv[7]: MI directory: " << resourcesdirectory + MIFILE << endl;
-	std::cout << "MAIN PROGRAM  \u24EA command line parameters: " << "******************************************"
+	verbosefile << "MAIN PROGRAM  \u24EA ARG: argv[1]: working directory: " << resourcesdirectory << endl;
+	verbosefile << "MAIN PROGRAM  \u24EA ARG: argv[2]: pPSF: " << pPSF << endl;
+	verbosefile << "MAIN PROGRAM  \u24EA ARG: argv[3]: Npixel: " << Npixel << endl;
+	verbosefile << "MAIN PROGRAM  \u24EA ARG: argv[4]: RDISTRIB: " << RDISTRIB << endl;
+	verbosefile << "MAIN PROGRAM  \u24EA ARG: argv[5]: pZOOM: " << pZOOM << endl;
+	verbosefile << "MAIN PROGRAM  \u24EA ARG: argv[6]: NDISTRIB: " << Ndistrib << endl;
+	verbosefile << "MAIN PROGRAM  \u24EA ARG: argv[7]: MI directory: " << resourcesdirectory + MIFILE << endl;
+	verbosefile << "MAIN PROGRAM  \u24EA command line parameters: " << "******************************************"
 			<< endl <<endl;
 
 	/** initialize the general parameters and the offset & scale parameters
@@ -107,29 +107,27 @@ bool initparameters( int argc, char **argv) {
 	ATile = XTile * YTile;										// Total size in pixels
 
 
-	printf("************** DATA: PARAMETERS OF MEASUREMENT *************************************\n"
-			" INIT PROG \u24EA BASIC  : THreadsRatio %d NThreads %d Npixel %d pZOOM %d, pPSF %d RDISTRIB %d\n", THreadsRatio, NThreads, Npixel, pZOOM,
-			pPSF, RDISTRIB);
-	printf(" INIT PROG \u24EA BASIC  : YTile %d YSCRATCH %d dySCR %d \n",YTile ,YSCRATCH, dySCR);
-
-	printf(" INIT PROG \u24EA PIXEL  : Npixel %d PixZoom %d PixZoomo2 %d\n", Npixel, PixZoom, PixZoomo2);
-	printf(" INIT PROG \u24EA PIXEL  : lost lines %d additional lines at the end of microimage\n", lostlines);
-
-	printf(" INIT PROG \u24EA pPSF   : pPSF %d PSFZoom %d PSFZoomo2 %d \n", pPSF, PSFZoom, PSFZoomo2);
+	verbosefile << "************** DATA: PARAMETERS OF MEASUREMENT *************************************";
+	verbosefile << " INIT PROG \u24EA BASIC  : THreadsRatio "<<  THreadsRatio << " NThreads " << NThreads;
+	verbosefile << " Npixel " << Npixel <<" pZOOM " << pZOOM << " pPSF " << pPSF << " RDISTRIB " << RDISTRIB << endl;
+	verbosefile << " INIT PROG \u24EA BASIC  : YTile " << YTile << " YSCRATCH " << YSCRATCH << " dySCR " << dySCR << endl;
+	verbosefile << "INIT PROG \u24EA PIXEL  : Npixel " << Npixel << " PixZoom " << PixZoom << " PixZoomo2 " << PixZoomo2 << endl;
+	verbosefile << "INIT PROG \u24EA PIXEL  : lost lines " << lostlines << " additional lines at the end of microimage\n" << endl;
+	verbosefile << "INIT PROG \u24EA pPSF   : pPSF " << pPSF << " PSFZoom " << PSFZoom << " PSFZoomo2 " << PSFZoomo2 << endl;
 	printf(" INIT PROG \u24EA DISTRIB: XDistrib %d YDistrib %d YDistrib_extended %d  Size in KBytes %g ADistrib %d RDISTRIB %d\n",
 											XDistrib, YDistrib, YDistrib_extended, ADistrib/1024., ADistrib, RDISTRIB);
 	printf(" INIT PROG \u24EA SCRATCH: XSCRATCH %d YSCRATCH %d dxSCR %d dySCR %d\n", XSCRATCH, YSCRATCH, dxSCR, dySCR);
 	printf(" INIT PROG \u24EA SCRATCH: DEL SCRATCH %d Additional pixels at start and end of SCRATCH\n", lostpixels);
 	printf(" INIT PROG \u24EA PARAMS :  Number of threads %d Threads per batch %d number of batch %d\n",
 	NThreads, THREADSVAL, THreadsRatio);
-	printf("************** DATA: PARAMETERS OF MEASUREMENT *************************************\n\n");
+	verbosefile << "************** DATA: PARAMETERS OF MEASUREMENT *************************************\n\n";
 
-	printf(" INIT PROG \u23f3 Data parameters in device memory ...\n");
+	verbosefile << " INIT PROG \u23f3 Data parameters in device memory ...\n";
 
 
 	/********************************Reconstruction parameters *************************/
 	filenamexml = resourcesdirectory + "reconstruction.xml";
-	printf(" INIT PROG \u24EA reconstruction xml:  %s \n", filenamexml.c_str());
+	verbosefile << " INIT PROG \u24EA reconstruction xml: " << filenamexml.c_str() << endl;
 	doc.LoadFile(filenamexml.c_str());
 
 	TA.Nb_Rows_reconstruction = atoi(doc.FirstChildElement("Image_Contents")
@@ -137,8 +135,8 @@ bool initparameters( int argc, char **argv) {
 	TA.Nb_Cols_reconstruction = atoi(doc.FirstChildElement("Image_Contents")
 			->FirstChildElement("Nb_Cols")->GetText());
 	TA.reconstruction_size = TA.Nb_Cols_reconstruction*TA.Nb_Rows_reconstruction;
-	printf(" INIT PROG \u24EA reconstruction from tiles: Cols %d Rows: %d size %d \n",
-				 TA.Nb_Cols_reconstruction, TA.Nb_Rows_reconstruction, TA.reconstruction_size);
+	verbosefile << " INIT PROG \u24EA reconstruction from tiles: Cols " << TA.Nb_Cols_reconstruction;
+	verbosefile << " size " << TA.Nb_Rows_reconstruction << " size " << TA.reconstruction_size;
 
 	/***********************Sizes in nm *************************************************/
 	filename = resourcesdirectory + "ACQ.xml";

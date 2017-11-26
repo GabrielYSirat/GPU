@@ -20,7 +20,7 @@ void readstoremicroimages(void) {
 	double_microimages = (double *) calloc(TA.Nb_LaserPositions * PixSquare, sizeof(double));
 	cudaMallocManaged(&original_microimages, TA.Nb_LaserPositions * PixSquare * sizeof(float));
 	cudaMallocManaged(&zoomed_microimages, TA.Nb_LaserPositions * PixZoomSquare * sizeof(float));
-	cudaMallocManaged(&MIintile, tile.NbTile * tile.maxLaserintile * PixZoomSquare * sizeof(float));
+	cudaMallocManaged(&MIintile, tile.NbTileXY * tile.maxLaserintile * PixZoomSquare * sizeof(float));
 	unsigned char *i_MIraw = (unsigned char*) calloc(Ndistrib*PixSquare * tile.maxlaserperdistribution, sizeof(char));
 
 	printf("MICROIMAGES \u2464 Total number of images for all distributions %d\n", TA.Nb_LaserPositions);

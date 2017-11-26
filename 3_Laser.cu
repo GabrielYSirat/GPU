@@ -14,30 +14,27 @@
  * is strictly prohibited.
  */
 #include "0_NewLoop.h"
-ifstream inFile;
+ifstream LaserFile;
 std::string LaserFILE = "lambda_488/Measure/T_0/Z_0/laser_positions_";
 std::string endlaser = ".txt";
-std::string ROIFILE = "lambda_488/Measure/T_0/Z_0/meas_ROIs_";
-std::string endROI = ".txt";
-int maxROIx = 0.0, minROIx = 1E6, maxROIy = 0.0, minROIy = 1E6;
-bool XY = FALSE;
 
 void readstoreLaserPositions(void) {
 	float laserval;
+	bool XY = FALSE;
 
 	TA.Nb_LaserPositions = 0;
 	tile.maxlaserperdistribution = 0;
 	for (int idistrib = 0; idistrib < Ndistrib; idistrib++)
 	{
 		filename = resourcesdirectory + LaserFILE + std::to_string(idistrib + 1) + endlaser;
-		inFile.open(filename);
-		if (!inFile) {
+		LaserFile.open(filename);
+		if (!LaserFile) {
 			printf("unable to open filename %s\n\n", filename.c_str());
 			exit(1);   // call system to stop
 		}
 
 		tile.Nblaserperdistribution[idistrib] = 0;
-		while (inFile >> laserval) {
+		while (LaserFile >> laserval) {
 			if (XY) {
 				TA.Nb_LaserPositions++; tile.Nblaserperdistribution[idistrib]++; }
 			XY = !XY;
@@ -46,7 +43,7 @@ void readstoreLaserPositions(void) {
 		tile.maxlaserperdistribution = max(tile.maxlaserperdistribution, tile.Nblaserperdistribution[idistrib]);
 		printf(" Laser \u2462: distribution n°%d number of images %d   ", idistrib, tile.Nblaserperdistribution[idistrib]);
 
-		inFile.close();
+		LaserFile.close();
 	}
 	printf(" total number of images %d max images per distributions %d \n",  TA.Nb_LaserPositions, tile.maxlaserperdistribution);
 
@@ -62,14 +59,14 @@ void readstoreLaserPositions(void) {
 	for (int idistrib = 0; idistrib < Ndistrib; idistrib++) {
 		filename = resourcesdirectory + LaserFILE + std::to_string(idistrib + 1) + endlaser;
 		printf(" Laser \u2462: filename %s \n", filename.c_str());
-		inFile.open(filename);
-		if (!inFile) {
+		LaserFile.open(filename);
+		if (!LaserFile) {
 			printf("unable to open filename %s\n\n", filename.c_str());
 			exit(1);   // call system to stop
 		}
 		XY = FALSE;
 		// introduce here scale and offset relative to camera origin, if needed
-		while (inFile >> laserval) {
+		while (LaserFile >> laserval) {
 			if (!XY) {
 			*(PosLaserx + ilaserpos) = (laserval + OFSCAL.offsetLaserx)* OFSCAL.scaleLaserx;
 			TA.maxLaserx = max(TA.maxLaserx, *(PosLaserx + ilaserpos));
@@ -84,7 +81,7 @@ void readstoreLaserPositions(void) {
 			}
 			XY = !XY;
 		}
-		inFile.close();
+		LaserFile.close();
 	}
 
 	printf(" Laser \u2462 min and max x %g %g, min and max y %g %g ... \n",
@@ -101,16 +98,17 @@ bool validateLaserPositions_control(void) {
 	validateLaserPositions_device<<<dimGrid, dimBlock, 0>>> (TA.Nb_LaserPositions);
 	cudaDeviceSynchronize();
 
-	if (TA.Nb_LaserPositions < smallnumber && VERBOSE)
+	if (TA.Nb_LaserPositions < smallnumber)
 		for (int ival = 0; ival < TA.Nb_LaserPositions; ival++) {
-			if(!ival) printf(" Laser \u2462 ----------------------------------------------------------------------------------------------------\n");
-			printf(" Laser \u2462 Laser position %d  Laser position x: %f  y: %f\n",
-					ival, *(PosLaserx + ival), *(PosLasery + ival));
-			printf(" Laser \u2462 Position in scratchpad x: %d y: %d \n",
-					*(PosxScratch + ival), *(PosyScratch + ival));
-			printf(" Laser \u2462 ***************SCRATCHPAD FULL OFFSET %d **************\n",
-					*(offsetFULL + ival));
-			printf(" Laser \u2462 ----------------------------------------------------------------------------------------------------\n");
+			if(!ival && VERBOSE)
+				verbosefile << " Laser \u2462 ----------------------------------------------------------------------------------------------------\n";
+			verbosefile << " Laser \u2462 Laser position %d  Laser position x: %f  y: %f\n";
+			verbosefile << ival << "  " << *(PosLaserx + ival) << "  " << *(PosLasery + ival) << endl;
+			verbosefile << "Laser \u2462 Position in scratchpad",
+			verbosefile << *(PosxScratch + ival) << "  " << *(PosyScratch + ival) << endl;
+			verbosefile << " Laser \u2462 ***************SCRATCHPAD FULL OFFSET ";
+			verbosefile << *(offsetFULL + ival) << " **************\n";
+			verbosefile << " Laser \u2462 ----------------------------------------------------------------------------------------------------\n";
 		}
 	if (VERBOSE) printf(" Laser \u2462 ----------------------------------------------------------------------------------------------------\n");
 	for (int iLaser = 0; iLaser < TA.Nb_LaserPositions; iLaser++) {
@@ -124,79 +122,4 @@ bool validateLaserPositions_control(void) {
 	return (testLaserPosition);
 }
 
-void readstoreCroppedROI(void) {
-	float ROIval;
-
-	cudaMallocManaged(&ROIx, TA.Nb_LaserPositions * sizeof(int));
-	cudaMallocManaged(&ROIy, TA.Nb_LaserPositions * sizeof(int));
-	cudaMallocManaged(&d_ROIx, TA.Nb_LaserPositions * sizeof(int));
-	cudaMallocManaged(&d_ROIy, TA.Nb_LaserPositions * sizeof(int));
-	cudaMallocManaged(&ROIxScratch, TA.Nb_LaserPositions * sizeof(int));
-	cudaMallocManaged(&ROIyScratch, TA.Nb_LaserPositions * sizeof(int));
-	cudaMallocManaged(&offsetROI, TA.Nb_LaserPositions * sizeof(int));
-
-	int iROIpos = 0;
-	for (int idistrib = 0; idistrib < Ndistrib; idistrib++) {
-		filename = resourcesdirectory + ROIFILE + std::to_string(idistrib + 1) + endROI;
-		printf("filename %s \n", filename.c_str());
-		inFile.open(filename);
-		if (!inFile) {
-			printf("unable to open filename %s\n\n", filename.c_str());
-			exit(1);   // call system to stop
-		}
-		XY = FALSE;
-		// introduce here scale and offset relative to camera origin, if needed
-		while (inFile >> ROIval) {
-			if (!XY) {
-			*(ROIx + iROIpos) = (ROIval + OFSCAL.offsetROIx)* OFSCAL.scaleROIx;
-			TA.maxROIx = max(TA.maxROIx, *(ROIx + iROIpos));
-			TA.minROIx = min(TA.minROIx, *(ROIx + iROIpos));
-			// Laser positions in x zoomed integer in the 2D scratchpad
-			}
-			else {
-				*(ROIy + iROIpos) = (ROIval + OFSCAL.offsetROIy) * OFSCAL.scaleROIy;
-				TA.maxROIy = max(TA.maxROIy, *(ROIy + iROIpos));
-				TA.minROIy = min(TA.minROIy, *(ROIy + iROIpos));
-				iROIpos++;
-			}
-			XY = !XY;
-		}
-		inFile.close();
-	}
-
-	printf("ROI \u2463 min and max x %d %d, min and max y %d %d ... \n",
-			TA.maxROIx, TA.minROIx, TA.maxROIy, TA.minROIy);
-}
-
-bool validateCroppedROI_control(void) {
-
-	double Delx, Dely;
-	bool testROI = FALSE;
-	dim3 dimBlock(1, 1, 1);
-	dim3 dimGrid(1, 1, 1);
-	// Execute the Laser positions kernel
-	validateCroppedROI_device<<<dimGrid, dimBlock, 0>>>(TA.Nb_LaserPositions);
-	cudaDeviceSynchronize();
-
-	if (TA.Nb_LaserPositions < smallnumber && VERBOSE)
-		for (int ival = 0; ival < TA.Nb_LaserPositions; ival++) {
-			if(!ival) printf(" ROI \u2463 ----------------------------------------------------------------------------------------------------\n");
-			printf(" ROI \u2463 ROI position %d  ROI position x: %d  y: %d\n",
-					ival, *(ROIx + ival), *(ROIy + ival));
-			printf(" ROI \u2463 Position in scratchpad x: %d y: %d \n",
-					*(ROIxScratch + ival), *(ROIyScratch + ival));
-			printf(" ROI \u2463 ***************SCRATCHPAD FULL OFFSET %d **************\n",
-					*(offsetROI + ival));
-			printf(" ROI \u2463 ----------------------------------------------------------------------------------------------------\n");
-		}
-
-	for (int iROI = 0; iROI < TA.Nb_LaserPositions; iROI++) {
-		Delx += ROIx[iROI] - d_ROIx[iROI];
-		Dely += ROIy[iROI] - d_ROIy[iROI];
-	}
-	Sumdel[3] = Delx * Dely;
-	if (Delx * Dely == 0.0f)
-		testROI = TRUE;
-	return (testROI);
-}
 

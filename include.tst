@@ -1,5 +1,6 @@
 #define STARTDEVICE
 #define TESTTHREADS
+#define TESTSCRATCH
 #define TESTDISTRIBDEVICE
 #define TESTAGG
 //#define PSCRATCHTEST

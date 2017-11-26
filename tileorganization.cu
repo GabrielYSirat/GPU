@@ -71,7 +71,8 @@ bool tileorganization(void) {
 		tile.tileperaggregatey = organization_y[TA.MP_perdistrib];
 	}
 
-	tile.NbTile = tile.NbTilex * tile.NbTiley * Ndistrib;
+	tile.NbTileXY = tile.NbTilex * tile.NbTiley;
+	tile.NbTileXYD = tile.NbTilex * tile.NbTiley * Ndistrib;
 	/** FUTURE: In the real application the reconstruction
 	 * is created by the program and not read from a file
 	 * in this case the size data will be consistent by design
@@ -88,7 +89,8 @@ bool tileorganization(void) {
 			Ndistrib);
 	printf(" INIT PROG \u24FA Reconstruction size x: %d, y:%d \n", tile.reconstructionsizex,
 			tile.reconstructionsizey);
-	printf(" INIT PROG \u24FA NbTile %d start x %d y %d MinLaser %d %d in REC pixels %d %d  \n", tile.NbTile,
+	printf(" INIT PROG \u24FA NbTileXY %d NbTileXYD %d start x %d y %d MinLaser %d %d in REC pixels %d %d  \n",
+			tile.NbTileXY,tile.NbTileXYD,
 			tile.startx, tile.starty, AminLaserx, AminLasery, tile.startx * pZOOM, tile.starty * pZOOM);
 
 	tile.NbLaserTotal = 0;
@@ -145,10 +147,9 @@ bool tileorganization(void) {
 	}
 	printf("TILE ORG \u24FA  tile.NbLaserTotal %d \n", tile.NbLaserTotal);
 
-	for (int it1 = 0; it1 < tile.NbTile; it1++) {
+	for (int it1 = 0; it1 < tile.NbTileXYD; it1++) {
 		if (VERBOSE)
-			printf(
-					"TILE ORG \u2479 Tile number %d tile in x %d tile in y %d distrib %d number of microimages %d\n",
+			printf("TILE ORG \u2479 Tile number %d tile in x %d tile in y %d distrib %d number of microimages %d\n",
 					it1, it1 % (Ndistrib * tile.NbTiley), (it1 / tile.NbTilex) % Ndistrib,
 					it1 / (tile.NbTilex * tile.NbTiley), tile.NbLaserpertile[it1]);
 
@@ -169,7 +170,7 @@ bool tileorganization(void) {
 
 bool initializesimusData(void) {
 // Initialize new simus and Data
-	int tempa = tile.maxLaserintile * tile.NbTile * NThreads;
+	int tempa = tile.maxLaserintile * tile.NbTileXY * NThreads;
 	printf("TILE ORG \u2466 size simus %d AminLaserx %d AminLasery %d\n", tempa, AminLaserx, AminLasery);
 	cudaMallocManaged(&new_simus, tempa * sizeof(float));
 	cudaMallocManaged(&Data, tempa * sizeof(float));
@@ -192,7 +193,7 @@ bool microimagesintile(void) {
 	printf(
 			"TILE ORG \u24FA Max Laser in tile rounded to multiple NIMAGESPARALLEL  .. %d MaxMicroimages %f MinMicroimages %f\n",
 			tile.maxLaserintile, Maxmicroimages, Minmicroimages);
-	unsigned char *i_data = (unsigned char *) calloc(PixZoomSquare * tile.NbTile * tile.maxLaserintile,
+	unsigned char *i_data = (unsigned char *) calloc(PixZoomSquare * tile.NbTileXY * tile.maxLaserintile,
 			sizeof(unsigned char)); // on host
 	const char * DataFile = "results/DataFile.pgm";
 
@@ -221,7 +222,7 @@ bool microimagesintile(void) {
 
 	printf("HOST: \u277D DEVICE TEST in biginspect.cu: Path to calculated new simulations %s .....\n",
 			DataFile);
-	sdkSavePGM(DataFile, i_data, tile.maxLaserintile * PixZoom, tile.NbTile * PixZoom);
+	sdkSavePGM(DataFile, i_data, tile.maxLaserintile * PixZoom, tile.NbTileXY * PixZoom);
 
 	return (micimintile);
 }
