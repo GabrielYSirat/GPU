@@ -4,23 +4,23 @@
  *  Created on: Jul 6, 2017
  *      Author: gabriel
  */
-#include "0_NewLoop.h"
+#include "0_Mainparameters.h"
 bool biglaunch() {
 
-	std::cout << "TESTS RETURN:  " << "initialization:  " << Stepdiag[0] << ";  pPSF:  " << Stepdiag[1];
-	std::cout << ";  distrib: " << Stepdiag[2] << endl;
-	std::cout << "TESTS RETURN: laser positions: " << Stepdiag[3] << "; ROI:  " << Stepdiag[4];
-	std::cout << "; microimages:  " << Stepdiag[5] << ";  Reconstruction:  " << Stepdiag[6] << endl;
-	std::cout << "MAIN PROGRAM  **********ready for GPU computation*****************" << endl;
-	std::cout << "******************************************************************" << endl << endl;
+	verbosefile << "TESTS RETURN:  " << "initialization:  " << Stepdiag[0] << ";  pPSF:  " << Stepdiag[1];
+	verbosefile << ";  distrib: " << Stepdiag[2] << endl;
+	verbosefile << "TESTS RETURN: laser positions: " << Stepdiag[3] << "; ROI:  " << Stepdiag[4];
+	verbosefile << "; microimages:  " << Stepdiag[5] << ";  Reconstruction:  " << Stepdiag[6] << endl;
+	verbosefile << "MAIN PROGRAM  **********ready for GPU computation*****************" << endl;
+	verbosefile << "******************************************************************" << endl << endl;
 
-	std::cout << "To be transferred to device: Number of Aggregates in x:" << tile.NbAggregx << " in y:"
+	verbosefile << "To be transferred to device: Number of Aggregates in x:" << tile.NbAggregx << " in y:"
 			<< tile.NbAggregy;
-	std::cout << "  Number of Tiles per aggregates in x:" << tile.tileperaggregatex << " in y:"
+	verbosefile << "  Number of Tiles per aggregates in x:" << tile.tileperaggregatex << " in y:"
 			<< tile.tileperaggregatey << endl;
-	std::cout << "To be transferred to device: Number of Tiles in x:" << tile.NbTilex << " in y:" << tile.NbTiley
+	verbosefile << "To be transferred to device: Number of Tiles in x:" << tile.NbTilex << " in y:" << tile.NbTiley
 			<< endl;
-	std::cout << "To be transferred to device: Max number of laser position in Tile:" << tile.maxLaserintile
+	verbosefile << "To be transferred to device: Max number of laser position in Tile:" << tile.maxLaserintile
 			<< " min  " << tile.minLaserintile << endl << endl;
 	printf("**************HOST: PARAMETERS OF MEASUREMENT *******************\n"
 			"Npixel %d pZOOM %d, pPSF %d\n", Npixel, pZOOM, pPSF);
@@ -30,8 +30,9 @@ bool biglaunch() {
 	THREADSVAL, THreadsRatio);
 
 	/************************* for GPU ********************/
-	std::cout << "MAIN PROGRAM  ********Prepare data for GPU computation**************" << endl;
-	std::cout << "******************************************************************" << endl;
+	verbosefile << "MAIN PROGRAM  ********Prepare data for GPU computation**************" << endl;
+	verbosefile << "******************************************************************" << endl;
+
 	onhost.NbTilex = tile.NbTilex;
 	onhost.NbTiley = tile.NbTiley;
 	onhost.NbTileXY = tile.NbTileXY;
@@ -47,37 +48,33 @@ bool biglaunch() {
 	onhost.Nb_LaserPositions = TA.Nb_LaserPositions;
 	onhost.expectedmax = tile.expectedmax;
 	onhost.clockRate = clockRate;
-	std::cout << "HOST: \u24F3  ";
+	verbosefile << "HOST: \u24F3  ";
 	for(int itile = 0; itile < tile.NbTileXYD; itile ++) {
 		onhost.NbLaserpertile[itile] = tile.NbLaserpertile[itile];
-		printf("tile n° %d #laser %d .. ", itile, onhost.NbLaserpertile[itile]);
+		verbosefile << "tile n° " << itile << " #laser " << onhost.NbLaserpertile[itile] << endl;
 	}
-	std::cout << endl;
 //	onhost.imalimitpertile = onhost.Nb_LaserPositions - (onhost.NbTile - 1) * onhost.maxLaserintile;
 	onhost.Bconstant = tile.Bconstant;
-//	printf("Number of laser positions %d onhost.NbTileXY %d imalimitpertile %d onhost.maxLaserintile %d\n",
-//			onhost.Nb_LaserPositions, onhost.NbTileXY, onhost.imalimitpertile, onhost.maxLaserintile);
+	verbosefile << "Number of laser positions " << onhost.Nb_LaserPositions << " number of tile XY " << onhost.NbTileXY
+			<< " imalimitpertile " << onhost.imalimitpertile << " ima limite per tile " << onhost.maxLaserintile;
+
 	bool testbig = FALSE;
 
 	dim3 dimBlock(tile.tileperaggregatex, tile.tileperaggregatey, Ndistrib);
 	dim3 dimGrid(THREADSVAL, 1, 1);
-	std::cout << "dimBlock  x: " << dimBlock.x << " y: " << dimBlock.y << " z: " << dimBlock.z << "  ...  ";
-	std::cout << "dimGrid  x: " << dimGrid.x << " y: " << dimGrid.y << " z: " << dimGrid.z << endl << endl;
+	verbosefile << "dimBlock  x: " << dimBlock.x << " y: " << dimBlock.y << " z: " << dimBlock.z << "  ...  ";
+	verbosefile << "dimGrid  x: " << dimGrid.x << " y: " << dimGrid.y << " z: " << dimGrid.z << endl << endl;
 
-	std::cout << "HOST: \u24F3 ************************BigLoop start   *******************************" << endl;
-	std::cout << "HOST: \u24F3 ***********************************************************************" << endl;
+	verbosefile << "HOST: \u24F3 ************************BigLoop start   *******************************" << endl;
+	verbosefile << "HOST: \u24F3 ***********************************************************************" << endl;
 
 	int sharedsize = NIMAGESPARALLEL * sizeof(int) + ASCRATCH * sizeof(float) + ADistrib * sizeof(float);
-/* 	int *image_to_scratchpad_offset_tile = (int *) shared;				// Offset of each image in NIMAGESPARALLEL block
-	float *Scratchpad = (float *) &image_to_scratchpad_offset_tile[NIMAGESPARALLEL];   // ASCRATCH floats for Scratchpad
-	float *shared_distrib = (float*) &Scratchpad[ASCRATCH]; 		    		// XDISTRIB*YDISTRIB floats for distrib
- */
 
 	if (sharedsize > TA.sharedmemory) {
-		std::cout << "shared memory required is above the memory available" << sharedsize / 1024.0 << "KBytes" << endl;
+		verbosefile << "shared memory required is above the memory available" << sharedsize / 1024.0 << "KBytes" << endl;
 		exit(1);
 	} else
-		std::cout << "HOST: \u24F3 *** SHARED MEMORY SIZE " << sharedsize / 1024.0 << " KBytes" << endl;
+		verbosefile << "HOST: \u24F3 *** SHARED MEMORY SIZE " << sharedsize / 1024.0 << " KBytes" << endl;
 	// Execute the Laser positions kernel
 	BigLoop<<<dimBlock, dimGrid, sharedsize>>>(onhost);
 	cudaDeviceSynchronize();

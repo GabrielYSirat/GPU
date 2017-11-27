@@ -16,7 +16,7 @@
 								apix, ithreads, tmpi[apix], ipixel[apix], jpixel[apix], valid_pixel[apix], distribpos0[apix]);
 	timer = clock64();
 	if (!iprint)
-		printf( "DEVICE: \u23f1**DEVICE:  step %d   TIMING (msec) ** processing  %g from start  %g  total %g \n",
+		printf( "DEVICE: \u23f1**DEVICE:  step %d   TIMING (msec) ** processing  %g this step  %g  total %g \n",
 			DD.step, (float) (timer - time_start) / DD.clockRate,
 			(float) (  time_start - time_init) / DD.clockRate,
 			(float) (timer - time_init) / DD.clockRate);

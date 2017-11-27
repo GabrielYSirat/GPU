@@ -5,7 +5,7 @@
  *      Author: gabriel
  */
 
-#include "0_NewLoop.h"
+#include "0_Mainparameters.h"
 string PSFDATA = "/lambda_488/Calib/system_PSF.bin";
 double *double_PSF;			// on host
 float MaxPSF=0.0f, SumPSF = 0.0f;

@@ -4,7 +4,7 @@
  *  Created on: Jul 8, 2017
  *      Author: gabriel
  */
-#include "0_NewLoop.h"
+#include "0_Mainparameters.h"
 std::string filenameimage;
 std::string RECFILE = "image_iteration_0__63x114_4em";
 std::string endREC = ".raw";
@@ -205,7 +205,7 @@ bool Scratchvalidate_host(void) {
 	// write Scratchpad in memory and validate
 	unsigned char *i_Scratchpad = (unsigned char *) calloc(tile.NbTileXY * XSCRATCH * YSCRATCH, sizeof(unsigned char)); // on host
 	cudaMallocManaged(&val_scratchpad, tile.NbTileXY * ASCRATCH * sizeof(float));
-	cudaMallocManaged(&val2_scratchpad, tile.NbTileXY * ASCRATCH * sizeof(float));
+	cudaMallocManaged(&val2_scratchpad, tile.NbTileXY * ASCRATCH * Ndistrib * sizeof(float));
 	const char * ScratchpadValImagefile = "results/ScratchpadValImagefile.pgm";
 
 	dim3 dimBlock(1, 1, 1);

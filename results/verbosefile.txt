@@ -20,7 +20,8 @@ INIT PROG ⓪ pPSF   : pPSF 9 PSFZoom 27 PSFZoomo2 13
 
  INIT PROG ⏳ Data parameters in device memory ...
  INIT PROG ⓪ reconstruction xml: /home/gabriel/cuda-workspace2/NewGPU/resources/1039/reconstruction.xml
- INIT PROG ⓪ reconstruction from tiles: Cols 42 size 114 size 4788 PSF ⓵  Nb_Rows: 27 Nb_Cols 27 size 5832 Max: 0.0146406 Sum 1.00073
+ INIT PROG ⓪ reconstruction from tiles: Cols 42 size 114 size 4788 INIT PROG ⓪ PARAMS :  original µimage pixel size100 nm pixel size reconstruction  INIT PROG ⓪ TILE   : XTILE 21 YTILE 57 size : XTILE: 0.7 YTILE 1.9 INIT PROG ⓪ RECONSTRUCTION in nm   : X 4.2 Y 11.4 µm
+ PSF ⓵  Nb_Rows: 27 Nb_Cols 27 size 5832 Max: 0.0146406 Sum 1.00073
  PSF ⓵ function read: Path to pPSF originalresults/PSFImagefile.pgm
  PSF ⓵ Sum3PSF 1.00073 max3PSF 0.0146406
  PSF ⓵ Path to pPSF validation ...results/PSFValidationimage.pgm
@@ -92,3 +93,132 @@ Laser ③ Position in scratchpad26  75
 Laser ③ Position in scratchpad26  48
  Laser ③ ***************SCRATCHPAD FULL OFFSET 3146 **************
  Laser ③ ----------------------------------------------------------------------------------------------------
+HOST: ⓯  7parameters  n_rowintern 1056n_colintern 132MaxData 0.000733912 dataliteral.c_str() MicroimagesA1 callprogram.c_str() tileorganization.cu
+TILE ORG ⑺ idistrib 0  0 iLaser 0 tilenumber 0 ilasertile 0
+TILE ORG ⑺ idistrib 0  1 iLaser 1 tilenumber 0 ilasertile 1
+TILE ORG ⑺ idistrib 0  2 iLaser 2 tilenumber 4 ilasertile 64
+TILE ORG ⑺ idistrib 0  3 iLaser 3 tilenumber 2 ilasertile 32
+TILE ORG ⑺ idistrib 0  4 iLaser 4 tilenumber 2 ilasertile 33
+TILE ORG ⑺ idistrib 0  5 iLaser 5 tilenumber 6 ilasertile 96
+TILE ORG ⑺ idistrib 1  6 iLaser 6 tilenumber 8 ilasertile 128
+TILE ORG ⑺ idistrib 1  7 iLaser 7 tilenumber 8 ilasertile 129
+TILE ORG ⑺ idistrib 1  8 iLaser 8 tilenumber 12 ilasertile 192
+TILE ORG ⑺ idistrib 1  9 iLaser 9 tilenumber 10 ilasertile 160
+TILE ORG ⑺ idistrib 1  10 iLaser 10 tilenumber 10 ilasertile 161
+TILE ORG ⑺ idistrib 1  11 iLaser 11 tilenumber 14 ilasertile 224
+HOST: ⓯  7 ******************************************
+
+TILE ORG ⑺ idistrib 0  0 iLaser 0 tilenumber 0 ilasertile 0
+TILE ORG ⑺ idistrib 0  1 iLaser 1 tilenumber 0 ilasertile 1
+TILE ORG ⑺ idistrib 0  2 iLaser 2 tilenumber 4 ilasertile 64
+TILE ORG ⑺ idistrib 0  3 iLaser 3 tilenumber 2 ilasertile 32
+TILE ORG ⑺ idistrib 0  4 iLaser 4 tilenumber 2 ilasertile 33
+TILE ORG ⑺ idistrib 0  5 iLaser 5 tilenumber 6 ilasertile 96
+TILE ORG ⑺ idistrib 1  6 iLaser 6 tilenumber 8 ilasertile 128
+TILE ORG ⑺ idistrib 1  7 iLaser 7 tilenumber 8 ilasertile 129
+TILE ORG ⑺ idistrib 1  8 iLaser 8 tilenumber 12 ilasertile 192
+TILE ORG ⑺ idistrib 1  9 iLaser 9 tilenumber 10 ilasertile 160
+TILE ORG ⑺ idistrib 1  10 iLaser 10 tilenumber 10 ilasertile 161
+TILE ORG ⑺ idistrib 1  11 iLaser 11 tilenumber 14 ilasertile 224
+HOST: ⓯  7 ******************************************
+
+
+******************Completion of GPU initialization ***************
+******************************************************************
+used MB =  1042.94   Free MB = 5024.69 Total MB = 6067.62
+TESTS RETURN:  initialization:  PASS;  pPSF:  PASS;  distrib: PASS
+TESTS RETURN: laser positions: PASS; ROI:  PASS; microimages:  PASS;  Reconstruction:  PASS
+MAIN PROGRAM  **********ready for GPU computation*****************
+******************************************************************
+
+To be transferred to device: Number of Aggregates in x:2 in y:1  Number of Tiles per aggregates in x:2 in y:2
+To be transferred to device: Number of Tiles in x:4 in y:2
+To be transferred to device: Max number of laser position in Tile:16 min  0
+
+MAIN PROGRAM  ********Prepare data for GPU computation**************
+******************************************************************
+HOST: ⓳  tile n° 0 #laser 2
+tile n° 1 #laser 0
+tile n° 2 #laser 2
+tile n° 3 #laser 0
+tile n° 4 #laser 1
+tile n° 5 #laser 0
+tile n° 6 #laser 1
+tile n° 7 #laser 0
+tile n° 8 #laser 2
+tile n° 9 #laser 0
+tile n° 10 #laser 2
+tile n° 11 #laser 0
+tile n° 12 #laser 1
+tile n° 13 #laser 0
+tile n° 14 #laser 1
+tile n° 15 #laser 0
+Number of laser positions 12 number of tile XY 8 imalimitpertile 0 ima limite per tile 16dimBlock  x: 2 y: 2 z: 2  ...  dimGrid  x: 320 y: 1 z: 1
+
+HOST: ⓳ ************************BigLoop start   *******************************
+HOST: ⓳ ***********************************************************************
+HOST: ⓳ *** SHARED MEMORY SIZE 46.3125 KBytes
+HOST: ⓯  12parameters  n_rowintern 1056n_colintern 132MaxData 0 dataliteral.c_str() SimusA1 callprogram.c_str() biginspect.cu
+TILE ORG ⑺ idistrib 0  0 iLaser 0 tilenumber 0 ilasertile 0
+TILE ORG ⑺ idistrib 0  1 iLaser 1 tilenumber 0 ilasertile 1
+TILE ORG ⑺ idistrib 0  2 iLaser 2 tilenumber 4 ilasertile 64
+TILE ORG ⑺ idistrib 0  3 iLaser 3 tilenumber 2 ilasertile 32
+TILE ORG ⑺ idistrib 0  4 iLaser 4 tilenumber 2 ilasertile 33
+TILE ORG ⑺ idistrib 0  5 iLaser 5 tilenumber 6 ilasertile 96
+TILE ORG ⑺ idistrib 1  6 iLaser 6 tilenumber 8 ilasertile 128
+TILE ORG ⑺ idistrib 1  7 iLaser 7 tilenumber 8 ilasertile 129
+TILE ORG ⑺ idistrib 1  8 iLaser 8 tilenumber 12 ilasertile 192
+TILE ORG ⑺ idistrib 1  9 iLaser 9 tilenumber 10 ilasertile 160
+TILE ORG ⑺ idistrib 1  10 iLaser 10 tilenumber 10 ilasertile 161
+TILE ORG ⑺ idistrib 1  11 iLaser 11 tilenumber 14 ilasertile 224
+HOST: ⓯  12 ******************************************
+
+TILE ORG ⑺ idistrib 0  0 iLaser 0 tilenumber 0 ilasertile 0
+TILE ORG ⑺ idistrib 0  1 iLaser 1 tilenumber 0 ilasertile 1
+TILE ORG ⑺ idistrib 0  2 iLaser 2 tilenumber 4 ilasertile 64
+TILE ORG ⑺ idistrib 0  3 iLaser 3 tilenumber 2 ilasertile 32
+TILE ORG ⑺ idistrib 0  4 iLaser 4 tilenumber 2 ilasertile 33
+TILE ORG ⑺ idistrib 0  5 iLaser 5 tilenumber 6 ilasertile 96
+TILE ORG ⑺ idistrib 1  6 iLaser 6 tilenumber 8 ilasertile 128
+TILE ORG ⑺ idistrib 1  7 iLaser 7 tilenumber 8 ilasertile 129
+TILE ORG ⑺ idistrib 1  8 iLaser 8 tilenumber 12 ilasertile 192
+TILE ORG ⑺ idistrib 1  9 iLaser 9 tilenumber 10 ilasertile 160
+TILE ORG ⑺ idistrib 1  10 iLaser 10 tilenumber 10 ilasertile 161
+TILE ORG ⑺ idistrib 1  11 iLaser 11 tilenumber 14 ilasertile 224
+HOST: ⓯  12 ******************************************
+
+HOST: ⓰  13parameters  n_rowintern 1056n_colintern 132MaxData 1.00004 dataliteral.c_str() RFactorA1 callprogram.c_str() biginspect.cu
+TILE ORG ⑺ idistrib 0  0 iLaser 0 tilenumber 0 ilasertile 0
+TILE ORG ⑺ idistrib 0  1 iLaser 1 tilenumber 0 ilasertile 1
+TILE ORG ⑺ idistrib 0  2 iLaser 2 tilenumber 4 ilasertile 64
+TILE ORG ⑺ idistrib 0  3 iLaser 3 tilenumber 2 ilasertile 32
+TILE ORG ⑺ idistrib 0  4 iLaser 4 tilenumber 2 ilasertile 33
+TILE ORG ⑺ idistrib 0  5 iLaser 5 tilenumber 6 ilasertile 96
+TILE ORG ⑺ idistrib 1  6 iLaser 6 tilenumber 8 ilasertile 128
+TILE ORG ⑺ idistrib 1  7 iLaser 7 tilenumber 8 ilasertile 129
+TILE ORG ⑺ idistrib 1  8 iLaser 8 tilenumber 12 ilasertile 192
+TILE ORG ⑺ idistrib 1  9 iLaser 9 tilenumber 10 ilasertile 160
+TILE ORG ⑺ idistrib 1  10 iLaser 10 tilenumber 10 ilasertile 161
+TILE ORG ⑺ idistrib 1  11 iLaser 11 tilenumber 14 ilasertile 224
+HOST: ⓰  13 ******************************************
+
+TILE ORG ⑺ idistrib 0  0 iLaser 0 tilenumber 0 ilasertile 0
+TILE ORG ⑺ idistrib 0  1 iLaser 1 tilenumber 0 ilasertile 1
+TILE ORG ⑺ idistrib 0  2 iLaser 2 tilenumber 4 ilasertile 64
+TILE ORG ⑺ idistrib 0  3 iLaser 3 tilenumber 2 ilasertile 32
+TILE ORG ⑺ idistrib 0  4 iLaser 4 tilenumber 2 ilasertile 33
+TILE ORG ⑺ idistrib 0  5 iLaser 5 tilenumber 6 ilasertile 96
+TILE ORG ⑺ idistrib 1  6 iLaser 6 tilenumber 8 ilasertile 128
+TILE ORG ⑺ idistrib 1  7 iLaser 7 tilenumber 8 ilasertile 129
+TILE ORG ⑺ idistrib 1  8 iLaser 8 tilenumber 12 ilasertile 192
+TILE ORG ⑺ idistrib 1  9 iLaser 9 tilenumber 10 ilasertile 160
+TILE ORG ⑺ idistrib 1  10 iLaser 10 tilenumber 10 ilasertile 161
+TILE ORG ⑺ idistrib 1  11 iLaser 11 tilenumber 14 ilasertile 224
+HOST: ⓰  13 ******************************************
+
+HOST: ⓳ *************************BigLoop terminated ***************************
+HOST: ⓳ ***********************************************************************
+
+SCRATCHPAD ⓬ Path to Scratchpad validation  .....results/ScratchpadVal2Imagefile.pgm
+max device after BigLoop =400
+SCRATCHPAD ⓬ Path to DistribPos validation .....results/DistribPos.pgm

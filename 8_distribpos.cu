@@ -1,13 +1,17 @@
-#ifdef TESTDISTRIBDEVICE
+#ifdef DISTRIBPOS
 	DD.step++;
-	for (int idistrub = ithreads; idistrub < ADistrib; idistrub += THREADSVAL)
-			*(test2_distrib + idistrub + itb * ADistrib) = *(shared_distrib + idistrub);
+
+	if(!iprint && ((aggregx+1) == DD.NbAggregx) && ((aggregy+1) == DD.NbAggregy)) {
+		for (int apix = 0; apix < THreadsRatio; apix++)
+		printf("DEVICE: \u23f2 APIX DISTRIB: apix %d distribpos[apix] %d \n", apix, distribpos[apix]);
+// validé
+
 	if (!iprint) timer = clock64();
 	if (!iprint)
 		printf( "DEVICE: \u23f1**DEVICE:  step %d   TIMING (msec) ** processing  %f this step  %g  total %g \n",
 			DD.step, (float) (timer - time_start) / DD.clockRate,
 			(float) (  time_start - time_init) / DD.clockRate,
 			(float) (timer - time_init) / DD.clockRate);
-	if (!iprint) printf("\u2461 **********************************DEVICE:  DISTRIBUTIONS  ********************\n\n");
+	}
 	__syncthreads();
 #endif

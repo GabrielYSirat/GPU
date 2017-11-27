@@ -1,0 +1,9 @@
+#define STARTDEVICE
+#define TESTTHREADS
+#define TESTSCRATCH
+#define DISTRIBPOS
+#define OFFSET
+#define TESTAGG
+#define PSCRATCHTEST
+#define TESTDISVAL
+//#define TESTSIMU

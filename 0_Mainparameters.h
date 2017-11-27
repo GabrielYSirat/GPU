@@ -1,5 +1,5 @@
 /*
- * 0_Newloop.h
+ * 0_Mainparameters.h
  *
  *  Created on: Apr 10, 2017
  *      Author: gabriel

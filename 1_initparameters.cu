@@ -9,7 +9,7 @@
  *      Author: gabriel
  */
 
-#include "0_NewLoop.h"
+#include "0_Mainparameters.h"
 
 /*******************PARAMETERS**************/
 char buff[BUFFSIZE]; // a buffer to temporarily park the data
@@ -149,13 +149,14 @@ bool initparameters( int argc, char **argv) {
 	stringstream stream_p(sstr);
 	stream_p.getline(buff, 10, ',');
 	TA.Pixel_size_nm = atoi(buff);
-	printf(" INIT PROG \u24EA PARAMS :  original µimage pixel size %g  nm pixel size reconstruction %g\n",
-			TA.Pixel_size_nm, TA.Pixel_size_nm/pZOOM);
+	verbosefile << " INIT PROG \u24EA PARAMS :  original µimage pixel size" << TA.Pixel_size_nm;
+	verbosefile << " nm pixel size reconstruction ",TA.Pixel_size_nm/pZOOM;
 	TA.XTileSize = (XTile * TA.Pixel_size_nm)/(1000.*pZOOM); 	// Tile size in nm
 	TA.YTileSize = (YTile * TA.Pixel_size_nm)/(1000.*pZOOM);	// Tile size in nm
-	printf(" INIT PROG \u24EA TILE   : XTILE %d YTILE %d  size : XTILE:%6.3f µm YTILE %6.3f µm\n",  XTile, YTile, TA.XTileSize, TA.YTileSize);
-	printf(" INIT PROG \u24EA RECONSTRUCTION in nm   : X %6.3f µm Y %6.3f µm\n",
-			 TA.Nb_Cols_reconstruction*TA.Pixel_size_nm/1000., TA.Nb_Rows_reconstruction*TA.Pixel_size_nm/1000.);
+	verbosefile << " INIT PROG \u24EA TILE   : XTILE " << XTile << " YTILE " << YTile
+			<< " size : XTILE: " << TA.XTileSize << " YTILE " << TA.YTileSize;
+	verbosefile << " INIT PROG \u24EA RECONSTRUCTION in nm   : X " <<  TA.Nb_Cols_reconstruction*TA.Pixel_size_nm/1000.;
+	verbosefile << " Y " << TA.Nb_Rows_reconstruction*TA.Pixel_size_nm/1000. << " µm\n";
 
 	return (dimfit);
 }

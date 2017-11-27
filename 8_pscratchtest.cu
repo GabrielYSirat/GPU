@@ -1,7 +1,4 @@
 #ifdef PSCRATCHTEST
-			if (!iprint && !iblockima)
-				printf("\n\u2465****************************DEVICE:  PSCRATCH****************\n");
-
 			if ((ipixel[3] == PSFZoomo2) && (jpixel[3] == PSFZoomo2))
 				if (iblockima < (DD.imalimitpertile)) {
 					printf("\u2465 ipix jpix = iPSF jPSF zero ithreads %d 4:%d offset %d value %g \n", ithreads, pos_3,
@@ -19,7 +16,5 @@
 							ithreads, ipixel[3], jpixel[3], pos_0, pos_1, pos_2, pos_3, *pscratch_0[iblockima],
 							*pscratch_1[iblockima], *pscratch_2[iblockima], *pscratch_3[iblockima]);
 
-			if (!iprint && (iblockima==(NIMAGESPARALLEL-1)))
-				printf("\u2465****************************DEVICE:  PSCRATCH****************\n");
 			__syncthreads();
 #endif

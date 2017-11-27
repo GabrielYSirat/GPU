@@ -5,7 +5,7 @@
  *      Author: gabriel
  */
 
-#include "0_NewLoop.h"
+#include "0_Mainparameters.h"
 
 double * double_microimages;
 std::string endMI = ".bin";

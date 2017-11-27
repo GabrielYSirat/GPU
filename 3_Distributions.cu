@@ -4,7 +4,7 @@
  *  Created on: Apr 23, 2017
  *      Author: gabriel
  */
-#include "0_NewLoop.h"
+#include "0_Mainparameters.h"
 int byte_skipped = 16;
 float Maxdistrib = 0.0f, Sumdistrib = 0.0f;
 std::string DISDATA = "/lambda_488/Calib/distribution";

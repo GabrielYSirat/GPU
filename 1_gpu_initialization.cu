@@ -5,7 +5,7 @@
  *      Author: gabriel
  */
 
-#include"0_NewLoop.h"
+#include"0_Mainparameters.h"
 string stepname[] = {"initialization  ", "PSF   ", "distrib  ",
 		"Laser positions", "Measurement ROI  ", "microimages", " laser in tile ", "microimages in tile",  "reconstruction  ",
 		"scratchpad    ", "bigLoop" , "end bigloop", "bigloop results"};
@@ -20,9 +20,9 @@ void report_gpu_mem()
     cudaMemGetInfo(&free, &total);
     freeMB =(float)free/(1024*1024);
     totalMB = (float)total/(1024*1024);
-    std::cout << endl << "******************Completion of GPU initialization ***************"<< endl;
-    std::cout  << "******************************************************************"<< endl;
-    std::cout << "used MB =  " << totalMB - freeMB << "   Free MB = " << freeMB << " Total MB = " << totalMB <<std::endl;
+    verbosefile << endl << "******************Completion of GPU initialization ***************"<< endl;
+    verbosefile  << "******************************************************************"<< endl;
+    verbosefile << "used MB =  " << totalMB - freeMB << "   Free MB = " << freeMB << " Total MB = " << totalMB <<std::endl;
 	printf("MAIN PROGRAM  \u2776 End of data preparation in device memory ...\n");
 }
 
@@ -129,9 +129,9 @@ float displaydata( float * datavalues, int stepval)
 
 	for (int i = 0; i < tile.maxLaserintile * NThreads; i++)
 		MaxData = max(MaxData, *(datavalues + i));
-	printf("HOST: %s %d parameters %s in %s:  n_rowintern %d n_colintern %d, total %d MaxData %g\n",
-			stepnumber.c_str(), stepval, dataliteral.c_str(), callprogram.c_str(),
-			n_rowintern, n_colintern, tile.maxLaserintile * NThreads, MaxData);
+	verbosefile << "HOST: " << stepnumber.c_str() << "  " <<  stepval << "parameters " << " n_rowintern " << n_rowintern;
+	verbosefile << "n_colintern " << n_colintern << "MaxData " << MaxData;
+	verbosefile << " dataliteral.c_str() " << dataliteral.c_str() << " callprogram.c_str() " << callprogram.c_str() << endl;
 
 	for (int idistrib = 0; idistrib < Ndistrib; idistrib++){
 
@@ -143,8 +143,8 @@ float displaydata( float * datavalues, int stepval)
 				int tiley = pZOOM * (*(PosLasery + iLaser) - tile.starty) / YTile;
 				int tilenumber = tilex + tile.NbTilex * tiley + tile.NbTilex * tile.NbTiley * idistrib;
 				int ilasertile = tilenumber * tile.maxLaserintile + tile.posintile[iLaser];
-				if (VERBOSE) printf("TILE ORG \u247A idistrib %d, iLaser %d tilenumber %d ilasertile %d\n", idistrib, iLaser,
-						tilenumber, ilasertile);
+				verbosefile << "TILE ORG \u247A idistrib " << idistrib << "  " << iLaser << " iLaser " << iLaser;
+				verbosefile << " tilenumber " << tilenumber << " ilasertile " << ilasertile << endl;
 				for (int ipix = 0; ipix < PixZoomSquare; ipix++) { // copy microimage to its position in the Data
 					*(Data + ilasertile * PixZoomSquare + ipix) = *(zoomed_microimages + iLaser * PixZoomSquare + ipix);
 					int xpix = ipix % PixZoom;	int ypix = ipix / PixZoom;
@@ -153,11 +153,8 @@ float displaydata( float * datavalues, int stepval)
 			}
 		}
 
-		printf("HOST: %s %d results %s in %s:: %s .....\n",
-			 stepnumber.c_str(), stepval, dataliteral.c_str(), callprogram.c_str(),DataFile);
-	sdkSavePGM(DataFile, i_data,tile.maxLaserintile *PixZoom , tile.NbTileXYD * PixZoom);
-	printf("HOST: %s %d ******************************************\n\n",
-			 stepnumber.c_str(), stepval);
-}
-return (MaxData);
+		sdkSavePGM(DataFile, i_data,tile.maxLaserintile *PixZoom , tile.NbTileXYD * PixZoom);
+	verbosefile << "HOST: " << stepnumber.c_str() << "  " <<  stepval << " ******************************************\n\n";
+	}
+	return (MaxData);
 }
