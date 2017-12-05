@@ -25,7 +25,7 @@ int clockRate, devID, stepval = 0; // in KHz
 ////////////////////////////////////////////////////////////////////////////////
 int main(int argc, char **argv) {
 
-	  verbosefile.open ("results/verbosefile.txt");
+	  verbosefile.open ("results/Z_verbosefile.txt");
 	  /***********initialization of  parameters step 0 *******/
 	bool InitParameters = initparameters(argc, argv);
 	stepinit(InitParameters, stepval);

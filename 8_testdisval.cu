@@ -1,6 +1,6 @@
 
 #ifdef 	TESTDISVAL
-float epsilon = 0.5e-6, valmax = 100;
+float epsilon = 0.5e-4, valmax = 100;
 if(valid_image[iblockima]){
 	if (*(pscratch_0[iblockima]) > valmax && PSFDISVAL[0] > epsilon)
 			printf("\u2465 NFZ0 iblockima %d iglobal %d ithreads %d PSFpos %d  ipixel %d jpixel %d val %g PSFDISVAL[0] %g scratch %g new_simus %12.5g \n",

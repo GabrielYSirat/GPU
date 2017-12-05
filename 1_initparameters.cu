@@ -47,8 +47,8 @@ bool initparameters( int argc, char **argv) {
 	TA.MP = deviceProps.multiProcessorCount;
 	TA.sharedmemory = deviceProps.sharedMemPerBlock;
 	clockRate = deviceProps.clockRate;
-	printf(" INIT PROG \u24EA Number of Multiprocessors (MP) %d, clock rate (KHz) %d SharedMemory %6.3f in KBytes\n\n",
-			TA.MP, clockRate, (float) TA.sharedmemory/1024.);
+	verbosefile << " INIT PROG \u24EA Number of Multiprocessors (MP) " << TA.MP << " clock rate (KHz) " << clockRate
+			<< " SharedMemory " << (float) TA.sharedmemory/1024. << " in KBytes\n\n";
 
 	/***************************** command line management*****************************/
 	resourcesdirectory = argv[1]; 	// Directory with all preprocessing files and data
@@ -114,12 +114,14 @@ bool initparameters( int argc, char **argv) {
 	verbosefile << "INIT PROG \u24EA PIXEL  : Npixel " << Npixel << " PixZoom " << PixZoom << " PixZoomo2 " << PixZoomo2 << endl;
 	verbosefile << "INIT PROG \u24EA PIXEL  : lost lines " << lostlines << " additional lines at the end of microimage\n" << endl;
 	verbosefile << "INIT PROG \u24EA pPSF   : pPSF " << pPSF << " PSFZoom " << PSFZoom << " PSFZoomo2 " << PSFZoomo2 << endl;
-	printf(" INIT PROG \u24EA DISTRIB: XDistrib %d YDistrib %d YDistrib_extended %d  Size in KBytes %g ADistrib %d RDISTRIB %d\n",
-											XDistrib, YDistrib, YDistrib_extended, ADistrib/1024., ADistrib, RDISTRIB);
-	printf(" INIT PROG \u24EA SCRATCH: XSCRATCH %d YSCRATCH %d dxSCR %d dySCR %d\n", XSCRATCH, YSCRATCH, dxSCR, dySCR);
-	printf(" INIT PROG \u24EA SCRATCH: DEL SCRATCH %d Additional pixels at start and end of SCRATCH\n", lostpixels);
-	printf(" INIT PROG \u24EA PARAMS :  Number of threads %d Threads per batch %d number of batch %d\n",
-	NThreads, THREADSVAL, THreadsRatio);
+	verbosefile << " INIT PROG \u24EA DISTRIB: XDistrib " << XDistrib << " YDistrib " << YDistrib <<  "extended "
+			 << YDistrib_extended << " Size in KBytes " << ADistrib/1024. <<
+			 "ADistrib " << ADistrib << " RDISTRIB " << RDISTRIB << endl;
+	verbosefile << " INIT PROG \u24EA SCRATCH X&Y: " << XSCRATCH << " " << YSCRATCH << " dxSCR "
+			<< dxSCR << " dySCR " << dySCR << endl;
+	verbosefile << " INIT PROG \u24EA SCRATCH: DEL SCRATCH " << lostpixels << " Additional pixels at start and end of SCRATCH\n";
+	verbosefile << " INIT PROG \u24EA PARAMS :  Number of threads " << NThreads << " Threads per batch "
+			<< THREADSVAL <<" number of batch "  << THreadsRatio << endl;
 	verbosefile << "************** DATA: PARAMETERS OF MEASUREMENT *************************************\n\n";
 
 	verbosefile << " INIT PROG \u23f3 Data parameters in device memory ...\n";

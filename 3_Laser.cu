@@ -58,7 +58,7 @@ void readstoreLaserPositions(void) {
 	int ilaserpos = 0;
 	for (int idistrib = 0; idistrib < Ndistrib; idistrib++) {
 		filename = resourcesdirectory + LaserFILE + std::to_string(idistrib + 1) + endlaser;
-		printf(" Laser \u2462: filename %s \n", filename.c_str());
+		verbosefile << "Laser \u2462: filename " << filename.c_str() << " \n";
 		LaserFile.open(filename);
 		if (!LaserFile) {
 			printf("unable to open filename %s\n\n", filename.c_str());

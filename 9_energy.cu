@@ -16,7 +16,7 @@ float EnergyCal(void) {
 			absdiff += abs(new_simus[it] - Data[it]);
 			Rfactor[it] = 1 - Data[it] / (new_simus[it] + onhost.Bconstant);
 		}
-	printf("Energy %8.6f absdiff %8.6f\n\n", Energy, absdiff);
+	printf("Energy %8.6f absolute difference %8.6f\n\n", Energy, absdiff);
 	return (Energy);
 }
 

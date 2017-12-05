@@ -17,11 +17,12 @@ void PSFprepare(void) {
 //	MaxPSF = 0.; // also used as extern
 
 	string PSFraw = resourcesdirectory + PSFDATA;
-	const char * PSFImagefile = "results/PSFImagefile.pgm";
+	const char * PSFImagefile = "results/A_PSF.pgm";
 
 	unsigned char *i_PSF = (unsigned char *) calloc(TA.PSF_size, sizeof(unsigned char)); // on host
 	double* double_PSF = (double*)std::malloc(TA.PSF_Rows*TA.Nb_Cols_PSF * sizeof(double));
 	cudaMallocManaged(&original_PSF, PSFZoom * PSFZoom * sizeof(float));
+	cudaMallocManaged(&test2_psf, PSFZoom * PSFZoom * sizeof(float));
 	cudaMallocManaged(&PSFARRAY, PSFZoom * PSFZoom *  sizeof(float));
 
 	//read pPSF bin file
@@ -43,8 +44,8 @@ void PSFprepare(void) {
 
 	verbosefile << " PSF \u24F5  Nb_Rows: " << TA.PSF_Rows << " Nb_Cols " << TA.Nb_Cols_PSF;
 	verbosefile << " size " << size << " Max: " << MaxPSF << " Sum " << SumPSF << std::endl;
-	std::cout << " PSF \u24F5  Nb_Rows: " << TA.PSF_Rows << " Nb_Cols " << TA.Nb_Cols_PSF;
-	std::cout << " size " << size << " Max: " << MaxPSF << " Sum " << SumPSF << std::endl;
+	verbosefile << " PSF \u24F5  Nb_Rows: " << TA.PSF_Rows << " Nb_Cols " << TA.Nb_Cols_PSF;
+	verbosefile << " size " << size << " Max: " << MaxPSF << " Sum " << SumPSF << std::endl;
 
 	tile.expectedmax = MaxPSF; // to be updated later on
 
@@ -65,7 +66,7 @@ bool PSFvalidateonhost(void) {
 	double Sum3PSF = 0, max3PSF =0;
 		cudaMallocManaged(&PSF_valid, TA.PSF_size * sizeof(float)); // representation of pPSF available in global memory
 	unsigned char *i_PSF = (unsigned char *) calloc(TA.PSF_size, sizeof(unsigned char)); // on host
-	const char * PSFValidationimage = "results/PSFValidationimage.pgm";
+	const char * PSFValidationimage = "results/A_PSFDevice.pgm";
 
     dim3 dimBlock(1, 1, 1);
     dim3 dimGrid(1,1, 1);

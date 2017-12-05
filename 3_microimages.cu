@@ -14,7 +14,7 @@ float Maxmicroimages = 0.0f, Summicroimages = 0.0f, Minmicroimages = 1.e20;
 void readstoremicroimages(void) {
 	char * memblock;
 	long size;
-	const char * MIRawfile = "results/MIRawfile.pgm";
+	const char * MIRawfile = "results/C_microimages.pgm";
 
 	// buffer allocation, buffer in double for original data, buffer in float for working (to go to FP16) character for display
 	double_microimages = (double *) calloc(TA.Nb_LaserPositions * PixSquare, sizeof(double));
@@ -36,7 +36,7 @@ void readstoremicroimages(void) {
 		MIrawfile.seekg(byte_skipped, ios::beg); // byte_skipped first bytes are offset
 		MIrawfile.read(memblock, size);
 		MIrawfile.close();
-		std::cout << "MICROIMAGES \u2464 function read: distrib n°" << idistrib << " number laser positions "
+		verbosefile << "MICROIMAGES \u2464 function read: distrib n°" << idistrib << " number laser positions "
 				<< tile.Nblaserperdistribution[idistrib] << " size microimages = " << size << endl;
 		printf("MICROIMAGES \u2464 number of images %d Number of pixels %d \n", tile.Nblaserperdistribution[idistrib],
 				tile.Nblaserperdistribution[idistrib] * PixSquare);
@@ -74,8 +74,8 @@ bool validatemicroimages_control(void) {
 	bool testmicroimages;
 	double Sum3microimages = 0, max3microimages = 0;
 	double Sum4microimages = 0, max4microimages = 0;
-	const char * MIValfile = "results/MIVALfile.pgm";
-	const char * MIzoomfile = "results/MIZOOMfile.pgm";
+	const char * MIValfile = "results/C_microimagesdevice.pgm";
+	const char * MIzoomfile = "results/C_microimagesdevicezoom.pgm";
 
 	// write microimages in memory and validate
 	cudaMallocManaged(&valmicroimages, (TA.Nb_LaserPositions * PixSquare) * sizeof(float));
@@ -113,7 +113,7 @@ bool validatemicroimages_control(void) {
 		Sumdel[4] += fabsf(*(valmicroimages + jmicroimages) - *(original_microimages + jmicroimages));
 	}
 	printf("Sumdel[4] %f  ", Sumdel[4]);
-	cout << "testmicroimages = " << testmicroimages << "\n";
+	verbosefile << "testmicroimages = " << testmicroimages << "\n";
 
 	// write microimages copy to disk
 	/////////////////////////////////

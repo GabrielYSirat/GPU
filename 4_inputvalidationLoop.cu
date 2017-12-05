@@ -12,7 +12,7 @@ const char * Laserfile = "results/LaserDevice.txt";
 //////////////pPSF parameters
 //__device__ float PSF_array[pPSF*pZOOM*pPSF*pZOOM]; // pPSF in constant memory
 
-__managed__ float *PSF_valid = NULL, *PSFARRAY = NULL, *original_PSF=NULL;
+__managed__ float *PSF_valid = NULL, *PSFARRAY = NULL, *original_PSF=NULL, *test2_psf = NULL;
 __managed__ float *distrib = NULL;			 // on device original and for validation
 __managed__ float *MicroImages = NULL;				 // on device original and for validation
 __managed__ float *LaserPositions = NULL, *v_LaserPositions = NULL;		 // on device original and for validation

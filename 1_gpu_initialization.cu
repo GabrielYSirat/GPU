@@ -23,7 +23,7 @@ void report_gpu_mem()
     verbosefile << endl << "******************Completion of GPU initialization ***************"<< endl;
     verbosefile  << "******************************************************************"<< endl;
     verbosefile << "used MB =  " << totalMB - freeMB << "   Free MB = " << freeMB << " Total MB = " << totalMB <<std::endl;
-	printf("MAIN PROGRAM  \u2776 End of data preparation in device memory ...\n");
+    verbosefile << "MAIN PROGRAM  \u2776 End of data preparation in device memory ...\n";
 }
 
 
@@ -67,10 +67,10 @@ void COS::start(void) {
 
 void Ctile::print() const
 {
-	  cout << "previous calculation: Number of Aggregates in x:" << NbAggregx  << " in y:" << NbAggregy;
-	  cout << " Number of Tiles per aggregates in x:" << tileperaggregatex  << " in y:" << tileperaggregatey << endl;
-	  cout << "Number of Tiles in x:" << NbTilex  << " in y:" << NbTiley <<endl ;
-	  cout << "Max number of laser position in Tile:" << maxLaserintile  << " min value" << minLaserintile <<endl<<endl ;
+	  verbosefile << "previous calculation: Number of Aggregates in x:" << NbAggregx  << " in y:" << NbAggregy;
+	  verbosefile << " Number of Tiles per aggregates in x:" << tileperaggregatex  << " in y:" << tileperaggregatey << endl;
+	  verbosefile << "Number of Tiles in x:" << NbTilex  << " in y:" << NbTiley <<endl ;
+	  verbosefile << "Max number of laser position in Tile:" << maxLaserintile  << " min value" << minLaserintile <<endl<<endl ;
 }
 
 void stepinit(int test, int& stepval)
@@ -83,14 +83,14 @@ Timestep[stepval] = ((float) (timer - time_start)) / clockRate;
 		Stepdiag[stepval] = Sumdel[stepval];
 
 	if (test)
-		cout << "+++" << stepname[stepval]<< " Test validated++++ " << Stepdiag[stepval];
+		verbosefile << "+++" << stepname[stepval]<< " Test validated++++ " << Stepdiag[stepval];
 	else
-		cout << "---" << stepname[stepval]<< " Test not validated++++  Sumdel =  " << Sumdel[stepval];
-	if(stepval != 0) std::cout << std::fixed << " \u23F1 msec " <<" device  "  << Timestep[stepval]  << "  total " << Timetotal << endl;
-	cout << "END STEP	*******end of step  " << stepval << "  " << stepname[stepval] << "**********************************" << endl << endl;
+		verbosefile << "---" << stepname[stepval]<< " Test not validated++++  Sumdel =  " << Sumdel[stepval];
+	if(stepval != 0) verbosefile << std::fixed << " \u23F1 msec " <<" device  "  << Timestep[stepval]  << "  total " << Timetotal << endl;
+	verbosefile << "END STEP	*******end of step  " << stepval << "  " << stepname[stepval] << "**********************************" << endl << endl;
 	stepval++;
 	if(stepval != 9)
-	cout << "START STEP	*************  step " << stepval << "  " << stepname[stepval] << "*************" << endl;
+	verbosefile << "START STEP	*************  step " << stepval << "  " << stepname[stepval] << "*************" << endl;
 
 }
 
@@ -103,6 +103,30 @@ int retrieveargv(string argvdata) {
 	return (result);
 }
 
+bool T4Dto2D( float *matrix4D, float *matrix2D,  int dimension1, int dimension2, int dimension3, int dimension4)
+{
+for(int i1 =0 ; i1 < dimension1; i1++)
+		for(int i2 =0 ; i2 < dimension2; i2++)
+			for(int i3 =0 ; i3 < dimension3; i3++)
+				for(int i4 =0 ; i4 < dimension4; i4++)
+					*(matrix4D + (i4*dimension2 + i2) * dimension3 * dimension1 + (i3*dimension1 + i1))
+					= *(matrix2D + i4*dimension3*dimension2*dimension1 + i3*dimension2*dimension1 + i2*dimension1 + i1);
+
+	return(TRUE);
+}
+
+bool T4Dto2Di( int *matrix4D, int *matrix2D,  int dimension1, int dimension2, int dimension3, int dimension4)
+{
+for(int i1 =0 ; i1 < dimension1; i1++)
+		for(int i2 =0 ; i2 < dimension2; i2++)
+			for(int i3 =0 ; i3 < dimension3; i3++)
+				for(int i4 =0 ; i4 < dimension4; i4++)
+					*(matrix4D + (i4*dimension2 + i2) * dimension3 * dimension1 + (i3*dimension1 + i1))
+					= *(matrix2D + i4*dimension3*dimension2*dimension1 + i3*dimension2*dimension1 + i2*dimension1 + i1);
+
+	return(TRUE);
+}
+
 float displaydata( float * datavalues, int stepval)
 {
 	float MaxData = 0.0f;
@@ -113,17 +137,17 @@ float displaydata( float * datavalues, int stepval)
 	if (stepval == 12) stepnumber.append("\u24EF");
 	if (stepval == 12) dataliteral.append("SimusA1");
 	if (stepval == 12) callprogram.append("biginspect.cu");
-	if (stepval == 12) filebase.append("results/simusA1.pgm");
+	if (stepval == 12) filebase.append("results/F_simusA1.pgm");
 
 	if (stepval == 13) stepnumber.append("\u24F0");
 	if (stepval == 13) dataliteral.append("RFactorA1");
 	if (stepval == 13) callprogram.append("biginspect.cu");
-	if (stepval == 13) filebase.append("results/RFactorA1.pgm");
+	if (stepval == 13) filebase.append("results/G_RFactorA1.pgm");
 
 	if (stepval == 7) stepnumber.append("\u24EF");
 	if (stepval == 7) dataliteral.append("MicroimagesA1");
 	if (stepval == 7) callprogram.append("tileorganization.cu");
-	if (stepval == 7) filebase.append("results/microimagesB.pgm");
+	if (stepval == 7) filebase.append("results/C_microimagesdeviceloop.pgm");
 
 	unsigned char *i_data = (unsigned char *) calloc(n_colintern*n_rowintern, sizeof(unsigned char)); // on host
 

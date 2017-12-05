@@ -9,6 +9,7 @@
 #define NEWLOOP_H_
 
 // Includes, system
+#include <cuda.h>
 #include <math.h>
 #include <cstdio>
 #include <ctime>
@@ -54,6 +55,7 @@ extern float Maxdistrib, Sumdistrib;
 extern float MaxPSF, SumPSF;
 extern float MaxRec, SumRec;
 extern float Maxmicroimages, Minmicroimages;
+extern int fullnumberoftiles,datafullsize;
 
 /************Extern read in command line*************/
 extern __managed__ int pPSF, Npixel, pZOOM, RDISTRIB, Ndistrib;
@@ -85,7 +87,8 @@ void report_gpu_mem();
 bool initparameters(int argc, char **argv);
 void stepinit(int test, int & stepval);
 int retrieveargv(string argvdata);
-
+bool T4Dto2D( float *matrix4D, float *matrix2D,  int dimension1, int dimension2, int dimension3, int dimension4);
+bool T4Dto2Di( int matrix4D, int *matrix2D,  int dimension1, int dimension2, int dimension3, int dimension4);
 
 /************************pPSF *******************/
 void PSFprepare(void);
@@ -137,7 +140,7 @@ float EnergyCal(void);
 
 bool tile_organization(void);
 extern __managed__ float *PSF_valid;
-extern __managed__ float  *original_PSF;
+extern __managed__ float  *original_PSF, *test2_psf;
 extern __managed__ int *ROIx, *ROIy, *d_ROIx, *d_ROIy;
 extern __managed__ int *ROIxScratch, *ROIyScratch, *offsetROI;
 extern __managed__ float *microimages, *d_microimages;

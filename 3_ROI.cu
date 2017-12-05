@@ -34,7 +34,7 @@ void readstoreCroppedROI(void) {
 	int iROIpos = 0;
 	for (int idistrib = 0; idistrib < Ndistrib; idistrib++) {
 		filename = resourcesdirectory + ROIFILE + std::to_string(idistrib + 1) + endROI;
-		printf("filename %s \n", filename.c_str());
+		verbosefile << "filename " << filename.c_str() << " \n";
 		ROIfile.open(filename);
 		if (!ROIfile) {
 			printf("unable to open filename %s\n\n", filename.c_str());
@@ -60,8 +60,8 @@ void readstoreCroppedROI(void) {
 		ROIfile.close();
 	}
 
-	printf("ROI \u2463 min and max x %d %d, min and max y %d %d ... \n",
-			TA.maxROIx, TA.minROIx, TA.maxROIy, TA.minROIy);
+	verbosefile << "ROI \u2463 min and max x " << TA.maxROIx << " " << TA.minROIx << " y "
+			<<  TA.maxROIy << " " << TA.minROIy << endl;
 }
 
 bool validateCroppedROI_control(void) {

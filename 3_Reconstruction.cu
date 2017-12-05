@@ -8,8 +8,11 @@
 std::string filenameimage;
 std::string RECFILE = "image_iteration_0__63x114_4em";
 std::string endREC = ".raw";
-
-
+const char * reconstructionImagefile = "results/D_reconstruction.pgm";
+const char * recValImagefile = "results/D_reconstructiondevice.pgm";
+const char * rectilereconstructionfile = "results/D_reconstructionreorganized.pgm";
+const char * scratchpadImagefile = "results/E_scratchpad.pgm";
+const char * ScratchpadValImagefile = "results/E_Scratchpaddevice.pgm";
 
 void Recprepare(void) {
 	float MaxRec = 0.0f, SumRec = 0.0f;
@@ -33,12 +36,12 @@ void Recprepare(void) {
 	std::ifstream RecFile(filenameimage.c_str(), ios::in | ios::binary | ios::ate);
 	size = (RecFile.tellg()); 	// the data is stored in float of 4 bytes in the file
 	size -= byte_skipped; 	// WE REMOVE byte_skipped BYTES
-	std::cout << "REC \u24FC ************file read: size reconstruction in bytes = " << size << endl;
+	verbosefile << "REC \u24FC ************file read: size reconstruction in bytes = " << size << endl;
 	memblock = new char[size];
 	RecFile.seekg(byte_skipped, ios::beg); // byte_skipped first bytes are skipped
 	RecFile.read(memblock, size);
 	RecFile.close();
-	std::cout << "REC \u24FC *******complete size  " << TA.reconstruction_size << "  Size in Bytes " << TA.reconstruction_size * sizeof(double) << endl;
+	verbosefile << "REC \u24FC *******complete size  " << TA.reconstruction_size << "  Size in Bytes " << TA.reconstruction_size * sizeof(double) << endl;
 
 	/** read reconstruction data from file in double, transfer to float on the global memory of the device and create a normalized image
 	 *
@@ -51,8 +54,7 @@ void Recprepare(void) {
 	}	// sanity check, check max and sum
 
 
-	std::cout << "REC \u24FC ***  max =" << MaxRec << "  Sum =" << SumRec << endl;
-	const char * reconstructionImagefile = "results/reconstruction.pgm";
+	verbosefile << "REC \u24FC ***  max =" << MaxRec << "  Sum =" << SumRec << endl;
 	unsigned char *i_reconstruction = (unsigned char *) calloc(TA.reconstruction_size, sizeof(unsigned char)); // on host
 	double* double_rec = (double*) std::malloc(TA.reconstruction_size * sizeof(double)); // on host
 	// write reconstruction image to disk /////////////////////////////////
@@ -71,7 +73,6 @@ bool Recvalidate_host(void) {
 	// write rec in memory and validate
 	unsigned char *i_rec = (unsigned char *) calloc(TA.reconstruction_size, sizeof(unsigned char)); // on host
 	cudaMallocManaged(&val_rec, TA.reconstruction_size * sizeof(float));
-	const char * recValImagefile = "results/recValImage.pgm";
 
 	dim3 dimBlock(1, 1, 1);
 	dim3 dimGrid(1, 1, 1);
@@ -95,7 +96,7 @@ bool Recvalidate_host(void) {
 		for (int i = 0; i < TA.reconstruction_size; i++) {
 			MaXTile = max(MaXTile, val_rec[i]); // sanity check, check max
 		}
-	std::cout << "max device =" << MaXTile << "\n";
+	verbosefile << "max device =" << MaXTile << "\n";
 	for (int i = 0; i < TA.reconstruction_size; i++){
 		i_rec[i] = 255.0 * val_rec[i] / MaXTile;			// Validation image value
 	if(VERBOSE)
@@ -113,7 +114,7 @@ bool Recvalidate_host(void) {
 		Sumdel[1] += fabsf(*(val_rec + jrec) - *(original_rec + jrec));
 	}
 	printf("Sumdel[1] %f  ", Sumdel[1]);
-	std::cout << "testrec = " << testrec << "\n";
+	verbosefile << "testrec = " << testrec << "\n";
 
 
 	cudaFree(val_rec);
@@ -122,9 +123,6 @@ bool Recvalidate_host(void) {
 
 void Scratchprepare(void) {
 	float Maxscratch = 0.0f, Sumscratch = 0.0f, maxTile = 0.0f, SumTile = 0.0f;
-
-	const char * rectilereconstructionfile = "results/tilerec.pgm";
-	const char * scratchpadImagefile = "results/scratchpad.pgm";
 
 	float *tile_rec = (float*) std::calloc(ATile * tile.NbTileXY , sizeof(float)); 					// on host
 	unsigned char *i_tilerec = (unsigned char *) calloc(ATile * tile.NbTileXY, sizeof(unsigned char));// on host
@@ -206,7 +204,6 @@ bool Scratchvalidate_host(void) {
 	unsigned char *i_Scratchpad = (unsigned char *) calloc(tile.NbTileXY * XSCRATCH * YSCRATCH, sizeof(unsigned char)); // on host
 	cudaMallocManaged(&val_scratchpad, tile.NbTileXY * ASCRATCH * sizeof(float));
 	cudaMallocManaged(&val2_scratchpad, tile.NbTileXY * ASCRATCH * Ndistrib * sizeof(float));
-	const char * ScratchpadValImagefile = "results/ScratchpadValImagefile.pgm";
 
 	dim3 dimBlock(1, 1, 1);
 	dim3 dimGrid(1, 1, 1);
@@ -228,7 +225,7 @@ bool Scratchvalidate_host(void) {
 		for (int i = 0; i < ASCRATCH *tile.NbTileXY; i++) {
 			MaxScratchpad = max(MaxScratchpad, val_scratchpad[i]); // sanity check, check max
 		}
-	std::cout << "max device =" << MaxScratchpad << "\n";
+	verbosefile << "max device =" << MaxScratchpad << "\n";
 
 	for (int ity = 0; ity < tile.NbTiley; ity ++)
 		for (int itx = 0; itx < tile.NbTilex; itx ++){
@@ -252,7 +249,7 @@ bool Scratchvalidate_host(void) {
 		Sumdel[8] += fabsf(*(val_scratchpad + jScratchpad) - *(scratchpad_matrix + jScratchpad));
 	}
 	printf("Sumdel[8] %f  ", Sumdel[8]);
-	std::cout << "testScratchpad = " << testScratchpad << "\n";
+	verbosefile << "testScratchpad = " << testScratchpad << "\n";
 	cudaFree(val_scratchpad);
 	return (testScratchpad);
 }

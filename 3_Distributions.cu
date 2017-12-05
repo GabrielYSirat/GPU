@@ -9,7 +9,7 @@ int byte_skipped = 16;
 float Maxdistrib = 0.0f, Sumdistrib = 0.0f;
 std::string DISDATA = "/lambda_488/Calib/distribution";
 std::string enddistrib = ".bin";
-const char * distribImagefile = "results/distribImagefile.pgm";
+const char * distribImagefile = "results/B_distributions.pgm";
 
 void readstoredistrib(void) {
 	char * memblock;
@@ -36,6 +36,7 @@ void readstoredistrib(void) {
 	double_distrib = (double*) memblock; //reinterpret the chars stored in the file as double
 
 	for (int i = 0; i < ADistrib; i++) {
+//		if(*(double_distrib + i) > 10.) printf(" i %d *(double_distrib + i) %f \n", i, *(double_distrib + i));
 		*(original_distrib + i + idistrib*XDistrib*YDistrib_extended) = *(double_distrib + i);	// change to float
 		Sumdistrib += double_distrib[i];
 		Maxdistrib = max(Maxdistrib, *(double_distrib + i));
@@ -61,7 +62,7 @@ bool Distribvalidate_host(void) {
 	unsigned char *ii_distrib = (unsigned char *) calloc( YDistrib_extended * XDistrib * Ndistrib, sizeof(unsigned char)); // on host
 	// write distrib in memory and validate
 	cudaMallocManaged(&val_distrib, YDistrib_extended * XDistrib * Ndistrib * sizeof(float));
-	const char * distribValImagefile = "results/distribValImagefile.pgm";
+	const char * distribValImagefile = "results/B_distributionsdevice.pgm";
 
 	dim3 dimBlock(1, 1, 1);
 	dim3 dimGrid(1, 1, 1);
@@ -92,7 +93,7 @@ bool Distribvalidate_host(void) {
 				*(val_distrib + jdistrib) - *(original_distrib + jdistrib));
 	}
 	printf("Sumdel[1] %f  ", Sumdel[1]);
-	cout << "testdistrib = " << testdistrib << "\n";
+	verbosefile << "testdistrib = " << testdistrib << "\n";
 	cudaFree(val_distrib);
 	return (testdistrib);
 }
