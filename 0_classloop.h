@@ -69,10 +69,8 @@ public:
 	int Nblaserperdistribution[MAXNBDISTRIB] = { 0 }, maxlaserperdistribution = 0;
 	int maxLaserintile = NIMAGESPARALLEL, minLaserintile =1.E6, blocks;
 	int NbLaserTotal;
-	int reconstructionsizex, reconstructionsizey;
 	int NbLaserpertile[MAXTILE] = { 0 };
 	int posintile[NUMLASERPOSITIONS];
-	float expectedmax;
 	float Bconstant = 1.0;
 	int startx, starty;
 	void print() const;
@@ -87,7 +85,7 @@ public:
 	uint Nb_LaserPositions;
 	int imalimitpertile;
 	uint NbLaserpertile[MAXTILE] = { 0 };
-	float expectedmax;
+	float MaxPSF, MaxRec, Maxmicroimages, Maxdistrib ;
 	float Bconstant;
 	float MaxRfactor, MaxSimus, MaxData;
 	int step;

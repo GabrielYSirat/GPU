@@ -47,8 +47,6 @@ void PSFprepare(void) {
 	verbosefile << " PSF \u24F5  Nb_Rows: " << TA.PSF_Rows << " Nb_Cols " << TA.Nb_Cols_PSF;
 	verbosefile << " size " << size << " Max: " << MaxPSF << " Sum " << SumPSF << std::endl;
 
-	tile.expectedmax = MaxPSF; // to be updated later on
-
 	// write pPSF original image to disk
 	/////////////////////////////////
 	for (int i = 0; i <= TA.PSF_size; i++)

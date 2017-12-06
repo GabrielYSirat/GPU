@@ -23,7 +23,7 @@ void Recprepare(void) {
 	int size;
 
 	filenameimage = resourcesdirectory + RECFILE + endREC;
-	printf("REC \u24FC reconstruction image:  %s \n", filenameimage.c_str());
+	verbosefile << "REC \u24FC reconstruction image:  " << filenameimage.c_str() << " \n";
 
 	/** *****************************data arrays allocation*********************************/
 	/** original_reconstruction data in float stored on device with a shadow copy on host
@@ -60,7 +60,7 @@ void Recprepare(void) {
 	// write reconstruction image to disk /////////////////////////////////
 	for (int i = 0; i < TA.reconstruction_size; i++) i_reconstruction[i] = 255.0 * original_rec[i] / MaxRec;			// image value
 
-	printf("REC \u24FC Path to reconstruction original %s .....\n", reconstructionImagefile);
+	verbosefile << "REC \u24FC Path to reconstruction original " << reconstructionImagefile << " .....\n";
 	sdkSavePGM(reconstructionImagefile, i_reconstruction, TA.Nb_Cols_reconstruction, TA.Nb_Rows_reconstruction);
 	free(i_reconstruction);
 	free(double_rec);
@@ -134,6 +134,7 @@ void Scratchprepare(void) {
 
 	int deltilex = tile.NbTilex * XTile - TA.Nb_Cols_reconstruction;
 	int deltiley = tile.NbTiley * YTile - TA.Nb_Rows_reconstruction;
+	i
 	printf(" offset = - del /2 !! x %d  y  %d\n", deltilex/2,deltiley/2);
 
 	for (int arg = 0; arg < TA.reconstruction_size; arg++) {

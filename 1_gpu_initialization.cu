@@ -103,28 +103,26 @@ int retrieveargv(string argvdata) {
 	return (result);
 }
 
-bool T4Dto2D( float *matrix4D, float *matrix2D,  int dimension1, int dimension2, int dimension3, int dimension4)
-{
-for(int i1 =0 ; i1 < dimension1; i1++)
-		for(int i2 =0 ; i2 < dimension2; i2++)
-			for(int i3 =0 ; i3 < dimension3; i3++)
-				for(int i4 =0 ; i4 < dimension4; i4++)
-					*(matrix4D + (i4*dimension2 + i2) * dimension3 * dimension1 + (i3*dimension1 + i1))
-					= *(matrix2D + i4*dimension3*dimension2*dimension1 + i3*dimension2*dimension1 + i2*dimension1 + i1);
+bool T4Dto2D(unsigned char *matrix4D, unsigned char *matrix2D, int dimension4, int dimension3,
+		int dimension2, int dimension1) {
+int max4D = 0, max2D = 0;
+	for (int i1 = 0; i1 < dimension1; i1++)
+		for (int i2 = 0; i2 < dimension2; i2++)
+			for (int i3 = 0; i3 < dimension3; i3++)
+				for (int i4 = 0; i4 < dimension4; i4++) {
+					int xvalue = (i4 * dimension1 + i1);
+					int yvalue = (i3 * dimension2 + i2);
+					*(matrix4D + xvalue + yvalue * dimension1 * dimension3) = *(matrix2D
+							+ i4 * dimension3 * dimension2 * dimension1 + i3 * dimension2 * dimension1
+							+ i2 * dimension1 + i1);
+				}
+	for (int i1 = 0; i1 < dimension4 * dimension3 * dimension2 * dimension1; i1++) {
+		max4D = max(max4D, *(matrix4D + i1));
+		max2D = max(max2D, *(matrix2D + i1));
 
-	return(TRUE);
-}
-
-bool T4Dto2Di( int *matrix4D, int *matrix2D,  int dimension1, int dimension2, int dimension3, int dimension4)
-{
-for(int i1 =0 ; i1 < dimension1; i1++)
-		for(int i2 =0 ; i2 < dimension2; i2++)
-			for(int i3 =0 ; i3 < dimension3; i3++)
-				for(int i4 =0 ; i4 < dimension4; i4++)
-					*(matrix4D + (i4*dimension2 + i2) * dimension3 * dimension1 + (i3*dimension1 + i1))
-					= *(matrix2D + i4*dimension3*dimension2*dimension1 + i3*dimension2*dimension1 + i2*dimension1 + i1);
-
-	return(TRUE);
+	}
+	printf("Max4D %d, max2D %d \n\n", max4D, max2D);
+	return (TRUE);
 }
 
 float displaydata( float * datavalues, int stepval)

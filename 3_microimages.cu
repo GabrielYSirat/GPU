@@ -23,11 +23,11 @@ void readstoremicroimages(void) {
 	cudaMallocManaged(&MIintile, tile.NbTileXY * tile.maxLaserintile * PixZoomSquare * sizeof(float));
 	unsigned char *i_MIraw = (unsigned char*) calloc(Ndistrib*PixSquare * tile.maxlaserperdistribution, sizeof(char));
 
-	printf("MICROIMAGES \u2464 Total number of images for all distributions %d\n", TA.Nb_LaserPositions);
+	verbosefile << "MICROIMAGES \u2464 Total number of images for all distributions " <<  TA.Nb_LaserPositions << endl;
 	int numberofpixels = 0;
 	for (int idistrib = 0; idistrib < Ndistrib; idistrib++) {
 		std::string MIraw = resourcesdirectory + MIFILE + std::to_string(idistrib + 1) + endMI;
-		printf("MICROIMAGES \u2464 function read: distribution n°%d Path to distrib original .....\n %s \n", idistrib, MIraw.c_str());
+		verbosefile << "MICROIMAGES \u2464 function read: distribution n°" << idistrib << " Path to distrib original .....\n" << MIraw.c_str() << endl;
 
 		std::ifstream MIrawfile(MIraw.c_str(), ios::in | ios::binary | ios::ate); 		//read distrib bin file
 		size = (MIrawfile.tellg()) ; 	// the data is stored in doubles of 8 bytes in the file
@@ -62,7 +62,7 @@ void readstoremicroimages(void) {
 					i_MIraw[itemp] = 255.0 * (original_microimages[itemp2] - Minmicroimages)
 							/ (Maxmicroimages - Minmicroimages);
 				}
-	printf("MICROIMAGES \u2464 host: Path to microimages original %s .....\n", MIRawfile);
+	verbosefile << "MICROIMAGES \u2464 host: Path to microimages original " << MIRawfile << " .....\n";
 
 	sdkSavePGM(MIRawfile, i_MIraw,  Npixel * Ndistrib, tile.maxlaserperdistribution * Npixel);
 
@@ -91,20 +91,20 @@ bool validatemicroimages_control(void) {
 		Sum3microimages += *(valmicroimages + imicroimages);
 		max3microimages = max(max3microimages, *(valmicroimages + imicroimages));
 	}
-	printf("MICROIMAGES \u2464 Copy from device: Average  %f max3microimages %f \n",
-			Sum3microimages / (TA.Nb_LaserPositions * PixSquare), max3microimages);
+	verbosefile << "MICROIMAGES \u2464 Copy from device: Average " << Sum3microimages / (TA.Nb_LaserPositions * PixSquare);
+	verbosefile << "max3microimages " << max3microimages << endl;
 
 	for (int imicroimages = 0; imicroimages < (TA.Nb_LaserPositions * PixZoom * PixZoom); imicroimages++) {
 		Sum4microimages += *(zoomed_microimages + imicroimages);
 		max4microimages = max(max4microimages, *(zoomed_microimages + imicroimages));
 	}
-	printf("MICROIMAGES \u2464 Copy from device: zoomed image Average  %f max3microimages %f \n",
-			Sum4microimages / (TA.Nb_LaserPositions * PixZoom * PixZoom), max4microimages);
+	verbosefile << "MICROIMAGES \u2464 Copy from device: zoomed image Average " << Sum4microimages / (TA.Nb_LaserPositions * PixZoom * PixZoom);
+	verbosefile << "max3microimages " << max4microimages << endl;
 
 	// write microimages image validation to disk
 	/////////////////////////////////
 
-	printf("MICROIMAGES \u2464 Comparing files ... ");
+	verbosefile << "MICROIMAGES \u2464 Comparing files ... ";
 	testmicroimages = compareData(valmicroimages, original_microimages,
 			TA.Nb_Cols_microimages * TA.Nb_Rows_microimages * Ndistrib,
 			MAX_EPSILON_ERROR, 0.15f);
@@ -112,7 +112,7 @@ bool validatemicroimages_control(void) {
 	for (int jmicroimages = 0; jmicroimages < (TA.Nb_LaserPositions * PixSquare); jmicroimages++) {
 		Sumdel[4] += fabsf(*(valmicroimages + jmicroimages) - *(original_microimages + jmicroimages));
 	}
-	printf("Sumdel[4] %f  ", Sumdel[4]);
+	verbosefile << "Sumdel[4] " << Sumdel[4];
 	verbosefile << "testmicroimages = " << testmicroimages << "\n";
 
 	// write microimages copy to disk
@@ -138,7 +138,7 @@ bool validatemicroimages_control(void) {
 				}
 
 
-	printf("MICROIMAGES \u2464 host: Path to microimages copy %s .....\n", MIValfile);
+	verbosefile << "MICROIMAGES \u2464 host: Path to microimages copy " << MIValfile << " .....\n";
 
 	sdkSavePGM(MIValfile, i_MIVal,  Npixel * Ndistrib, tile.maxlaserperdistribution * Npixel);
 	sdkSavePGM(MIzoomfile, i_MIzoom, PixZoom * Ndistrib, tile.maxlaserperdistribution * PixZoom);

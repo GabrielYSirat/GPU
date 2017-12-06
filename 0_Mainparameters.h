@@ -50,7 +50,6 @@ extern cudaEvent_t start, stop;
 extern double Sumdel[16], Timestep[16];
 extern string Stepdiag[16];
 extern int smallnumber, byte_skipped, step;
-extern float MaxPSF;
 extern float Maxdistrib, Sumdistrib;
 extern float MaxPSF, SumPSF;
 extern float MaxRec, SumRec;
@@ -87,8 +86,7 @@ void report_gpu_mem();
 bool initparameters(int argc, char **argv);
 void stepinit(int test, int & stepval);
 int retrieveargv(string argvdata);
-bool T4Dto2D( float *matrix4D, float *matrix2D,  int dimension1, int dimension2, int dimension3, int dimension4);
-bool T4Dto2Di( int matrix4D, int *matrix2D,  int dimension1, int dimension2, int dimension3, int dimension4);
+bool T4Dto2D( unsigned char *matrix4D, unsigned char *matrix2D,  int dimension1, int dimension2, int dimension3, int dimension4);
 
 /************************pPSF *******************/
 void PSFprepare(void);

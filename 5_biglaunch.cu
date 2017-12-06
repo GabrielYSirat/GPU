@@ -46,7 +46,10 @@ bool biglaunch() {
 	onhost.blocks = tile.blocks;
 	onhost.minLaserintile = tile.minLaserintile;
 	onhost.Nb_LaserPositions = TA.Nb_LaserPositions;
-	onhost.expectedmax = tile.expectedmax;
+	onhost.MaxPSF = MaxPSF;
+	onhost.MaxRec = MaxRec;
+	onhost.Maxmicroimages = Maxmicroimages;
+	onhost.Maxdistrib = Maxdistrib;
 	onhost.clockRate = clockRate;
 	verbosefile << "HOST: \u24F3  ";
 	for(int itile = 0; itile < tile.NbTileXYD; itile ++) {
