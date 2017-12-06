@@ -50,11 +50,14 @@ extern cudaEvent_t start, stop;
 extern double Sumdel[16], Timestep[16];
 extern string Stepdiag[16];
 extern int smallnumber, byte_skipped, step;
+extern int fullnumberoftiles,datafullsize;
 extern float Maxdistrib, Sumdistrib;
 extern float MaxPSF, SumPSF;
 extern float MaxRec, SumRec;
 extern float Maxmicroimages, Minmicroimages;
-extern int fullnumberoftiles,datafullsize;
+extern __managed__ float Maxscratch, Sumscratch, maxTile, SumTile;
+extern __managed__ double MaxNewSimus;
+
 
 /************Extern read in command line*************/
 extern __managed__ int pPSF, Npixel, pZOOM, RDISTRIB, Ndistrib;

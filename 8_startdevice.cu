@@ -14,7 +14,7 @@
 		printf("DEVICE: \u2460 PARAMETERS Number of pixels calculated in parallel %d Number of threads used"
 				" %d loop on threads %d\n", NThreads, THREADSVAL, THreadsRatio);
 		printf("DEVICE: \u2460  TILES: XSCRATCH %d, YSCRATCH %d  iprint %d", XSCRATCH, YSCRATCH,iprint);
-		printf("XTILE %d, YTILE %d\n", XTile, YTile);
+		printf("XTILE %d, YTILE %d\n", DD.XTile, DD.YTile);
 		printf("DEVICE: \u2460  TILES & AGGREGATES: Number of Aggregates in x: %d in y:%d\n", DD.NbAggregx,
 				DD.NbAggregy);
 		printf("DEVICE: \u2460  TILES & AGGREGATES: Number of Tiles per aggregates in x: %d in y:%d\n",

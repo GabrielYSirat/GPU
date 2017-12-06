@@ -12,8 +12,6 @@
 #include "0_include.tst"
 __managed__ float *new_simus, *Data, *Rfactor, *distribvalidGPU;
 __managed__ float EnergyGlobal = 0.0f;
-__managed__ double MaxNewSimus = 0.0f, Sumscratch = 0.0f, maxscratch = 0.0f;
-
 __global__ void BigLoop(devicedata DD) {
 
 	extern __shared__ int shared[]; /***************semi-global variables stored in shared memory ***************/

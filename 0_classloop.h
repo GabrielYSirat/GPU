@@ -91,6 +91,7 @@ public:
 	int step;
 	int *stepval;
 	int clockRate;
+	int XTile, YTile;
 
 };
 

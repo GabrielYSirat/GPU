@@ -51,15 +51,19 @@ bool biglaunch() {
 	onhost.Maxmicroimages = Maxmicroimages;
 	onhost.Maxdistrib = Maxdistrib;
 	onhost.clockRate = clockRate;
-	verbosefile << "HOST: \u24F3  ";
+	onhost.XTile = XTile;
+	onhost.YTile = YTile;
+
+	verbosefile << "HOST: \\u24EA  \n";
 	for(int itile = 0; itile < tile.NbTileXYD; itile ++) {
 		onhost.NbLaserpertile[itile] = tile.NbLaserpertile[itile];
-		verbosefile << "tile n° " << itile << " #laser " << onhost.NbLaserpertile[itile] << endl;
+		verbosefile << "tile n° " << itile << " #laser " << onhost.NbLaserpertile[itile] << " || ";
 	}
-//	onhost.imalimitpertile = onhost.Nb_LaserPositions - (onhost.NbTile - 1) * onhost.maxLaserintile;
+	verbosefile << endl;
+	onhost.imalimitpertile = onhost.Nb_LaserPositions - (onhost.NbTileXY - 1) * onhost.maxLaserintile;
 	onhost.Bconstant = tile.Bconstant;
 	verbosefile << "Number of laser positions " << onhost.Nb_LaserPositions << " number of tile XY " << onhost.NbTileXY
-			<< " imalimitpertile " << onhost.imalimitpertile << " ima limite per tile " << onhost.maxLaserintile;
+			<< " imalimitpertile " << onhost.imalimitpertile << " ima limite per tile " << onhost.maxLaserintile << endl;
 
 	bool testbig = FALSE;
 
@@ -68,8 +72,8 @@ bool biglaunch() {
 	verbosefile << "dimBlock  x: " << dimBlock.x << " y: " << dimBlock.y << " z: " << dimBlock.z << "  ...  ";
 	verbosefile << "dimGrid  x: " << dimGrid.x << " y: " << dimGrid.y << " z: " << dimGrid.z << endl << endl;
 
-	verbosefile << "HOST: \u24F3 ************************BigLoop start   *******************************" << endl;
-	verbosefile << "HOST: \u24F3 ***********************************************************************" << endl;
+	verbosefile << "HOST: \\u24EA ************************BigLoop start   *******************************" << endl;
+	verbosefile << "HOST: \\u24EA ***********************************************************************" << endl;
 
 	int sharedsize = NIMAGESPARALLEL * sizeof(int) + ASCRATCH * sizeof(float) + ADistrib * sizeof(float);
 
@@ -77,8 +81,12 @@ bool biglaunch() {
 		verbosefile << "shared memory required is above the memory available" << sharedsize / 1024.0 << "KBytes" << endl;
 		exit(1);
 	} else
-		verbosefile << "HOST: \u24F3 *** SHARED MEMORY SIZE " << sharedsize / 1024.0 << " KBytes" << endl;
+		verbosefile << "HOST: \\u24EA *** SHARED MEMORY SIZE " << sharedsize / 1024.0 << " KBytes" << endl;
 	// Execute the Laser positions kernel
+	verbosefile << "HOST: \\u24EA ************************BigLoop start   *******************************" << endl;
+	verbosefile << "HOST: \\u24EA ***********************************************************************" << endl;
+	cout << "HOST: \\u24EA ************************BigLoop start   *******************************" << endl;
+	cout << "HOST: \\u24EA ***********************************************************************" << endl;
 	BigLoop<<<dimBlock, dimGrid, sharedsize>>>(onhost);
 	cudaDeviceSynchronize();
 

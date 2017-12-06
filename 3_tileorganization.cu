@@ -13,6 +13,7 @@ const char * MIintilefile = "results/C_microimagesintile.pgm";
 const char * NIintilefile = "results/C_microimagesintile2.pgm";
 float * reorganized_data;
 int fullnumberoftiles,datafullsize;
+__managed__ double MaxNewSimus;
 
 bool tileorganization(void) {
 	bool Lasertile = TRUE;

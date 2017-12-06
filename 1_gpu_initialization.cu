@@ -180,3 +180,35 @@ float displaydata( float * datavalues, int stepval)
 	}
 	return (MaxData);
 }
+
+bool scratchdisplay (float * scratchdata, char * filename)
+{
+	unsigned char *i_scratchpad = (unsigned char *) calloc(tile.NbTileXY * XSCRATCH * YSCRATCH, sizeof(unsigned char)); // on host
+	for (int iy = 0; iy < tile.NbTiley; iy++)
+		for (int ix = 0; ix < tile.NbTilex; ix++)
+			for (int iix = 0; iix < XTile; iix++)
+				for (int iiy = 0; iiy < YTile; iiy++) {
+
+					int iscratch = lostpixels + iix + dxSCRo2; 		// contribution of x in the 1D SCRATCH
+					iscratch += ix * XSCRATCH; 					// contribution of previous tiles in x
+					iscratch += (iiy + dySCRo2) * XSCRATCH * tile.NbTilex; 		// contribution of y in 1D SCRATCH
+					iscratch += iy * YSCRATCH * XSCRATCH  * tile.NbTilex; 	// contribution of previous tiles in y
+
+					int itile = iix;  // contribution of x in the TILE
+					itile += ix * XTile; // contribution of previous tile in x
+					itile += iiy * XTile * tile.NbTilex; // contribution of y in the TILE
+					itile += iy * ATile * tile.NbTilex ; // contribution of previous tiles in y
+
+					int iscratch2Dx = iix + dxSCRo2 + ix * XSCRATCH; 	// contribution of x in the 1D SCRATCH + contribution of previous tiles in x
+					int iscratch2Dy = iiy + dySCRo2 + iy * YSCRATCH; 		// contribution of y in 1D SCRATCH +contribution of previous tiles in y
+					int iscratch2D = iscratch2Dx + iscratch2Dy * XSCRATCH * tile.NbTilex;
+					i_scratchpad[iscratch2D] = 255.0 * scratchdata[iscratch] / Maxscratch;
+					if(!(i_scratchpad[iscratch2D] ==0) && VERBOSE){
+					printf("SCRATCHPAD \u24FC itile %d, iscratch %d iscratch2Dx %d, iscratch2Dy %d iscratch2D %d\n",
+							itile, iscratch, iscratch2Dx, iscratch2Dy, iscratch2D);
+					printf("SCRATCHPAD \u24FC itile %d, i_scratchpad[iscratch2D] %d val_scratchpad[arg1D] %f\n",
+							itile, i_scratchpad[iscratch2D], scratchdata[iscratch]);
+					}
+				}
+return(TRUE);
+}

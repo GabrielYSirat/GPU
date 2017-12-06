@@ -239,8 +239,7 @@ __global__ void Scratchvalidate_device(int NbTilex, int NbTiley, int dels) {
 		tempv = *(scratchpad_matrix + tempp);
 		*(val_scratchpad + tempp) = tempv;
 		Sumscratchpad += *(val_scratchpad + tempp);
-		if (maxscratchpad < *(val_scratchpad + tempp))
-			maxscratchpad = *(val_scratchpad + tempp);
+		maxscratchpad = max(maxscratchpad, *(val_scratchpad + tempp));
 
 		if ((*(val_scratchpad + tempp) != 0.0f) && (TEST)) {
 			int positionx = (tempp - dels) % (XSCRATCH * NbTilex);
