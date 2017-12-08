@@ -1,5 +1,5 @@
 #ifdef STARTDEVICE
-	if(!ithreads && VERBOSELOOP) printf("TEST: block x %d y %d z %d distrib number %d itc %d itb %d\n",
+	if(!ithreads && VERBOSELOOP) printf("BLOCK x %d y %d z %d distrib number %d itc %d itb %d\n",
 			blockIdx.x, blockIdx.y, blockIdx.z, distrib_number, itc, itb);
 		if (!iprint)  	// the condition is required to have it printed once
 

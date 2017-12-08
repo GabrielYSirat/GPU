@@ -41,7 +41,7 @@ void readstoredistrib(void) {
 		Sumdistrib += double_distrib[i];
 		Maxdistrib = max(Maxdistrib, *(double_distrib + i));
 	}
-	printf("DISTRIBUTIONS \u2461: idistrib %d Original max %g Sum %g\n", idistrib, Maxdistrib, Sumdistrib);
+	verbosefile << "DISTRIBUTIONS \u2461: idistrib " << idistrib << " Original max " << Maxdistrib << " Sumdistrib " << Sumdistrib << endl;
 	}
 	// write distrib image to disk
 	/////////////////////////////////
@@ -92,7 +92,7 @@ bool Distribvalidate_host(void) {
 		Sumdel[1] += fabsf(
 				*(val_distrib + jdistrib) - *(original_distrib + jdistrib));
 	}
-	printf("Sumdel[1] %f  ", Sumdel[1]);
+	verbosefile << "Sumdel[1]  " << Sumdel[1];
 	verbosefile << "testdistrib = " << testdistrib << "\n";
 	cudaFree(val_distrib);
 	return (testdistrib);

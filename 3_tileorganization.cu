@@ -19,7 +19,7 @@ bool tileorganization(void) {
 	bool Lasertile = TRUE;
 	int organization_x[16] = { 0, 1, 2, 3, 2, 2, 3, 3, 4, 3, 3 };
 	int organization_y[16] = { 0, 1, 1, 1, 2, 2, 2, 2, 2, 3, 3 };
-	int tilex, tiley, tilenumber, ilasertile;
+	int tilex, tiley, tilenumber, ilasertile, nblasertile;
 
 	filename = resourcesdirectory + "rec_image.xml";
 	cudaMallocManaged(&image_to_scratchpad_offset, MAXNUMBERLASERTILE * MAXTILE * sizeof(int));
@@ -42,15 +42,14 @@ bool tileorganization(void) {
 			|| ((AmaxLasery - AminLasery) > TA.Nb_Rows_reconstruction))
 		printf(" INIT PROG \u24FA \u26A0 tiles reconstruction too small!");
 
-	printf(" INIT PROG \u24FA AmaxLaserx %d AmaxLasery %d AminLaserx %d AminLasery %d\n", AmaxLaserx,
-			AmaxLasery, AminLaserx, AminLasery);
-	printf(" INIT PROG \u24FA recdeftile0x %d recdeftile0y %d laserdeftile0x %d laserdeftile0y %d\n",
-			recdeftile0x, recdeftile0y, laserdeftile0x, laserdeftile0y);
-	printf(" INIT PROG \u24FA Min Number of tiles x:  %d y: %d\n", tile.NbTile0x, tile.NbTile0y);
+	verbosefile << " INIT PROG \u24FA Amax, min Laser x & y: " << AmaxLaserx << AmaxLasery <<  AminLaserx <<  AminLasery << endl;
+	verbosefile << " INIT PROG \u24FA recdeftile0x, y: " << recdeftile0x << recdeftile0y;
+	verbosefile << " recdeftile0x, y " << laserdeftile0x << laserdeftile0y << endl;
+	verbosefile << " INIT PROG \u24FA Min Number of tiles x, y: " << tile.NbTile0x << tile.NbTile0y << endl;
 
 	/*************************Aggregates organization depending on MP*******/
 	TA.MP_perdistrib = TA.MP / Ndistrib;
-	printf(" INIT PROG \u24FA Total number of MP per distribution %d  ", TA.MP_perdistrib);
+	printf("\n INIT PROG \u24FA Total number of MP per distribution %d  ", TA.MP_perdistrib);
 	printf("  organized as x:%d,  y:%d \n", organization_x[TA.MP_perdistrib],
 			organization_y[TA.MP_perdistrib]);
 
@@ -91,17 +90,17 @@ bool tileorganization(void) {
 	tile.startx = AminLaserx; //floor(pZOOM*((AminLaserx + AmaxLaserx)/2 - (tile.NbTilex * XTile)/2));
 	tile.starty = AminLasery; //floor(pZOOM*((AminLasery + AmaxLasery)/2 - (tile.NbTiley * YTile)/2));
 	TA.reconstruction_size = TA.Nb_Rows_reconstruction * TA.Nb_Cols_reconstruction;
-	printf(" INIT PROG \u24FA Final number of tiles x: %d y: %d distrib %d  \n", tile.NbTilex, tile.NbTiley,
+	printf("\n INIT PROG \u24FA Final number of tiles x: %d y: %d distrib %d  \n", tile.NbTilex, tile.NbTiley,
 			Ndistrib);
 	verbosefile << " INIT PROG \u24FA Reconstruction size x: " << TA.Nb_Cols_reconstruction << " y: " << TA.Nb_Rows_reconstruction << endl;
 	verbosefile << "INIT PROG \u24FA NbTileXY " << tile.NbTileXY << " NbTileXYD " << tile.NbTileXYD;
 	verbosefile << "start x " << tile.startx << " y " << tile.starty <<  " MinLaser " << AminLaserx << "  " << AminLasery;
 	verbosefile << "in REC pixels x: " << tile.startx * pZOOM << " y "<< tile.starty * pZOOM << endl;
 
-	tile.NbLaserTotal = 0;
+	nblasertile = 0;
 	for (int idistrib = 0; idistrib < Ndistrib; idistrib++) {
-		for (int iLaser = tile.NbLaserTotal;
-				iLaser < tile.NbLaserTotal + tile.Nblaserperdistribution[idistrib]; iLaser++) {
+		for (int iLaser = nblasertile;
+				iLaser < nblasertile + tile.Nblaserperdistribution[idistrib]; iLaser++) {
 			// position in tiles, tilex and tiley and overall tile number (including distrib)
 			tilex = pZOOM * (*(PosLaserx + iLaser) - tile.startx) / XTile;
 			tiley = pZOOM * (*(PosLasery + iLaser) - tile.starty) / YTile;
@@ -138,17 +137,15 @@ bool tileorganization(void) {
 				printf("TILE ORG \u2479 POS IN SCRATCH: image number %d tilenumber %d position in tile %d\n",
 						iLaser, tilenumber, tile.posintile[iLaser]);
 		}
-		printf("TILE ORG \u24FA  idistrib n°%d number of laser positions in tile in distribution %d\n",
-				idistrib, tile.Nblaserperdistribution[idistrib]);
-		if (VERBOSE) {
+		verbosefile << " TILE ORG \u24FA  idistrib n°" << idistrib << " number of laser positions in tile in distribution "
+				<< tile.Nblaserperdistribution[idistrib] << endl;
 			int it0 = tile.NbTilex * tile.NbTiley * idistrib;
 			for (int it = it0; it < it0 + tile.NbTilex * tile.NbTiley; it++)
-				printf(" \u2479 tile %d: #lasers %d ...\n", it, tile.NbLaserpertile[it]);
-			printf("\n");
-		}
-		tile.NbLaserTotal += tile.Nblaserperdistribution[idistrib];
+				verbosefile << " \u2479 tile " << it << ": #lasers " << tile.NbLaserpertile[it] ;
+			verbosefile << endl;
+		nblasertile += tile.Nblaserperdistribution[idistrib];
 	}
-	printf("TILE ORG \u24FA  tile.NbLaserTotal %d \n", tile.NbLaserTotal);
+	verbosefile << "TILE ORG \u24FA  nblasertile " << nblasertile << endl;
 
 	for (int it1 = 0; it1 < tile.NbTileXYD; it1++) {
 		if (VERBOSE)
@@ -161,14 +158,11 @@ bool tileorganization(void) {
 		tile.minLaserintile = min(tile.minLaserintile, tile.NbLaserpertile[it1]); // acquiring the min value per tile
 	}
 
-	printf("TILE ORG \u24FA Max  %d and Min %d  Laser in tile ...   \n", tile.maxLaserintile,
-			tile.minLaserintile);
+	verbosefile << " TILE ORG \u24FA Max  " << tile.maxLaserintile << " and Min " << tile.minLaserintile;
 	tile.maxLaserintile = CEILING_POS(((float)tile.maxLaserintile)/NIMAGESPARALLEL) * NIMAGESPARALLEL;
 	tile.blocks = tile.maxLaserintile / NIMAGESPARALLEL;
 	// rounded to next multiple of NIMAGESPARALLEL
-	printf("TILE ORG \u24FA Max Laser in tile rounded to next multiple of NIMAGESPARALLEL  .. %d\n",
-			tile.maxLaserintile);
-
+	verbosefile << " Max Laser in tile rounded to next multiple of NIMAGESPARALLEL  .." << tile.maxLaserintile << " \n";
 	return (Lasertile);
 }
 
@@ -176,7 +170,7 @@ bool initializesimusData(void) {
 // Initialize new simus and Data
 	fullnumberoftiles = tile.maxLaserintile * tile.NbTileXYD;
 	datafullsize = fullnumberoftiles * NThreads;
-	verbosefile << "TILE ORG \u2466 size simus " << datafullsize << " AminLaserx " << AminLaserx << " AminLasery " << AminLasery << endl;
+	verbosefile << "TILE ORG \u24FB size simus " << datafullsize << " AminLaserx " << AminLaserx << " AminLasery " << AminLasery << endl;
 	cudaMallocManaged(&new_simus, datafullsize * sizeof(float));
 	cudaMallocManaged(&Data, datafullsize * sizeof(float));
 	cudaMallocManaged(&Rfactor, datafullsize * sizeof(float));
@@ -198,8 +192,8 @@ bool microimagesintile(void) {
 
 	unsigned char *i_data = (unsigned char *) calloc(PixZoomSquare * tile.NbTileXYD * tile.maxLaserintile, sizeof(unsigned char));
 	unsigned char *j_data = (unsigned char *) calloc(PixZoomSquare * tile.NbTileXYD * tile.maxLaserintile, sizeof(unsigned char));
-	verbosefile << "TILE ORG \u24FA Max Laser in tile rounded to multiple NIMAGESPARALLEL  .. " << tile.maxLaserintile;
-	verbosefile << endl << "TILE ORG \u24FA Max and min microimages " << Maxmicroimages << " " << Minmicroimages << endl;
+	verbosefile << "TILE ORG \u24FB Max Laser in tile rounded to multiple NIMAGESPARALLEL  .. " << tile.maxLaserintile;
+	verbosefile << endl << "TILE ORG \u24FB Max and min microimages " << Maxmicroimages << " " << Minmicroimages << endl;
 
 	float Maxdata = 0.0f;
 	for (int idistrib = 0, disdelta = 0; idistrib < Ndistrib; idistrib++, disdelta += tile.Nblaserperdistribution[idistrib])
@@ -217,9 +211,10 @@ bool microimagesintile(void) {
 				Maxdata = max(Maxdata, i_data[ilasertile * PixZoomSquare + ipix]) ;
 			}
 		}
-	printf("Maxdata %f Nbtile XY %d NbTile XYD %d Laserintile %d\n", Maxdata, tile.NbTileXY, tile.NbTileXYD, tile.maxLaserintile);
+	verbosefile << " TILE ORG \u247A Maxdata " << Maxdata << " Nbtile XY " << tile.NbTileXY << " NbTile XYD "
+			<< tile.NbTileXYD << " Laserintile " << tile.maxLaserintile << endl;
 	T4Dto2D( j_data, i_data, tile.NbTileXYD,tile.maxLaserintile,PixZoom, PixZoom);
-	verbosefile << "HOST: \u277D DEVICE TEST in biginspect.cu: Path to calculated new simulations " << MIintilefile << " .....\n";
+	verbosefile << "HOST: \u24FB DEVICE TEST in biginspect.cu: Path to calculated new simulations " << MIintilefile << " .....\n";
 	sdkSavePGM(MIintilefile, i_data, PixZoom , tile.maxLaserintile * tile.NbTileXYD * PixZoom);
 	sdkSavePGM(NIintilefile, j_data, tile.maxLaserintile * PixZoom, tile.NbTileXYD * PixZoom);
 

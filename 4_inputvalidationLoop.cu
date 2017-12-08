@@ -70,7 +70,7 @@ __global__ void validate_distrib(int Nb_Rows_distrib, int Nb_Cols_distrib, int N
 	float tempv;
 	int tempp;
 	time_start = clock64();
-	printf("DISTRIBUTIONS \u2777  device: Nb_Row %d, Nb_col %d, Nb_distrib %d\n", Nb_Rows_distrib, Nb_Cols_distrib,
+	printf("DISTRIBUTIONS \u2777  device: Nb_Row %d, Nb_col %d, Nb_distrib %d ...", Nb_Rows_distrib, Nb_Cols_distrib,
 			Nb_Distrib);
 // calculate distrib Sum and max
 	for (int idistrib = 0; idistrib < Nb_Distrib; idistrib++)
@@ -82,7 +82,7 @@ __global__ void validate_distrib(int Nb_Rows_distrib, int Nb_Cols_distrib, int N
 					if (!(row % 31))
 						if (!(col % 25))
 							printf("DISTRIBUTIONS \u2777  device: tempv,%g idistrib %d row %d"
-									" column %d, tempp %d\n", tempv, idistrib, row, col, tempp);
+									" column %d, tempp %d ... ", tempv, idistrib, row, col, tempp);
 				*(val_distrib + tempp) = tempv;
 				Sum2distrib += *(val_distrib + row * Nb_Cols_distrib + col);
 				Sumdistrib += *(original_distrib + row * Nb_Cols_distrib + col);
@@ -91,8 +91,8 @@ __global__ void validate_distrib(int Nb_Rows_distrib, int Nb_Cols_distrib, int N
 				if (max2distrib < *(val_distrib + row * Nb_Cols_distrib + col))
 					max2distrib = *(val_distrib + row * Nb_Cols_distrib + col);
 			}
-	printf("DISTRIBUTIONS \u2777 device: Sum distrib %f Sum2distrib %f \n"
-			"DISTRIBUTIONS \u2777           max distrib %f max2distrib %f ...  \n", Sumdistrib, Sum2distrib,
+	printf(" Sum distrib %f Sum2distrib %f ..."
+			"  max distrib %f max2distrib %f ...  \n", Sumdistrib, Sum2distrib,
 			maxdistrib, max2distrib);
 	timer = clock64();
 
@@ -220,7 +220,7 @@ __global__ void Recvalidate_device(int Nb_Rows_reconstruction, int Nb_Cols_recon
 			if (maxreconstruction < *(original_rec + row * Nb_Cols_reconstruction + col))
 				maxreconstruction = *(original_rec + row * Nb_Cols_reconstruction + col);
 		}
-	printf("REC \u277D DEVICE:  Sum reconstruction %f max reconstruction %f ...  ", Sumreconstruction,
+	printf("REC \u277D DEVICE:  Sum reconstruction %f max reconstruction %f ...  \n", Sumreconstruction,
 			maxreconstruction);
 	__syncthreads();
 	if ((threadIdx.x == 0) && (threadIdx.y == 0))

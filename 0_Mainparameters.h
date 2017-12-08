@@ -90,7 +90,7 @@ bool initparameters(int argc, char **argv);
 void stepinit(int test, int & stepval);
 int retrieveargv(string argvdata);
 bool T4Dto2D( unsigned char *matrix4D, unsigned char *matrix2D,  int dimension1, int dimension2, int dimension3, int dimension4);
-
+bool scratchreaddisplay (float * reconstructiondata, float * scratchdata, const char * filename, bool readtile);
 /************************pPSF *******************/
 void PSFprepare(void);
 bool PSFinitondevice(void);

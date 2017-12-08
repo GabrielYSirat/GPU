@@ -38,8 +38,8 @@ void readstoremicroimages(void) {
 		MIrawfile.close();
 		verbosefile << "MICROIMAGES \u2464 function read: distrib n°" << idistrib << " number laser positions "
 				<< tile.Nblaserperdistribution[idistrib] << " size microimages = " << size << endl;
-		printf("MICROIMAGES \u2464 number of images %d Number of pixels %d \n", tile.Nblaserperdistribution[idistrib],
-				tile.Nblaserperdistribution[idistrib] * PixSquare);
+		verbosefile << "MICROIMAGES \u2464 number of images " << tile.Nblaserperdistribution[idistrib] <<
+				" Number of pixels " << tile.Nblaserperdistribution[idistrib] * PixSquare << endl;
 
 		double_microimages = (double*) memblock; //reinterpret the chars stored in the file as double
 		for (int i = 0; i < tile.Nblaserperdistribution[idistrib] * PixSquare; i++) {
@@ -49,8 +49,8 @@ void readstoremicroimages(void) {
 			Minmicroimages = min(Minmicroimages, *(original_microimages + i + numberofpixels));
 		}
 		numberofpixels += tile.Nblaserperdistribution[idistrib] * PixSquare;
-		printf("MICROIMAGES \u2464 original on host: Average  %g microimages: max  %g min %g\n",
-				Summicroimages / numberofpixels, Maxmicroimages, Minmicroimages);
+		verbosefile << "MICROIMAGES \u2464 original on host: Average " << Summicroimages / numberofpixels
+				<< " microimages: max " <<  Maxmicroimages << " min " << Minmicroimages << endl;
 	}
 
 	for (int idistrib = 0; idistrib < Ndistrib; idistrib++)

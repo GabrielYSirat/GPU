@@ -36,10 +36,6 @@ public:
 	unsigned int Nb_Cols_PSF = 0;
 	int PSF_size;
 
-	/* Scan           */
-	unsigned int Nb_Cols_scan;
-	unsigned int Nb_Rows_scan;
-
 	/* Reconstruction */
 	unsigned int Nb_Cols_reconstruction;
 	unsigned int Nb_Rows_reconstruction;
@@ -49,12 +45,11 @@ public:
 	unsigned int Nb_Rows_microimages;
 	unsigned int Nb_Cols_microimages;
 	uint Nb_LaserPositions;
-	unsigned Images_perdistrib[MAXNBDISTRIB];
+//	unsigned Images_perdistrib[MAXNBDISTRIB];
 
 	int maxROIx, maxROIy, minROIx, minROIy;
 	double maxLaserx, minLaserx, maxLasery, minLasery;
 
-	float B = 1.0f; // B factor in the algorithm
 	void start(void);
 };
 
@@ -68,7 +63,7 @@ public:
 
 	int Nblaserperdistribution[MAXNBDISTRIB] = { 0 }, maxlaserperdistribution = 0;
 	int maxLaserintile = NIMAGESPARALLEL, minLaserintile =1.E6, blocks;
-	int NbLaserTotal;
+//	int NbLaserTotal;
 	int NbLaserpertile[MAXTILE] = { 0 };
 	int posintile[NUMLASERPOSITIONS];
 	float Bconstant = 1.0;
@@ -87,9 +82,8 @@ public:
 	uint NbLaserpertile[MAXTILE] = { 0 };
 	float MaxPSF, MaxRec, Maxmicroimages, Maxdistrib ;
 	float Bconstant;
-	float MaxRfactor, MaxSimus, MaxData;
+	float MaxRfactor, MaxSimus;
 	int step;
-	int *stepval;
 	int clockRate;
 	int XTile, YTile;
 

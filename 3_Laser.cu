@@ -41,11 +41,12 @@ void readstoreLaserPositions(void) {
 		} // adding one at the end because it is a number of positions
 
 		tile.maxlaserperdistribution = max(tile.maxlaserperdistribution, tile.Nblaserperdistribution[idistrib]);
-		printf(" Laser \u2462: distribution n°%d number of images %d   ", idistrib, tile.Nblaserperdistribution[idistrib]);
+		verbosefile << " Laser \u2462: distribution n°" << idistrib << " number of images " << tile.Nblaserperdistribution[idistrib] << endl;
 
 		LaserFile.close();
 	}
-	printf(" total number of images %d max images per distributions %d \n",  TA.Nb_LaserPositions, tile.maxlaserperdistribution);
+	verbosefile << " Laser \u2462:  total number of images "<< TA.Nb_LaserPositions << " max images per distributions "
+			<< tile.maxlaserperdistribution << endl;
 
 	cudaMallocManaged(&PosLaserx, TA.Nb_LaserPositions * sizeof(float));
 	cudaMallocManaged(&PosLasery, TA.Nb_LaserPositions * sizeof(float));
@@ -84,7 +85,7 @@ void readstoreLaserPositions(void) {
 		LaserFile.close();
 	}
 
-	printf(" Laser \u2462 min and max x %g %g, min and max y %g %g ... \n",
+	printf("\n Laser \u2462 HOST : min and max x %g %g, min and max y %g %g ... \n",
 			TA.maxLaserx, TA.minLaserx, TA.maxLasery, TA.minLasery);
 }
 
@@ -102,8 +103,8 @@ bool validateLaserPositions_control(void) {
 		for (int ival = 0; ival < TA.Nb_LaserPositions; ival++) {
 			if(!ival && VERBOSE)
 				verbosefile << " Laser \u2462 ----------------------------------------------------------------------------------------------------\n";
-			verbosefile << " Laser \u2462 Laser position %d  Laser position x: %f  y: %f\n";
-			verbosefile << ival << "  " << *(PosLaserx + ival) << "  " << *(PosLasery + ival) << endl;
+			verbosefile << " Laser \u2462 Laser position n°" << ival << " x " << *(PosLaserx + ival)
+					<< " y " << *(PosLasery + ival) << endl;
 			verbosefile << "Laser \u2462 Position in scratchpad",
 			verbosefile << *(PosxScratch + ival) << "  " << *(PosyScratch + ival) << endl;
 			verbosefile << " Laser \u2462 ***************SCRATCHPAD FULL OFFSET ";
@@ -116,7 +117,7 @@ bool validateLaserPositions_control(void) {
 		Dely += PosLasery[iLaser] - d_PosLasery[iLaser];
 	}
 	Sumdel[2] = sqrt(Delx * Delx + Dely * Dely);
-	printf(" Laser \u2462 delx %8.6f dely %8.6f Sumdel[2] %8.6f \n", Delx, Dely, Sumdel[2]);
+	verbosefile << " Laser \u2462 delx " << Delx << " dely " << Dely << " Sumdel[2] "<<  Sumdel[2] << endl;
 	if (Delx * Dely == 0.0f) testLaserPosition = TRUE;
 
 	return (testLaserPosition);

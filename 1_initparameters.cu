@@ -48,7 +48,7 @@ bool initparameters( int argc, char **argv) {
 	TA.sharedmemory = deviceProps.sharedMemPerBlock;
 	clockRate = deviceProps.clockRate;
 	verbosefile << " INIT PROG \u24EA Number of Multiprocessors (MP) " << TA.MP << " clock rate (KHz) " << clockRate
-			<< " SharedMemory " << (float) TA.sharedmemory/1024. << " in KBytes\n\n";
+			<< " SharedMemory " << (float) TA.sharedmemory/1024. << " KBytes\n\n";
 
 	/***************************** command line management*****************************/
 	resourcesdirectory = argv[1]; 	// Directory with all preprocessing files and data
@@ -107,12 +107,12 @@ bool initparameters( int argc, char **argv) {
 	ATile = XTile * YTile;										// Total size in pixels
 
 
-	verbosefile << "************** DATA: PARAMETERS OF MEASUREMENT *************************************";
+	verbosefile << "************** DATA: PARAMETERS OF MEASUREMENT *************************************\n"<< endl;
 	verbosefile << " INIT PROG \u24EA BASIC  : THreadsRatio "<<  THreadsRatio << " NThreads " << NThreads;
 	verbosefile << " Npixel " << Npixel <<" pZOOM " << pZOOM << " pPSF " << pPSF << " RDISTRIB " << RDISTRIB << endl;
 	verbosefile << " INIT PROG \u24EA BASIC  : YTile " << YTile << " YSCRATCH " << YSCRATCH << " dySCR " << dySCR << endl;
 	verbosefile << "INIT PROG \u24EA PIXEL  : Npixel " << Npixel << " PixZoom " << PixZoom << " PixZoomo2 " << PixZoomo2 << endl;
-	verbosefile << "INIT PROG \u24EA PIXEL  : lost lines " << lostlines << " additional lines at the end of microimage\n" << endl;
+	verbosefile << "INIT PROG \u24EA PIXEL  : lost lines " << lostlines << " additional lines at the end of microimage" << endl;
 	verbosefile << "INIT PROG \u24EA pPSF   : pPSF " << pPSF << " PSFZoom " << PSFZoom << " PSFZoomo2 " << PSFZoomo2 << endl;
 	verbosefile << " INIT PROG \u24EA DISTRIB: XDistrib " << XDistrib << " YDistrib " << YDistrib <<  "extended "
 			 << YDistrib_extended << " Size in KBytes " << ADistrib/1024. <<
@@ -122,7 +122,7 @@ bool initparameters( int argc, char **argv) {
 	verbosefile << " INIT PROG \u24EA SCRATCH: DEL SCRATCH " << lostpixels << " Additional pixels at start and end of SCRATCH\n";
 	verbosefile << " INIT PROG \u24EA PARAMS :  Number of threads " << NThreads << " Threads per batch "
 			<< THREADSVAL <<" number of batch "  << THreadsRatio << endl;
-	verbosefile << "************** DATA: PARAMETERS OF MEASUREMENT *************************************\n\n";
+	verbosefile << endl << "************** DATA: PARAMETERS OF MEASUREMENT *************************************\n";
 
 	verbosefile << " INIT PROG \u23f3 Data parameters in device memory ...\n";
 
@@ -138,7 +138,7 @@ bool initparameters( int argc, char **argv) {
 			->FirstChildElement("Nb_Cols")->GetText());
 	TA.reconstruction_size = TA.Nb_Cols_reconstruction*TA.Nb_Rows_reconstruction;
 	verbosefile << " INIT PROG \u24EA reconstruction from tiles: Cols " << TA.Nb_Cols_reconstruction;
-	verbosefile << " size " << TA.Nb_Rows_reconstruction << " size " << TA.reconstruction_size;
+	verbosefile << " lines " << TA.Nb_Rows_reconstruction << " size " << TA.reconstruction_size << endl;
 
 	/***********************Sizes in nm *************************************************/
 	filename = resourcesdirectory + "ACQ.xml";
@@ -152,11 +152,11 @@ bool initparameters( int argc, char **argv) {
 	stream_p.getline(buff, 10, ',');
 	TA.Pixel_size_nm = atoi(buff);
 	verbosefile << " INIT PROG \u24EA PARAMS :  original µimage pixel size" << TA.Pixel_size_nm;
-	verbosefile << " nm pixel size reconstruction ",TA.Pixel_size_nm/pZOOM;
+	verbosefile << " nm pixel size reconstruction " << TA.Pixel_size_nm/pZOOM << endl;
 	TA.XTileSize = (XTile * TA.Pixel_size_nm)/(1000.*pZOOM); 	// Tile size in nm
 	TA.YTileSize = (YTile * TA.Pixel_size_nm)/(1000.*pZOOM);	// Tile size in nm
 	verbosefile << " INIT PROG \u24EA TILE   : XTILE " << XTile << " YTILE " << YTile
-			<< " size : XTILE: " << TA.XTileSize << " YTILE " << TA.YTileSize;
+			<< " size : XTILE: " << TA.XTileSize << " YTILE " << TA.YTileSize << endl;
 	verbosefile << " INIT PROG \u24EA RECONSTRUCTION in nm   : X " <<  TA.Nb_Cols_reconstruction*TA.Pixel_size_nm/1000.;
 	verbosefile << " Y " << TA.Nb_Rows_reconstruction*TA.Pixel_size_nm/1000. << " µm\n";
 

@@ -16,7 +16,6 @@ const char * ScratchpadValImagefile = "results/E_Scratchpaddevice.pgm";
 float MaxRec = 0.0f, SumRec = 0.0f;
 __managed__ float Maxscratch = 0.0f, Sumscratch = 0.0f, maxTile = 0.0f, SumTile = 0.0f;
 
-
 void Recprepare(void) {
 	cudaMallocManaged(&original_rec, TA.reconstruction_size * sizeof(float)); // on device with a shadow on host
 	cudaMallocManaged(&double_rec, TA.reconstruction_size * sizeof(double)); // on device with a shadow on host
@@ -33,7 +32,6 @@ void Recprepare(void) {
 	 *  i_reconstruction normalized data in char on host for image display
 	 */
 
-
 	//read reconstruction raw file
 	std::ifstream RecFile(filenameimage.c_str(), ios::in | ios::binary | ios::ate);
 	size = (RecFile.tellg()); 	// the data is stored in float of 4 bytes in the file
@@ -43,7 +41,8 @@ void Recprepare(void) {
 	RecFile.seekg(byte_skipped, ios::beg); // byte_skipped first bytes are skipped
 	RecFile.read(memblock, size);
 	RecFile.close();
-	verbosefile << "REC \u24FC *******complete size  " << TA.reconstruction_size << "  Size in Bytes " << TA.reconstruction_size * sizeof(double) << endl;
+	verbosefile << "REC \u24FC *******complete size  " << TA.reconstruction_size << "  Size in Bytes "
+			<< TA.reconstruction_size * sizeof(double) << endl;
 
 	/** read reconstruction data from file in double, transfer to float on the global memory of the device and create a normalized image
 	 *
@@ -55,15 +54,16 @@ void Recprepare(void) {
 		MaxRec = max(*(original_rec + i), MaxRec);
 	}	// sanity check, check max and sum
 
-
 	verbosefile << "REC \u24FC ***  max =" << MaxRec << "  Sum =" << SumRec << endl;
 	unsigned char *i_reconstruction = (unsigned char *) calloc(TA.reconstruction_size, sizeof(unsigned char)); // on host
 	double* double_rec = (double*) std::malloc(TA.reconstruction_size * sizeof(double)); // on host
 	// write reconstruction image to disk /////////////////////////////////
-	for (int i = 0; i < TA.reconstruction_size; i++) i_reconstruction[i] = 255.0 * original_rec[i] / MaxRec;			// image value
+	for (int i = 0; i < TA.reconstruction_size; i++)
+		i_reconstruction[i] = 255.0 * original_rec[i] / MaxRec;			// image value
 
 	verbosefile << "REC \u24FC Path to reconstruction original " << reconstructionImagefile << " .....\n";
-	sdkSavePGM(reconstructionImagefile, i_reconstruction, TA.Nb_Cols_reconstruction, TA.Nb_Rows_reconstruction);
+	sdkSavePGM(reconstructionImagefile, i_reconstruction, TA.Nb_Cols_reconstruction,
+			TA.Nb_Rows_reconstruction);
 	free(i_reconstruction);
 	free(double_rec);
 }
@@ -88,7 +88,7 @@ bool Recvalidate_host(void) {
 			Sum3rec += *(val_rec + tempr);
 			max3rec = max(max3rec, *(val_rec + tempr));
 		}
-	printf("on host: Sum3rec  %f max3rec %f   ", Sum3rec, max3rec);
+	verbosefile << endl << "on host: Sum3rec  " << Sum3rec << " max3rec %f   " << max3rec << endl;
 
 	// write rec image validation to disk
 	/////////////////////////////////
@@ -99,109 +99,85 @@ bool Recvalidate_host(void) {
 			MaXTile = max(MaXTile, val_rec[i]); // sanity check, check max
 		}
 	verbosefile << "max device =" << MaXTile << "\n";
-	for (int i = 0; i < TA.reconstruction_size; i++){
+	for (int i = 0; i < TA.reconstruction_size; i++) {
 		i_rec[i] = 255.0 * val_rec[i] / MaXTile;			// Validation image value
-	if(VERBOSE)
-		if(i_rec[i] > 1)
-	printf("i %d, col %d x %d y %d\n", i, TA.Nb_Cols_reconstruction, i % TA.Nb_Cols_reconstruction, i / TA.Nb_Cols_reconstruction);
+		if (VERBOSE)
+			if (i_rec[i] > 1)
+				printf("i %d, col %d x %d y %d\n", i, TA.Nb_Cols_reconstruction,
+						i % TA.Nb_Cols_reconstruction, i / TA.Nb_Cols_reconstruction);
 	}
-	printf("REC \u24FC Path to rec validation %s .....\n", recValImagefile);
+	verbosefile << "REC \u24FC Path to rec validation " << recValImagefile << endl;
 
 	sdkSavePGM(recValImagefile, i_rec, TA.Nb_Cols_reconstruction, TA.Nb_Rows_reconstruction);
 
-	printf("REC \u24FC Comparing files ... ");
+	verbosefile << "REC \u24FC Comparing files ... ";
 	testrec = compareData(val_rec, original_rec, TA.reconstruction_size, MAX_EPSILON_ERROR, 0.15f);
 
 	for (int jrec = 0; jrec < TA.reconstruction_size; jrec++) {
 		Sumdel[1] += fabsf(*(val_rec + jrec) - *(original_rec + jrec));
 	}
-	printf("Sumdel[1] %f  ", Sumdel[1]);
+	verbosefile << "Sumdel[1] " << Sumdel[1] << " ... " << endl;
 	verbosefile << "testrec = " << testrec << "\n";
-
 
 	cudaFree(val_rec);
 	return (testrec);
 }
 
 void Scratchprepare(void) {
-	float *tile_rec = (float*) std::calloc(ATile * tile.NbTileXY , sizeof(float)); 					// on host
-	unsigned char *i_tilerec = (unsigned char *) calloc(ATile * tile.NbTileXY, sizeof(unsigned char));// on host
+	float *tile_rec = (float*) std::calloc(ATile * tile.NbTileXY, sizeof(float)); 					// on host
+	unsigned char *i_tilerec = (unsigned char *) calloc(ATile * tile.NbTileXY, sizeof(unsigned char)); // on host
 	cudaMallocManaged(&scratchpad_matrix, tile.NbTileXY * ASCRATCH * sizeof(float));
-	unsigned char *i_scratchpad = (unsigned char *) calloc(tile.NbTileXY * XSCRATCH * YSCRATCH, sizeof(unsigned char)); // on host
+	unsigned char *i_scratchpad = (unsigned char *) calloc(tile.NbTileXY * XSCRATCH * YSCRATCH,
+			sizeof(unsigned char)); // on host
 
-/***********************************TILE RECONSTRUCTION ************************/
-	printf("TILE \u24FC Path to tile reconstruction  %s .....", rectilereconstructionfile);
+	/***********************************TILE RECONSTRUCTION ************************/
+	verbosefile << "TILE \u24FC Path to tile reconstruction  " << rectilereconstructionfile << endl;
 
 	int deltilex = tile.NbTilex * XTile - TA.Nb_Cols_reconstruction;
 	int deltiley = tile.NbTiley * YTile - TA.Nb_Rows_reconstruction;
-	printf(" offset = - del /2 !! x %d  y  %d\n", deltilex/2,deltiley/2);
+	verbosefile << " offset = - del /2 !! x " << deltilex / 2 << "  y  "<< deltiley / 2 << endl;
 
 	for (int arg = 0; arg < TA.reconstruction_size; arg++) {
-		maxTile = max(maxTile,*(original_rec + arg));
+		maxTile = max(maxTile, *(original_rec + arg));
 		SumTile += *(original_rec + arg);
 	}
-	Maxscratch = maxTile; Sumscratch = SumTile;
-	printf("TILE \u24FC maxTile %f SumTile %f\n",maxTile, SumTile);
+	Maxscratch = maxTile;
+	Sumscratch = SumTile;
+	verbosefile << "TILE \u24FC maxTile " << maxTile << " SumTile " << SumTile << endl;
 
 	for (int row = 0; row < TA.Nb_Rows_reconstruction; row++)
 		for (int col = 0; col < TA.Nb_Cols_reconstruction; col++) {
 			int itemp = col + deltilex / 2 + (row + deltiley / 2) * tile.NbTilex * XTile;
-			int itemp2 = col +  row  * TA.Nb_Cols_reconstruction;
+			int itemp2 = col + row * TA.Nb_Cols_reconstruction;
 			*(tile_rec + itemp) = *(original_rec + itemp2);
 			i_tilerec[itemp] = 255. * *(tile_rec + itemp) / maxTile;
-			if(VERBOSE)
-				if(i_tilerec[itemp] > 1)
-			printf("itemp %d, col %d x %d y %d\n", itemp, XTile*tile.NbTilex, itemp % (XTile*tile.NbTilex), itemp / (XTile*tile.NbTilex));
+			if (VERBOSE)
+				if (i_tilerec[itemp] > 1)
+					printf("itemp %d, col %d x %d y %d\n", itemp, XTile * tile.NbTilex,
+							itemp % (XTile * tile.NbTilex), itemp / (XTile * tile.NbTilex));
 
 		}
 
-	sdkSavePGM(rectilereconstructionfile, i_tilerec, XTile*tile.NbTilex, YTile * tile.NbTiley);
+	sdkSavePGM(rectilereconstructionfile, i_tilerec, XTile * tile.NbTilex, YTile * tile.NbTiley);
 
+	verbosefile << "SCRATCHPAD \u24FC Image of scratchpad matrix " << scratchpadImagefile << " .....\n";
+	verbosefile << "SCRATCHPAD \u24FC : Max Scratchpad " << Maxscratch << " Sum scratchpad " << Sumscratch << endl;
+	verbosefile << "SCRATCHPAD \u24FC : " << XSCRATCH * YSCRATCH << " of full SCRATCHPAD 2D " << XSCRATCH * YSCRATCH * tile.NbTileXY << endl;
 	// write scratchpad matrix to disk
+	scratchreaddisplay(tile_rec,scratchpad_matrix, scratchpadImagefile,TRUE);
 
-	for (int iy = 0; iy < tile.NbTiley; iy++)
-		for (int ix = 0; ix < tile.NbTilex; ix++)
-			for (int iix = 0; iix < XTile; iix++)
-				for (int iiy = 0; iiy < YTile; iiy++) {
-
-					int iscratch = lostpixels + iix + dxSCRo2; 		// contribution of x in the 1D SCRATCH
-					iscratch += ix * XSCRATCH; 					// contribution of previous tiles in x
-					iscratch += (iiy + dySCRo2) * XSCRATCH * tile.NbTilex; 		// contribution of y in 1D SCRATCH
-					iscratch += iy * YSCRATCH * XSCRATCH  * tile.NbTilex; 	// contribution of previous tiles in y
-
-					int itile = iix;  // contribution of x in the TILE
-					itile += ix * XTile; // contribution of previous tile in x
-					itile += iiy * XTile * tile.NbTilex; // contribution of y in the TILE
-					itile += iy * ATile * tile.NbTilex ; // contribution of previous tiles in y
-
-					int iscratch2Dx = iix + dxSCRo2 + ix * XSCRATCH; 	// contribution of x in the 1D SCRATCH + contribution of previous tiles in x
-					int iscratch2Dy = iiy + dySCRo2 + iy * YSCRATCH; 		// contribution of y in 1D SCRATCH +contribution of previous tiles in y
-					int iscratch2D = iscratch2Dx + iscratch2Dy * XSCRATCH * tile.NbTilex;
-					scratchpad_matrix[iscratch] = tile_rec[itile];
-					i_scratchpad[iscratch2D] = 255.0 * tile_rec[itile] / Maxscratch;
-					if(!(i_scratchpad[iscratch2D] ==0) && VERBOSE){
-					printf("SCRATCHPAD \u24FC itile %d, iscratch %d iscratch2Dx %d, iscratch2Dy %d iscratch2D %d\n",
-							itile, iscratch, iscratch2Dx, iscratch2Dy, iscratch2D);
-					printf("SCRATCHPAD \u24FC itile %d, i_scratchpad[iscratch2D] %d scratchpad_matrix[iscratch] %f tile_rec[itile] %f\n",
-							itile, i_scratchpad[iscratch2D], scratchpad_matrix[iscratch], tile_rec[itile]);
-					}
-				}
-
-	printf("SCRATCHPAD \u24FC :Image of scratchpad matrix  %s .....\n", scratchpadImagefile);
-	printf("SCRATCHPAD \u24FC : Max Scratchpad %f Sum scratchpad %f \n", Maxscratch, Sumscratch);
-	printf("SCRATCHPAD \u24FC : size of one SCRATCHPAD 2D %d of full SCRATCHPAD 2D %d\n", XSCRATCH * YSCRATCH,
-			XSCRATCH * YSCRATCH * tile.NbTileXY);
-	sdkSavePGM(scratchpadImagefile, i_scratchpad, XSCRATCH * tile.NbTilex, YSCRATCH * tile.NbTiley);
 	free(i_scratchpad);
 
 }
 
 bool Scratchvalidate_host(void) {
 	bool testScratchpad;
-	float Maxscratch = 0.0f, Sum3Scratchpad = 0.0f, max3Scratchpad = 0.0f;
+	float Sum3Scratchpad = 0.0f, max3Scratchpad = 0.0f;
+	float * dummy = {0};
 
 	// write Scratchpad in memory and validate
-	unsigned char *i_scratchpad = (unsigned char *) calloc(tile.NbTileXY * XSCRATCH * YSCRATCH, sizeof(unsigned char)); // on host
+	unsigned char *i_scratchpad = (unsigned char *) calloc(tile.NbTileXY * XSCRATCH * YSCRATCH,
+			sizeof(unsigned char)); // on host
 	cudaMallocManaged(&val_scratchpad, tile.NbTileXY * ASCRATCH * sizeof(float));
 	cudaMallocManaged(&val2_scratchpad, tile.NbTileXY * ASCRATCH * Ndistrib * sizeof(float));
 
@@ -211,10 +187,10 @@ bool Scratchvalidate_host(void) {
 	Scratchvalidate_device<<<dimGrid, dimBlock, 0>>>(tile.NbTilex,tile.NbTiley, lostpixels);
 	cudaDeviceSynchronize();
 
-	for (int arg = 0; arg < ASCRATCH*tile.NbTileXY; arg++) {
-			Sum3Scratchpad += *(val_scratchpad + arg);
-			max3Scratchpad  = max(max3Scratchpad, *(val_scratchpad + arg));
-		}
+	for (int arg = 0; arg < ASCRATCH * tile.NbTileXY; arg++) {
+		Sum3Scratchpad += *(val_scratchpad + arg);
+		max3Scratchpad = max(max3Scratchpad, *(val_scratchpad + arg));
+	}
 	printf("SCRATCHPAD \u24FC Sum3Scratchpad  %f max3Scratchpad %f   \n", Sum3Scratchpad, max3Scratchpad);
 
 	// write Scratchpad image validation to disk
@@ -222,45 +198,20 @@ bool Scratchvalidate_host(void) {
 	Maxscratch = 0.0f;
 
 	for (int idistrib = 0; idistrib < Ndistrib; idistrib++)
-		for (int i = 0; i < ASCRATCH *tile.NbTileXY; i++) {
+		for (int i = 0; i < ASCRATCH * tile.NbTileXY; i++) {
+			if (val_scratchpad[i]> 1.)
+				printf("i %d val %f\n", 1, val_scratchpad[i]);
 			Maxscratch = max(Maxscratch, val_scratchpad[i]); // sanity check, check max
 		}
 	verbosefile << "max device =" << Maxscratch << "\n";
 
-	for (int iy = 0; iy < tile.NbTiley; iy++)
-		for (int ix = 0; ix < tile.NbTilex; ix++)
-			for (int iix = 0; iix < XTile; iix++)
-				for (int iiy = 0; iiy < YTile; iiy++) {
+	scratchreaddisplay(dummy, val_scratchpad, ScratchpadValImagefile, FALSE);
+	verbosefile << "SCRATCHPAD \u24FC Path to Scratchpad validation " << ScratchpadValImagefile << " .....\n";
+	verbosefile << "SCRATCHPAD \u24FC Comparing files ... " << endl;
+	testScratchpad = compareData(val_scratchpad, scratchpad_matrix, ASCRATCH * tile.NbTileXY,
+			MAX_EPSILON_ERROR, 0.15f);
 
-					int iscratch = lostpixels + iix + dxSCRo2; 		// contribution of x in the 1D SCRATCH
-					iscratch += ix * XSCRATCH; 					// contribution of previous tiles in x
-					iscratch += (iiy + dySCRo2) * XSCRATCH * tile.NbTilex; 		// contribution of y in 1D SCRATCH
-					iscratch += iy * YSCRATCH * XSCRATCH  * tile.NbTilex; 	// contribution of previous tiles in y
-
-					int itile = iix;  // contribution of x in the TILE
-					itile += ix * XTile; // contribution of previous tile in x
-					itile += iiy * XTile * tile.NbTilex; // contribution of y in the TILE
-					itile += iy * ATile * tile.NbTilex ; // contribution of previous tiles in y
-
-					int iscratch2Dx = iix + dxSCRo2 + ix * XSCRATCH; 	// contribution of x in the 1D SCRATCH + contribution of previous tiles in x
-					int iscratch2Dy = iiy + dySCRo2 + iy * YSCRATCH; 		// contribution of y in 1D SCRATCH +contribution of previous tiles in y
-					int iscratch2D = iscratch2Dx + iscratch2Dy * XSCRATCH * tile.NbTilex;
-					i_scratchpad[iscratch2D] = 255.0 * val_scratchpad[iscratch] / Maxscratch;
-					if(!(i_scratchpad[iscratch2D] ==0) && VERBOSE){
-					printf("SCRATCHPAD \u24FC itile %d, iscratch %d iscratch2Dx %d, iscratch2Dy %d iscratch2D %d\n",
-							itile, iscratch, iscratch2Dx, iscratch2Dy, iscratch2D);
-					printf("SCRATCHPAD \u24FC itile %d, i_scratchpad[iscratch2D] %d val_scratchpad[arg1D] %f\n",
-							itile, i_scratchpad[iscratch2D], val_scratchpad[iscratch]);
-					}
-				}
-
-	printf("SCRATCHPAD \u24FC Path to Scratchpad validation %s .....\n", ScratchpadValImagefile);
-	sdkSavePGM(ScratchpadValImagefile, i_scratchpad, XSCRATCH*tile.NbTilex, YSCRATCH*tile.NbTiley);
-
-	printf("SCRATCHPAD \u24FC Comparing files ... ");
-	testScratchpad = compareData(val_scratchpad, scratchpad_matrix, ASCRATCH *tile.NbTileXY,MAX_EPSILON_ERROR, 0.15f);
-
-	for (int jScratchpad = 0; jScratchpad < ASCRATCH *tile.NbTileXY; jScratchpad++) {
+	for (int jScratchpad = 0; jScratchpad < ASCRATCH * tile.NbTileXY; jScratchpad++) {
 		Sumdel[8] += fabsf(*(val_scratchpad + jScratchpad) - *(scratchpad_matrix + jScratchpad));
 	}
 	printf("Sumdel[8] %f  ", Sumdel[8]);

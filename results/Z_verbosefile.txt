@@ -1,5 +1,5 @@
 MAIN PROGRAM  ⓪ NewLoop start ...
- INIT PROG ⓪ Number of Multiprocessors (MP) 10 clock rate (KHz) 1708500 SharedMemory 48 in KBytes
+ INIT PROG ⓪ Number of Multiprocessors (MP) 10 clock rate (KHz) 1708500 SharedMemory 48 KBytes
 
 MAIN PROGRAM  ⓪ ARG: EXE arguments number argc: 8
 MAIN PROGRAM  ⓪ command line parameters: ******************************************
@@ -12,21 +12,25 @@ MAIN PROGRAM  ⓪ ARG: argv[6]: NDISTRIB: 2
 MAIN PROGRAM  ⓪ ARG: argv[7]: MI directory: /home/gabriel/cuda-workspace2/NewGPU/resources/1039/lambda_488/Measure/T_0/Z_0/DATA
 MAIN PROGRAM  ⓪ command line parameters: ******************************************
 
-************** DATA: PARAMETERS OF MEASUREMENT ************************************* INIT PROG ⓪ BASIC  : THreadsRatio 4 NThreads 1280 Npixel 11 pZOOM 3 pPSF 9 RDISTRIB 15
+************** DATA: PARAMETERS OF MEASUREMENT *************************************
+
+ INIT PROG ⓪ BASIC  : THreadsRatio 4 NThreads 1280 Npixel 11 pZOOM 3 pPSF 9 RDISTRIB 15
  INIT PROG ⓪ BASIC  : YTile 57 YSCRATCH 122 dySCR 58
 INIT PROG ⓪ PIXEL  : Npixel 11 PixZoom 33 PixZoomo2 16
 INIT PROG ⓪ PIXEL  : lost lines 6 additional lines at the end of microimage
-
 INIT PROG ⓪ pPSF   : pPSF 9 PSFZoom 27 PSFZoomo2 13
  INIT PROG ⓪ DISTRIB: XDistrib 59 YDistrib 59extended 65 Size in KBytes 3.75ADistrib 3840 RDISTRIB 15
  INIT PROG ⓪ SCRATCH X&Y: 65 122 dxSCR 44 dySCR 58
  INIT PROG ⓪ SCRATCH: DEL SCRATCH 7 Additional pixels at start and end of SCRATCH
  INIT PROG ⓪ PARAMS :  Number of threads 1280 Threads per batch 320 number of batch 4
-************** DATA: PARAMETERS OF MEASUREMENT *************************************
 
+************** DATA: PARAMETERS OF MEASUREMENT *************************************
  INIT PROG ⏳ Data parameters in device memory ...
  INIT PROG ⓪ reconstruction xml: /home/gabriel/cuda-workspace2/NewGPU/resources/1039/reconstruction.xml
- INIT PROG ⓪ reconstruction from tiles: Cols 42 size 114 size 4788 INIT PROG ⓪ PARAMS :  original µimage pixel size100 nm pixel size reconstruction  INIT PROG ⓪ TILE   : XTILE 21 YTILE 57 size : XTILE: 0.7 YTILE 1.9 INIT PROG ⓪ RECONSTRUCTION in nm   : X 4.2 Y 11.4 µm
+ INIT PROG ⓪ reconstruction from tiles: Cols 42 lines 114 size 4788
+ INIT PROG ⓪ PARAMS :  original µimage pixel size100 nm pixel size reconstruction 33.3333
+ INIT PROG ⓪ TILE   : XTILE 21 YTILE 57 size : XTILE: 0.7 YTILE 1.9
+ INIT PROG ⓪ RECONSTRUCTION in nm   : X 4.2 Y 11.4 µm
 +++initialization   Test validated++++ PASSEND STEP	*******end of step  0  initialization  **********************************
 
 START STEP	*************  step 1  PSF   *************
@@ -36,92 +40,86 @@ START STEP	*************  step 1  PSF   *************
  PSF ⓵ Sum3PSF 1.00073 max3PSF 0.0146406
  PSF ⓵ Path to pPSF validation ...results/A_PSFDevice.pgm
  PSF ⓵  Comparing files ... 
-+++PSF    Test validated++++ PASS ⏱ msec  device  4.447910  total 4.447529
++++PSF    Test validated++++ PASS ⏱ msec  device  4.186112  total 4.185731
 END STEP	*******end of step  1  PSF   **********************************
 
 START STEP	*************  step 2  distrib  *************
 
 DISTRIBUTIONS ②: data file /home/gabriel/cuda-workspace2/NewGPU/resources/1039//lambda_488/Calib/distribution1.bin
 DISTRIBUTIONS ② function read: distribution # 0 size distrib = 27848
+DISTRIBUTIONS ②: idistrib 0 Original max 0.007599 Sumdistrib 0.999999
 DISTRIBUTIONS ②: data file /home/gabriel/cuda-workspace2/NewGPU/resources/1039//lambda_488/Calib/distribution2.bin
 DISTRIBUTIONS ② function read: distribution # 1 size distrib = 27848
+DISTRIBUTIONS ②: idistrib 1 Original max 0.007599 Sumdistrib 1.999995
 DISTRIBUTIONS ② function read: Path to distrib original results/B_distributions.pgm
 DISTRIBUTIONS ② Path to distrib validation results/B_distributionsdevice.pgm
-DISTRIBUTIONS ② Comparing files ... testdistrib = 1
-+++distrib   Test validated++++ PASS ⏱ msec  device  36.911446  total 42.890644
+DISTRIBUTIONS ② Comparing files ... Sumdel[1]  0.000000testdistrib = 1
++++distrib   Test validated++++ PASS ⏱ msec  device  37.713676  total 43.406479
 END STEP	*******end of step  2  distrib  **********************************
 
 START STEP	*************  step 3  Laser positions*************
+ Laser ③: distribution n°0 number of images 6
+ Laser ③: distribution n°1 number of images 6
+ Laser ③:  total number of images 12 max images per distributions 6
 Laser ③: filename /home/gabriel/cuda-workspace2/NewGPU/resources/1039/lambda_488/Measure/T_0/Z_0/laser_positions_1.txt 
 Laser ③: filename /home/gabriel/cuda-workspace2/NewGPU/resources/1039/lambda_488/Measure/T_0/Z_0/laser_positions_2.txt 
- Laser ③ Laser position %d  Laser position x: %f  y: %f
-0  5.400000  5.400000
+ Laser ③ Laser position n°0 x 5.400000 y 5.400000
 Laser ③ Position in scratchpad38  45
  Laser ③ ***************SCRATCHPAD FULL OFFSET 2963 **************
  Laser ③ ----------------------------------------------------------------------------------------------------
- Laser ③ Laser position %d  Laser position x: %f  y: %f
-1  5.400000  15.400000
+ Laser ③ Laser position n°1 x 5.400000 y 15.400000
 Laser ③ Position in scratchpad38  75
  Laser ③ ***************SCRATCHPAD FULL OFFSET 4913 **************
  Laser ③ ----------------------------------------------------------------------------------------------------
- Laser ③ Laser position %d  Laser position x: %f  y: %f
-2  5.400000  25.400000
+ Laser ③ Laser position n°2 x 5.400000 y 25.400000
 Laser ③ Position in scratchpad38  48
  Laser ③ ***************SCRATCHPAD FULL OFFSET 3158 **************
  Laser ③ ----------------------------------------------------------------------------------------------------
- Laser ③ Laser position %d  Laser position x: %f  y: %f
-3  15.400000  5.400000
+ Laser ③ Laser position n°3 x 15.400000 y 5.400000
 Laser ③ Position in scratchpad26  45
  Laser ③ ***************SCRATCHPAD FULL OFFSET 2951 **************
  Laser ③ ----------------------------------------------------------------------------------------------------
- Laser ③ Laser position %d  Laser position x: %f  y: %f
-4  15.400000  15.400000
+ Laser ③ Laser position n°4 x 15.400000 y 15.400000
 Laser ③ Position in scratchpad26  75
  Laser ③ ***************SCRATCHPAD FULL OFFSET 4901 **************
  Laser ③ ----------------------------------------------------------------------------------------------------
- Laser ③ Laser position %d  Laser position x: %f  y: %f
-5  15.400000  25.400000
+ Laser ③ Laser position n°5 x 15.400000 y 25.400000
 Laser ③ Position in scratchpad26  48
  Laser ③ ***************SCRATCHPAD FULL OFFSET 3146 **************
  Laser ③ ----------------------------------------------------------------------------------------------------
- Laser ③ Laser position %d  Laser position x: %f  y: %f
-6  5.400000  5.400000
+ Laser ③ Laser position n°6 x 5.400000 y 5.400000
 Laser ③ Position in scratchpad38  45
  Laser ③ ***************SCRATCHPAD FULL OFFSET 2963 **************
  Laser ③ ----------------------------------------------------------------------------------------------------
- Laser ③ Laser position %d  Laser position x: %f  y: %f
-7  5.400000  15.400000
+ Laser ③ Laser position n°7 x 5.400000 y 15.400000
 Laser ③ Position in scratchpad38  75
  Laser ③ ***************SCRATCHPAD FULL OFFSET 4913 **************
  Laser ③ ----------------------------------------------------------------------------------------------------
- Laser ③ Laser position %d  Laser position x: %f  y: %f
-8  5.400000  25.400000
+ Laser ③ Laser position n°8 x 5.400000 y 25.400000
 Laser ③ Position in scratchpad38  48
  Laser ③ ***************SCRATCHPAD FULL OFFSET 3158 **************
  Laser ③ ----------------------------------------------------------------------------------------------------
- Laser ③ Laser position %d  Laser position x: %f  y: %f
-9  15.400000  5.400000
+ Laser ③ Laser position n°9 x 15.400000 y 5.400000
 Laser ③ Position in scratchpad26  45
  Laser ③ ***************SCRATCHPAD FULL OFFSET 2951 **************
  Laser ③ ----------------------------------------------------------------------------------------------------
- Laser ③ Laser position %d  Laser position x: %f  y: %f
-10  15.400000  15.400000
+ Laser ③ Laser position n°10 x 15.400000 y 15.400000
 Laser ③ Position in scratchpad26  75
  Laser ③ ***************SCRATCHPAD FULL OFFSET 4901 **************
  Laser ③ ----------------------------------------------------------------------------------------------------
- Laser ③ Laser position %d  Laser position x: %f  y: %f
-11  15.400000  25.400000
+ Laser ③ Laser position n°11 x 15.400000 y 25.400000
 Laser ③ Position in scratchpad26  48
  Laser ③ ***************SCRATCHPAD FULL OFFSET 3146 **************
  Laser ③ ----------------------------------------------------------------------------------------------------
-+++Laser positions Test validated++++ PASS ⏱ msec  device  0.458256  total 44.627686
+ Laser ③ delx 0.000000 dely 0.000000 Sumdel[2] 0.000000
++++Laser positions Test validated++++ PASS ⏱ msec  device  0.458852  total 45.200367
 END STEP	*******end of step  3  Laser positions**********************************
 
 START STEP	*************  step 4  Measurement ROI  *************
 filename /home/gabriel/cuda-workspace2/NewGPU/resources/1039/lambda_488/Measure/T_0/Z_0/meas_ROIs_1.txt 
 filename /home/gabriel/cuda-workspace2/NewGPU/resources/1039/lambda_488/Measure/T_0/Z_0/meas_ROIs_2.txt 
 ROI ④ min and max x 21 0 y 31 0
-+++Measurement ROI   Test validated++++ PASS ⏱ msec  device  0.173787  total 45.205772
++++Measurement ROI   Test validated++++ PASS ⏱ msec  device  0.144352  total 45.801037
 END STEP	*******end of step  4  Measurement ROI  **********************************
 
 START STEP	*************  step 5  microimages*************
@@ -129,27 +127,40 @@ MICROIMAGES ⑤ Total number of images for all distributions 12
 MICROIMAGES ⑤ function read: distribution n°0 Path to distrib original .....
 /home/gabriel/cuda-workspace2/NewGPU/resources/1039/lambda_488/Measure/T_0/Z_0/DATA1.bin
 MICROIMAGES ⑤ function read: distrib n°0 number laser positions 6 size microimages = 5808
+MICROIMAGES ⑤ number of images 6 Number of pixels 726
+MICROIMAGES ⑤ original on host: Average 0.000019 microimages: max 0.000763 min -0.000041
 MICROIMAGES ⑤ function read: distribution n°1 Path to distrib original .....
 /home/gabriel/cuda-workspace2/NewGPU/resources/1039/lambda_488/Measure/T_0/Z_0/DATA2.bin
 MICROIMAGES ⑤ function read: distrib n°1 number laser positions 6 size microimages = 5808
+MICROIMAGES ⑤ number of images 6 Number of pixels 726
+MICROIMAGES ⑤ original on host: Average 0.000015 microimages: max 0.000763 min -0.000041
 MICROIMAGES ⑤ host: Path to microimages original results/C_microimages.pgm .....
 MICROIMAGES ⑤ Copy from device: Average 0.000015max3microimages 0.000763
 MICROIMAGES ⑤ Copy from device: zoomed image Average 0.000015max3microimages 0.000763
 MICROIMAGES ⑤ Comparing files ... Sumdel[4] 0.000000testmicroimages = 1
 MICROIMAGES ⑤ host: Path to microimages copy results/C_microimagesdevice.pgm .....
-+++microimages Test validated++++ PASS ⏱ msec  device  48.663322  total 94.611458
++++microimages Test validated++++ PASS ⏱ msec  device  48.553398  total 95.084503
 END STEP	*******end of step  5  microimages**********************************
 
 START STEP	*************  step 6   laser in tile *************
+ INIT PROG ⓺ Amax, min Laser x & y: 162600
+ INIT PROG ⓺ recdeftile0x, y: 22 recdeftile0x, y 32
+ INIT PROG ⓺ Min Number of tiles x, y: 32
  INIT PROG ⓺ Reconstruction size x: 84 y: 114
 INIT PROG ⓺ NbTileXY 8 NbTileXYD 16start x 0 y 0 MinLaser 0  0in REC pixels x: 0 y 0
-+++ laser in tile  Test validated++++ PASS ⏱ msec  device  48.663322  total 94.611458
+ TILE ORG ⓺  idistrib n°0 number of laser positions in tile in distribution 6
+ ⑹ tile 0: #lasers 2 ⑹ tile 1: #lasers 0 ⑹ tile 2: #lasers 2 ⑹ tile 3: #lasers 0 ⑹ tile 4: #lasers 1 ⑹ tile 5: #lasers 0 ⑹ tile 6: #lasers 1 ⑹ tile 7: #lasers 0
+ TILE ORG ⓺  idistrib n°1 number of laser positions in tile in distribution 6
+ ⑹ tile 8: #lasers 2 ⑹ tile 9: #lasers 0 ⑹ tile 10: #lasers 2 ⑹ tile 11: #lasers 0 ⑹ tile 12: #lasers 1 ⑹ tile 13: #lasers 0 ⑹ tile 14: #lasers 1 ⑹ tile 15: #lasers 0
+TILE ORG ⓺  nblasertile 12
+ TILE ORG ⓺ Max  16 and Min 0 Max Laser in tile rounded to next multiple of NIMAGESPARALLEL  ..16 
++++ laser in tile  Test validated++++ PASS ⏱ msec  device  48.553398  total 95.084503
 END STEP	*******end of step  6   laser in tile **********************************
 
 START STEP	*************  step 7  microimages in tile*************
-TILE ORG ⑦ size simus 327680 AminLaserx 0 AminLasery 0
-TILE ORG ⓺ Max Laser in tile rounded to multiple NIMAGESPARALLEL  .. 16
-TILE ORG ⓺ Max and min microimages 0.000763 -0.000041
+TILE ORG ⓻ size simus 327680 AminLaserx 0 AminLasery 0
+TILE ORG ⓻ Max Laser in tile rounded to multiple NIMAGESPARALLEL  .. 16
+TILE ORG ⓻ Max and min microimages 0.000763 -0.000041
 TILE ORG ⑺ idistrib 0 iLaser 0 iLasertile 0 tilenumber 0 tilex 0 tiley 0 tileblock 0
 TILE ORG ⑺ idistrib 0 iLaser 1 iLasertile 1 tilenumber 0 tilex 0 tiley 0 tileblock 0
 TILE ORG ⑺ idistrib 0 iLaser 2 iLasertile 64 tilenumber 4 tilex 0 tiley 1 tileblock 0
@@ -162,8 +173,9 @@ TILE ORG ⑺ idistrib 1 iLaser 8 iLasertile 192 tilenumber 12 tilex 0 tiley 1 ti
 TILE ORG ⑺ idistrib 1 iLaser 9 iLasertile 160 tilenumber 10 tilex 2 tiley 0 tileblock 6
 TILE ORG ⑺ idistrib 1 iLaser 10 iLasertile 161 tilenumber 10 tilex 2 tiley 0 tileblock 6
 TILE ORG ⑺ idistrib 1 iLaser 11 iLasertile 224 tilenumber 14 tilex 2 tiley 1 tileblock 6
-HOST: ❽ DEVICE TEST in biginspect.cu: Path to calculated new simulations results/C_microimagesintile.pgm .....
-HOST: ⓯  7parameters  n_rowintern 1056n_colintern 132MaxData 0.000734 dataliteral.c_str() MicroimagesA1 callprogram.c_str() tileorganization.cu
+ TILE ORG ⑺ Maxdata 255.000000 Nbtile XY 8 NbTile XYD 16 Laserintile 16
+HOST: ⓻ DEVICE TEST in biginspect.cu: Path to calculated new simulations results/C_microimagesintile.pgm .....
+HOST: ⓻  7parameters  n_rowintern 1056n_colintern 132MaxData 0.000734 dataliteral.c_str() MicroimagesA1 callprogram.c_str() tileorganization.cu
 TILE ORG ⑺ idistrib 0  0 iLaser 0 tilenumber 0 ilasertile 0
 TILE ORG ⑺ idistrib 0  1 iLaser 1 tilenumber 0 ilasertile 1
 TILE ORG ⑺ idistrib 0  2 iLaser 2 tilenumber 4 ilasertile 64
@@ -176,7 +188,7 @@ TILE ORG ⑺ idistrib 1  8 iLaser 8 tilenumber 12 ilasertile 192
 TILE ORG ⑺ idistrib 1  9 iLaser 9 tilenumber 10 ilasertile 160
 TILE ORG ⑺ idistrib 1  10 iLaser 10 tilenumber 10 ilasertile 161
 TILE ORG ⑺ idistrib 1  11 iLaser 11 tilenumber 14 ilasertile 224
-HOST: ⓯  7 ******************************************
+HOST: ⓻  7 ******************************************
 
 TILE ORG ⑺ idistrib 0  0 iLaser 0 tilenumber 0 ilasertile 0
 TILE ORG ⑺ idistrib 0  1 iLaser 1 tilenumber 0 ilasertile 1
@@ -190,9 +202,9 @@ TILE ORG ⑺ idistrib 1  8 iLaser 8 tilenumber 12 ilasertile 192
 TILE ORG ⑺ idistrib 1  9 iLaser 9 tilenumber 10 ilasertile 160
 TILE ORG ⑺ idistrib 1  10 iLaser 10 tilenumber 10 ilasertile 161
 TILE ORG ⑺ idistrib 1  11 iLaser 11 tilenumber 14 ilasertile 224
-HOST: ⓯  7 ******************************************
+HOST: ⓻  7 ******************************************
 
----microimages in tile Test not validated++++  Sumdel =  0.000000 ⏱ msec  device  48.663322  total 94.611458
+---microimages in tile Test not validated++++  Sumdel =  0.000000 ⏱ msec  device  48.553398  total 95.084503
 END STEP	*******end of step  7  microimages in tile**********************************
 
 START STEP	*************  step 8  reconstruction  *************
@@ -201,21 +213,33 @@ REC ⓼ ************file read: size reconstruction in bytes = 57456
 REC ⓼ *******complete size  9576  Size in Bytes 76608
 REC ⓼ ***  max =400.000000  Sum =1000.000000
 REC ⓼ Path to reconstruction original results/D_reconstruction.pgm .....
+
+on host: Sum3rec  1000.000000 max3rec %f   400.000000
 max device =400.000000
+REC ⓼ Path to rec validation results/D_reconstructiondevice.pgm
+REC ⓼ Comparing files ... Sumdel[1] 0.000000 ... 
 testrec = 1
-+++reconstruction   Test validated++++ PASS ⏱ msec  device  30.877264  total 187.192795
++++reconstruction   Test validated++++ PASS ⏱ msec  device  32.572086  total 192.337311
 END STEP	*******end of step  8  reconstruction  **********************************
 
+TILE ⓼ Path to tile reconstruction  results/D_reconstructionreorganized.pgm
+ offset = - del /2 !! x 0  y  0
+TILE ⓼ maxTile 400.000000 SumTile 1000.000000
+SCRATCHPAD ⓼ Image of scratchpad matrix results/E_scratchpad.pgm .....
+SCRATCHPAD ⓼ : Max Scratchpad 400.000000 Sum scratchpad 1000.000000
+SCRATCHPAD ⓼ : 7930 of full SCRATCHPAD 2D 63440
 max device =400.000000
+SCRATCHPAD ⓼ Path to Scratchpad validation results/E_Scratchpaddevice.pgm .....
+SCRATCHPAD ⓼ Comparing files ... 
 testScratchpad = 1
-+++scratchpad     Test validated++++ PASS ⏱ msec  device  219.535645  total 412.709015
++++scratchpad     Test validated++++ PASS ⏱ msec  device  218.755096  total 416.953094
 END STEP	*******end of step  9  scratchpad    **********************************
 
 START STEP	*************  step 10  bigLoop*************
 
 ******************Completion of GPU initialization ***************
 ******************************************************************
-used MB =  1110.375000   Free MB = 4957.250000 Total MB = 6067.625000
+used MB =  878.062500   Free MB = 5189.562500 Total MB = 6067.625000
 MAIN PROGRAM  ❶ End of data preparation in device memory ...
 TESTS RETURN:  initialization:  PASS;  pPSF:  PASS;  distrib: PASS
 TESTS RETURN: laser positions: PASS; ROI:  PASS; microimages:  PASS;  Reconstruction:  PASS
@@ -238,11 +262,11 @@ HOST: \u24EA *******************************************************************
 HOST: \u24EA *** SHARED MEMORY SIZE 46.312500 KBytes
 HOST: \u24EA ************************BigLoop start   *******************************
 HOST: \u24EA ***********************************************************************
-+++bigLoop Test validated++++ PASS ⏱ msec  device  173.175827  total 173.745316
++++bigLoop Test validated++++ PASS ⏱ msec  device  164.841370  total 165.421494
 END STEP	*******end of step  10  bigLoop**********************************
 
 START STEP	*************  step 11  end bigloop*************
----end bigloop Test not validated++++  Sumdel =  0.000000 ⏱ msec  device  173.175827  total 173.745316
+---end bigloop Test not validated++++  Sumdel =  0.000000 ⏱ msec  device  164.841370  total 165.421494
 END STEP	*******end of step  11  end bigloop**********************************
 
 START STEP	*************  step 12  bigloop results*************
@@ -313,7 +337,7 @@ SCRATCHPAD ⓬ Path to DistribPos validation .....results/B_DistributionsLoopint
 Max PSF Loop 0.014641
 Max Distrib Validation 0.000000
 Max Distrib Test 0.007599
----bigloop results Test not validated++++  Sumdel =  0.000000 ⏱ msec  device  173.175827  total 173.745316
+---bigloop results Test not validated++++  Sumdel =  0.000000 ⏱ msec  device  164.841370  total 165.421494
 END STEP	*******end of step  12  bigloop results**********************************
 
 START STEP	*************  step 13  *************

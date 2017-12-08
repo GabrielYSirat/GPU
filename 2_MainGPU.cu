@@ -18,6 +18,7 @@ COS OFSCAL;
 Ctile tile;
 devicedata onhost;
 int clockRate, devID, stepval = 0; // in KHz
+float MaxData;
 
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -62,7 +63,7 @@ int main(int argc, char **argv) {
 	/*step 7 ************************µimages in tile **********/
 	initializesimusData();
 	bool boolMI = microimagesintile();
-	onhost.MaxData = displaydata( Data,  stepval);
+	MaxData = displaydata( Data,  stepval);
 	stepinit(boolMI, stepval);
 
 	/*step 8 *********************Reconstruction  *************/
