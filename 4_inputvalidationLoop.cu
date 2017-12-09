@@ -4,7 +4,7 @@ using namespace tinyxml2;
 using namespace std;
 
 #define TEST 1
-#define VERBOSEINITLOOP 0
+#define VERBOSEINITLOOP 1
 
 const char * Laserfile = "results/LaserDevice.txt";
 
@@ -109,29 +109,25 @@ __global__ void validateLaserPositions_device(int Nb_LaserPositions) {
 		d_PosLaserx[ipos] = PosLaserx[ipos];
 		d_PosLasery[ipos] = PosLasery[ipos];
 		// Laser positions in y zoomed in integer
-		xREC = nearbyintf(pZOOM * *(PosLaserx + ipos));
-		tilex = xREC / XTile;
-		*(PosxScratch + ipos) = (xREC % XTile) + dxSCR / 2; // Laser positions in x zoomed integer in the scratchpad of tile
-		yREC = nearbyintf(pZOOM * *(PosLasery + ipos));
-		tiley = yREC / YTile;
-		*(PosyScratch + ipos) = (yREC % YTile) + dySCR / 2; // Laser positions in x zoomed integer in the scratchpad of tile
+		tilex = pZOOM * *(PosLaserx + ipos) / XTile; xREC = pZOOM * *(PosLaserx + ipos) - tilex * XTile;
+		*(PosxScratch + ipos) = xREC + dxSCR / 2; // Laser positions in x zoomed integer in the scratchpad of tile
+		tiley = pZOOM * *(PosLasery + ipos) / YTile; yREC = pZOOM * *(PosLasery + ipos) - tiley * YTile;
+		*(PosyScratch + ipos) = yREC + dySCR / 2; // Laser positions in x zoomed integer in the scratchpad of tile
 		*(offsetFULL + ipos) = *(PosxScratch + ipos) + *(PosyScratch + ipos) * XSCRATCH;
-		if (VERBOSEINITLOOP && (ipos < 20)) {
-			printf(" Laser \u2778 DEVICE 1: laser position n° %d original position x:%f , y: %f ....\n", ipos,
+//		if (VERBOSEINITLOOP && (ipos < SPARSE))
+		if(VERBOSEINITLOOP){
+/*			printf(" Laser \u2778 DEVICE 1: laser position n° %d original position x:%f , y: %f ....\n", ipos,
 					PosLaserx[ipos], PosLasery[ipos]);
 			printf(" Laser \u2778 DEVICE 2:  ....xREC %d yREC %d tilex %d tiley %d Scratchx %d Scratchy %d \n", xREC,
 					yREC, tilex, tiley, PosxScratch[ipos], PosyScratch[ipos]);
-			printf(" Laser \u2778 DEVICE 3: copy position: %f y: %f\n\n", d_PosLaserx[ipos], d_PosLasery[ipos]);
+			printf(" Laser \u2778 DEVICE 3: copy position: %f y: %f\n", d_PosLaserx[ipos], d_PosLasery[ipos]);*/
+			printf("Laser \u2778 DEVICE laser position n°%d offset %d \n",ipos, *(offsetFULL + ipos));
 		}
 
-		if (minLaserPositionx > PosLaserx[ipos])
-			minLaserPositionx = PosLaserx[ipos];
-		if (maxLaserPositionx < PosLaserx[ipos])
-			maxLaserPositionx = PosLaserx[ipos];
-		if (maxLaserPositiony < PosLasery[ipos])
-			maxLaserPositiony = PosLasery[ipos];
-		if (minLaserPositiony > PosLasery[ipos])
-			minLaserPositiony = PosLasery[ipos];
+		minLaserPositionx = min(minLaserPositionx, PosLaserx[ipos]);
+		minLaserPositiony = min(minLaserPositiony, PosLasery[ipos]);
+		maxLaserPositionx = max(maxLaserPositionx, PosLaserx[ipos]);
+		maxLaserPositiony = max(maxLaserPositiony, PosLasery[ipos]);
 	}
 	printf(" Laser \u2778  DEVICE: MAX & MIN: LaserPosition x max %f min %f ... LaserPositiony max %f min %f \n",
 			maxLaserPositionx, minLaserPositionx, maxLaserPositiony, minLaserPositiony);
@@ -147,19 +143,12 @@ __global__ void validateCroppedROI_device(int Nb_ROI) {
 	for (uint row = 0; row < Nb_ROI; row++) {
 		d_ROIx[row] = ROIx[row];
 		d_ROIy[row] = ROIy[row];
-		if ((VERBOSEINITLOOP) && ((row < 10) || !(row % 512))) {
-			printf("ROI \u2779 DEVICE:  original ROIx,%d row %d, ROIy %d ....  ", ROIx[row], row, ROIy[row]);
-			printf(" copy d_ROIx,%d row %d, d_ROIy %d\n", d_ROIx[row], row, d_ROIy[row]);
-		}
 
 		maxROIx = max(maxROIx, d_ROIx[row]);
 		max2ROIx = max(max2ROIx, ROIx[row]);
 		maxROIy = max(maxROIy, d_ROIy[row]);
 		max2ROIy = max(max2ROIy, ROIy[row]);
 	}
-	if (VERBOSEINITLOOP)
-		printf("ROI \u2779 DEVICE: \u21C8 ROI maxROI %d max2ROI %d ...  maxROI %d max2ROI %d .....Nb_ROI %d\n", maxROIx,
-			max2ROIx, maxROIy, max2ROIy, Nb_ROI);
 	timer = clock64();
 }
 __managed__ float * SumMI;

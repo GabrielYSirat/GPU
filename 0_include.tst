@@ -1,5 +1,5 @@
-#define STARTDEVICE
-#define TESTTHREADS
+//#define STARTDEVICE
+//#define TESTTHREADS
 #define TESTDISTRIBDEVICE
 #define TESTSCRATCH
 #define DISTRIBPOS

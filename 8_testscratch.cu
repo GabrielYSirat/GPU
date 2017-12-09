@@ -1,14 +1,19 @@
 #ifdef TESTSCRATCH
 DD.step++;
-float Sumscratchval, Maxscratchval;
-if(!ithreads)
-for (int jscratch = 0; jscratch < ASCRATCH; jscratch ++) {
-	val2_scratchpad[jscratch + MemoryOffsetscratch] = Scratchpad[jscratch]; // scratchpad image validation
-	Sumscratchval += val2_scratchpad[jscratch + MemoryOffsetscratch];
-	Maxscratchval = max(Scratchpad[jscratch], Maxscratchval);
-	if(*(Scratchpad + jscratch) != 0.0f && !ithreads) printf("DEVICE: \u2464 SCRATCHPAD ithreads %d itb %d position in scratchpad %d value %f Sum %f max %f\n",
-			ithreads, itc, jscratch, *(Scratchpad + jscratch), Sumscratchval, Maxscratchval);
-}
+float Sumscratchval=0.0f, Maxscratchval=0.0f;
+
+	for (int jscratch = 0; jscratch < ASCRATCH; jscratch ++) {
+		val2_scratchpad[jscratch + MemoryOffsetscratch] = Scratchpad[jscratch]; // scratchpad image validation
+		Sumscratchval += val2_scratchpad[jscratch + MemoryOffsetscratch];
+		Maxscratchval = max(Scratchpad[jscratch], Maxscratchval);
+		if(*(Scratchpad + jscratch) != 0.0f && !ithreads)
+			printf("DEVICE: \u2463 SCRATCHPAD distrib_number %d itb %d position in scratchpad %d value %f Sum %f max %f\n",
+					distrib_number, itb, jscratch, *(Scratchpad + jscratch), Sumscratchval, Maxscratchval);
+	}
+	__syncthreads();
+	if (!iprint) printf("end \u2463****************DEVICE:  SCRATCHPAD ********************\n\n");
+__syncthreads();
+
 if(((aggregx+1) == DD.NbAggregx) && ((aggregy+1) == DD.NbAggregy)) {
 	if (!iprint) printf("DEVICE: \u2464 SUM SCRATCHPAD: Sum of scratchpad %5.1f Max of Scratchpad %5.1f \n", Sumscratchval, Maxscratchval);
 	if (!iprint) timer = clock64();

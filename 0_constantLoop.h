@@ -22,6 +22,7 @@
 #define Y 1
 #define VERBOSE 0
 #define BUFFSIZE 80
+#define SPARSE 20
 
 // Maximum for values which cannot be determined at compile time
 #define NUMLASERPOSITIONS 250000

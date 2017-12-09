@@ -204,9 +204,10 @@ float displaydata(float * datavalues, int stepval) {
 	return (MaxData);
 }
 
-bool scratchreaddisplay(float * reconstructiondata, float * scratchdata, const char * filename, bool readtile) {
+float scratchreaddisplay(float * reconstructiondata, float * scratchdata, const char * filename, bool readtile) {
 	unsigned char *i_scratchpad = (unsigned char *) calloc(tile.NbTileXY * XSCRATCH * YSCRATCH,
 			sizeof(unsigned char)); // on host
+	float MaxScratchlocal = 0.0f;
 	for (int iy = 0; iy < tile.NbTiley; iy++)
 		for (int ix = 0; ix < tile.NbTilex; ix++)
 			for (int iix = 0; iix < XTile; iix++)
@@ -227,6 +228,7 @@ bool scratchreaddisplay(float * reconstructiondata, float * scratchdata, const c
 					int iscratch2D = iscratch2Dx + iscratch2Dy * XSCRATCH * tile.NbTilex;
 					if (readtile)
 						scratchdata[iscratch] = reconstructiondata[itile];
+					MaxScratchlocal = max(MaxScratchlocal, scratchdata[iscratch]);
 					i_scratchpad[iscratch2D] = 255.0 * scratchdata[iscratch] / Maxscratch;
 					if (!(i_scratchpad[iscratch2D] == 0) && VERBOSE) {
 						printf(
@@ -239,5 +241,5 @@ bool scratchreaddisplay(float * reconstructiondata, float * scratchdata, const c
 					}
 				}
 	sdkSavePGM(filename, i_scratchpad, XSCRATCH * tile.NbTilex, YSCRATCH * tile.NbTiley);
-	return (TRUE);
+	return (MaxScratchlocal);
 }

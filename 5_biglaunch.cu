@@ -22,11 +22,10 @@ bool biglaunch() {
 			<< endl;
 	verbosefile << "To be transferred to device: Max number of laser position in Tile:" << tile.maxLaserintile
 			<< " min  " << tile.minLaserintile << endl << endl;
-	printf("**************HOST: PARAMETERS OF MEASUREMENT *******************\n"
-			"Npixel %d pZOOM %d, pPSF %d\n", Npixel, pZOOM, pPSF);
-	printf("pPSF %d XDistrib %d YDistrib %d\n", pPSF, XDistrib, YDistrib);
-	printf("XSCRATCH %d YSCRATCH %d XTile %d YTile %d\n\n", XSCRATCH, YSCRATCH, XTile, YTile);
-	printf("Number of pixels calculated in parallel %d Number of threads used %d loop on threads %d\n", NThreads,
+	printf("\nHOST: \u24EA Npixel %d pZOOM %d, pPSF %d\n", Npixel, pZOOM, pPSF);
+	printf("HOST: \u24EA pPSF %d XDistrib %d YDistrib %d\n", pPSF, XDistrib, YDistrib);
+	printf("HOST: \u24EA XSCRATCH %d YSCRATCH %d XTile %d YTile %d\n", XSCRATCH, YSCRATCH, XTile, YTile);
+	printf("HOST: \u24EA Number of pixels calculated in parallel %d Number of threads used %d loop on threads %d\n\n", NThreads,
 	THREADSVAL, THreadsRatio);
 
 	/************************* for GPU ********************/
@@ -54,7 +53,7 @@ bool biglaunch() {
 	onhost.XTile = XTile;
 	onhost.YTile = YTile;
 
-	verbosefile << "HOST: \\u24EA  \n";
+	verbosefile << "HOST: \u24EA  \n";
 	for(int itile = 0; itile < tile.NbTileXYD; itile ++) {
 		onhost.NbLaserpertile[itile] = tile.NbLaserpertile[itile];
 		verbosefile << "tile n° " << itile << " #laser " << onhost.NbLaserpertile[itile] << " || ";
@@ -72,8 +71,8 @@ bool biglaunch() {
 	verbosefile << "dimBlock  x: " << dimBlock.x << " y: " << dimBlock.y << " z: " << dimBlock.z << "  ...  ";
 	verbosefile << "dimGrid  x: " << dimGrid.x << " y: " << dimGrid.y << " z: " << dimGrid.z << endl << endl;
 
-	verbosefile << "HOST: \\u24EA ************************BigLoop start   *******************************" << endl;
-	verbosefile << "HOST: \\u24EA ***********************************************************************" << endl;
+	verbosefile << "HOST: \u24EA ************************BigLoop start   *******************************" << endl;
+	verbosefile << "HOST: \u24EA ***********************************************************************" << endl;
 
 	int sharedsize = NIMAGESPARALLEL * sizeof(int) + ASCRATCH * sizeof(float) + ADistrib * sizeof(float);
 
@@ -81,12 +80,12 @@ bool biglaunch() {
 		verbosefile << "shared memory required is above the memory available" << sharedsize / 1024.0 << "KBytes" << endl;
 		exit(1);
 	} else
-		verbosefile << "HOST: \\u24EA *** SHARED MEMORY SIZE " << sharedsize / 1024.0 << " KBytes" << endl;
+		verbosefile << "HOST: \u24EA *** SHARED MEMORY SIZE " << sharedsize / 1024.0 << " KBytes" << endl;
 	// Execute the Laser positions kernel
-	verbosefile << "HOST: \\u24EA ************************BigLoop start   *******************************" << endl;
-	verbosefile << "HOST: \\u24EA ***********************************************************************" << endl;
-	cout << "HOST: \\u24EA ************************BigLoop start   *******************************" << endl;
-	cout << "HOST: \\u24EA ***********************************************************************" << endl;
+	verbosefile << "HOST: \u24EA ************************BigLoop start   *******************************" << endl;
+	verbosefile << "HOST: \u24EA ***********************************************************************" << endl;
+	cout << "HOST: \u24EA ************************BigLoop start   *******************************" << endl;
+	cout << "HOST: \u24EA ***********************************************************************" << endl;
 	BigLoop<<<dimBlock, dimGrid, sharedsize>>>(onhost);
 	cudaDeviceSynchronize();
 

@@ -26,7 +26,8 @@ bool biginspect(int stepval) {
 	verbosefile << "HOST: \u24F3 ***********************************************************************"
 			<< endl << endl;
 
-	unsigned char *i_Scratchpad = (unsigned char *) calloc(XSCRATCH * YSCRATCH * tile.NbTileXY * Ndistrib,
+	scratchreaddisplay(val2_scratchpad, val2_scratchpad, ScratchpadVal2Imagefile, FALSE);
+/*	unsigned char *i_Scratchpad = (unsigned char *) calloc(XSCRATCH * YSCRATCH * tile.NbTileXY * Ndistrib,
 			sizeof(unsigned char)); // on host
 
 	for (int arg = 0; arg < ASCRATCH * tile.NbTileXY; arg++)

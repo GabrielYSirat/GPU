@@ -19,7 +19,7 @@ __global__ void BigLoop(devicedata DD) {
 	float *Scratchpad = (float *) &image_to_scratchpad_offset_tile[NIMAGESPARALLEL]; // ASCRATCH floats for Scratchpad
 	float *shared_distrib = (float*) &Scratchpad[ASCRATCH]; // ASCRATCH floats for distrib
 
-	int MemoryOffsetscratch = 0, tilex, tiley, tileXY;
+	int MemoryOffsetscratch = 0, tilexdevice, tileydevice, tileXY;
 	float * scrglobal;
 
 	/*****************constant values & auxiliary variables stored in registers *****************/
@@ -69,9 +69,9 @@ __global__ void BigLoop(devicedata DD) {
 	/*********************  ***********/
 	for (int aggregx = 0; aggregx < DD.NbAggregx; aggregx++)
 		for (int aggregy = 0; aggregy < DD.NbAggregy; aggregy++) {
-			tilex = blockIdx.x + aggregx * DD.tileperaggregatex;
-			tiley = blockIdx.y + aggregy * DD.tileperaggregatey;
-			tileXY = tilex + DD.NbTilex * tiley;
+			tilexdevice = blockIdx.x + aggregx * DD.tileperaggregatex;
+			tileydevice = blockIdx.y + aggregy * DD.tileperaggregatey;
+			tileXY = tilexdevice + DD.NbTilex * tileydevice;
 			MemoryOffsetscratch = ASCRATCH * tileXY;
 			scrglobal = scratchpad_matrix + MemoryOffsetscratch;
 #include "8_testaggreg.cu"

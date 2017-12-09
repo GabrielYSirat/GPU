@@ -1,9 +1,8 @@
 #ifdef STARTDEVICE
-	if(!ithreads && VERBOSELOOP) printf("BLOCK x %d y %d z %d distrib number %d itc %d itb %d\n",
+	if(!ithreads && VERBOSELOOP) printf("DEVICE: \u2460 BLOCK x %d y %d z %d distrib number %d itc %d itb %d\n",
 			blockIdx.x, blockIdx.y, blockIdx.z, distrib_number, itc, itb);
-		if (!iprint)  	// the condition is required to have it printed once
 
-		if (!iprint) { 	// the condition is required to have it printed once
+	if (!iprint) { 	// the condition is required to have it printed once
 		printf("\n\u2460********************************** START *****************************\n");
 		printf("DEVICE: \u2460****************PARAMETERS OF MEASUREMENT *******************\n");
 		printf("DEVICE: \u2460 PARAMETERS  NThreads %d Npixel %d pZOOM %d, pPSF %d\n", NThreads, Npixel, pZOOM, pPSF);

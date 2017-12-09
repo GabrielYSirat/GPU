@@ -50,6 +50,7 @@ public:
 	int maxROIx, maxROIy, minROIx, minROIy;
 	double maxLaserx, minLaserx, maxLasery, minLasery;
 
+
 	void start(void);
 };
 

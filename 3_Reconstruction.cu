@@ -155,7 +155,6 @@ void Scratchprepare(void) {
 				if (i_tilerec[itemp] > 1)
 					printf("itemp %d, col %d x %d y %d\n", itemp, XTile * tile.NbTilex,
 							itemp % (XTile * tile.NbTilex), itemp / (XTile * tile.NbTilex));
-
 		}
 
 	sdkSavePGM(rectilereconstructionfile, i_tilerec, XTile * tile.NbTilex, YTile * tile.NbTiley);
@@ -164,8 +163,8 @@ void Scratchprepare(void) {
 	verbosefile << "SCRATCHPAD \u24FC : Max Scratchpad " << Maxscratch << " Sum scratchpad " << Sumscratch << endl;
 	verbosefile << "SCRATCHPAD \u24FC : " << XSCRATCH * YSCRATCH << " of full SCRATCHPAD 2D " << XSCRATCH * YSCRATCH * tile.NbTileXY << endl;
 	// write scratchpad matrix to disk
-	scratchreaddisplay(tile_rec,scratchpad_matrix, scratchpadImagefile,TRUE);
-
+	float maxtemp = scratchreaddisplay(tile_rec,scratchpad_matrix, scratchpadImagefile,TRUE);
+printf("maxtemp %f \n", maxtemp);
 	free(i_scratchpad);
 
 }
@@ -200,12 +199,13 @@ bool Scratchvalidate_host(void) {
 	for (int idistrib = 0; idistrib < Ndistrib; idistrib++)
 		for (int i = 0; i < ASCRATCH * tile.NbTileXY; i++) {
 			if (val_scratchpad[i]> 1.)
-				printf("i %d val %f\n", 1, val_scratchpad[i]);
+			verbosefile << "SCRATCHPAD \u24FC i " << i << " value " << val_scratchpad[i] << endl;
 			Maxscratch = max(Maxscratch, val_scratchpad[i]); // sanity check, check max
 		}
 	verbosefile << "max device =" << Maxscratch << "\n";
 
-	scratchreaddisplay(dummy, val_scratchpad, ScratchpadValImagefile, FALSE);
+	float maxtemp = scratchreaddisplay(dummy, val_scratchpad, ScratchpadValImagefile, FALSE);
+	printf("maxtemp %f \n", maxtemp);
 	verbosefile << "SCRATCHPAD \u24FC Path to Scratchpad validation " << ScratchpadValImagefile << " .....\n";
 	verbosefile << "SCRATCHPAD \u24FC Comparing files ... " << endl;
 	testScratchpad = compareData(val_scratchpad, scratchpad_matrix, ASCRATCH * tile.NbTileXY,
@@ -214,7 +214,6 @@ bool Scratchvalidate_host(void) {
 	for (int jScratchpad = 0; jScratchpad < ASCRATCH * tile.NbTileXY; jScratchpad++) {
 		Sumdel[8] += fabsf(*(val_scratchpad + jScratchpad) - *(scratchpad_matrix + jScratchpad));
 	}
-	printf("Sumdel[8] %f  ", Sumdel[8]);
 	verbosefile << "testScratchpad = " << testScratchpad << "\n";
 	cudaFree(val_scratchpad);
 	return (testScratchpad);
