@@ -6,10 +6,11 @@
  */
 
 #include"0_Mainparameters.h"
-string stepname[] = { "initialization  ", "PSF   ", "distrib  ", "Laser positions", "Measurement ROI  ",
-		"microimages", " laser in tile ", "microimages in tile", "reconstruction  ", "scratchpad    ",
-		"bigLoop", "end bigloop", "bigloop results" };
-int smallnumber = 20;
+
+double Timestep[16];
+string stepname[] = { "initialization  ", "PSF  ", " distrib  ", " Laser positions", " Measurement ROI  ",
+		" microimages  ", " laser in tile  ", " microimages in tile  ", " reconstruction  ", " scratchpad    ",
+		" bigLoop  ", " end bigloop  ", " bigloop results  "};
 double Sumdel[16] = { 0 };
 string Stepdiag[16] = NULL;
 
@@ -28,7 +29,7 @@ void report_gpu_mem() {
 
 void GPU_init::start(void) {
 	/* pPSF */
-	PSF_Rows = pPSF * pZOOM;
+	Nb_Rows_PSF = pPSF * pZOOM;
 	Nb_Cols_PSF = pPSF * pZOOM;
 	PSF_size = (pPSF * pZOOM) * (pPSF * pZOOM);
 	/* Reconstruction */
@@ -91,7 +92,6 @@ void stepinit(int test, int& stepval) {
 	verbosefile << "END STEP	*******end of step  " << stepval << "  " << stepname[stepval]
 			<< "**********************************" << endl << endl;
 	stepval++;
-	if (stepval != 9)
 		verbosefile << "START STEP	*************  step " << stepval << "  " << stepname[stepval]
 				<< "*************" << endl;
 
@@ -124,7 +124,6 @@ bool T4Dto2D(unsigned char *matrix4D, unsigned char *matrix2D, int dimension4, i
 		max2D = max(max2D, *(matrix2D + i1));
 
 	}
-//	printf("Max4D %d, max2D %d \n\n", max4D, max2D);
 	return (TRUE);
 }
 
@@ -178,11 +177,11 @@ float displaydata(float * datavalues, int stepval) {
 		for (int idistrib = 0, disdelta = 0; idistrib < Ndistrib;
 				idistrib++, disdelta += tile.Nblaserperdistribution[idistrib])
 			for (int iLaser = disdelta; iLaser < disdelta + tile.Nblaserperdistribution[idistrib]; iLaser++) {
-				int tilex = pZOOM * (*(PosLaserx + iLaser) - tile.startx) / XTile;
-				int tiley = pZOOM * (*(PosLasery + iLaser) - tile.starty) / YTile;
+				int tilex = pZOOM * (*(PosLaserx + iLaser) - tile.startxdomain) / XTile;
+				int tiley = pZOOM * (*(PosLasery + iLaser) - tile.startydomain) / YTile;
 				int tilenumber = tilex + tile.NbTilex * tiley + tile.NbTilex * tile.NbTiley * idistrib;
 				int ilasertile = tilenumber * tile.maxLaserintile + tile.posintile[iLaser];
-				verbosefile << "TILE ORG \u247A idistrib " << idistrib << "  " << iLaser << " iLaser "
+				verbosefile << "TILE ORG \u24FA idistrib " << idistrib << "  " << iLaser << " iLaser "
 						<< iLaser;
 				verbosefile << " tilenumber " << tilenumber << " ilasertile " << ilasertile << endl;
 				for (int ipix = 0; ipix < PixZoomSquare; ipix++) { // copy microimage to its position in the Data

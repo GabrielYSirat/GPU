@@ -29,9 +29,8 @@ __managed__ int *ROIxScratch, *ROIyScratch, *offsetROI;
 __managed__ float *microimages, *d_microimages;
 __managed__ float *original_distrib, *val_distrib, *test_distrib, *test2_distrib;
 __managed__ double *double_distrib;
-__managed__ float *original_microimages, *valmicroimages, *MIintile, *zoomed_microimages;
+__managed__ float *original_microimages, *valmicroimages, *zoomed_microimages;
 __managed__ float *original_rec, *val_rec;
-__managed__ double *double_rec;
 __managed__ float *scratchpad_matrix, *val_scratchpad, *val2_scratchpad;
 
 __managed__ float *Sumdevmicroimages, *Maxdevmicroimages, *Sumdevzoommicroimages, *Maxdevzoommicroimages;
@@ -48,9 +47,6 @@ __global__ void PSFvalidateondevice(int Nb_Rows_PSF, int Nb_Cols_PSF) {
 			int tempp = row * Nb_Cols_PSF + col;
 			tempv = *(original_PSF + tempp);
 			PSFARRAY[tempp] = *(original_PSF + tempp);
-			if (VERBOSEINITLOOP)
-				if ((row == (Nb_Rows_PSF / 4)) && !(col % 8))
-					printf(" PSF \u2776  VERBOSE tempv,%g row %d column %d, tempp %d\n", tempv, row, col, tempp);
 			*(PSF_valid + tempp) = tempv;
 			Sum2PSF += *(PSF_valid + tempp);
 			SumPSF += PSFARRAY[tempp];
@@ -78,11 +74,6 @@ __global__ void validate_distrib(int Nb_Rows_distrib, int Nb_Cols_distrib, int N
 			for (int col = 0; col < Nb_Cols_distrib; col++) {
 				tempp = (idistrib * Nb_Rows_distrib + row) * Nb_Cols_distrib + col;
 				tempv = *(original_distrib + tempp);
-				if (VERBOSEINITLOOP)
-					if (!(row % 31))
-						if (!(col % 25))
-							printf("DISTRIBUTIONS \u2777  device: tempv,%g idistrib %d row %d"
-									" column %d, tempp %d ... ", tempv, idistrib, row, col, tempp);
 				*(val_distrib + tempp) = tempv;
 				Sum2distrib += *(val_distrib + row * Nb_Cols_distrib + col);
 				Sumdistrib += *(original_distrib + row * Nb_Cols_distrib + col);
@@ -101,7 +92,7 @@ __global__ void validate_distrib(int Nb_Rows_distrib, int Nb_Cols_distrib, int N
 __global__ void validateLaserPositions_device(int Nb_LaserPositions) {
 	double maxLaserPositionx = 0, maxLaserPositiony = 0; // in LaserPosition the max in x is xmax
 	double minLaserPositionx = 1E6, minLaserPositiony = 1E6; // in LaserPosition the max in x is xmax
-	int xREC, yREC, tilex, tiley;
+	int xREC, yREC, xREC1, temp, tilex, tiley;
 // calculate LaserPositions Sum and max
 	time_start = clock64();
 
@@ -109,18 +100,19 @@ __global__ void validateLaserPositions_device(int Nb_LaserPositions) {
 		d_PosLaserx[ipos] = PosLaserx[ipos];
 		d_PosLasery[ipos] = PosLasery[ipos];
 		// Laser positions in y zoomed in integer
-		tilex = pZOOM * *(PosLaserx + ipos) / XTile; xREC = pZOOM * *(PosLaserx + ipos) - tilex * XTile;
+		tilex = pZOOM * *(PosLaserx + ipos) / XTile; xREC1 = pZOOM * *(PosLaserx + ipos); temp = tilex * XTile; xREC = xREC1 - temp;
 		*(PosxScratch + ipos) = xREC + dxSCR / 2; // Laser positions in x zoomed integer in the scratchpad of tile
 		tiley = pZOOM * *(PosLasery + ipos) / YTile; yREC = pZOOM * *(PosLasery + ipos) - tiley * YTile;
 		*(PosyScratch + ipos) = yREC + dySCR / 2; // Laser positions in x zoomed integer in the scratchpad of tile
-		*(offsetFULL + ipos) = *(PosxScratch + ipos) + *(PosyScratch + ipos) * XSCRATCH;
-//		if (VERBOSEINITLOOP && (ipos < SPARSE))
-		if(VERBOSEINITLOOP){
-/*			printf(" Laser \u2778 DEVICE 1: laser position n° %d original position x:%f , y: %f ....\n", ipos,
+		*(offsetFULL + ipos) = *(PosxScratch + ipos) + *(PosyScratch + ipos) * XSCRATCH + lostpixels - (XSCRATCH + 1) * PSFZoomo2;
+						// adding lostpixels and difference between center and edge of PSF region in the scratchpad
+
+		if(NOVERBOSE){
+			printf(" Laser \u2778 DEVICE 1: laser position n° %d original position x:%f , y: %f ....\n", ipos,
 					PosLaserx[ipos], PosLasery[ipos]);
-			printf(" Laser \u2778 DEVICE 2:  ....xREC %d yREC %d tilex %d tiley %d Scratchx %d Scratchy %d \n", xREC,
+			printf(" Laser \u2778 DEVICE 2:  ....xREC1 %d temp %d xREC %d yREC %d tilex %d tiley %d Scratchx %d Scratchy %d \n", xREC1, temp, xREC,
 					yREC, tilex, tiley, PosxScratch[ipos], PosyScratch[ipos]);
-			printf(" Laser \u2778 DEVICE 3: copy position: %f y: %f\n", d_PosLaserx[ipos], d_PosLasery[ipos]);*/
+			printf(" Laser \u2778 DEVICE 3: copy position: %f y: %f\n", d_PosLaserx[ipos], d_PosLasery[ipos]);
 			printf("Laser \u2778 DEVICE laser position n°%d offset %d \n",ipos, *(offsetFULL + ipos));
 		}
 
@@ -129,7 +121,7 @@ __global__ void validateLaserPositions_device(int Nb_LaserPositions) {
 		maxLaserPositionx = max(maxLaserPositionx, PosLaserx[ipos]);
 		maxLaserPositiony = max(maxLaserPositiony, PosLasery[ipos]);
 	}
-	printf(" Laser \u2778  DEVICE: MAX & MIN: LaserPosition x max %f min %f ... LaserPositiony max %f min %f \n",
+	printf("Laser \u2778  DEVICE: MAX & MIN: LaserPosition x max %f min %f ... LaserPositiony max %f min %f \n",
 			maxLaserPositionx, minLaserPositionx, maxLaserPositiony, minLaserPositiony);
 	timer = clock64();
 

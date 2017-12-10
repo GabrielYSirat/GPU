@@ -13,7 +13,6 @@
 
 /*******************PARAMETERS**************/
 char buff[BUFFSIZE]; // a buffer to temporarily park the data
-double Timestep[16];
 char chars[] = "[]()", delimeter('=');
 __managed__ int pPSF, Npixel, RDISTRIB, pZOOM, Ndistrib;
 
@@ -24,7 +23,7 @@ std::string resourcesdirectory, filename, name, value, MIFILE, PSFFILE, DISTRIBF
 
 __managed__ int XTile, YTile, ATile;
 __managed__ int THreadsRatio, NThreads;
-__managed__ int XDistrib, YDistrib, YDistrib_extended, lostlines, ADistrib;
+__managed__ int XDistrib, YDistrib, YDistrib_extended, lostlines, YSCRATCHeff, ADistrib;
 
 cudaDeviceProp deviceProps;
 
@@ -91,6 +90,7 @@ bool initparameters( int argc, char **argv) {
 		YDistrib = (PixZoomo2+PSFZoomo2)*2+1;
 		YDistrib_extended = NThreads/PixZoom+PSFZoom;
 		lostlines = NThreads/PixZoom - PixZoom +1;
+		int ys = YSCRATCH; int dy = dySCR;
 
 		float tempe = XDistrib * YDistrib_extended;
 		ADistrib = CEILING_POS(tempe/THREADSVAL)*THREADSVAL;
@@ -102,21 +102,26 @@ bool initparameters( int argc, char **argv) {
 	XTile = XSCRATCH - dxSCR;	// we do not care on x because the distribution will be zero
 								// We add lostpixels  at start and end of the scratchpad
 								// for "spillover" of the first and last line
-	YTile = YSCRATCH - dySCR - lostlines; 	// in y we need the full size
-	if((YTile%2)==0) YTile--;				// We insure that YTile is odd
+	YTile = ys - dy - lostlines; 	// in y we need the full size
+	if((YTile%2)==0) lostlines++;				// We insure that YTile is odd
+	YTile = ys - dy - lostlines; 	// in y we need the full size
+	YSCRATCHeff = YSCRATCH - lostlines;
 	ATile = XTile * YTile;										// Total size in pixels
 
 
 	verbosefile << "************** DATA: PARAMETERS OF MEASUREMENT *************************************\n"<< endl;
 	verbosefile << " INIT PROG \u24EA BASIC  : THreadsRatio "<<  THreadsRatio << " NThreads " << NThreads;
 	verbosefile << " Npixel " << Npixel <<" pZOOM " << pZOOM << " pPSF " << pPSF << " RDISTRIB " << RDISTRIB << endl;
-	verbosefile << " INIT PROG \u24EA BASIC  : YTile " << YTile << " YSCRATCH " << YSCRATCH << " dySCR " << dySCR << endl;
-	verbosefile << "INIT PROG \u24EA PIXEL  : Npixel " << Npixel << " PixZoom " << PixZoom << " PixZoomo2 " << PixZoomo2 << endl;
-	verbosefile << "INIT PROG \u24EA PIXEL  : lost lines " << lostlines << " additional lines at the end of microimage" << endl;
-	verbosefile << "INIT PROG \u24EA pPSF   : pPSF " << pPSF << " PSFZoom " << PSFZoom << " PSFZoomo2 " << PSFZoomo2 << endl;
-	verbosefile << " INIT PROG \u24EA DISTRIB: XDistrib " << XDistrib << " YDistrib " << YDistrib <<  "extended "
-			 << YDistrib_extended << " Size in KBytes " << ADistrib/1024. <<
-			 "ADistrib " << ADistrib << " RDISTRIB " << RDISTRIB << endl;
+	verbosefile << " INIT PROG \u24EA BASIC X : XTile " << XTile << " XSCRATCH " << XSCRATCH << " dxSCR " << dxSCR << endl;
+	verbosefile << " INIT PROG \u24EA BASIC Y : YTile " << YTile << " YSCRATCH " << YSCRATCH << " dySCR " << dySCR
+				<< " lost lines " << lostlines << " YSCRATCH effective " << YSCRATCHeff << endl;
+	verbosefile << " INIT PROG \u24EA PIXEL  : Npixel " << Npixel << " PixZoom " << PixZoom << " PixZoomo2 " << PixZoomo2 << endl;
+	verbosefile << " INIT PROG \u24EA PIXEL  : lost lines " << lostlines << " additional lines at the end of microimage"
+			<< " lost pixels " << lostpixels << " at the begin and end of scratchpad " << endl;
+	verbosefile << " INIT PROG \u24EA pPSF   : pPSF " << pPSF << " PSFZoom " << PSFZoom << " PSFZoomo2 " << PSFZoomo2 << endl;
+	verbosefile << " INIT PROG \u24EA DISTRIB: XDistrib " << XDistrib << " YDistrib " << YDistrib <<  " extended "
+			 	<< YDistrib_extended << " Size in KBytes " << ADistrib/1024.
+			 	<< " ADistrib " << ADistrib << " RDISTRIB " << RDISTRIB << endl;
 	verbosefile << " INIT PROG \u24EA SCRATCH X&Y: " << XSCRATCH << " " << YSCRATCH << " dxSCR "
 			<< dxSCR << " dySCR " << dySCR << endl;
 	verbosefile << " INIT PROG \u24EA SCRATCH: DEL SCRATCH " << lostpixels << " Additional pixels at start and end of SCRATCH\n";
@@ -127,7 +132,7 @@ bool initparameters( int argc, char **argv) {
 	verbosefile << " INIT PROG \u23f3 Data parameters in device memory ...\n";
 
 
-	/********************************Reconstruction parameters *************************/
+	/********************************Reconstruction parameters from XML file *************************/
 	filenamexml = resourcesdirectory + "reconstruction.xml";
 	verbosefile << " INIT PROG \u24EA reconstruction xml: " << filenamexml.c_str() << endl;
 	doc.LoadFile(filenamexml.c_str());
@@ -137,7 +142,7 @@ bool initparameters( int argc, char **argv) {
 	TA.Nb_Cols_reconstruction = atoi(doc.FirstChildElement("Image_Contents")
 			->FirstChildElement("Nb_Cols")->GetText());
 	TA.reconstruction_size = TA.Nb_Cols_reconstruction*TA.Nb_Rows_reconstruction;
-	verbosefile << " INIT PROG \u24EA reconstruction from tiles: Cols " << TA.Nb_Cols_reconstruction;
+	verbosefile << " INIT PROG \u24EA reconstruction from XML file: Cols " << TA.Nb_Cols_reconstruction;
 	verbosefile << " lines " << TA.Nb_Rows_reconstruction << " size " << TA.reconstruction_size << endl;
 
 	/***********************Sizes in nm *************************************************/
@@ -151,13 +156,13 @@ bool initparameters( int argc, char **argv) {
 	stringstream stream_p(sstr);
 	stream_p.getline(buff, 10, ',');
 	TA.Pixel_size_nm = atoi(buff);
-	verbosefile << " INIT PROG \u24EA PARAMS :  original µimage pixel size" << TA.Pixel_size_nm;
-	verbosefile << " nm pixel size reconstruction " << TA.Pixel_size_nm/pZOOM << endl;
+	verbosefile << " INIT PROG \u24EA PARAMS : original µimage pixel size " << TA.Pixel_size_nm;
+	verbosefile << " nm pixel size reconstruction " << TA.Pixel_size_nm/pZOOM << " nm " << endl;
 	TA.XTileSize = (XTile * TA.Pixel_size_nm)/(1000.*pZOOM); 	// Tile size in nm
 	TA.YTileSize = (YTile * TA.Pixel_size_nm)/(1000.*pZOOM);	// Tile size in nm
 	verbosefile << " INIT PROG \u24EA TILE   : XTILE " << XTile << " YTILE " << YTile
-			<< " size : XTILE: " << TA.XTileSize << " YTILE " << TA.YTileSize << endl;
-	verbosefile << " INIT PROG \u24EA RECONSTRUCTION in nm   : X " <<  TA.Nb_Cols_reconstruction*TA.Pixel_size_nm/1000.;
+			<< " XTILE size: " << TA.XTileSize << " YTILE size: " << TA.YTileSize << endl;
+	verbosefile << " INIT PROG \u24EA RECONSTRUCTION in nm   : X " <<  TA.Nb_Cols_reconstruction*TA.Pixel_size_nm/1000.<< " µm";
 	verbosefile << " Y " << TA.Nb_Rows_reconstruction*TA.Pixel_size_nm/1000. << " µm\n";
 
 	return (dimfit);

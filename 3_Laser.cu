@@ -83,6 +83,12 @@ void readstoreLaserPositions(void) {
 			XY = !XY;
 		}
 		LaserFile.close();
+		// min and max Laser positions rounded to integer of camera pixels
+		TA.AmaxLaserx = ceil(TA.maxLaserx);
+		TA.AmaxLasery = ceil(TA.maxLasery);
+		TA.AminLaserx = floor(TA.minLaserx);
+		TA.AminLasery = floor(TA.minLasery);
+
 	}
 
 	printf("\n Laser \u2462 HOST : min and max x %g %g, min and max y %g %g ... \n",
@@ -99,19 +105,23 @@ bool validateLaserPositions_control(void) {
 	validateLaserPositions_device<<<dimGrid, dimBlock, 0>>> (TA.Nb_LaserPositions);
 	cudaDeviceSynchronize();
 
-	if (TA.Nb_LaserPositions < smallnumber)
+	if (TA.Nb_LaserPositions < SPARSE)
 		for (int ival = 0; ival < TA.Nb_LaserPositions; ival++) {
-			if(!ival && VERBOSE)
+			int tilex = *(PosLaserx + ival)/XTile;
+			int tiley = *(PosLasery + ival)/YTile;
+			if(!ival)
 				verbosefile << " Laser \u2462 ----------------------------------------------------------------------------------------------------\n";
 			verbosefile << " Laser \u2462 Laser position n°" << ival << " x " << *(PosLaserx + ival)
-					<< " y " << *(PosLasery + ival) << endl;
-			verbosefile << "Laser \u2462 Position in scratchpad",
+					<< " y " << *(PosLasery + ival) << " tilex " << tilex << " tiley " << tiley << endl;
+			verbosefile << " Laser \u2462 Position in scratchpad ",
 			verbosefile << *(PosxScratch + ival) << "  " << *(PosyScratch + ival) << endl;
+			verbosefile << " Laser \u2462 Position in scratchpad matrix ",
+			verbosefile << *(PosxScratch + ival) + tilex * XTile << "  " << *(PosyScratch + ival) + tiley * YTile << endl;
 			verbosefile << " Laser \u2462 ***************SCRATCHPAD FULL OFFSET ";
 			verbosefile << *(offsetFULL + ival) << " **************\n";
 			verbosefile << " Laser \u2462 ----------------------------------------------------------------------------------------------------\n";
 		}
-	if (VERBOSE) printf(" Laser \u2462 ----------------------------------------------------------------------------------------------------\n");
+	if (NOVERBOSE) printf(" Laser \u2462 ----------------------------------------------------------------------------------------------------\n");
 	for (int iLaser = 0; iLaser < TA.Nb_LaserPositions; iLaser++) {
 		Delx += PosLaserx[iLaser] - d_PosLaserx[iLaser];
 		Dely += PosLasery[iLaser] - d_PosLasery[iLaser];

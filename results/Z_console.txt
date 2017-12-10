@@ -1,36 +1,66 @@
 gpuDeviceInit() CUDA Device [0]: "GeForce GTX 1060 6GB
- PSF ❶ device: Rows: 27 cols: 27 ... PSF ❶  VERBOSE tempv,0.000118805 row 6 column 0, tempp 162
- PSF ❶  VERBOSE tempv,9.73714e-05 row 6 column 8, tempp 170
- PSF ❶  VERBOSE tempv,0.000562744 row 6 column 16, tempp 178
- PSF ❶  VERBOSE tempv,0.000240432 row 6 column 24, tempp 186
-  SumPSF 1.000729 Sum2PSF 1.000729 maxPSF 0.014641 max2PSF 0.014641 ...  
-DISTRIBUTIONS ❷  device: Nb_Row 65, Nb_col 59, Nb_distrib 2 ...DISTRIBUTIONS ❷  device: tempv,1.14277e-05 idistrib 0 row 0 column 0, tempp 0 ... DISTRIBUTIONS ❷  device: tempv,1.83956e-07 idistrib 0 row 0 column 25, tempp 25 ... DISTRIBUTIONS ❷  device: tempv,4.39422e-07 idistrib 0 row 0 column 50, tempp 50 ... DISTRIBUTIONS ❷  device: tempv,2.41011e-06 idistrib 0 row 31 column 0, tempp 1829 ... DISTRIBUTIONS ❷  device: tempv,0.00547731 idistrib 0 row 31 column 25, tempp 1854 ... DISTRIBUTIONS ❷  device: tempv,3.53532e-06 idistrib 0 row 31 column 50, tempp 1879 ... DISTRIBUTIONS ❷  device: tempv,0 idistrib 0 row 62 column 0, tempp 3658 ... DISTRIBUTIONS ❷  device: tempv,0 idistrib 0 row 62 column 25, tempp 3683 ... DISTRIBUTIONS ❷  device: tempv,0 idistrib 0 row 62 column 50, tempp 3708 ... DISTRIBUTIONS ❷  device: tempv,1.14277e-05 idistrib 1 row 0 column 0, tempp 3835 ... DISTRIBUTIONS ❷  device: tempv,5.47579e-06 idistrib 1 row 0 column 25, tempp 3860 ... DISTRIBUTIONS ❷  device: tempv,1.03273e-06 idistrib 1 row 0 column 50, tempp 3885 ... DISTRIBUTIONS ❷  device: tempv,3.23945e-08 idistrib 1 row 31 column 0, tempp 5664 ... DISTRIBUTIONS ❷  device: tempv,0.00136558 idistrib 1 row 31 column 25, tempp 5689 ... DISTRIBUTIONS ❷  device: tempv,1.25122e-07 idistrib 1 row 31 column 50, tempp 5714 ... DISTRIBUTIONS ❷  device: tempv,0 idistrib 1 row 62 column 0, tempp 7493 ... DISTRIBUTIONS ❷  device: tempv,0 idistrib 1 row 62 column 25, tempp 7518 ... DISTRIBUTIONS ❷  device: tempv,0 idistrib 1 row 62 column 50, tempp 7543 ...  Sum distrib 2.000000 Sum2distrib 2.000000 ...  max distrib 0.007599 max2distrib 0.007599 ...  
+ PSF ❶ device: Rows: 27 cols: 27 ...  SumPSF 1.000729 Sum2PSF 1.000729 maxPSF 0.014641 max2PSF 0.014641 ...  
+DISTRIBUTIONS ❷  device: Nb_Row 65, Nb_col 59, Nb_distrib 2 ... Sum distrib 2.000000 Sum2distrib 2.000000 ...  max distrib 0.007599 max2distrib 0.007599 ...  
 DISTRIBUTIONS ②: validation max 0.00759884 Sum 2
 
  Laser ③ HOST : min and max x 15.4 0, min and max y 25.4 0 ... 
-Laser ❸ DEVICE laser position n°0 offset 2963 
-Laser ❸ DEVICE laser position n°1 offset 4913 
-Laser ❸ DEVICE laser position n°2 offset 3158 
-Laser ❸ DEVICE laser position n°3 offset 2951 
-Laser ❸ DEVICE laser position n°4 offset 4901 
-Laser ❸ DEVICE laser position n°5 offset 3146 
-Laser ❸ DEVICE laser position n°6 offset 2963 
-Laser ❸ DEVICE laser position n°7 offset 4913 
-Laser ❸ DEVICE laser position n°8 offset 3158 
-Laser ❸ DEVICE laser position n°9 offset 2951 
-Laser ❸ DEVICE laser position n°10 offset 4901 
-Laser ❸ DEVICE laser position n°11 offset 3146 
- Laser ❸  DEVICE: MAX & MIN: LaserPosition x max 15.400000 min 5.400000 ... LaserPositiony max 25.400000 min 5.400000 
+Laser ❸  DEVICE: MAX & MIN: LaserPosition x max 15.400000 min 5.400000 ... LaserPositiony max 25.400000 min 5.400000 
 
  INIT PROG ⓺ Total number of MP per distribution 5    organized as x:2,  y:2 
  INIT PROG ⓺ Number of aggregates x:2 y:1  
-
  INIT PROG ⓺ Final number of tiles x: 4 y: 2 distrib 2  
+
+REC ❽ DEVICE ----------------------------------------------------------------------------------------------------
+REC ❽ DEVICE position 1396 position x: 52 y: 16 value 100.000000
+REC ❽ DEVICE ----------------------------------------------------------------------------------------------------
+REC ❽ DEVICE ----------------------------------------------------------------------------------------------------
+REC ❽ DEVICE position 1420 position x: 76 y: 16 value 200.000000
+REC ❽ DEVICE ----------------------------------------------------------------------------------------------------
+REC ❽ DEVICE ----------------------------------------------------------------------------------------------------
+REC ❽ DEVICE position 4480 position x: 28 y: 53 value 300.000000
+REC ❽ DEVICE ----------------------------------------------------------------------------------------------------
+REC ❽ DEVICE ----------------------------------------------------------------------------------------------------
+REC ❽ DEVICE position 6266 position x: 50 y: 74 value 400.000000
+REC ❽ DEVICE ----------------------------------------------------------------------------------------------------
 REC ❽ DEVICE:  Sum reconstruction 1000.000000 max reconstruction 400.000000 ...  
-maxtemp 400.000000 
+i 1396, col 84 x 52 y 16
+i 1420, col 84 x 76 y 16
+i 4480, col 84 x 28 y 53
+i 6266, col 84 x 50 y 74
+itemp 1396, col 84 x 52 y 16
+itemp 1420, col 84 x 76 y 16
+itemp 4480, col 84 x 28 y 53
+itemp 6266, col 84 x 50 y 74
+SCRATCHPAD ⓼ itile 4480, iscratch 21421 iscratch2Dx 94, iscratch2Dy 82 iscratch2D 21414
+SCRATCHPAD ⓼ itile 4480, i_scratchpad[iscratch2D] 191 val_scratchpad[arg1D] 300.000000
+SCRATCHPAD ⓼ itile 1396, iscratch 11869 iscratch2Dx 162, iscratch2Dy 45 iscratch2D 11862
+SCRATCHPAD ⓼ itile 1396, i_scratchpad[iscratch2D] 63 val_scratchpad[arg1D] 100.000000
+SCRATCHPAD ⓼ itile 1420, iscratch 11937 iscratch2Dx 230, iscratch2Dy 45 iscratch2D 11930
+SCRATCHPAD ⓼ itile 1420, i_scratchpad[iscratch2D] 127 val_scratchpad[arg1D] 200.000000
+SCRATCHPAD ⓼ itile 6266, iscratch 43847 iscratch2Dx 160, iscratch2Dy 168 iscratch2D 43840
+SCRATCHPAD ⓼ itile 6266, i_scratchpad[iscratch2D] 255 val_scratchpad[arg1D] 400.000000
+SCRATCHPAD ⓬ DEVICE TEST:  position 11869 position x: 162 y: 45 value 100.000000
+SCRATCHPAD ⓬ DEVICE TEST:  position 11937 position x: 230 y: 45 value 200.000000
+SCRATCHPAD ⓬ DEVICE TEST:  position 21421 position x: 94 y: 82 value 300.000000
+SCRATCHPAD ⓬ DEVICE TEST:  position 43847 position x: 160 y: 168 value 400.000000
 SCRATCHPAD ⓬ DEVICE:  Sum scratchpad 1000.000000 max scratchpad 400.000000 ... 
 SCRATCHPAD ⓼ Sum3Scratchpad  1000.000000 max3Scratchpad 400.000000   
-maxtemp 400.000000 
+i 11869 x position in scratch 39 y position 182 val 100.000000
+i 11937 x position in scratch 42 y position 183 val 200.000000
+i 21421 x position in scratch 36 y position 329 val 300.000000
+i 43847 x position in scratch 37 y position 674 val 400.000000
+i 11869 x position in scratch 39 y position 182 val 100.000000
+i 11937 x position in scratch 42 y position 183 val 200.000000
+i 21421 x position in scratch 36 y position 329 val 300.000000
+i 43847 x position in scratch 37 y position 674 val 400.000000
+SCRATCHPAD ⓼ itile 4480, iscratch 21421 iscratch2Dx 94, iscratch2Dy 82 iscratch2D 21414
+SCRATCHPAD ⓼ itile 4480, i_scratchpad[iscratch2D] 191 val_scratchpad[arg1D] 300.000000
+SCRATCHPAD ⓼ itile 1396, iscratch 11869 iscratch2Dx 162, iscratch2Dy 45 iscratch2D 11862
+SCRATCHPAD ⓼ itile 1396, i_scratchpad[iscratch2D] 63 val_scratchpad[arg1D] 100.000000
+SCRATCHPAD ⓼ itile 1420, iscratch 11937 iscratch2Dx 230, iscratch2Dy 45 iscratch2D 11930
+SCRATCHPAD ⓼ itile 1420, i_scratchpad[iscratch2D] 127 val_scratchpad[arg1D] 200.000000
+SCRATCHPAD ⓼ itile 6266, iscratch 43847 iscratch2Dx 160, iscratch2Dy 168 iscratch2D 43840
+SCRATCHPAD ⓼ itile 6266, i_scratchpad[iscratch2D] 255 val_scratchpad[arg1D] 400.000000
 
 HOST: ⓪ Npixel 11 pZOOM 3, pPSF 9
 HOST: ⓪ pPSF 9 XDistrib 59 YDistrib 59
@@ -40,199 +70,57 @@ HOST: ⓪ Number of pixels calculated in parallel 1280 Number of threads used 32
 HOST: ⓪ ************************BigLoop start   *******************************
 HOST: ⓪ ***********************************************************************
 DEVICE: ⏱**DEVICE: MaxDistribution2 0.007599      MaxPSF2 0.014641 
-DEVICE: ⏱**DEVICE:  step 2   TIMING (msec) ** processing  0.000394 this step  0.000391572  total 0.00078607 
+DEVICE: ⏱**DEVICE:  step 2   TIMING (msec) ** processing  0.000394 this step  0.000390986  total 0.000785484 
 ② **********************************DEVICE:  DISTRIBUTIONS  ********************
 
 
 ④****************************DEVICE:  AGGREGATES & TILES****************
 ④ AGGREGATE x 0 y 0 *****
-④ TILES tilexdevice 0, tileydevice 0 tile 0 MemoryOffsetscratch 0
-DEVICE: ④ SCRATCHPAD distrib_number 1 itb 5 position in scratchpad 3869 value 100.000000 Sum 100.000000 max 100.000000
-DEVICE: ④ SCRATCHPAD distrib_number 0 itb 3 position in scratchpad 3847 value 400.000000 Sum 400.000000 max 400.000000
+④ TILES tilexdevice 0, tileydevice 0 tile 0 MemoryOffset 0
 DEVICE: ④ SCRATCHPAD distrib_number 1 itb 7 position in scratchpad 3847 value 400.000000 Sum 400.000000 max 400.000000
+DEVICE: ④ SCRATCHPAD distrib_number 1 itb 5 position in scratchpad 3869 value 100.000000 Sum 100.000000 max 100.000000
 DEVICE: ④ SCRATCHPAD distrib_number 0 itb 1 position in scratchpad 3869 value 100.000000 Sum 100.000000 max 100.000000
+DEVICE: ④ SCRATCHPAD distrib_number 0 itb 3 position in scratchpad 3847 value 400.000000 Sum 400.000000 max 400.000000
 DEVICE: ④ SCRATCHPAD distrib_number 1 itb 5 position in scratchpad 3937 value 200.000000 Sum 300.000000 max 200.000000
 DEVICE: ④ SCRATCHPAD distrib_number 0 itb 1 position in scratchpad 3937 value 200.000000 Sum 300.000000 max 200.000000
-⑥ NEZ ithreads 49 ipixel 3 jpixel 14 pos 1981 2621 3229 3869  *pscratch  0.000  0.000  0.000 100.000
-⑥ NEZ ithreads 85 ipixel 6 jpixel 15 pos 2049 2689 3297 3937  *pscratch  0.000  0.000  0.000 200.000
+⏳ ** OFFSET:aggregx 0 aggregy 0 tileXY 0 iblockima 0 offset 2112 iglobal 0
+⏳ ** OFFSET:aggregx 0 aggregy 0 tileXY 0 iblockima 1 offset 4062 iglobal 0
+⏳ ** OFFSET:aggregx 0 aggregy 0 tileXY 4 iblockima 0 offset 2112 iglobal 0
+⏳ ** OFFSET:aggregx 0 aggregy 0 tileXY 4 iblockima 0 offset 2112 iglobal 0
 end ④****************DEVICE:  SCRATCHPAD ********************
 
-⏳ ** OFFSET:aggregx 0 aggregy 0 tileXY 0 iblockima 0 offset 2105 iglobal 0
-⏳ ** OFFSET:aggregx 0 aggregy 0 tileXY 4 iblockima 0 offset 2105 iglobal 0
-⏳ ** OFFSET:aggregx 0 aggregy 0 tileXY 4 iblockima 0 offset 2105 iglobal 0
-⑥ NEZ ithreads 85 ipixel 6 jpixel 15 pos 2049 2689 3297 3937  *pscratch  0.000  0.000  0.000 200.000
-⑥ NEZ ithreads 49 ipixel 3 jpixel 14 pos 1981 2621 3229 3869  *pscratch  0.000  0.000  0.000 100.000
-⏳ ** OFFSET:aggregx 0 aggregy 0 tileXY 0 iblockima 1 offset 4055 iglobal 0
-⏳ ** OFFSET:aggregx 0 aggregy 0 tileXY 0 iblockima 0 offset 2105 iglobal 0
-⏳ ** OFFSET:aggregx 0 aggregy 0 tileXY 0 iblockima 1 offset 4055 iglobal 0
-⑥ NFZ2 iblockima 0 iglobal 0 ithreads 63 PSFpos 282  ipixel -6 jpixel 5 val 200 PSFDISVAL[2] 5.66287e-05 scratch 200  new_simus  0.01190 
-⑥ NFZ2 iblockima 1 iglobal 0 ithreads 63 PSFpos 282  ipixel -6 jpixel 5 val 200 PSFDISVAL[2] 5.66287e-05 scratch 200  new_simus  0.01190 
-⑥ NFZ2 iblockima 0 iglobal 0 ithreads 62 PSFpos 283  ipixel -7 jpixel 5 val 200 PSFDISVAL[2] 5.91879e-05 scratch 200  new_simus  0.01266 
-⑥ NFZ2 iblockima 1 iglobal 0 ithreads 62 PSFpos 283  ipixel -7 jpixel 5 val 200 PSFDISVAL[2] 5.91879e-05 scratch 200  new_simus  0.01266 
-⑥ NFZ2 iblockima 0 iglobal 0 ithreads 63 PSFpos 282  ipixel -6 jpixel 5 val 200 PSFDISVAL[2] 5.66287e-05 scratch 200  new_simus  0.01190 
-⑥ NFZ2 iblockima 0 iglobal 0 ithreads 61 PSFpos 284  ipixel -8 jpixel 5 val 200 PSFDISVAL[2] 5.66287e-05 scratch 200  new_simus  0.01238 
-⑥ NFZ2 iblockima 1 iglobal 0 ithreads 63 PSFpos 282  ipixel -6 jpixel 5 val 200 PSFDISVAL[2] 5.66287e-05 scratch 200  new_simus  0.01190 
-⑥ NFZ2 iblockima 1 iglobal 0 ithreads 61 PSFpos 284  ipixel -8 jpixel 5 val 200 PSFDISVAL[2] 5.66287e-05 scratch 200  new_simus  0.01238 
-⑥ NFZ2 iblockima 0 iglobal 0 ithreads 62 PSFpos 283  ipixel -7 jpixel 5 val 200 PSFDISVAL[2] 5.91879e-05 scratch 200  new_simus  0.01266 
-⑥ NFZ2 iblockima 1 iglobal 0 ithreads 62 PSFpos 283  ipixel -7 jpixel 5 val 200 PSFDISVAL[2] 5.91879e-05 scratch 200  new_simus  0.01266 
-⑥ NFZ2 iblockima 0 iglobal 0 ithreads 61 PSFpos 284  ipixel -8 jpixel 5 val 200 PSFDISVAL[2] 5.66287e-05 scratch 200  new_simus  0.01238 
-⑥ NFZ2 iblockima 1 iglobal 0 ithreads 61 PSFpos 284  ipixel -8 jpixel 5 val 200 PSFDISVAL[2] 5.66287e-05 scratch 200  new_simus  0.01238 
-⑥ NFZ2 iblockima 0 iglobal 0 ithreads 31 PSFpos 308  ipixel -5 jpixel 4 val 200 PSFDISVAL[2] 6.18585e-05 scratch 200  new_simus  0.01288 
-⑥ NFZ2 iblockima 1 iglobal 0 ithreads 31 PSFpos 308  ipixel -5 jpixel 4 val 200 PSFDISVAL[2] 6.18585e-05 scratch 200  new_simus  0.01288 
-⑥ NFZ2 iblockima 0 iglobal 0 ithreads 30 PSFpos 309  ipixel -6 jpixel 4 val 200 PSFDISVAL[2] 7.04261e-05 scratch 200  new_simus  0.01491 
-⑥ NFZ2 iblockima 1 iglobal 0 ithreads 30 PSFpos 309  ipixel -6 jpixel 4 val 200 PSFDISVAL[2] 7.04261e-05 scratch 200  new_simus  0.01491 
-⑥ NFZ2 iblockima 0 iglobal 0 ithreads 31 PSFpos 308  ipixel -5 jpixel 4 val 200 PSFDISVAL[2] 6.18585e-05 scratch 200  new_simus  0.01288 
-⑥ NFZ2 iblockima 0 iglobal 0 ithreads 29 PSFpos 310  ipixel -7 jpixel 4 val 200 PSFDISVAL[2] 7.34905e-05 scratch 200  new_simus  0.01586 
-⑥ NFZ2 iblockima 1 iglobal 0 ithreads 29 PSFpos 310  ipixel -7 jpixel 4 val 200 PSFDISVAL[2] 7.34905e-05 scratch 200  new_simus  0.01586 
-⑥ NFZ2 iblockima 1 iglobal 0 ithreads 31 PSFpos 308  ipixel -5 jpixel 4 val 200 PSFDISVAL[2] 6.18585e-05 scratch 200  new_simus  0.01288 
-⑥ NFZ2 iblockima 0 iglobal 0 ithreads 28 PSFpos 311  ipixel -8 jpixel 4 val 200 PSFDISVAL[2] 7.04261e-05 scratch 200  new_simus  0.01555 
-⑥ NFZ2 iblockima 0 iglobal 0 ithreads 30 PSFpos 309  ipixel -6 jpixel 4 val 200 PSFDISVAL[2] 7.04261e-05 scratch 200  new_simus  0.01491 
-⑥ NFZ2 iblockima 1 iglobal 0 ithreads 28 PSFpos 311  ipixel -8 jpixel 4 val 200 PSFDISVAL[2] 7.04261e-05 scratch 200  new_simus  0.01555 
-⑥ NFZ2 iblockima 1 iglobal 0 ithreads 30 PSFpos 309  ipixel -6 jpixel 4 val 200 PSFDISVAL[2] 7.04261e-05 scratch 200  new_simus  0.01491 
-⑥ NFZ2 iblockima 0 iglobal 0 ithreads 27 PSFpos 312  ipixel -9 jpixel 4 val 200 PSFDISVAL[2] 6.18585e-05 scratch 200  new_simus  0.01405 
-⑥ NFZ2 iblockima 0 iglobal 0 ithreads 29 PSFpos 310  ipixel -7 jpixel 4 val 200 PSFDISVAL[2] 7.34905e-05 scratch 200  new_simus  0.01586 
-⑥ NFZ2 iblockima 1 iglobal 0 ithreads 27 PSFpos 312  ipixel -9 jpixel 4 val 200 PSFDISVAL[2] 6.18585e-05 scratch 200  new_simus  0.01405 
-⑥ NFZ2 iblockima 1 iglobal 0 ithreads 29 PSFpos 310  ipixel -7 jpixel 4 val 200 PSFDISVAL[2] 7.34905e-05 scratch 200  new_simus  0.01586 
-⑥ NFZ2 iblockima 0 iglobal 0 ithreads 28 PSFpos 311  ipixel -8 jpixel 4 val 200 PSFDISVAL[2] 7.04261e-05 scratch 200  new_simus  0.01555 
-⑥ NFZ2 iblockima 1 iglobal 0 ithreads 28 PSFpos 311  ipixel -8 jpixel 4 val 200 PSFDISVAL[2] 7.04261e-05 scratch 200  new_simus  0.01555 
-⑥ NFZ2 iblockima 0 iglobal 0 ithreads 27 PSFpos 312  ipixel -9 jpixel 4 val 200 PSFDISVAL[2] 6.18585e-05 scratch 200  new_simus  0.01405 
-⑥ NFZ2 iblockima 1 iglobal 0 ithreads 27 PSFpos 312  ipixel -9 jpixel 4 val 200 PSFDISVAL[2] 6.18585e-05 scratch 200  new_simus  0.01405 
-⑥ NFZ1 iblockima 0 iglobal 0 ithreads 319 PSFpos 334  ipixel -4 jpixel 3 val 200 PSFDISVAL[3] 5.66287e-05 scratch 200  new_simus  0.01168 
-⑥ NFZ1 iblockima 1 iglobal 0 ithreads 319 PSFpos 334  ipixel -4 jpixel 3 val 200 PSFDISVAL[3] 5.66287e-05 scratch 200  new_simus  0.01168 
-⑥ NFZ1 iblockima 0 iglobal 0 ithreads 318 PSFpos 335  ipixel -5 jpixel 3 val 200 PSFDISVAL[3] 7.04261e-05 scratch 200  new_simus  0.01475 
-⑥ NFZ1 iblockima 1 iglobal 0 ithreads 318 PSFpos 335  ipixel -5 jpixel 3 val 200 PSFDISVAL[3] 7.04261e-05 scratch 200  new_simus  0.01475 
-⑥ NFZ1 iblockima 0 iglobal 0 ithreads 317 PSFpos 336  ipixel -6 jpixel 3 val 200 PSFDISVAL[3] 7.99586e-05 scratch 200  new_simus  0.01705 
-⑥ NFZ1 iblockima 0 iglobal 0 ithreads 319 PSFpos 334  ipixel -4 jpixel 3 val 200 PSFDISVAL[3] 5.66287e-05 scratch 200  new_simus  0.01168 
-⑥ NFZ1 iblockima 1 iglobal 0 ithreads 317 PSFpos 336  ipixel -6 jpixel 3 val 200 PSFDISVAL[3] 7.99586e-05 scratch 200  new_simus  0.01705 
-⑥ NFZ1 iblockima 1 iglobal 0 ithreads 319 PSFpos 334  ipixel -4 jpixel 3 val 200 PSFDISVAL[3] 5.66287e-05 scratch 200  new_simus  0.01168 
-⑥ NFZ1 iblockima 0 iglobal 0 ithreads 316 PSFpos 337  ipixel -7 jpixel 3 val 200 PSFDISVAL[3] 8.33643e-05 scratch 200  new_simus  0.01814 
-⑥ NFZ1 iblockima 0 iglobal 0 ithreads 318 PSFpos 335  ipixel -5 jpixel 3 val 200 PSFDISVAL[3] 7.04261e-05 scratch 200  new_simus  0.01475 
-⑥ NFZ1 iblockima 1 iglobal 0 ithreads 316 PSFpos 337  ipixel -7 jpixel 3 val 200 PSFDISVAL[3] 8.33643e-05 scratch 200  new_simus  0.01814 
-⑥ NFZ1 iblockima 1 iglobal 0 ithreads 318 PSFpos 335  ipixel -5 jpixel 3 val 200 PSFDISVAL[3] 7.04261e-05 scratch 200  new_simus  0.01475 
-⑥ NFZ1 iblockima 0 iglobal 0 ithreads 315 PSFpos 338  ipixel -8 jpixel 3 val 200 PSFDISVAL[3] 7.99586e-05 scratch 200  new_simus  0.01782 
-⑥ NFZ1 iblockima 1 iglobal 0 ithreads 315 PSFpos 338  ipixel -8 jpixel 3 val 200 PSFDISVAL[3] 7.99586e-05 scratch 200  new_simus  0.01782 
-⑥ NFZ1 iblockima 0 iglobal 0 ithreads 317 PSFpos 336  ipixel -6 jpixel 3 val 200 PSFDISVAL[3] 7.99586e-05 scratch 200  new_simus  0.01705 
-⑥ NFZ1 iblockima 1 iglobal 0 ithreads 317 PSFpos 336  ipixel -6 jpixel 3 val 200 PSFDISVAL[3] 7.99586e-05 scratch 200  new_simus  0.01705 
-⑥ NFZ1 iblockima 0 iglobal 0 ithreads 314 PSFpos 339  ipixel -9 jpixel 3 val 200 PSFDISVAL[3] 7.04261e-05 scratch 200  new_simus  0.01617 
-⑥ NFZ1 iblockima 1 iglobal 0 ithreads 314 PSFpos 339  ipixel -9 jpixel 3 val 200 PSFDISVAL[3] 7.04261e-05 scratch 200  new_simus  0.01617 
-⑥ NFZ1 iblockima 0 iglobal 0 ithreads 316 PSFpos 337  ipixel -7 jpixel 3 val 200 PSFDISVAL[3] 8.33643e-05 scratch 200  new_simus  0.01814 
-⑥ NFZ1 iblockima 1 iglobal 0 ithreads 316 PSFpos 337  ipixel -7 jpixel 3 val 200 PSFDISVAL[3] 8.33643e-05 scratch 200  new_simus  0.01814 
-⑥ NFZ1 iblockima 0 iglobal 0 ithreads 313 PSFpos 340  ipixel -10 jpixel 3 val 200 PSFDISVAL[3] 5.66287e-05 scratch 200  new_simus  0.01350 
-⑥ NFZ1 iblockima 1 iglobal 0 ithreads 313 PSFpos 340  ipixel -10 jpixel 3 val 200 PSFDISVAL[3] 5.66287e-05 scratch 200  new_simus  0.01350 
-⑥ NFZ1 iblockima 0 iglobal 0 ithreads 315 PSFpos 338  ipixel -8 jpixel 3 val 200 PSFDISVAL[3] 7.99586e-05 scratch 200  new_simus  0.01782 
-⑥ NFZ1 iblockima 1 iglobal 0 ithreads 315 PSFpos 338  ipixel -8 jpixel 3 val 200 PSFDISVAL[3] 7.99586e-05 scratch 200  new_simus  0.01782 
-⑥ NFZ1 iblockima 0 iglobal 0 ithreads 314 PSFpos 339  ipixel -9 jpixel 3 val 200 PSFDISVAL[3] 7.04261e-05 scratch 200  new_simus  0.01617 
-⑥ NFZ1 iblockima 1 iglobal 0 ithreads 314 PSFpos 339  ipixel -9 jpixel 3 val 200 PSFDISVAL[3] 7.04261e-05 scratch 200  new_simus  0.01617 
-⑥ NFZ1 iblockima 0 iglobal 0 ithreads 313 PSFpos 340  ipixel -10 jpixel 3 val 200 PSFDISVAL[3] 5.66287e-05 scratch 200  new_simus  0.01350 
-⑥ NFZ1 iblockima 1 iglobal 0 ithreads 313 PSFpos 340  ipixel -10 jpixel 3 val 200 PSFDISVAL[3] 5.66287e-05 scratch 200  new_simus  0.01350 
-⑥ NFZ1 iblockima 0 iglobal 0 ithreads 286 PSFpos 361  ipixel -4 jpixel 2 val 200 PSFDISVAL[3] 5.91879e-05 scratch 200  new_simus  0.01226 
-⑥ NFZ1 iblockima 1 iglobal 0 ithreads 286 PSFpos 361  ipixel -4 jpixel 2 val 200 PSFDISVAL[3] 5.91879e-05 scratch 200  new_simus  0.01226 
-⑥ NFZ1 iblockima 0 iglobal 0 ithreads 285 PSFpos 362  ipixel -5 jpixel 2 val 200 PSFDISVAL[3] 7.34905e-05 scratch 200  new_simus  0.01548 
-⑥ NFZ1 iblockima 1 iglobal 0 ithreads 285 PSFpos 362  ipixel -5 jpixel 2 val 200 PSFDISVAL[3] 7.34905e-05 scratch 200  new_simus  0.01548 
-⑥ NFZ1 iblockima 0 iglobal 0 ithreads 284 PSFpos 363  ipixel -6 jpixel 2 val 200 PSFDISVAL[3] 8.33643e-05 scratch 200  new_simus  0.01789 
-⑥ NFZ1 iblockima 1 iglobal 0 ithreads 284 PSFpos 363  ipixel -6 jpixel 2 val 200 PSFDISVAL[3] 8.33643e-05 scratch 200  new_simus  0.01789 
-⑥ NFZ1 iblockima 0 iglobal 0 ithreads 286 PSFpos 361  ipixel -4 jpixel 2 val 200 PSFDISVAL[3] 5.91879e-05 scratch 200  new_simus  0.01226 
-⑥ NFZ1 iblockima 1 iglobal 0 ithreads 286 PSFpos 361  ipixel -4 jpixel 2 val 200 PSFDISVAL[3] 5.91879e-05 scratch 200  new_simus  0.01226 
-⑥ NFZ1 iblockima 0 iglobal 0 ithreads 283 PSFpos 364  ipixel -7 jpixel 2 val 200 PSFDISVAL[3] 8.68904e-05 scratch 200  new_simus  0.01905 
-⑥ NFZ1 iblockima 1 iglobal 0 ithreads 283 PSFpos 364  ipixel -7 jpixel 2 val 200 PSFDISVAL[3] 8.68904e-05 scratch 200  new_simus  0.01905 
-⑥ NFZ1 iblockima 0 iglobal 0 ithreads 285 PSFpos 362  ipixel -5 jpixel 2 val 200 PSFDISVAL[3] 7.34905e-05 scratch 200  new_simus  0.01548 
-⑥ NFZ1 iblockima 1 iglobal 0 ithreads 285 PSFpos 362  ipixel -5 jpixel 2 val 200 PSFDISVAL[3] 7.34905e-05 scratch 200  new_simus  0.01548 
-⑥ NFZ1 iblockima 0 iglobal 0 ithreads 282 PSFpos 365  ipixel -8 jpixel 2 val 200 PSFDISVAL[3] 8.33643e-05 scratch 200  new_simus  0.01876 
-⑥ NFZ1 iblockima 1 iglobal 0 ithreads 282 PSFpos 365  ipixel -8 jpixel 2 val 200 PSFDISVAL[3] 8.33643e-05 scratch 200  new_simus  0.01876 
-⑥ NFZ1 iblockima 0 iglobal 0 ithreads 284 PSFpos 363  ipixel -6 jpixel 2 val 200 PSFDISVAL[3] 8.33643e-05 scratch 200  new_simus  0.01789 
-⑥ NFZ1 iblockima 1 iglobal 0 ithreads 284 PSFpos 363  ipixel -6 jpixel 2 val 200 PSFDISVAL[3] 8.33643e-05 scratch 200  new_simus  0.01789 
-⑥ NFZ1 iblockima 0 iglobal 0 ithreads 281 PSFpos 366  ipixel -9 jpixel 2 val 200 PSFDISVAL[3] 7.34905e-05 scratch 200  new_simus  0.01707 
-⑥ NFZ1 iblockima 1 iglobal 0 ithreads 281 PSFpos 366  ipixel -9 jpixel 2 val 200 PSFDISVAL[3] 7.34905e-05 scratch 200  new_simus  0.01707 
-⑥ NFZ1 iblockima 0 iglobal 0 ithreads 283 PSFpos 364  ipixel -7 jpixel 2 val 200 PSFDISVAL[3] 8.68904e-05 scratch 200  new_simus  0.01905 
-⑥ NFZ1 iblockima 1 iglobal 0 ithreads 283 PSFpos 364  ipixel -7 jpixel 2 val 200 PSFDISVAL[3] 8.68904e-05 scratch 200  new_simus  0.01905 
-⑥ NFZ1 iblockima 0 iglobal 0 ithreads 280 PSFpos 367  ipixel -10 jpixel 2 val 200 PSFDISVAL[3] 5.91879e-05 scratch 200  new_simus  0.01431 
-⑥ NFZ1 iblockima 1 iglobal 0 ithreads 280 PSFpos 367  ipixel -10 jpixel 2 val 200 PSFDISVAL[3] 5.91879e-05 scratch 200  new_simus  0.01431 
-⑥ NFZ1 iblockima 0 iglobal 0 ithreads 282 PSFpos 365  ipixel -8 jpixel 2 val 200 PSFDISVAL[3] 8.33643e-05 scratch 200  new_simus  0.01876 
-⑥ NFZ1 iblockima 1 iglobal 0 ithreads 282 PSFpos 365  ipixel -8 jpixel 2 val 200 PSFDISVAL[3] 8.33643e-05 scratch 200  new_simus  0.01876 
-⑥ NFZ1 iblockima 0 iglobal 0 ithreads 281 PSFpos 366  ipixel -9 jpixel 2 val 200 PSFDISVAL[3] 7.34905e-05 scratch 200  new_simus  0.01707 
-⑥ NFZ1 iblockima 1 iglobal 0 ithreads 281 PSFpos 366  ipixel -9 jpixel 2 val 200 PSFDISVAL[3] 7.34905e-05 scratch 200  new_simus  0.01707 
-⑥ NFZ1 iblockima 0 iglobal 0 ithreads 280 PSFpos 367  ipixel -10 jpixel 2 val 200 PSFDISVAL[3] 5.91879e-05 scratch 200  new_simus  0.01431 
-⑥ NFZ1 iblockima 1 iglobal 0 ithreads 280 PSFpos 367  ipixel -10 jpixel 2 val 200 PSFDISVAL[3] 5.91879e-05 scratch 200  new_simus  0.01431 
-⑥ NFZ1 iblockima 0 iglobal 0 ithreads 253 PSFpos 388  ipixel -4 jpixel 1 val 200 PSFDISVAL[3] 5.66287e-05 scratch 200  new_simus  0.01178 
-⑥ NFZ1 iblockima 1 iglobal 0 ithreads 253 PSFpos 388  ipixel -4 jpixel 1 val 200 PSFDISVAL[3] 5.66287e-05 scratch 200  new_simus  0.01178 
-⑥ NFZ1 iblockima 0 iglobal 0 ithreads 252 PSFpos 389  ipixel -5 jpixel 1 val 200 PSFDISVAL[3] 7.04261e-05 scratch 200  new_simus  0.01491 
-⑥ NFZ1 iblockima 1 iglobal 0 ithreads 252 PSFpos 389  ipixel -5 jpixel 1 val 200 PSFDISVAL[3] 7.04261e-05 scratch 200  new_simus  0.01491 
-⑥ NFZ1 iblockima 0 iglobal 0 ithreads 251 PSFpos 390  ipixel -6 jpixel 1 val 200 PSFDISVAL[3] 7.99586e-05 scratch 200  new_simus  0.01727 
-⑥ NFZ1 iblockima 1 iglobal 0 ithreads 251 PSFpos 390  ipixel -6 jpixel 1 val 200 PSFDISVAL[3] 7.99586e-05 scratch 200  new_simus  0.01727 
-⑥ NFZ1 iblockima 0 iglobal 0 ithreads 253 PSFpos 388  ipixel -4 jpixel 1 val 200 PSFDISVAL[3] 5.66287e-05 scratch 200  new_simus  0.01178 
-⑥ NFZ1 iblockima 0 iglobal 0 ithreads 250 PSFpos 391  ipixel -7 jpixel 1 val 200 PSFDISVAL[3] 8.33643e-05 scratch 200  new_simus  0.01842 
-⑥ NFZ1 iblockima 1 iglobal 0 ithreads 253 PSFpos 388  ipixel -4 jpixel 1 val 200 PSFDISVAL[3] 5.66287e-05 scratch 200  new_simus  0.01178 
-⑥ NFZ1 iblockima 1 iglobal 0 ithreads 250 PSFpos 391  ipixel -7 jpixel 1 val 200 PSFDISVAL[3] 8.33643e-05 scratch 200  new_simus  0.01842 
-⑥ NFZ1 iblockima 0 iglobal 0 ithreads 252 PSFpos 389  ipixel -5 jpixel 1 val 200 PSFDISVAL[3] 7.04261e-05 scratch 200  new_simus  0.01491 
-⑥ NFZ1 iblockima 0 iglobal 0 ithreads 249 PSFpos 392  ipixel -8 jpixel 1 val 200 PSFDISVAL[3] 7.99586e-05 scratch 200  new_simus  0.01817 
-⑥ NFZ1 iblockima 1 iglobal 0 ithreads 252 PSFpos 389  ipixel -5 jpixel 1 val 200 PSFDISVAL[3] 7.04261e-05 scratch 200  new_simus  0.01491 
-⑥ NFZ1 iblockima 1 iglobal 0 ithreads 249 PSFpos 392  ipixel -8 jpixel 1 val 200 PSFDISVAL[3] 7.99586e-05 scratch 200  new_simus  0.01817 
-⑥ NFZ1 iblockima 0 iglobal 0 ithreads 251 PSFpos 390  ipixel -6 jpixel 1 val 200 PSFDISVAL[3] 7.99586e-05 scratch 200  new_simus  0.01727 
-⑥ NFZ1 iblockima 0 iglobal 0 ithreads 248 PSFpos 393  ipixel -9 jpixel 1 val 200 PSFDISVAL[3] 7.04261e-05 scratch 200  new_simus  0.01655 
-⑥ NFZ1 iblockima 1 iglobal 0 ithreads 248 PSFpos 393  ipixel -9 jpixel 1 val 200 PSFDISVAL[3] 7.04261e-05 scratch 200  new_simus  0.01655 
-⑥ NFZ1 iblockima 1 iglobal 0 ithreads 251 PSFpos 390  ipixel -6 jpixel 1 val 200 PSFDISVAL[3] 7.99586e-05 scratch 200  new_simus  0.01727 
-⑥ NFZ1 iblockima 0 iglobal 0 ithreads 247 PSFpos 394  ipixel -10 jpixel 1 val 200 PSFDISVAL[3] 5.66287e-05 scratch 200  new_simus  0.01390 
-⑥ NFZ1 iblockima 0 iglobal 0 ithreads 250 PSFpos 391  ipixel -7 jpixel 1 val 200 PSFDISVAL[3] 8.33643e-05 scratch 200  new_simus  0.01842 
-⑥ NFZ1 iblockima 1 iglobal 0 ithreads 247 PSFpos 394  ipixel -10 jpixel 1 val 200 PSFDISVAL[3] 5.66287e-05 scratch 200  new_simus  0.01390 
-⑥ NFZ1 iblockima 1 iglobal 0 ithreads 250 PSFpos 391  ipixel -7 jpixel 1 val 200 PSFDISVAL[3] 8.33643e-05 scratch 200  new_simus  0.01842 
-⑥ NFZ1 iblockima 0 iglobal 0 ithreads 249 PSFpos 392  ipixel -8 jpixel 1 val 200 PSFDISVAL[3] 7.99586e-05 scratch 200  new_simus  0.01817 
-⑥ NFZ1 iblockima 1 iglobal 0 ithreads 249 PSFpos 392  ipixel -8 jpixel 1 val 200 PSFDISVAL[3] 7.99586e-05 scratch 200  new_simus  0.01817 
-⑥ NFZ1 iblockima 0 iglobal 0 ithreads 248 PSFpos 393  ipixel -9 jpixel 1 val 200 PSFDISVAL[3] 7.04261e-05 scratch 200  new_simus  0.01655 
-⑥ NFZ1 iblockima 1 iglobal 0 ithreads 248 PSFpos 393  ipixel -9 jpixel 1 val 200 PSFDISVAL[3] 7.04261e-05 scratch 200  new_simus  0.01655 
-⑥ NFZ1 iblockima 0 iglobal 0 ithreads 247 PSFpos 394  ipixel -10 jpixel 1 val 200 PSFDISVAL[3] 5.66287e-05 scratch 200  new_simus  0.01390 
-⑥ NFZ1 iblockima 1 iglobal 0 ithreads 247 PSFpos 394  ipixel -10 jpixel 1 val 200 PSFDISVAL[3] 5.66287e-05 scratch 200  new_simus  0.01390 
-⑥ NFZ1 iblockima 0 iglobal 0 ithreads 219 PSFpos 416  ipixel -5 jpixel 0 val 200 PSFDISVAL[3] 6.18585e-05 scratch 200  new_simus  0.01315 
-⑥ NFZ1 iblockima 1 iglobal 0 ithreads 219 PSFpos 416  ipixel -5 jpixel 0 val 200 PSFDISVAL[3] 6.18585e-05 scratch 200  new_simus  0.01315 
-⑥ NFZ1 iblockima 0 iglobal 0 ithreads 218 PSFpos 417  ipixel -6 jpixel 0 val 200 PSFDISVAL[3] 7.04261e-05 scratch 200  new_simus  0.01530 
-⑥ NFZ1 iblockima 1 iglobal 0 ithreads 218 PSFpos 417  ipixel -6 jpixel 0 val 200 PSFDISVAL[3] 7.04261e-05 scratch 200  new_simus  0.01530 
-⑥ NFZ1 iblockima 0 iglobal 0 ithreads 217 PSFpos 418  ipixel -7 jpixel 0 val 200 PSFDISVAL[3] 7.34905e-05 scratch 200  new_simus  0.01637 
-⑥ NFZ1 iblockima 1 iglobal 0 ithreads 217 PSFpos 418  ipixel -7 jpixel 0 val 200 PSFDISVAL[3] 7.34905e-05 scratch 200  new_simus  0.01637 
-⑥ NFZ1 iblockima 0 iglobal 0 ithreads 216 PSFpos 419  ipixel -8 jpixel 0 val 200 PSFDISVAL[3] 7.04261e-05 scratch 200  new_simus  0.01617 
-⑥ NFZ1 iblockima 0 iglobal 0 ithreads 219 PSFpos 416  ipixel -5 jpixel 0 val 200 PSFDISVAL[3] 6.18585e-05 scratch 200  new_simus  0.01315 
-⑥ NFZ1 iblockima 1 iglobal 0 ithreads 216 PSFpos 419  ipixel -8 jpixel 0 val 200 PSFDISVAL[3] 7.04261e-05 scratch 200  new_simus  0.01617 
-⑥ NFZ1 iblockima 1 iglobal 0 ithreads 219 PSFpos 416  ipixel -5 jpixel 0 val 200 PSFDISVAL[3] 6.18585e-05 scratch 200  new_simus  0.01315 
-⑥ NFZ1 iblockima 0 iglobal 0 ithreads 215 PSFpos 420  ipixel -9 jpixel 0 val 200 PSFDISVAL[3] 6.18585e-05 scratch 200  new_simus  0.01474 
-⑥ NFZ1 iblockima 0 iglobal 0 ithreads 218 PSFpos 417  ipixel -6 jpixel 0 val 200 PSFDISVAL[3] 7.04261e-05 scratch 200  new_simus  0.01530 
-⑥ NFZ1 iblockima 1 iglobal 0 ithreads 215 PSFpos 420  ipixel -9 jpixel 0 val 200 PSFDISVAL[3] 6.18585e-05 scratch 200  new_simus  0.01474 
-⑥ NFZ1 iblockima 1 iglobal 0 ithreads 218 PSFpos 417  ipixel -6 jpixel 0 val 200 PSFDISVAL[3] 7.04261e-05 scratch 200  new_simus  0.01530 
-⑥ NFZ1 iblockima 0 iglobal 0 ithreads 217 PSFpos 418  ipixel -7 jpixel 0 val 200 PSFDISVAL[3] 7.34905e-05 scratch 200  new_simus  0.01637 
-⑥ NFZ1 iblockima 1 iglobal 0 ithreads 217 PSFpos 418  ipixel -7 jpixel 0 val 200 PSFDISVAL[3] 7.34905e-05 scratch 200  new_simus  0.01637 
-⑥ NFZ1 iblockima 0 iglobal 0 ithreads 216 PSFpos 419  ipixel -8 jpixel 0 val 200 PSFDISVAL[3] 7.04261e-05 scratch 200  new_simus  0.01617 
-⑥ NFZ1 iblockima 1 iglobal 0 ithreads 216 PSFpos 419  ipixel -8 jpixel 0 val 200 PSFDISVAL[3] 7.04261e-05 scratch 200  new_simus  0.01617 
-⑥ NFZ1 iblockima 0 iglobal 0 ithreads 215 PSFpos 420  ipixel -9 jpixel 0 val 200 PSFDISVAL[3] 6.18585e-05 scratch 200  new_simus  0.01474 
-⑥ NFZ1 iblockima 1 iglobal 0 ithreads 215 PSFpos 420  ipixel -9 jpixel 0 val 200 PSFDISVAL[3] 6.18585e-05 scratch 200  new_simus  0.01474 
-⑥ NFZ1 iblockima 0 iglobal 0 ithreads 185 PSFpos 444  ipixel -6 jpixel -1 val 200 PSFDISVAL[3] 5.66287e-05 scratch 200  new_simus  0.01238 
-⑥ NFZ1 iblockima 1 iglobal 0 ithreads 185 PSFpos 444  ipixel -6 jpixel -1 val 200 PSFDISVAL[3] 5.66287e-05 scratch 200  new_simus  0.01238 
-⑥ NFZ1 iblockima 0 iglobal 0 ithreads 184 PSFpos 445  ipixel -7 jpixel -1 val 200 PSFDISVAL[3] 5.91879e-05 scratch 200  new_simus  0.01330 
-⑥ NFZ1 iblockima 1 iglobal 0 ithreads 184 PSFpos 445  ipixel -7 jpixel -1 val 200 PSFDISVAL[3] 5.91879e-05 scratch 200  new_simus  0.01330 
-⑥ NFZ1 iblockima 0 iglobal 0 ithreads 183 PSFpos 446  ipixel -8 jpixel -1 val 200 PSFDISVAL[3] 5.66287e-05 scratch 200  new_simus  0.01316 
-⑥ NFZ1 iblockima 1 iglobal 0 ithreads 183 PSFpos 446  ipixel -8 jpixel -1 val 200 PSFDISVAL[3] 5.66287e-05 scratch 200  new_simus  0.01316 
-⑥ NFZ1 iblockima 0 iglobal 0 ithreads 185 PSFpos 444  ipixel -6 jpixel -1 val 200 PSFDISVAL[3] 5.66287e-05 scratch 200  new_simus  0.01238 
-⑥ NFZ1 iblockima 1 iglobal 0 ithreads 185 PSFpos 444  ipixel -6 jpixel -1 val 200 PSFDISVAL[3] 5.66287e-05 scratch 200  new_simus  0.01238 
-⑥ NFZ1 iblockima 0 iglobal 0 ithreads 184 PSFpos 445  ipixel -7 jpixel -1 val 200 PSFDISVAL[3] 5.91879e-05 scratch 200  new_simus  0.01330 
-⑥ NFZ1 iblockima 1 iglobal 0 ithreads 184 PSFpos 445  ipixel -7 jpixel -1 val 200 PSFDISVAL[3] 5.91879e-05 scratch 200  new_simus  0.01330 
-⑥ NFZ1 iblockima 0 iglobal 0 ithreads 183 PSFpos 446  ipixel -8 jpixel -1 val 200 PSFDISVAL[3] 5.66287e-05 scratch 200  new_simus  0.01316 
-⑥ NFZ1 iblockima 1 iglobal 0 ithreads 183 PSFpos 446  ipixel -8 jpixel -1 val 200 PSFDISVAL[3] 5.66287e-05 scratch 200  new_simus  0.01316 
+⏳ ** OFFSET:aggregx 0 aggregy 0 tileXY 0 iblockima 0 offset 2112 iglobal 0
+⏳ ** OFFSET:aggregx 0 aggregy 0 tileXY 0 iblockima 1 offset 4062 iglobal 0
 ④ AGGREGATE x 1 y 0 *****
-④ TILES tilexdevice 2, tileydevice 0 tile 2 MemoryOffsetscratch 16000
+④ TILES tilexdevice 2, tileydevice 0 tile 2 MemoryOffset 16000
 DEVICE: ④ SCRATCHPAD distrib_number 1 itb 4 position in scratchpad 5421 value 300.000000 Sum 300.000000 max 300.000000
 DEVICE: ④ SCRATCHPAD distrib_number 0 itb 0 position in scratchpad 5421 value 300.000000 Sum 300.000000 max 300.000000
-⏳ ** OFFSET:aggregx 1 aggregy 0 tileXY 2 iblockima 0 offset 2105 iglobal 0
-⏳ ** OFFSET:aggregx 1 aggregy 0 tileXY 2 iblockima 1 offset 4055 iglobal 0
-⏳ ** OFFSET:aggregx 1 aggregy 0 tileXY 6 iblockima 0 offset 2105 iglobal 0
-⏳ ** OFFSET:aggregx 1 aggregy 0 tileXY 6 iblockima 0 offset 2105 iglobal 0
+⏳ ** OFFSET:aggregx 1 aggregy 0 tileXY 2 iblockima 0 offset 2112 iglobal 0
+⏳ ** OFFSET:aggregx 1 aggregy 0 tileXY 2 iblockima 1 offset 4062 iglobal 0
+⏳ ** OFFSET:aggregx 1 aggregy 0 tileXY 6 iblockima 0 offset 2112 iglobal 0
+⏳ ** OFFSET:aggregx 1 aggregy 0 tileXY 6 iblockima 0 offset 2112 iglobal 0
 end ④****************DEVICE:  SCRATCHPAD ********************
 
 DEVICE: ⑤ SUM SCRATCHPAD: Sum of scratchpad 300.0 Max of Scratchpad 300.0 
-DEVICE: ⏱**DEVICE:  step 7   TIMING (msec) ** processing  167.952927 this step  0.000391572  total 167.953 
+DEVICE: ⏱**DEVICE:  step 7   TIMING (msec) ** processing  89640.742188 this step  0.000390986  total 89640.7 
 end ⑤****************DEVICE:  SCRATCHPAD & AGGREGATES & TILES ********************
 
 DEVICE: ⏲ APIX DISTRIB: apix 0 distribpos[apix] 0 
 DEVICE: ⏲ APIX DISTRIB: apix 1 distribpos[apix] 554 
 DEVICE: ⏲ APIX DISTRIB: apix 2 distribpos[apix] 1134 
 DEVICE: ⏲ APIX DISTRIB: apix 3 distribpos[apix] 1714 
-DEVICE: ⏱**DEVICE:  step 8   TIMING (msec) ** processing  168.306976 this step  0.000391572  total 168.307 
-⏳ ** OFFSET:aggregx 1 aggregy 0 tileXY 2 iblockima 0 offset 2105 iglobal 0
-⏳ ** OFFSET:aggregx 1 aggregy 0 tileXY 2 iblockima 1 offset 4055 iglobal 0
+DEVICE: ⏱**DEVICE:  step 8   TIMING (msec) ** processing  89641.171875 this step  0.000390986  total 89641.2 
+⏳ ** OFFSET:aggregx 1 aggregy 0 tileXY 2 iblockima 0 offset 2112 iglobal 0
+⏳ ** OFFSET:aggregx 1 aggregy 0 tileXY 2 iblockima 1 offset 4062 iglobal 0
+Energy 0.000000 absolute difference 0.000000
+
 Energy 0.000000 absolute difference 0.061985
 
+SCRATCHPAD ⓼ itile 4480, iscratch 21421 iscratch2Dx 94, iscratch2Dy 82 iscratch2D 21414
+SCRATCHPAD ⓼ itile 4480, i_scratchpad[iscratch2D] 191 val_scratchpad[arg1D] 300.000000
+SCRATCHPAD ⓼ itile 1396, iscratch 11869 iscratch2Dx 162, iscratch2Dy 45 iscratch2D 11862
+SCRATCHPAD ⓼ itile 1396, i_scratchpad[iscratch2D] 63 val_scratchpad[arg1D] 100.000000
+SCRATCHPAD ⓼ itile 1420, iscratch 11937 iscratch2Dx 230, iscratch2Dy 45 iscratch2D 11930
+SCRATCHPAD ⓼ itile 1420, i_scratchpad[iscratch2D] 127 val_scratchpad[arg1D] 200.000000
+SCRATCHPAD ⓼ itile 6266, iscratch 43847 iscratch2Dx 160, iscratch2Dy 168 iscratch2D 43840
+SCRATCHPAD ⓼ itile 6266, i_scratchpad[iscratch2D] 255 val_scratchpad[arg1D] 400.000000

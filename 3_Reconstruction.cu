@@ -15,17 +15,20 @@ const char * scratchpadImagefile = "results/E_scratchpad.pgm";
 const char * ScratchpadValImagefile = "results/E_Scratchpaddevice.pgm";
 float MaxRec = 0.0f, SumRec = 0.0f;
 __managed__ float Maxscratch = 0.0f, Sumscratch = 0.0f, maxTile = 0.0f, SumTile = 0.0f;
+double *double_rec;
+// double* double_rec;
 
 void Recprepare(void) {
 	cudaMallocManaged(&original_rec, TA.reconstruction_size * sizeof(float)); // on device with a shadow on host
 	cudaMallocManaged(&double_rec, TA.reconstruction_size * sizeof(double)); // on device with a shadow on host
+//	double* double_rec = (double*) std::malloc(TA.reconstruction_size * sizeof(double)); // on host
+
 
 	char * memblock;
 	int size;
 
 	filenameimage = resourcesdirectory + RECFILE + endREC;
 	verbosefile << "REC \u24FC reconstruction image:  " << filenameimage.c_str() << " \n";
-
 	/** *****************************data arrays allocation*********************************/
 	/** original_reconstruction data in float stored on device with a shadow copy on host
 	 *  double_rec data in double read from the file
@@ -56,7 +59,6 @@ void Recprepare(void) {
 
 	verbosefile << "REC \u24FC ***  max =" << MaxRec << "  Sum =" << SumRec << endl;
 	unsigned char *i_reconstruction = (unsigned char *) calloc(TA.reconstruction_size, sizeof(unsigned char)); // on host
-	double* double_rec = (double*) std::malloc(TA.reconstruction_size * sizeof(double)); // on host
 	// write reconstruction image to disk /////////////////////////////////
 	for (int i = 0; i < TA.reconstruction_size; i++)
 		i_reconstruction[i] = 255.0 * original_rec[i] / MaxRec;			// image value
@@ -65,7 +67,7 @@ void Recprepare(void) {
 	sdkSavePGM(reconstructionImagefile, i_reconstruction, TA.Nb_Cols_reconstruction,
 			TA.Nb_Rows_reconstruction);
 	free(i_reconstruction);
-	free(double_rec);
+//	free(double_rec);
 }
 
 bool Recvalidate_host(void) {
@@ -155,6 +157,7 @@ void Scratchprepare(void) {
 				if (i_tilerec[itemp] > 1)
 					printf("itemp %d, col %d x %d y %d\n", itemp, XTile * tile.NbTilex,
 							itemp % (XTile * tile.NbTilex), itemp / (XTile * tile.NbTilex));
+
 		}
 
 	sdkSavePGM(rectilereconstructionfile, i_tilerec, XTile * tile.NbTilex, YTile * tile.NbTiley);
@@ -163,8 +166,8 @@ void Scratchprepare(void) {
 	verbosefile << "SCRATCHPAD \u24FC : Max Scratchpad " << Maxscratch << " Sum scratchpad " << Sumscratch << endl;
 	verbosefile << "SCRATCHPAD \u24FC : " << XSCRATCH * YSCRATCH << " of full SCRATCHPAD 2D " << XSCRATCH * YSCRATCH * tile.NbTileXY << endl;
 	// write scratchpad matrix to disk
-	float maxtemp = scratchreaddisplay(tile_rec,scratchpad_matrix, scratchpadImagefile,TRUE);
-printf("maxtemp %f \n", maxtemp);
+	scratchreaddisplay(tile_rec,scratchpad_matrix, scratchpadImagefile,TRUE);
+
 	free(i_scratchpad);
 
 }
@@ -199,13 +202,12 @@ bool Scratchvalidate_host(void) {
 	for (int idistrib = 0; idistrib < Ndistrib; idistrib++)
 		for (int i = 0; i < ASCRATCH * tile.NbTileXY; i++) {
 			if (val_scratchpad[i]> 1.)
-			verbosefile << "SCRATCHPAD \u24FC i " << i << " value " << val_scratchpad[i] << endl;
+				printf("i %d x position in scratch %d y position %d val %f\n", i, i%XSCRATCH, i/XSCRATCH, val_scratchpad[i]);
 			Maxscratch = max(Maxscratch, val_scratchpad[i]); // sanity check, check max
 		}
 	verbosefile << "max device =" << Maxscratch << "\n";
 
-	float maxtemp = scratchreaddisplay(dummy, val_scratchpad, ScratchpadValImagefile, FALSE);
-	printf("maxtemp %f \n", maxtemp);
+	scratchreaddisplay(dummy, val_scratchpad, ScratchpadValImagefile, FALSE);
 	verbosefile << "SCRATCHPAD \u24FC Path to Scratchpad validation " << ScratchpadValImagefile << " .....\n";
 	verbosefile << "SCRATCHPAD \u24FC Comparing files ... " << endl;
 	testScratchpad = compareData(val_scratchpad, scratchpad_matrix, ASCRATCH * tile.NbTileXY,
@@ -214,6 +216,7 @@ bool Scratchvalidate_host(void) {
 	for (int jScratchpad = 0; jScratchpad < ASCRATCH * tile.NbTileXY; jScratchpad++) {
 		Sumdel[8] += fabsf(*(val_scratchpad + jScratchpad) - *(scratchpad_matrix + jScratchpad));
 	}
+	verbosefile << "Sumdel[8] " << Sumdel[8] << endl;
 	verbosefile << "testScratchpad = " << testScratchpad << "\n";
 	cudaFree(val_scratchpad);
 	return (testScratchpad);

@@ -7,7 +7,8 @@
 
 #ifndef CLASSLOOP_H_
 #define CLASSLOOP_H_
-#include "0_constantLoop.h"
+#include "0_constants.h"
+#include "0_constantsloop.h"
 
 class COS {
 public:
@@ -32,7 +33,7 @@ public:
 	float Pixel_size_nm, XTileSize, YTileSize; // nm sizes
 
 	/* pPSF */
-	unsigned int PSF_Rows = 0;
+	unsigned int Nb_Rows_PSF = 0;
 	unsigned int Nb_Cols_PSF = 0;
 	int PSF_size;
 
@@ -45,11 +46,10 @@ public:
 	unsigned int Nb_Rows_microimages;
 	unsigned int Nb_Cols_microimages;
 	uint Nb_LaserPositions;
-//	unsigned Images_perdistrib[MAXNBDISTRIB];
 
 	int maxROIx, maxROIy, minROIx, minROIy;
 	double maxLaserx, minLaserx, maxLasery, minLasery;
-
+	int AmaxLaserx, AmaxLasery, AminLaserx, AminLasery;
 
 	void start(void);
 };
@@ -57,18 +57,17 @@ public:
 class Ctile {
 public:
 
-	int NbTilex, NbTiley, NbTileXY, NbTileXYD;
-	int NbAggregx, NbAggregy;
 	int NbTile0x, NbTile0y;
+	int NbTilex, NbTiley, NbTileXY, NbTileXYD;
 	int tileperaggregatex, tileperaggregatey;
+	int NbAggregx, NbAggregy;
 
 	int Nblaserperdistribution[MAXNBDISTRIB] = { 0 }, maxlaserperdistribution = 0;
 	int maxLaserintile = NIMAGESPARALLEL, minLaserintile =1.E6, blocks;
-//	int NbLaserTotal;
-	int NbLaserpertile[MAXTILE] = { 0 };
+	uint NbLaserpertile[MAXTILE] = { 0 };
 	int posintile[NUMLASERPOSITIONS];
 	float Bconstant = 1.0;
-	int startx, starty;
+	int startxdomain, startydomain;
 	void print() const;
 };
 

@@ -20,24 +20,24 @@
 #include <string>
 #include <math.h>
 #include <fstream>
-#include "device_functions.h"
 #include <cuda_runtime.h>			// Includes CUDA
 #include <helper_functions.h>    	// CUDA helper functions: includes cuda.h and cuda_runtime_api.h
 #include <helper_cuda.h>         	// helper functions for CUDA error check
 #include <cuda_runtime_api.h>
 #include <algorithm>
+#include "device_functions.h"
 
 #include "0_classloop.h"
-#include "0_constantLoop.h"
+#include "0_constants.h"
+#include "0_constantsloop.h"
 
 #define min(a,b) (a) < (b) ? (a) : (b)
 #define max(a,b) (a) > (b) ? (a) : (b)
 
-
 /************Extern read in command line*************/
 extern __managed__ int pPSF, Npixel, pZOOM, RDISTRIB, Ndistrib;
 /************Extern defined in main*************/
-extern int clockRate, devID; // in KHz
+extern int clockRate, devID; // clockRate in KHz
 extern __managed__ clock_t timer, time_init, time_start;
 
 /** parameters derived from the basic parameters

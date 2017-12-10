@@ -15,11 +15,12 @@ MAIN PROGRAM  ⓪ command line parameters: *************************************
 ************** DATA: PARAMETERS OF MEASUREMENT *************************************
 
  INIT PROG ⓪ BASIC  : THreadsRatio 4 NThreads 1280 Npixel 11 pZOOM 3 pPSF 9 RDISTRIB 15
- INIT PROG ⓪ BASIC  : YTile 57 YSCRATCH 122 dySCR 58
-INIT PROG ⓪ PIXEL  : Npixel 11 PixZoom 33 PixZoomo2 16
-INIT PROG ⓪ PIXEL  : lost lines 6 additional lines at the end of microimage
-INIT PROG ⓪ pPSF   : pPSF 9 PSFZoom 27 PSFZoomo2 13
- INIT PROG ⓪ DISTRIB: XDistrib 59 YDistrib 59extended 65 Size in KBytes 3.75ADistrib 3840 RDISTRIB 15
+ INIT PROG ⓪ BASIC X : XTile 21 XSCRATCH 65 dxSCR 44
+ INIT PROG ⓪ BASIC Y : YTile 57 YSCRATCH 122 dySCR 58 lost lines 7 YSCRATCH effective 115
+ INIT PROG ⓪ PIXEL  : Npixel 11 PixZoom 33 PixZoomo2 16
+ INIT PROG ⓪ PIXEL  : lost lines 7 additional lines at the end of microimage lost pixels 7 at the begin and end of scratchpad 
+ INIT PROG ⓪ pPSF   : pPSF 9 PSFZoom 27 PSFZoomo2 13
+ INIT PROG ⓪ DISTRIB: XDistrib 59 YDistrib 59 extended 65 Size in KBytes 3.75 ADistrib 3840 RDISTRIB 15
  INIT PROG ⓪ SCRATCH X&Y: 65 122 dxSCR 44 dySCR 58
  INIT PROG ⓪ SCRATCH: DEL SCRATCH 7 Additional pixels at start and end of SCRATCH
  INIT PROG ⓪ PARAMS :  Number of threads 1280 Threads per batch 320 number of batch 4
@@ -27,111 +28,123 @@ INIT PROG ⓪ pPSF   : pPSF 9 PSFZoom 27 PSFZoomo2 13
 ************** DATA: PARAMETERS OF MEASUREMENT *************************************
  INIT PROG ⏳ Data parameters in device memory ...
  INIT PROG ⓪ reconstruction xml: /home/gabriel/cuda-workspace2/NewGPU/resources/1039/reconstruction.xml
- INIT PROG ⓪ reconstruction from tiles: Cols 42 lines 114 size 4788
- INIT PROG ⓪ PARAMS :  original µimage pixel size100 nm pixel size reconstruction 33.3333
- INIT PROG ⓪ TILE   : XTILE 21 YTILE 57 size : XTILE: 0.7 YTILE 1.9
- INIT PROG ⓪ RECONSTRUCTION in nm   : X 4.2 Y 11.4 µm
+ INIT PROG ⓪ reconstruction from XML file: Cols 42 lines 114 size 4788
+ INIT PROG ⓪ PARAMS : original µimage pixel size 100 nm pixel size reconstruction 33.3333 nm 
+ INIT PROG ⓪ TILE   : XTILE 21 YTILE 57 XTILE size: 0.7 YTILE size: 1.9
+ INIT PROG ⓪ RECONSTRUCTION in nm   : X 4.2 µm Y 11.4 µm
 +++initialization   Test validated++++ PASSEND STEP	*******end of step  0  initialization  **********************************
 
-START STEP	*************  step 1  PSF   *************
+START STEP	*************  step 1  PSF  *************
  PSF ⓵  Nb_Rows: 27 Nb_Cols 27 size 5832 Max: 0.0146406 Sum 1.00073
  PSF ⓵  Nb_Rows: 27 Nb_Cols 27 size 5832 Max: 0.0146406 Sum 1.00073
  PSF ⓵ function read: Path to pPSF originalresults/A_PSF.pgm
  PSF ⓵ Sum3PSF 1.00073 max3PSF 0.0146406
  PSF ⓵ Path to pPSF validation ...results/A_PSFDevice.pgm
  PSF ⓵  Comparing files ... 
-+++PSF    Test validated++++ PASS ⏱ msec  device  5.496534  total 5.496096
-END STEP	*******end of step  1  PSF   **********************************
++++PSF   Test validated++++ PASS ⏱ msec  device  4.645992  total 4.645611
+END STEP	*******end of step  1  PSF  **********************************
 
-START STEP	*************  step 2  distrib  *************
+START STEP	*************  step 2   distrib  *************
 
 DISTRIBUTIONS ②: data file /home/gabriel/cuda-workspace2/NewGPU/resources/1039//lambda_488/Calib/distribution1.bin
-DISTRIBUTIONS ② function read: distribution # 0 size distrib = 27848
+DISTRIBUTIONS ② function read: distribution # 0 size distrib = 27848 equal to XDistrib*YDistrib*number of bytes 
+DISTRIBUTIONS ② size in x 59 in y 59 extended 65 size from geometry 3835 ADistrib 3840
 DISTRIBUTIONS ②: idistrib 0 Original max 0.007599 Sumdistrib 0.999999
 DISTRIBUTIONS ②: data file /home/gabriel/cuda-workspace2/NewGPU/resources/1039//lambda_488/Calib/distribution2.bin
-DISTRIBUTIONS ② function read: distribution # 1 size distrib = 27848
+DISTRIBUTIONS ② function read: distribution # 1 size distrib = 27848 equal to XDistrib*YDistrib*number of bytes 
+DISTRIBUTIONS ② size in x 59 in y 59 extended 65 size from geometry 3835 ADistrib 3840
 DISTRIBUTIONS ②: idistrib 1 Original max 0.007599 Sumdistrib 1.999995
 DISTRIBUTIONS ② function read: Path to distrib original results/B_distributions.pgm
 DISTRIBUTIONS ② Path to distrib validation results/B_distributionsdevice.pgm
 DISTRIBUTIONS ② Comparing files ... Sumdel[1]  0.000000testdistrib = 1
-+++distrib   Test validated++++ PASS ⏱ msec  device  46.389175  total 54.228237
-END STEP	*******end of step  2  distrib  **********************************
++++ distrib   Test validated++++ PASS ⏱ msec  device  39.765347  total 45.921612
+END STEP	*******end of step  2   distrib  **********************************
 
-START STEP	*************  step 3  Laser positions*************
+START STEP	*************  step 3   Laser positions*************
  Laser ③: distribution n°0 number of images 6
  Laser ③: distribution n°1 number of images 6
  Laser ③:  total number of images 12 max images per distributions 6
 Laser ③: filename /home/gabriel/cuda-workspace2/NewGPU/resources/1039/lambda_488/Measure/T_0/Z_0/laser_positions_1.txt 
 Laser ③: filename /home/gabriel/cuda-workspace2/NewGPU/resources/1039/lambda_488/Measure/T_0/Z_0/laser_positions_2.txt 
- Laser ③ Laser position n°0 x 5.400000 y 5.400000
-Laser ③ Position in scratchpad38  45
- Laser ③ ***************SCRATCHPAD FULL OFFSET 2963 **************
  Laser ③ ----------------------------------------------------------------------------------------------------
- Laser ③ Laser position n°1 x 5.400000 y 15.400000
-Laser ③ Position in scratchpad38  75
- Laser ③ ***************SCRATCHPAD FULL OFFSET 4913 **************
+ Laser ③ Laser position n°0 x 5.400000 y 5.400000 tilex 0 tiley 0
+ Laser ③ Position in scratchpad 38  45
+ Laser ③ Position in scratchpad matrix 38  45
+ Laser ③ ***************SCRATCHPAD FULL OFFSET 2112 **************
  Laser ③ ----------------------------------------------------------------------------------------------------
- Laser ③ Laser position n°2 x 5.400000 y 25.400000
-Laser ③ Position in scratchpad38  48
- Laser ③ ***************SCRATCHPAD FULL OFFSET 3158 **************
+ Laser ③ Laser position n°1 x 5.400000 y 15.400000 tilex 0 tiley 0
+ Laser ③ Position in scratchpad 38  75
+ Laser ③ Position in scratchpad matrix 38  75
+ Laser ③ ***************SCRATCHPAD FULL OFFSET 4062 **************
  Laser ③ ----------------------------------------------------------------------------------------------------
- Laser ③ Laser position n°3 x 15.400000 y 5.400000
-Laser ③ Position in scratchpad26  45
- Laser ③ ***************SCRATCHPAD FULL OFFSET 2951 **************
+ Laser ③ Laser position n°2 x 5.400000 y 25.400000 tilex 0 tiley 0
+ Laser ③ Position in scratchpad 38  48
+ Laser ③ Position in scratchpad matrix 38  48
+ Laser ③ ***************SCRATCHPAD FULL OFFSET 2307 **************
  Laser ③ ----------------------------------------------------------------------------------------------------
- Laser ③ Laser position n°4 x 15.400000 y 15.400000
-Laser ③ Position in scratchpad26  75
- Laser ③ ***************SCRATCHPAD FULL OFFSET 4901 **************
+ Laser ③ Laser position n°3 x 15.400000 y 5.400000 tilex 0 tiley 0
+ Laser ③ Position in scratchpad 26  45
+ Laser ③ Position in scratchpad matrix 26  45
+ Laser ③ ***************SCRATCHPAD FULL OFFSET 2100 **************
  Laser ③ ----------------------------------------------------------------------------------------------------
- Laser ③ Laser position n°5 x 15.400000 y 25.400000
-Laser ③ Position in scratchpad26  48
- Laser ③ ***************SCRATCHPAD FULL OFFSET 3146 **************
+ Laser ③ Laser position n°4 x 15.400000 y 15.400000 tilex 0 tiley 0
+ Laser ③ Position in scratchpad 26  75
+ Laser ③ Position in scratchpad matrix 26  75
+ Laser ③ ***************SCRATCHPAD FULL OFFSET 4050 **************
  Laser ③ ----------------------------------------------------------------------------------------------------
- Laser ③ Laser position n°6 x 5.400000 y 5.400000
-Laser ③ Position in scratchpad38  45
- Laser ③ ***************SCRATCHPAD FULL OFFSET 2963 **************
+ Laser ③ Laser position n°5 x 15.400000 y 25.400000 tilex 0 tiley 0
+ Laser ③ Position in scratchpad 26  48
+ Laser ③ Position in scratchpad matrix 26  48
+ Laser ③ ***************SCRATCHPAD FULL OFFSET 2295 **************
  Laser ③ ----------------------------------------------------------------------------------------------------
- Laser ③ Laser position n°7 x 5.400000 y 15.400000
-Laser ③ Position in scratchpad38  75
- Laser ③ ***************SCRATCHPAD FULL OFFSET 4913 **************
+ Laser ③ Laser position n°6 x 5.400000 y 5.400000 tilex 0 tiley 0
+ Laser ③ Position in scratchpad 38  45
+ Laser ③ Position in scratchpad matrix 38  45
+ Laser ③ ***************SCRATCHPAD FULL OFFSET 2112 **************
  Laser ③ ----------------------------------------------------------------------------------------------------
- Laser ③ Laser position n°8 x 5.400000 y 25.400000
-Laser ③ Position in scratchpad38  48
- Laser ③ ***************SCRATCHPAD FULL OFFSET 3158 **************
+ Laser ③ Laser position n°7 x 5.400000 y 15.400000 tilex 0 tiley 0
+ Laser ③ Position in scratchpad 38  75
+ Laser ③ Position in scratchpad matrix 38  75
+ Laser ③ ***************SCRATCHPAD FULL OFFSET 4062 **************
  Laser ③ ----------------------------------------------------------------------------------------------------
- Laser ③ Laser position n°9 x 15.400000 y 5.400000
-Laser ③ Position in scratchpad26  45
- Laser ③ ***************SCRATCHPAD FULL OFFSET 2951 **************
+ Laser ③ Laser position n°8 x 5.400000 y 25.400000 tilex 0 tiley 0
+ Laser ③ Position in scratchpad 38  48
+ Laser ③ Position in scratchpad matrix 38  48
+ Laser ③ ***************SCRATCHPAD FULL OFFSET 2307 **************
  Laser ③ ----------------------------------------------------------------------------------------------------
- Laser ③ Laser position n°10 x 15.400000 y 15.400000
-Laser ③ Position in scratchpad26  75
- Laser ③ ***************SCRATCHPAD FULL OFFSET 4901 **************
+ Laser ③ Laser position n°9 x 15.400000 y 5.400000 tilex 0 tiley 0
+ Laser ③ Position in scratchpad 26  45
+ Laser ③ Position in scratchpad matrix 26  45
+ Laser ③ ***************SCRATCHPAD FULL OFFSET 2100 **************
  Laser ③ ----------------------------------------------------------------------------------------------------
- Laser ③ Laser position n°11 x 15.400000 y 25.400000
-Laser ③ Position in scratchpad26  48
- Laser ③ ***************SCRATCHPAD FULL OFFSET 3146 **************
+ Laser ③ Laser position n°10 x 15.400000 y 15.400000 tilex 0 tiley 0
+ Laser ③ Position in scratchpad 26  75
+ Laser ③ Position in scratchpad matrix 26  75
+ Laser ③ ***************SCRATCHPAD FULL OFFSET 4050 **************
+ Laser ③ ----------------------------------------------------------------------------------------------------
+ Laser ③ Laser position n°11 x 15.400000 y 25.400000 tilex 0 tiley 0
+ Laser ③ Position in scratchpad 26  48
+ Laser ③ Position in scratchpad matrix 26  48
+ Laser ③ ***************SCRATCHPAD FULL OFFSET 2295 **************
  Laser ③ ----------------------------------------------------------------------------------------------------
  Laser ③ delx 0.000000 dely 0.000000 Sumdel[2] 0.000000
-+++Laser positions Test validated++++ PASS ⏱ msec  device  1.120016  total 57.178474
-END STEP	*******end of step  3  Laser positions**********************************
++++ Laser positions Test validated++++ PASS ⏱ msec  device  0.547505  total 47.924965
+END STEP	*******end of step  3   Laser positions**********************************
 
-START STEP	*************  step 4  Measurement ROI  *************
-filename /home/gabriel/cuda-workspace2/NewGPU/resources/1039/lambda_488/Measure/T_0/Z_0/meas_ROIs_1.txt 
-filename /home/gabriel/cuda-workspace2/NewGPU/resources/1039/lambda_488/Measure/T_0/Z_0/meas_ROIs_2.txt 
-ROI ④ min and max x 21 0 y 31 0
-+++Measurement ROI   Test validated++++ PASS ⏱ msec  device  0.215031  total 57.981537
-END STEP	*******end of step  4  Measurement ROI  **********************************
+START STEP	*************  step 4   Measurement ROI  *************
++++ Measurement ROI   Test validated++++ PASS ⏱ msec  device  0.547505  total 47.924965
+END STEP	*******end of step  4   Measurement ROI  **********************************
 
-START STEP	*************  step 5  microimages*************
-MICROIMAGES ⑤ Total number of images for all distributions 12
+START STEP	*************  step 5   microimages  *************
+MICROIMAGES ⑤ Total number of images for all distributions 12 from laser XML file 
 MICROIMAGES ⑤ function read: distribution n°0 Path to distrib original .....
 /home/gabriel/cuda-workspace2/NewGPU/resources/1039/lambda_488/Measure/T_0/Z_0/DATA1.bin
-MICROIMAGES ⑤ function read: distrib n°0 number laser positions 6 size microimages = 5808
+MICROIMAGES ⑤ function read: distrib n°0 number laser positions 6 size microimages = 5808 to be 5808
 MICROIMAGES ⑤ number of images 6 Number of pixels 726
 MICROIMAGES ⑤ original on host: Average 0.000019 microimages: max 0.000763 min -0.000041
 MICROIMAGES ⑤ function read: distribution n°1 Path to distrib original .....
 /home/gabriel/cuda-workspace2/NewGPU/resources/1039/lambda_488/Measure/T_0/Z_0/DATA2.bin
-MICROIMAGES ⑤ function read: distrib n°1 number laser positions 6 size microimages = 5808
+MICROIMAGES ⑤ function read: distrib n°1 number laser positions 6 size microimages = 5808 to be 5808
 MICROIMAGES ⑤ number of images 6 Number of pixels 726
 MICROIMAGES ⑤ original on host: Average 0.000015 microimages: max 0.000763 min -0.000041
 MICROIMAGES ⑤ host: Path to microimages original results/C_microimages.pgm .....
@@ -139,75 +152,81 @@ MICROIMAGES ⑤ Copy from device: Average 0.000015max3microimages 0.000763
 MICROIMAGES ⑤ Copy from device: zoomed image Average 0.000015max3microimages 0.000763
 MICROIMAGES ⑤ Comparing files ... Sumdel[4] 0.000000testmicroimages = 1
 MICROIMAGES ⑤ host: Path to microimages copy results/C_microimagesdevice.pgm .....
-+++microimages Test validated++++ PASS ⏱ msec  device  48.884293  total 107.886421
-END STEP	*******end of step  5  microimages**********************************
++++ microimages   Test validated++++ PASS ⏱ msec  device  50.155792  total 98.951706
+END STEP	*******end of step  5   microimages  **********************************
 
-START STEP	*************  step 6   laser in tile *************
- INIT PROG ⓺ Amax, min Laser x & y: 162600
- INIT PROG ⓺ recdeftile0x, y: 22 recdeftile0x, y 32
- INIT PROG ⓺ Min Number of tiles x, y: 32
+START STEP	*************  step 6   laser in tile  *************
+ INIT PROG ⓺ Amax x 16  Amax y: 26  Amin x: 0  Amin y: 0
+ INIT PROG ⓺ recdeftile0x: 2 y: 2 laserdeftile0x: 3 y: 2
+ INIT PROG ⓺ Min (not final!!) Number of tiles x: 3 y: 2
+ initialization of offset values for 2 distributions and 16 lasers per distribution full numberof lasers 256
+ default offset value is at center: 1914  at edge 1056
  INIT PROG ⓺ Reconstruction size x: 84 y: 114
-INIT PROG ⓺ NbTileXY 8 NbTileXYD 16start x 0 y 0 MinLaser 0  0in REC pixels x: 0 y 0
- TILE ORG ⓺  idistrib n°0 number of laser positions in tile in distribution 6
- ⑹ tile 0: #lasers 2 ⑹ tile 1: #lasers 0 ⑹ tile 2: #lasers 2 ⑹ tile 3: #lasers 0 ⑹ tile 4: #lasers 1 ⑹ tile 5: #lasers 0 ⑹ tile 6: #lasers 1 ⑹ tile 7: #lasers 0
- TILE ORG ⓺  idistrib n°1 number of laser positions in tile in distribution 6
- ⑹ tile 8: #lasers 2 ⑹ tile 9: #lasers 0 ⑹ tile 10: #lasers 2 ⑹ tile 11: #lasers 0 ⑹ tile 12: #lasers 1 ⑹ tile 13: #lasers 0 ⑹ tile 14: #lasers 1 ⑹ tile 15: #lasers 0
+INIT PROG ⓺ NbTileXY 8 NbTileXYD 16 start x 0 y 0 MinLaser x 0 MinLaser y 0 in REC pixels x: 0 y 0
+ TILE ORG ⓺  idistrib n°0 number of laser positions in tile in distribution 6 number of tiles in distribution 8
+ ⓺ tile 0: #lasers 2 ⓺ tile 1: #lasers 0 ⓺ tile 2: #lasers 2 ⓺ tile 3: #lasers 0 ⓺ tile 4: #lasers 1 ⓺ tile 5: #lasers 0 ⓺ tile 6: #lasers 1 ⓺ tile 7: #lasers 0
+ TILE ORG ⓺  idistrib n°1 number of laser positions in tile in distribution 6 number of tiles in distribution 8
+ ⓺ tile 8: #lasers 2 ⓺ tile 9: #lasers 0 ⓺ tile 10: #lasers 2 ⓺ tile 11: #lasers 0 ⓺ tile 12: #lasers 1 ⓺ tile 13: #lasers 0 ⓺ tile 14: #lasers 1 ⓺ tile 15: #lasers 0
 TILE ORG ⓺  nblasertile 12
- TILE ORG ⓺ Max  16 and Min 0 Max Laser in tile rounded to next multiple of NIMAGESPARALLEL  ..16 
-+++ laser in tile  Test validated++++ PASS ⏱ msec  device  48.884293  total 107.886421
-END STEP	*******end of step  6   laser in tile **********************************
 
-START STEP	*************  step 7  microimages in tile*************
+images offset
+
+ position 2112 @ 0 |  position 4062 @ 1 |  position 2100 @ 32 |  position 4050 @ 33 |  position 2307 @ 64 |  position 2295 @ 96 |  position 2112 @ 128 |  position 4062 @ 129 |  position 2100 @ 160 |  position 4050 @ 161 |  position 2307 @ 192 |  position 2295 @ 224 | 
+ TILE ORG ⓺ Max  16 and Min 0 Max Laser in tile rounded to next multiple of NIMAGESPARALLEL  ..16 
++++ laser in tile   Test validated++++ PASS ⏱ msec  device  50.155792  total 98.951706
+END STEP	*******end of step  6   laser in tile  **********************************
+
+START STEP	*************  step 7   microimages in tile  *************
 TILE ORG ⓻ size simus 327680 AminLaserx 0 AminLasery 0
 TILE ORG ⓻ Max Laser in tile rounded to multiple NIMAGESPARALLEL  .. 16
 TILE ORG ⓻ Max and min microimages 0.000763 -0.000041
-TILE ORG ⑺ idistrib 0 iLaser 0 iLasertile 0 tilenumber 0 tilex 0 tiley 0 tileblock 0
-TILE ORG ⑺ idistrib 0 iLaser 1 iLasertile 1 tilenumber 0 tilex 0 tiley 0 tileblock 0
-TILE ORG ⑺ idistrib 0 iLaser 2 iLasertile 64 tilenumber 4 tilex 0 tiley 1 tileblock 0
-TILE ORG ⑺ idistrib 0 iLaser 3 iLasertile 32 tilenumber 2 tilex 2 tiley 0 tileblock 0
-TILE ORG ⑺ idistrib 0 iLaser 4 iLasertile 33 tilenumber 2 tilex 2 tiley 0 tileblock 0
-TILE ORG ⑺ idistrib 0 iLaser 5 iLasertile 96 tilenumber 6 tilex 2 tiley 1 tileblock 0
-TILE ORG ⑺ idistrib 1 iLaser 6 iLasertile 128 tilenumber 8 tilex 0 tiley 0 tileblock 6
-TILE ORG ⑺ idistrib 1 iLaser 7 iLasertile 129 tilenumber 8 tilex 0 tiley 0 tileblock 6
-TILE ORG ⑺ idistrib 1 iLaser 8 iLasertile 192 tilenumber 12 tilex 0 tiley 1 tileblock 6
-TILE ORG ⑺ idistrib 1 iLaser 9 iLasertile 160 tilenumber 10 tilex 2 tiley 0 tileblock 6
-TILE ORG ⑺ idistrib 1 iLaser 10 iLasertile 161 tilenumber 10 tilex 2 tiley 0 tileblock 6
-TILE ORG ⑺ idistrib 1 iLaser 11 iLasertile 224 tilenumber 14 tilex 2 tiley 1 tileblock 6
- TILE ORG ⑺ Maxdata 255.000000 Nbtile XY 8 NbTile XYD 16 Laserintile 16
+TILE ORG ⓺ idistrib 0 iLaser 0 iLasertile 0 tilenumber 0 tilex 0 tiley 0 tileblock 0
+TILE ORG ⓺ idistrib 0 iLaser 1 iLasertile 1 tilenumber 0 tilex 0 tiley 0 tileblock 0
+TILE ORG ⓺ idistrib 0 iLaser 2 iLasertile 64 tilenumber 4 tilex 0 tiley 1 tileblock 0
+TILE ORG ⓺ idistrib 0 iLaser 3 iLasertile 32 tilenumber 2 tilex 2 tiley 0 tileblock 0
+TILE ORG ⓺ idistrib 0 iLaser 4 iLasertile 33 tilenumber 2 tilex 2 tiley 0 tileblock 0
+TILE ORG ⓺ idistrib 0 iLaser 5 iLasertile 96 tilenumber 6 tilex 2 tiley 1 tileblock 0
+TILE ORG ⓺ idistrib 1 iLaser 6 iLasertile 128 tilenumber 8 tilex 0 tiley 0 tileblock 6
+TILE ORG ⓺ idistrib 1 iLaser 7 iLasertile 129 tilenumber 8 tilex 0 tiley 0 tileblock 6
+TILE ORG ⓺ idistrib 1 iLaser 8 iLasertile 192 tilenumber 12 tilex 0 tiley 1 tileblock 6
+TILE ORG ⓺ idistrib 1 iLaser 9 iLasertile 160 tilenumber 10 tilex 2 tiley 0 tileblock 6
+TILE ORG ⓺ idistrib 1 iLaser 10 iLasertile 161 tilenumber 10 tilex 2 tiley 0 tileblock 6
+TILE ORG ⓺ idistrib 1 iLaser 11 iLasertile 224 tilenumber 14 tilex 2 tiley 1 tileblock 6
+ TILE ORG ⓺ Maxdata 255.000000 Nbtile XY 8 NbTile XYD 16 Laserintile 16
 HOST: ⓻ DEVICE TEST in biginspect.cu: Path to calculated new simulations results/C_microimagesintile.pgm .....
 HOST: ⓻  7parameters  n_rowintern 1056n_colintern 132MaxData 0.000734 dataliteral.c_str() MicroimagesA1 callprogram.c_str() tileorganization.cu
-TILE ORG ⑺ idistrib 0  0 iLaser 0 tilenumber 0 ilasertile 0
-TILE ORG ⑺ idistrib 0  1 iLaser 1 tilenumber 0 ilasertile 1
-TILE ORG ⑺ idistrib 0  2 iLaser 2 tilenumber 4 ilasertile 64
-TILE ORG ⑺ idistrib 0  3 iLaser 3 tilenumber 2 ilasertile 32
-TILE ORG ⑺ idistrib 0  4 iLaser 4 tilenumber 2 ilasertile 33
-TILE ORG ⑺ idistrib 0  5 iLaser 5 tilenumber 6 ilasertile 96
-TILE ORG ⑺ idistrib 1  6 iLaser 6 tilenumber 8 ilasertile 128
-TILE ORG ⑺ idistrib 1  7 iLaser 7 tilenumber 8 ilasertile 129
-TILE ORG ⑺ idistrib 1  8 iLaser 8 tilenumber 12 ilasertile 192
-TILE ORG ⑺ idistrib 1  9 iLaser 9 tilenumber 10 ilasertile 160
-TILE ORG ⑺ idistrib 1  10 iLaser 10 tilenumber 10 ilasertile 161
-TILE ORG ⑺ idistrib 1  11 iLaser 11 tilenumber 14 ilasertile 224
+TILE ORG ⓺ idistrib 0  0 iLaser 0 tilenumber 0 ilasertile 0
+TILE ORG ⓺ idistrib 0  1 iLaser 1 tilenumber 0 ilasertile 1
+TILE ORG ⓺ idistrib 0  2 iLaser 2 tilenumber 4 ilasertile 64
+TILE ORG ⓺ idistrib 0  3 iLaser 3 tilenumber 2 ilasertile 32
+TILE ORG ⓺ idistrib 0  4 iLaser 4 tilenumber 2 ilasertile 33
+TILE ORG ⓺ idistrib 0  5 iLaser 5 tilenumber 6 ilasertile 96
+TILE ORG ⓺ idistrib 1  6 iLaser 6 tilenumber 8 ilasertile 128
+TILE ORG ⓺ idistrib 1  7 iLaser 7 tilenumber 8 ilasertile 129
+TILE ORG ⓺ idistrib 1  8 iLaser 8 tilenumber 12 ilasertile 192
+TILE ORG ⓺ idistrib 1  9 iLaser 9 tilenumber 10 ilasertile 160
+TILE ORG ⓺ idistrib 1  10 iLaser 10 tilenumber 10 ilasertile 161
+TILE ORG ⓺ idistrib 1  11 iLaser 11 tilenumber 14 ilasertile 224
 HOST: ⓻  7 ******************************************
 
-TILE ORG ⑺ idistrib 0  0 iLaser 0 tilenumber 0 ilasertile 0
-TILE ORG ⑺ idistrib 0  1 iLaser 1 tilenumber 0 ilasertile 1
-TILE ORG ⑺ idistrib 0  2 iLaser 2 tilenumber 4 ilasertile 64
-TILE ORG ⑺ idistrib 0  3 iLaser 3 tilenumber 2 ilasertile 32
-TILE ORG ⑺ idistrib 0  4 iLaser 4 tilenumber 2 ilasertile 33
-TILE ORG ⑺ idistrib 0  5 iLaser 5 tilenumber 6 ilasertile 96
-TILE ORG ⑺ idistrib 1  6 iLaser 6 tilenumber 8 ilasertile 128
-TILE ORG ⑺ idistrib 1  7 iLaser 7 tilenumber 8 ilasertile 129
-TILE ORG ⑺ idistrib 1  8 iLaser 8 tilenumber 12 ilasertile 192
-TILE ORG ⑺ idistrib 1  9 iLaser 9 tilenumber 10 ilasertile 160
-TILE ORG ⑺ idistrib 1  10 iLaser 10 tilenumber 10 ilasertile 161
-TILE ORG ⑺ idistrib 1  11 iLaser 11 tilenumber 14 ilasertile 224
+TILE ORG ⓺ idistrib 0  0 iLaser 0 tilenumber 0 ilasertile 0
+TILE ORG ⓺ idistrib 0  1 iLaser 1 tilenumber 0 ilasertile 1
+TILE ORG ⓺ idistrib 0  2 iLaser 2 tilenumber 4 ilasertile 64
+TILE ORG ⓺ idistrib 0  3 iLaser 3 tilenumber 2 ilasertile 32
+TILE ORG ⓺ idistrib 0  4 iLaser 4 tilenumber 2 ilasertile 33
+TILE ORG ⓺ idistrib 0  5 iLaser 5 tilenumber 6 ilasertile 96
+TILE ORG ⓺ idistrib 1  6 iLaser 6 tilenumber 8 ilasertile 128
+TILE ORG ⓺ idistrib 1  7 iLaser 7 tilenumber 8 ilasertile 129
+TILE ORG ⓺ idistrib 1  8 iLaser 8 tilenumber 12 ilasertile 192
+TILE ORG ⓺ idistrib 1  9 iLaser 9 tilenumber 10 ilasertile 160
+TILE ORG ⓺ idistrib 1  10 iLaser 10 tilenumber 10 ilasertile 161
+TILE ORG ⓺ idistrib 1  11 iLaser 11 tilenumber 14 ilasertile 224
 HOST: ⓻  7 ******************************************
 
----microimages in tile Test not validated++++  Sumdel =  0.000000 ⏱ msec  device  48.884293  total 107.886421
-END STEP	*******end of step  7  microimages in tile**********************************
+--- microimages in tile   Test not validated++++  Sumdel =  0.000000 ⏱ msec  device  50.155792  total 98.951706
+END STEP	*******end of step  7   microimages in tile  **********************************
 
-START STEP	*************  step 8  reconstruction  *************
+START STEP	*************  step 8   reconstruction  *************
 REC ⓼ reconstruction image:  /home/gabriel/cuda-workspace2/NewGPU/resources/1039/image_iteration_0__63x114_4em.raw 
 REC ⓼ ************file read: size reconstruction in bytes = 57456
 REC ⓼ *******complete size  9576  Size in Bytes 76608
@@ -219,36 +238,32 @@ max device =400.000000
 REC ⓼ Path to rec validation results/D_reconstructiondevice.pgm
 REC ⓼ Comparing files ... Sumdel[1] 0.000000 ... 
 testrec = 1
-+++reconstruction   Test validated++++ PASS ⏱ msec  device  30.672501  total 205.926941
-END STEP	*******end of step  8  reconstruction  **********************************
++++ reconstruction   Test validated++++ PASS ⏱ msec  device  30.779051  total 194.689194
+END STEP	*******end of step  8   reconstruction  **********************************
 
+START STEP	*************  step 9   scratchpad    *************
 TILE ⓼ Path to tile reconstruction  results/D_reconstructionreorganized.pgm
  offset = - del /2 !! x 0  y  0
 TILE ⓼ maxTile 400.000000 SumTile 1000.000000
 SCRATCHPAD ⓼ Image of scratchpad matrix results/E_scratchpad.pgm .....
 SCRATCHPAD ⓼ : Max Scratchpad 400.000000 Sum scratchpad 1000.000000
 SCRATCHPAD ⓼ : 7930 of full SCRATCHPAD 2D 63440
-SCRATCHPAD ⓼ i 11869 value 100.000000
-SCRATCHPAD ⓼ i 11937 value 200.000000
-SCRATCHPAD ⓼ i 21421 value 300.000000
-SCRATCHPAD ⓼ i 43847 value 400.000000
-SCRATCHPAD ⓼ i 11869 value 100.000000
-SCRATCHPAD ⓼ i 11937 value 200.000000
-SCRATCHPAD ⓼ i 21421 value 300.000000
-SCRATCHPAD ⓼ i 43847 value 400.000000
 max device =400.000000
 SCRATCHPAD ⓼ Path to Scratchpad validation results/E_Scratchpaddevice.pgm .....
 SCRATCHPAD ⓼ Comparing files ... 
+Sumdel[8] 0.000000
 testScratchpad = 1
-+++scratchpad     Test validated++++ PASS ⏱ msec  device  214.099167  total 426.643005
-END STEP	*******end of step  9  scratchpad    **********************************
++++ scratchpad     Test validated++++ PASS ⏱ msec  device  217.141205  total 417.893860
+END STEP	*******end of step  9   scratchpad    **********************************
 
-START STEP	*************  step 10  bigLoop*************
+START STEP	*************  step 10   bigLoop  *************
 
 ******************Completion of GPU initialization ***************
 ******************************************************************
-used MB =  908.625000   Free MB = 5159.000000 Total MB = 6067.625000
+used MB =  902.187500   Free MB = 5165.437500 Total MB = 6067.625000
 MAIN PROGRAM  ❶ End of data preparation in device memory ...
+HOST: ⓪  
+tile n° 0 #laser 2 || tile n° 1 #laser 0 || tile n° 2 #laser 2 || tile n° 3 #laser 0 || tile n° 4 #laser 1 || tile n° 5 #laser 0 || tile n° 6 #laser 1 || tile n° 7 #laser 0 || tile n° 8 #laser 2 || tile n° 9 #laser 0 || tile n° 10 #laser 2 || tile n° 11 #laser 0 || tile n° 12 #laser 1 || tile n° 13 #laser 0 || tile n° 14 #laser 1 || tile n° 15 #laser 0 || 
 TESTS RETURN:  initialization:  PASS;  pPSF:  PASS;  distrib: PASS
 TESTS RETURN: laser positions: PASS; ROI:  PASS; microimages:  PASS;  Reconstruction:  PASS
 MAIN PROGRAM  **********ready for GPU computation*****************
@@ -260,80 +275,76 @@ To be transferred to device: Max number of laser position in Tile:16 min  0
 
 MAIN PROGRAM  ********Prepare data for GPU computation**************
 ******************************************************************
-HOST: ⓪  
-tile n° 0 #laser 2 || tile n° 1 #laser 0 || tile n° 2 #laser 2 || tile n° 3 #laser 0 || tile n° 4 #laser 1 || tile n° 5 #laser 0 || tile n° 6 #laser 1 || tile n° 7 #laser 0 || tile n° 8 #laser 2 || tile n° 9 #laser 0 || tile n° 10 #laser 2 || tile n° 11 #laser 0 || tile n° 12 #laser 1 || tile n° 13 #laser 0 || tile n° 14 #laser 1 || tile n° 15 #laser 0 || 
 Number of laser positions 12 number of tile XY 8 imalimitpertile -100 ima limite per tile 16
 dimBlock  x: 2 y: 2 z: 2  ...  dimGrid  x: 320 y: 1 z: 1
 
 HOST: ⓪ ************************BigLoop start   *******************************
 HOST: ⓪ ***********************************************************************
 HOST: ⓪ *** SHARED MEMORY SIZE 46.312500 KBytes
-HOST: ⓪ ************************BigLoop start   *******************************
-HOST: ⓪ ***********************************************************************
-+++bigLoop Test validated++++ PASS ⏱ msec  device  168.306976  total 168.307373
-END STEP	*******end of step  10  bigLoop**********************************
++++ bigLoop   Test validated++++ PASS ⏱ msec  device  89641.171875  total 89641.171875
+END STEP	*******end of step  10   bigLoop  **********************************
 
-START STEP	*************  step 11  end bigloop*************
----end bigloop Test not validated++++  Sumdel =  0.000000 ⏱ msec  device  168.306976  total 168.307373
-END STEP	*******end of step  11  end bigloop**********************************
+START STEP	*************  step 11   end bigloop  *************
+--- end bigloop   Test not validated++++  Sumdel =  0.000000 ⏱ msec  device  89641.171875  total 89641.171875
+END STEP	*******end of step  11   end bigloop  **********************************
 
-START STEP	*************  step 12  bigloop results*************
+START STEP	*************  step 12   bigloop results  *************
 HOST: ⓯  12parameters  n_rowintern 1056n_colintern 132MaxData 0.000000 dataliteral.c_str() SimusA1 callprogram.c_str() biginspect.cu
-TILE ORG ⑺ idistrib 0  0 iLaser 0 tilenumber 0 ilasertile 0
-TILE ORG ⑺ idistrib 0  1 iLaser 1 tilenumber 0 ilasertile 1
-TILE ORG ⑺ idistrib 0  2 iLaser 2 tilenumber 4 ilasertile 64
-TILE ORG ⑺ idistrib 0  3 iLaser 3 tilenumber 2 ilasertile 32
-TILE ORG ⑺ idistrib 0  4 iLaser 4 tilenumber 2 ilasertile 33
-TILE ORG ⑺ idistrib 0  5 iLaser 5 tilenumber 6 ilasertile 96
-TILE ORG ⑺ idistrib 1  6 iLaser 6 tilenumber 8 ilasertile 128
-TILE ORG ⑺ idistrib 1  7 iLaser 7 tilenumber 8 ilasertile 129
-TILE ORG ⑺ idistrib 1  8 iLaser 8 tilenumber 12 ilasertile 192
-TILE ORG ⑺ idistrib 1  9 iLaser 9 tilenumber 10 ilasertile 160
-TILE ORG ⑺ idistrib 1  10 iLaser 10 tilenumber 10 ilasertile 161
-TILE ORG ⑺ idistrib 1  11 iLaser 11 tilenumber 14 ilasertile 224
+TILE ORG ⓺ idistrib 0  0 iLaser 0 tilenumber 0 ilasertile 0
+TILE ORG ⓺ idistrib 0  1 iLaser 1 tilenumber 0 ilasertile 1
+TILE ORG ⓺ idistrib 0  2 iLaser 2 tilenumber 4 ilasertile 64
+TILE ORG ⓺ idistrib 0  3 iLaser 3 tilenumber 2 ilasertile 32
+TILE ORG ⓺ idistrib 0  4 iLaser 4 tilenumber 2 ilasertile 33
+TILE ORG ⓺ idistrib 0  5 iLaser 5 tilenumber 6 ilasertile 96
+TILE ORG ⓺ idistrib 1  6 iLaser 6 tilenumber 8 ilasertile 128
+TILE ORG ⓺ idistrib 1  7 iLaser 7 tilenumber 8 ilasertile 129
+TILE ORG ⓺ idistrib 1  8 iLaser 8 tilenumber 12 ilasertile 192
+TILE ORG ⓺ idistrib 1  9 iLaser 9 tilenumber 10 ilasertile 160
+TILE ORG ⓺ idistrib 1  10 iLaser 10 tilenumber 10 ilasertile 161
+TILE ORG ⓺ idistrib 1  11 iLaser 11 tilenumber 14 ilasertile 224
 HOST: ⓯  12 ******************************************
 
-TILE ORG ⑺ idistrib 0  0 iLaser 0 tilenumber 0 ilasertile 0
-TILE ORG ⑺ idistrib 0  1 iLaser 1 tilenumber 0 ilasertile 1
-TILE ORG ⑺ idistrib 0  2 iLaser 2 tilenumber 4 ilasertile 64
-TILE ORG ⑺ idistrib 0  3 iLaser 3 tilenumber 2 ilasertile 32
-TILE ORG ⑺ idistrib 0  4 iLaser 4 tilenumber 2 ilasertile 33
-TILE ORG ⑺ idistrib 0  5 iLaser 5 tilenumber 6 ilasertile 96
-TILE ORG ⑺ idistrib 1  6 iLaser 6 tilenumber 8 ilasertile 128
-TILE ORG ⑺ idistrib 1  7 iLaser 7 tilenumber 8 ilasertile 129
-TILE ORG ⑺ idistrib 1  8 iLaser 8 tilenumber 12 ilasertile 192
-TILE ORG ⑺ idistrib 1  9 iLaser 9 tilenumber 10 ilasertile 160
-TILE ORG ⑺ idistrib 1  10 iLaser 10 tilenumber 10 ilasertile 161
-TILE ORG ⑺ idistrib 1  11 iLaser 11 tilenumber 14 ilasertile 224
+TILE ORG ⓺ idistrib 0  0 iLaser 0 tilenumber 0 ilasertile 0
+TILE ORG ⓺ idistrib 0  1 iLaser 1 tilenumber 0 ilasertile 1
+TILE ORG ⓺ idistrib 0  2 iLaser 2 tilenumber 4 ilasertile 64
+TILE ORG ⓺ idistrib 0  3 iLaser 3 tilenumber 2 ilasertile 32
+TILE ORG ⓺ idistrib 0  4 iLaser 4 tilenumber 2 ilasertile 33
+TILE ORG ⓺ idistrib 0  5 iLaser 5 tilenumber 6 ilasertile 96
+TILE ORG ⓺ idistrib 1  6 iLaser 6 tilenumber 8 ilasertile 128
+TILE ORG ⓺ idistrib 1  7 iLaser 7 tilenumber 8 ilasertile 129
+TILE ORG ⓺ idistrib 1  8 iLaser 8 tilenumber 12 ilasertile 192
+TILE ORG ⓺ idistrib 1  9 iLaser 9 tilenumber 10 ilasertile 160
+TILE ORG ⓺ idistrib 1  10 iLaser 10 tilenumber 10 ilasertile 161
+TILE ORG ⓺ idistrib 1  11 iLaser 11 tilenumber 14 ilasertile 224
 HOST: ⓯  12 ******************************************
 
 HOST: ⓰  13parameters  n_rowintern 1056n_colintern 132MaxData 1.000040 dataliteral.c_str() RFactorA1 callprogram.c_str() biginspect.cu
-TILE ORG ⑺ idistrib 0  0 iLaser 0 tilenumber 0 ilasertile 0
-TILE ORG ⑺ idistrib 0  1 iLaser 1 tilenumber 0 ilasertile 1
-TILE ORG ⑺ idistrib 0  2 iLaser 2 tilenumber 4 ilasertile 64
-TILE ORG ⑺ idistrib 0  3 iLaser 3 tilenumber 2 ilasertile 32
-TILE ORG ⑺ idistrib 0  4 iLaser 4 tilenumber 2 ilasertile 33
-TILE ORG ⑺ idistrib 0  5 iLaser 5 tilenumber 6 ilasertile 96
-TILE ORG ⑺ idistrib 1  6 iLaser 6 tilenumber 8 ilasertile 128
-TILE ORG ⑺ idistrib 1  7 iLaser 7 tilenumber 8 ilasertile 129
-TILE ORG ⑺ idistrib 1  8 iLaser 8 tilenumber 12 ilasertile 192
-TILE ORG ⑺ idistrib 1  9 iLaser 9 tilenumber 10 ilasertile 160
-TILE ORG ⑺ idistrib 1  10 iLaser 10 tilenumber 10 ilasertile 161
-TILE ORG ⑺ idistrib 1  11 iLaser 11 tilenumber 14 ilasertile 224
+TILE ORG ⓺ idistrib 0  0 iLaser 0 tilenumber 0 ilasertile 0
+TILE ORG ⓺ idistrib 0  1 iLaser 1 tilenumber 0 ilasertile 1
+TILE ORG ⓺ idistrib 0  2 iLaser 2 tilenumber 4 ilasertile 64
+TILE ORG ⓺ idistrib 0  3 iLaser 3 tilenumber 2 ilasertile 32
+TILE ORG ⓺ idistrib 0  4 iLaser 4 tilenumber 2 ilasertile 33
+TILE ORG ⓺ idistrib 0  5 iLaser 5 tilenumber 6 ilasertile 96
+TILE ORG ⓺ idistrib 1  6 iLaser 6 tilenumber 8 ilasertile 128
+TILE ORG ⓺ idistrib 1  7 iLaser 7 tilenumber 8 ilasertile 129
+TILE ORG ⓺ idistrib 1  8 iLaser 8 tilenumber 12 ilasertile 192
+TILE ORG ⓺ idistrib 1  9 iLaser 9 tilenumber 10 ilasertile 160
+TILE ORG ⓺ idistrib 1  10 iLaser 10 tilenumber 10 ilasertile 161
+TILE ORG ⓺ idistrib 1  11 iLaser 11 tilenumber 14 ilasertile 224
 HOST: ⓰  13 ******************************************
 
-TILE ORG ⑺ idistrib 0  0 iLaser 0 tilenumber 0 ilasertile 0
-TILE ORG ⑺ idistrib 0  1 iLaser 1 tilenumber 0 ilasertile 1
-TILE ORG ⑺ idistrib 0  2 iLaser 2 tilenumber 4 ilasertile 64
-TILE ORG ⑺ idistrib 0  3 iLaser 3 tilenumber 2 ilasertile 32
-TILE ORG ⑺ idistrib 0  4 iLaser 4 tilenumber 2 ilasertile 33
-TILE ORG ⑺ idistrib 0  5 iLaser 5 tilenumber 6 ilasertile 96
-TILE ORG ⑺ idistrib 1  6 iLaser 6 tilenumber 8 ilasertile 128
-TILE ORG ⑺ idistrib 1  7 iLaser 7 tilenumber 8 ilasertile 129
-TILE ORG ⑺ idistrib 1  8 iLaser 8 tilenumber 12 ilasertile 192
-TILE ORG ⑺ idistrib 1  9 iLaser 9 tilenumber 10 ilasertile 160
-TILE ORG ⑺ idistrib 1  10 iLaser 10 tilenumber 10 ilasertile 161
-TILE ORG ⑺ idistrib 1  11 iLaser 11 tilenumber 14 ilasertile 224
+TILE ORG ⓺ idistrib 0  0 iLaser 0 tilenumber 0 ilasertile 0
+TILE ORG ⓺ idistrib 0  1 iLaser 1 tilenumber 0 ilasertile 1
+TILE ORG ⓺ idistrib 0  2 iLaser 2 tilenumber 4 ilasertile 64
+TILE ORG ⓺ idistrib 0  3 iLaser 3 tilenumber 2 ilasertile 32
+TILE ORG ⓺ idistrib 0  4 iLaser 4 tilenumber 2 ilasertile 33
+TILE ORG ⓺ idistrib 0  5 iLaser 5 tilenumber 6 ilasertile 96
+TILE ORG ⓺ idistrib 1  6 iLaser 6 tilenumber 8 ilasertile 128
+TILE ORG ⓺ idistrib 1  7 iLaser 7 tilenumber 8 ilasertile 129
+TILE ORG ⓺ idistrib 1  8 iLaser 8 tilenumber 12 ilasertile 192
+TILE ORG ⓺ idistrib 1  9 iLaser 9 tilenumber 10 ilasertile 160
+TILE ORG ⓺ idistrib 1  10 iLaser 10 tilenumber 10 ilasertile 161
+TILE ORG ⓺ idistrib 1  11 iLaser 11 tilenumber 14 ilasertile 224
 HOST: ⓰  13 ******************************************
 
 HOST: ⓳ *************************BigLoop terminated ***************************
@@ -343,7 +354,7 @@ SCRATCHPAD ⓬ Path to DistribPos validation .....results/B_DistributionsLoopint
 Max PSF Loop 0.014641
 Max Distrib Validation 0.000000
 Max Distrib Test 0.007599
----bigloop results Test not validated++++  Sumdel =  0.000000 ⏱ msec  device  168.306976  total 168.307373
-END STEP	*******end of step  12  bigloop results**********************************
+--- bigloop results   Test not validated++++  Sumdel =  0.000000 ⏱ msec  device  89641.171875  total 89641.171875
+END STEP	*******end of step  12   bigloop results  **********************************
 
 START STEP	*************  step 13  *************

@@ -8,9 +8,7 @@
 #include "0_Mainparameters.h"
 #include <iostream>
 #include <fstream>
-	  ofstream verbosefile;
-
-
+ofstream verbosefile;
 
 /************* Classes and structures*******/
 GPU_init TA;
@@ -18,7 +16,7 @@ COS OFSCAL;
 Ctile tile;
 devicedata onhost;
 int clockRate, devID, stepval = 0; // in KHz
-float MaxData;
+float MaxData_main;
 
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -48,8 +46,8 @@ int main(int argc, char **argv) {
 	stepinit(TestLaserPositions, stepval);
 
 	/*step 4 **************************Cropped ROI************/
-	readstoreCroppedROI();
-	bool TestROI = validateCroppedROI_control();
+//	readstoreCroppedROI();
+	bool TestROI = TRUE; //validateCroppedROI_control();
 	stepinit(TestROI, stepval);
 
 	/*step 5 *********************microimages  ****************/
@@ -64,7 +62,7 @@ int main(int argc, char **argv) {
 	/*step 7 ************************µimages in tile **********/
 	initializesimusData();
 	bool boolMI = microimagesintile();
-	MaxData = displaydata( Data,  stepval);
+	MaxData_main = displaydata( Data,  stepval);
 	stepinit(boolMI, stepval);
 
 	/*step 8 *********************Reconstruction  *************/

@@ -27,7 +27,10 @@ void readstoredistrib(void) {
 		std::ifstream distribile(beadraw.c_str(), ios::in | ios::binary | ios::ate);
 	size = (distribile.tellg()); // the data is stored in doubles of 8 bytes in the file
 	size -= byte_skipped;  				// removes the "bytes skipped"
-	verbosefile << "DISTRIBUTIONS \u2461 function read: distribution # " << idistrib << " size distrib = "<< size << endl;
+	verbosefile << "DISTRIBUTIONS \u2461 function read: distribution # " << idistrib
+			<< " size distrib = "<< size << " equal to XDistrib*YDistrib*number of bytes " << endl;
+	verbosefile << "DISTRIBUTIONS \u2461 size in x " << XDistrib << " in y "<< YDistrib << " extended "
+			<< YDistrib_extended << " size from geometry " << XDistrib*YDistrib_extended << " ADistrib "<< ADistrib << endl;
 	memblock = new char[size];
 	distribile.seekg(byte_skipped, ios::beg); // bytes skipped are offset
 	distribile.read(memblock, size);

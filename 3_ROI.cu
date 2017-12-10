@@ -74,7 +74,7 @@ bool validateCroppedROI_control(void) {
 	validateCroppedROI_device<<<dimGrid, dimBlock, 0>>>(TA.Nb_LaserPositions);
 	cudaDeviceSynchronize();
 
-	if (TA.Nb_LaserPositions < smallnumber && VERBOSE)
+	if (TA.Nb_LaserPositions < SPARSE && VERBOSE)
 		for (int ival = 0; ival < TA.Nb_LaserPositions; ival++) {
 			if(!ival)
 			verbosefile <<" ROI \u2463 ----------------------------------------------------------------------------------------------------\n";

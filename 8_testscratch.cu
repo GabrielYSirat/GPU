@@ -3,8 +3,8 @@ DD.step++;
 float Sumscratchval=0.0f, Maxscratchval=0.0f;
 
 	for (int jscratch = 0; jscratch < ASCRATCH; jscratch ++) {
-		val2_scratchpad[jscratch + MemoryOffsetscratch] = Scratchpad[jscratch]; // scratchpad image validation
-		Sumscratchval += val2_scratchpad[jscratch + MemoryOffsetscratch];
+		val2_scratchpad[jscratch + scrglobal - scratchpad_matrix] = Scratchpad[jscratch]; // scratchpad image validation
+		Sumscratchval += val2_scratchpad[jscratch + scrglobal - scratchpad_matrix];
 		Maxscratchval = max(Scratchpad[jscratch], Maxscratchval);
 		if(*(Scratchpad + jscratch) != 0.0f && !ithreads)
 			printf("DEVICE: \u2463 SCRATCHPAD distrib_number %d itb %d position in scratchpad %d value %f Sum %f max %f\n",

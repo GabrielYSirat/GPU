@@ -9,80 +9,40 @@
 #define NEWLOOP_H_
 
 // Includes, system
-#include <cuda.h>
-#include <math.h>
-#include <cstdio>
-#include <ctime>
-#include <stdint.h>
-#include <stdlib.h>
-#include <stdio.h>
-#include <string.h>
-#include <string>
-#include <math.h>
-#include <fstream>
-#include "device_functions.h"
-#include <cuda_runtime.h>			// Includes CUDA
-#include <helper_functions.h>    	// CUDA helper functions: includes cuda.h and cuda_runtime_api.h
-#include <helper_cuda.h>         	// helper functions for CUDA error check
-#include <cuda_runtime_api.h>
+#include "0_commonparameters.h"
 #include "tinyxml2.h"				// XML package
-#include <algorithm>
+#include "0_classloop.h"
+#include "0_commonparameters.h"
 
 using namespace tinyxml2;
 using namespace std;
 
-#include "0_classloop.h"
-#include "0_constantLoop.h"
-
-#define min(a,b) (a) < (b) ? (a) : (b)
-#define max(a,b) (a) > (b) ? (a) : (b)
-
 /*************************FILES*****************/
 extern ofstream verbosefile;
-
 
 /*****************DATA FILES *******************/
 extern std::string resourcesdirectory, filename, MIFILE, PSFFILE, DISTRIBFILE;
 extern char buff[BUFFSIZE], chars[]; // a buffer to temporarily park the data
 extern cudaEvent_t start, stop;
-extern double Sumdel[16], Timestep[16];
+extern double Sumdel[16];
 extern string Stepdiag[16];
-extern int smallnumber, byte_skipped, step;
-extern int fullnumberoftiles,datafullsize;
+extern int byte_skipped, step;
+extern int fullnumberoflasers,datafullsize;
 extern float Maxdistrib, Sumdistrib;
 extern float MaxPSF, SumPSF;
 extern float MaxRec, SumRec;
 extern float Maxmicroimages, Minmicroimages;
+
 extern __managed__ float Maxscratch, Sumscratch, maxTile, SumTile;
 extern __managed__ double MaxNewSimus;
-
-
-/************Extern read in command line*************/
-extern __managed__ int pPSF, Npixel, pZOOM, RDISTRIB, Ndistrib;
-extern __managed__ float *Sumdevmicroimages, *Maxdevmicroimages,*Sumdevzoommicroimages, *Maxdevzoommicroimages ;
-/************Extern defined in main*************/
-extern int clockRate, devID; // in KHz
-extern __managed__ clock_t timer, time_init, time_start;
-
-/** parameters derived from the basic parameters
- *
- */
-extern __managed__ int XTile, YTile, ATile;
-extern __managed__ int THreadsRatio,NThreads;
-extern __managed__ int XDistrib, YDistrib, YDistrib_extended, ADistrib;
-
-extern __managed__ double Energy_global, absdiff;
-
 
 /*********************CLASSES ********************/
 extern  GPU_init TA;
 extern  COS OFSCAL;
 extern  Ctile tile;
-extern 	devicedata onhost;
 
 // Declarations, forward
 //////////////////////////////////////////////////////////////////////////////
-
 void report_gpu_mem();
 bool initparameters(int argc, char **argv);
 void stepinit(int test, int & stepval);
@@ -145,9 +105,9 @@ extern __managed__ int *ROIxScratch, *ROIyScratch, *offsetROI;
 extern __managed__ float *microimages, *d_microimages;
 extern __managed__ float *original_distrib,  *val_distrib, *test_distrib, *test2_distrib;
 extern __managed__ double *double_distrib;
-extern __managed__ float *original_microimages,  *valmicroimages, *MIintile, *zoomed_microimages;
+extern __managed__ float *original_microimages,  *valmicroimages, *zoomed_microimages;
 extern __managed__ float *original_rec,  *val_rec;
-extern __managed__ double *double_rec;
+//extern double *double_rec;
 extern __managed__ float *scratchpad_matrix,  *val_scratchpad, *val2_scratchpad;
 extern __managed__ float *PSFARRAY;
 
@@ -157,11 +117,7 @@ extern __managed__ int  *PosxScratch,  *PosyScratch, *offsetFULL;
 extern __managed__ int *d_PosxScratch, *d_PosyScratch;
 extern __managed__ int *d_posxREC, *d_posyREC, *d_offsetFULL;
 
-
-extern __managed__ int *image_to_scratchpad_offset, *valid_image;
-// intermediate data of BigLoop
+// intermediate data of Main Loop
 extern __managed__ float *new_simus, *Data, *Rfactor, *distribvalidGPU;
-extern __managed__ int ithreadszerovalue, apixzerovalue;
-
 
 #endif /* NEWLOOP_H_ */

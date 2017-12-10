@@ -20,7 +20,7 @@ void PSFprepare(void) {
 	const char * PSFImagefile = "results/A_PSF.pgm";
 
 	unsigned char *i_PSF = (unsigned char *) calloc(TA.PSF_size, sizeof(unsigned char)); // on host
-	double* double_PSF = (double*)std::malloc(TA.PSF_Rows*TA.Nb_Cols_PSF * sizeof(double));
+	double* double_PSF = (double*)std::malloc(TA.Nb_Rows_PSF*TA.Nb_Cols_PSF * sizeof(double));
 	cudaMallocManaged(&original_PSF, PSFZoom * PSFZoom * sizeof(float));
 	cudaMallocManaged(&test2_psf, PSFZoom * PSFZoom * sizeof(float));
 	cudaMallocManaged(&PSFARRAY, PSFZoom * PSFZoom *  sizeof(float));
@@ -35,16 +35,16 @@ void PSFprepare(void) {
 	PSFile.close();
 
 	double_PSF = (double*) memblock; //reinterpret the chars stored in the file as double
-	for (int i = 0; i < TA.PSF_Rows*TA.Nb_Cols_PSF; i++) {
+	for (int i = 0; i < TA.Nb_Rows_PSF*TA.Nb_Cols_PSF; i++) {
 				*(original_PSF + i) = *(double_PSF + i)+0.000001;			// change to float
 				SumPSF += *(original_PSF+i);
 				if (MaxPSF < *(original_PSF + i))
 					MaxPSF = *(original_PSF + i); // sanity check, check max
 	}
 
-	verbosefile << " PSF \u24F5  Nb_Rows: " << TA.PSF_Rows << " Nb_Cols " << TA.Nb_Cols_PSF;
+	verbosefile << " PSF \u24F5  Nb_Rows: " << TA.Nb_Rows_PSF << " Nb_Cols " << TA.Nb_Cols_PSF;
 	verbosefile << " size " << size << " Max: " << MaxPSF << " Sum " << SumPSF << std::endl;
-	verbosefile << " PSF \u24F5  Nb_Rows: " << TA.PSF_Rows << " Nb_Cols " << TA.Nb_Cols_PSF;
+	verbosefile << " PSF \u24F5  Nb_Rows: " << TA.Nb_Rows_PSF << " Nb_Cols " << TA.Nb_Cols_PSF;
 	verbosefile << " size " << size << " Max: " << MaxPSF << " Sum " << SumPSF << std::endl;
 
 	// write pPSF original image to disk
@@ -53,7 +53,7 @@ void PSFprepare(void) {
 		i_PSF[i] = 255.0*original_PSF[i]/MaxPSF;			// image value
 	verbosefile << " PSF \u24F5 function read: Path to pPSF original" << PSFImagefile << endl;
 
-	sdkSavePGM(PSFImagefile, i_PSF, TA.PSF_Rows, TA.Nb_Cols_PSF);
+	sdkSavePGM(PSFImagefile, i_PSF, TA.Nb_Rows_PSF, TA.Nb_Cols_PSF);
 	free(i_PSF);
  }
 
@@ -69,10 +69,10 @@ bool PSFvalidateonhost(void) {
     dim3 dimBlock(1, 1, 1);
     dim3 dimGrid(1,1, 1);
     // Execute the pPSF kernel
-    PSFvalidateondevice<<<dimGrid, dimBlock, 0>>>( TA.PSF_Rows, TA.Nb_Cols_PSF);
+    PSFvalidateondevice<<<dimGrid, dimBlock, 0>>>( TA.Nb_Rows_PSF, TA.Nb_Cols_PSF);
     cudaDeviceSynchronize();
 
-   for(int row = 0; row < TA.PSF_Rows; row++)
+   for(int row = 0; row < TA.Nb_Rows_PSF; row++)
     	for( int col = 0; col < TA.Nb_Cols_PSF; col++){
     		Sum3PSF += *(PSF_valid + row*TA.Nb_Cols_PSF + col);
      		max3PSF = max(*(PSF_valid + row*TA.Nb_Cols_PSF + col), max3PSF);
@@ -91,12 +91,12 @@ bool PSFvalidateonhost(void) {
 
 	verbosefile << " PSF \u24F5 Path to pPSF validation ..." << PSFValidationimage << endl;
 
-	    	sdkSavePGM(PSFValidationimage, i_PSF, TA.PSF_Rows, TA.Nb_Cols_PSF);
+	    	sdkSavePGM(PSFValidationimage, i_PSF, TA.Nb_Rows_PSF, TA.Nb_Cols_PSF);
 
 	    	verbosefile << " PSF \u24F5  Comparing files ... \n";
 	    	testPSF = compareData(PSF_valid,
 	                                 original_PSF,
-	                                 TA.Nb_Cols_PSF*TA.PSF_Rows,
+	                                 TA.Nb_Cols_PSF*TA.Nb_Rows_PSF,
 	                                 MAX_EPSILON_ERROR/1000,
 	                                 0.15f);
 

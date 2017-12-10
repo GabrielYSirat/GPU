@@ -20,10 +20,9 @@ void readstoremicroimages(void) {
 	double_microimages = (double *) calloc(TA.Nb_LaserPositions * PixSquare, sizeof(double));
 	cudaMallocManaged(&original_microimages, TA.Nb_LaserPositions * PixSquare * sizeof(float));
 	cudaMallocManaged(&zoomed_microimages, TA.Nb_LaserPositions * PixZoomSquare * sizeof(float));
-	cudaMallocManaged(&MIintile, tile.NbTileXY * tile.maxLaserintile * PixZoomSquare * sizeof(float));
 	unsigned char *i_MIraw = (unsigned char*) calloc(Ndistrib*PixSquare * tile.maxlaserperdistribution, sizeof(char));
 
-	verbosefile << "MICROIMAGES \u2464 Total number of images for all distributions " <<  TA.Nb_LaserPositions << endl;
+	verbosefile << "MICROIMAGES \u2464 Total number of images for all distributions " <<  TA.Nb_LaserPositions << " from laser XML file "<< endl;
 	int numberofpixels = 0;
 	for (int idistrib = 0; idistrib < Ndistrib; idistrib++) {
 		std::string MIraw = resourcesdirectory + MIFILE + std::to_string(idistrib + 1) + endMI;
@@ -37,7 +36,8 @@ void readstoremicroimages(void) {
 		MIrawfile.read(memblock, size);
 		MIrawfile.close();
 		verbosefile << "MICROIMAGES \u2464 function read: distrib n°" << idistrib << " number laser positions "
-				<< tile.Nblaserperdistribution[idistrib] << " size microimages = " << size << endl;
+				<< tile.Nblaserperdistribution[idistrib] << " size microimages = " << size <<
+				" to be " << PixSquare * tile.Nblaserperdistribution[idistrib]*sizeof(double) << endl;
 		verbosefile << "MICROIMAGES \u2464 number of images " << tile.Nblaserperdistribution[idistrib] <<
 				" Number of pixels " << tile.Nblaserperdistribution[idistrib] * PixSquare << endl;
 
