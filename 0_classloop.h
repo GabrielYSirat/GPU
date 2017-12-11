@@ -68,6 +68,7 @@ public:
 	int posintile[NUMLASERPOSITIONS];
 	float Bconstant = 1.0;
 	int startxdomain, startydomain;
+	int defaultoffsetedge;
 	void print() const;
 };
 
@@ -78,7 +79,6 @@ public:
 	int tileperaggregatex, tileperaggregatey;
 	int maxLaserintile, minLaserintile, blocks;
 	uint Nb_LaserPositions;
-	int imalimitpertile;
 	uint NbLaserpertile[MAXTILE] = { 0 };
 	float MaxPSF, MaxRec, Maxmicroimages, Maxdistrib ;
 	float Bconstant;
@@ -86,6 +86,8 @@ public:
 	int step;
 	int clockRate;
 	int XTile, YTile;
+	int lostpixelsdevice, lostlinesdevice;
+	int defaultoffsetedge;
 
 };
 

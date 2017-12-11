@@ -81,15 +81,15 @@ bool tileorganization(void) {
 	 */
 
 	int defaultoffsetcenter = dySCR / 2 * XSCRATCH + dxSCR / 2 + lostpixels;
-	int defaultoffsetedge = defaultoffsetcenter - (XSCRATCH + 1) * PSFZoomo2;
+	tile.defaultoffsetedge = defaultoffsetcenter - (XSCRATCH + 1) * PSFZoomo2;
 	verbosefile << " initialization of offset values for " << Ndistrib << " distributions and "
 			<< tile.maxLaserintile << " lasers per distribution" << " full numberof lasers "
 			<< fullnumberoflasers << endl;
 	verbosefile << " default offset value is at center: " << defaultoffsetcenter << "  at edge "
-			<< defaultoffsetedge << endl;
+			<< tile.defaultoffsetedge << endl;
 	for (int idistrib = 0; idistrib < Ndistrib; idistrib++)
 		for (int iLaser = 0; iLaser < fullnumberoflasers; iLaser++)
-			*(image_to_scratchpad_offset + iLaser) = defaultoffsetedge;
+			*(image_to_scratchpad_offset + iLaser) = tile.defaultoffsetedge;
 
 	/** FUTURE: In the real application the reconstruction
 	 * is created by the program and not read from a file
@@ -165,7 +165,7 @@ bool tileorganization(void) {
 	verbosefile << "TILE ORG \u24FA  nblasertile " << nblasertile << endl;
 	verbosefile << endl << "images offset" << endl << endl;
 	for (int iii = 0; iii < tile.maxLaserintile * tile.NbTileXYD; iii++)
-		if (image_to_scratchpad_offset[iii] != defaultoffsetedge)
+		if (image_to_scratchpad_offset[iii] != tile.defaultoffsetedge)
 			verbosefile << " position " << image_to_scratchpad_offset[iii] << " @ " << iii << " | ";
 	verbosefile << endl;
 

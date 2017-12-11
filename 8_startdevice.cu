@@ -1,7 +1,7 @@
 #ifdef STARTDEVICE
+
 	if(!ithreads && VERBOSELOOP) printf("DEVICE: \u2460 BLOCK x %d y %d z %d distrib number %d itc %d itb %d\n",
 			blockIdx.x, blockIdx.y, blockIdx.z, distrib_number, itc, itb);
-
 	if (!iprint) { 	// the condition is required to have it printed once
 		printf("\n\u2460********************************** START *****************************\n");
 		printf("DEVICE: \u2460****************PARAMETERS OF MEASUREMENT *******************\n");
@@ -32,5 +32,6 @@
 			DD.step, (float) (timer - time_start) / DD.clockRate,
 			(float) (  time_start - time_init) / DD.clockRate,
 			(float) (timer - time_init) / DD.clockRate);
+	__syncthreads();  // to be replaced for group synchronization of CUDA 9.0
 
 	#endif

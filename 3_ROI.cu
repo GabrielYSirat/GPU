@@ -23,6 +23,7 @@ void readstoreCroppedROI(void) {
 	float ROIval;
 	bool XY = FALSE;
 
+
 	cudaMallocManaged(&ROIx, TA.Nb_LaserPositions * sizeof(int));
 	cudaMallocManaged(&ROIy, TA.Nb_LaserPositions * sizeof(int));
 	cudaMallocManaged(&d_ROIx, TA.Nb_LaserPositions * sizeof(int));

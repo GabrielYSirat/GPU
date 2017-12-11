@@ -45,7 +45,7 @@ extern __managed__ clock_t timer, time_init, time_start;
  */
 extern __managed__ int XTile, YTile, ATile;
 extern __managed__ int THreadsRatio,NThreads;
-extern __managed__ int XDistrib, YDistrib, YDistrib_extended, ADistrib;
+extern __managed__ int XDistrib, YDistrib, YDistrib_extended, ADistrib, lostlines;
 extern __managed__ double Energy_global, absdiff;
 
 /** Arrays used in the main loop

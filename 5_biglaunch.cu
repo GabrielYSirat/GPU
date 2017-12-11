@@ -26,7 +26,10 @@ bool biglaunch() {
 	onhost.clockRate = clockRate;
 	onhost.XTile = XTile;
 	onhost.YTile = YTile;
-//	onhost.defaultoffsetedge = tile.defaultoffsetedge;
+	onhost.lostpixelsdevice = lostpixels;
+	onhost.lostlinesdevice = lostlines;
+	onhost.defaultoffsetedge = tile.defaultoffsetedge;
+	onhost.Bconstant = tile.Bconstant;
 
 	verbosefile << "HOST: \u24EA  \n";
 	for(int itile = 0; itile < tile.NbTileXYD; itile ++) {
@@ -34,8 +37,6 @@ bool biglaunch() {
 		verbosefile << "tile n° " << itile << " #laser " << onhost.NbLaserpertile[itile] << " || ";
 	}
 	verbosefile << endl;
-	onhost.imalimitpertile = onhost.Nb_LaserPositions - (onhost.NbTileXY - 1) * onhost.maxLaserintile;
-	onhost.Bconstant = tile.Bconstant;
 
 
 	/*********************************DOCUMENT ***************************************************************/

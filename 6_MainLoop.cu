@@ -13,6 +13,7 @@
 __managed__ float *new_simus, *Data, *Rfactor, *distribvalidGPU;
 __managed__ double MaxNewSimus = 0.0f, EnergyGlobal = 0.0f;
 
+
 __global__ void BigLoop(devicedata DD) {
 	extern __shared__ int shared[]; /***************semi-global variables stored in shared memory ***************/
 	int *image_to_scratchpad_offset_tile = (int *) shared; // Offset of each image in NIMAGESPARALLEL block
@@ -26,6 +27,7 @@ __global__ void BigLoop(devicedata DD) {
 	int tilexdevice, tileydevice, tileXY, tileXYD;
 	float * scrglobal;
 
+	timer = clock64();
 	/***** INITIALIZATION *****************/
 	int ithreads = threadIdx.x;
 	int distrib_number = blockIdx.z;
@@ -48,14 +50,17 @@ __global__ void BigLoop(devicedata DD) {
 		distribpos0[apix] = center_distrib + ipixel[apix] - PSFZoomo2 + (jpixel[apix] - PSFZoomo2) * XDistrib;
 	}
 #include "8_testthreads.cu"
-
+{
+for (int apix = 0; apix < THreadsRatio; apix++)
+		printf("INITIATE: \u23f2 APIX DISTRIB: ithreads %d apix %d distribpos[apix] %d \n", ithreads, apix, distribpos0[apix]);
+	}
 	/*************************************************************************************************/
 	/**O. Initialize zoomed distrib as calculated  by the preprocessing                               /
 	 /************************************************************************************************/
 #pragma unroll
 	for (int idistrub = ithreads; idistrub < ADistrib; idistrub += THREADSVAL)
 		*(shared_distrib + idistrub) = *(original_distrib + idistrub + distrib_number * ADistrib);
-#include "8_testdistrib.cu"
+#include "8_testdistrib.cu" // validated
 
 	/*********************  ***********/
 	/**A  Outer Loop on aggregates   **/

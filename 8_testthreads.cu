@@ -2,7 +2,7 @@
 	DD.step++;
 	if (!iprint) printf("\n\u2461*******************************DEVICE:  THREADS *********************\n");
 	__syncthreads();
-
+//		int timerlocal = clock64();
 	if (!iprint)
 		printf( "DEVICE: \u23f1**DEVICE:  step %d   TIMING (msec) ** processing  %g this step  %g  total %g \n",
 			DD.step, (float) (timer - time_start) / DD.clockRate,

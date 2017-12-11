@@ -1,6 +1,6 @@
 #ifdef PSCRATCHTEST
 			if ((ipixel[3] == PSFZoomo2) && (jpixel[3] == PSFZoomo2))
-				if (iblockima < (DD.imalimitpertile)) {
+				if (image_to_scratchpad_offset_tile[iblockima]!= (DD.defaultoffsetedge)) {
 					printf("\u2465 ipix jpix = iPSF jPSF zero ithreads %d 4:%d offset %d value %g \n", ithreads, pos_3,
 							image_to_scratchpad_offset_tile[iblockima], *(Scratchpad + pos_3));
 					printf("\u2465 values of pointer position pscratch iblockima %d: %p 2: %p 3: %p 4:%p \n", iblockima,
