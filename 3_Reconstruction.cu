@@ -103,9 +103,9 @@ bool Recvalidate_host(void) {
 	verbosefile << "max device =" << MaXTile << "\n";
 	for (int i = 0; i < TA.reconstruction_size; i++) {
 		i_rec[i] = 255.0 * val_rec[i] / MaXTile;			// Validation image value
-		if (VERBOSE)
+		if (NOVERBOSE)
 			if (i_rec[i] > 1)
-				printf("i %d, col %d x %d y %d\n", i, TA.Nb_Cols_reconstruction,
+				printf("TILE \u24FC i %d, col %d x %d y %d\n", i, TA.Nb_Cols_reconstruction,
 						i % TA.Nb_Cols_reconstruction, i / TA.Nb_Cols_reconstruction);
 	}
 	verbosefile << "REC \u24FC Path to rec validation " << recValImagefile << endl;
@@ -155,7 +155,7 @@ void Scratchprepare(void) {
 			i_tilerec[itemp] = 255. * *(tile_rec + itemp) / maxTile;
 			if (VERBOSE)
 				if (i_tilerec[itemp] > 1)
-					printf("itemp %d, col %d x %d y %d\n", itemp, XTile * tile.NbTilex,
+					if(NOVERBOSE) printf("SCRATCHPAD \u24FC itemp %d, col %d x %d y %d\n", itemp, XTile * tile.NbTilex,
 							itemp % (XTile * tile.NbTilex), itemp / (XTile * tile.NbTilex));
 
 		}
@@ -201,8 +201,8 @@ bool Scratchvalidate_host(void) {
 
 	for (int idistrib = 0; idistrib < Ndistrib; idistrib++)
 		for (int i = 0; i < ASCRATCH * tile.NbTileXY; i++) {
-			if (val_scratchpad[i]> 1.)
-				printf("i %d x position in scratch %d y position %d val %f\n", i, i%XSCRATCH, i/XSCRATCH, val_scratchpad[i]);
+			if (val_scratchpad[i]> 1.&&NOVERBOSE)
+				printf("SCRATCHPAD \u24FC i %d x position in scratch %d y position %d val %f\n", i, i%XSCRATCH, i/XSCRATCH, val_scratchpad[i]);
 			Maxscratch = max(Maxscratch, val_scratchpad[i]); // sanity check, check max
 		}
 	verbosefile << "max device =" << Maxscratch << "\n";

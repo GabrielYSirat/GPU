@@ -26,6 +26,7 @@ bool biglaunch() {
 	onhost.clockRate = clockRate;
 	onhost.XTile = XTile;
 	onhost.YTile = YTile;
+//	onhost.defaultoffsetedge = tile.defaultoffsetedge;
 
 	verbosefile << "HOST: \u24EA  \n";
 	for(int itile = 0; itile < tile.NbTileXYD; itile ++) {
@@ -35,6 +36,7 @@ bool biglaunch() {
 	verbosefile << endl;
 	onhost.imalimitpertile = onhost.Nb_LaserPositions - (onhost.NbTileXY - 1) * onhost.maxLaserintile;
 	onhost.Bconstant = tile.Bconstant;
+
 
 	/*********************************DOCUMENT ***************************************************************/
 		verbosefile << "TESTS RETURN:  " << "initialization:  " << Stepdiag[0] << ";  pPSF:  " << Stepdiag[1];

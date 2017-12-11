@@ -184,23 +184,23 @@ __global__ void Recvalidate_device(int Nb_Rows_reconstruction, int Nb_Cols_recon
 	int tempp;
 // calculate reconstruction Sum and max
 	time_start = clock64();
+	printf(
+			"REC \u277D DEVICE ----------------------------------------------------------------------------------------------------\n");
 	for (int row = 0; row < Nb_Rows_reconstruction; row++)
 		for (int col = 0; col < Nb_Cols_reconstruction; col++) {
 			tempp = row * Nb_Cols_reconstruction + col;
 			tempv = *(original_rec + tempp);
 			*(val_rec + tempp) = tempv;
 			if ((tempv != 0.0f) && (TEST) && VERBOSE) {
-				printf(
-						"REC \u277D DEVICE ----------------------------------------------------------------------------------------------------\n");
 				printf("REC \u277D DEVICE position %d position x: %d y: %d value %f\n", tempp,
 						tempp % Nb_Cols_reconstruction, tempp / Nb_Cols_reconstruction, tempv);
-				printf(
-						"REC \u277D DEVICE ----------------------------------------------------------------------------------------------------\n");
 			}
 			Sumreconstruction += *(original_rec + row * Nb_Cols_reconstruction + col);
 			if (maxreconstruction < *(original_rec + row * Nb_Cols_reconstruction + col))
 				maxreconstruction = *(original_rec + row * Nb_Cols_reconstruction + col);
 		}
+	printf(
+			"REC \u277D DEVICE ----------------------------------------------------------------------------------------------------\n\n");
 	printf("REC \u277D DEVICE:  Sum reconstruction %f max reconstruction %f ...  \n", Sumreconstruction,
 			maxreconstruction);
 	__syncthreads();
@@ -226,13 +226,14 @@ __global__ void Scratchvalidate_device(int NbTilex, int NbTiley, int dels) {
 			int positionx = (tempp - dels) % (XSCRATCH * NbTilex);
 			int positiony = (tempp - dels) / (XSCRATCH * NbTilex);
 			if (VERBOSE)
-				printf("SCRATCHPAD \u24EC DEVICE TEST:  position %d position x: %d y: %d value %f\n", tempp,
+				printf("SCRATCHPAD \u277E DEVICE TEST:  position %d position x: %d y: %d value %f\n", tempp,
 						positionx, positiony, tempv);
 		}
 
 	}
-	printf("SCRATCHPAD \u24EC DEVICE:  Sum scratchpad %f max scratchpad %f ... \n", Sumscratchpad,
-			maxscratchpad);
+	printf("SCRATCHPAD \u277E DEVICE:  Sum scratchpad %f max scratchpad %f ... \n", Sumscratchpad,maxscratchpad);
+			printf("SCRATCHPAD \u277E DEVICE ----------------------------------------------------------------------------------------------------\n\n");
+
 	timer = clock64();
 	__syncthreads();
 

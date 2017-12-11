@@ -229,7 +229,7 @@ float scratchreaddisplay(float * reconstructiondata, float * scratchdata, const 
 						scratchdata[iscratch] = reconstructiondata[itile];
 					MaxScratchlocal = max(MaxScratchlocal, scratchdata[iscratch]);
 					i_scratchpad[iscratch2D] = 255.0 * scratchdata[iscratch] / Maxscratch;
-					if (!(i_scratchpad[iscratch2D] == 0) && VERBOSE) {
+					if (!(i_scratchpad[iscratch2D] == 0) && NOVERBOSE) {
 						printf(
 								"SCRATCHPAD \u24FC itile %d, iscratch %d iscratch2Dx %d, iscratch2Dy %d iscratch2D %d\n",
 								itile, iscratch, iscratch2Dx, iscratch2Dy, iscratch2D);

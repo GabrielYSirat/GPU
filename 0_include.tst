@@ -1,5 +1,5 @@
-//#define STARTDEVICE
-//#define TESTTHREADS
+#define STARTDEVICE
+#define TESTTHREADS
 #define TESTDISTRIBDEVICE
 #define TESTSCRATCH
 #define DISTRIBPOS
@@ -8,4 +8,4 @@
 #define PSCRATCHTEST
 #define TESTDISVAL
 #define DISTRIBVAL
-//#define TESTSIMU
+#define TESTSIMU
