@@ -26,9 +26,11 @@ int main(int argc, char **argv) {
 
 
 	verbosefile.open ("results/Z_verbosefile.txt");
+
 	  /***********initialization of  parameters step 0 *******/
 	bool InitParameters = initparameters(argc, argv);
 	stepinit(InitParameters, stepval);
+
 
 	/*step 1**********************pPSF initialization ********/
 	PSFprepare();
@@ -45,7 +47,7 @@ int main(int argc, char **argv) {
 	bool TestLaserPositions = validateLaserPositions_control();
 	stepinit(TestLaserPositions, stepval);
 
-	/*step 4 **************************Cropped ROI************/
+	/*step 4 **ROI data from preprocessing not used*Cropped ROI*/
 //	readstoreCroppedROI();
 	bool TestROI = TRUE; //validateCroppedROI_control();
 	stepinit(TestROI, stepval);

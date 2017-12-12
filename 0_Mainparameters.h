@@ -12,7 +12,8 @@
 #include "0_commonparameters.h"
 #include "tinyxml2.h"				// XML package
 #include "0_classloop.h"
-#include "0_commonparameters.h"
+#include "0_Mainparameters.h"
+#include "0_constants.h"
 
 using namespace tinyxml2;
 using namespace std;

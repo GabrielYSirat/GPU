@@ -86,12 +86,12 @@ void readstoreLaserPositions(void) {
 		// min and max Laser positions rounded to integer of camera pixels
 		TA.AmaxLaserx = ceil(TA.maxLaserx);
 		TA.AmaxLasery = ceil(TA.maxLasery);
-		TA.AminLaserx = floor(TA.minLaserx);
-		TA.AminLasery = floor(TA.minLasery);
+		TA.AminLaserx = 0.;//floor(TA.minLaserx);
+		TA.AminLasery = 0.; //floor(TA.minLasery);
 
 	}
 
-	printf("\n Laser \u2462 HOST : min and max x %g %g, min and max y %g %g ... \n",
+	printf("\nLaser \u2462 HOST : min and max x %g %g, min and max y %g %g ... \n",
 			TA.maxLaserx, TA.minLaserx, TA.maxLasery, TA.minLasery);
 }
 

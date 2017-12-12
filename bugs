@@ -1,4 +1,9 @@
 Bug:
-Number of laser positions 12 number of tile XY 8 imalimitpertile -100 ima limite per tile 16
+
 
 #include "8_testthreads.cu"
+
+12 December need to use 		TA.AminLaserx = 0.;//floor(TA.minLaserx);
+		TA.AminLasery = 0.; //floor(TA.minLasery);
+if not an eror in 
+1_gpu_initialization.cu

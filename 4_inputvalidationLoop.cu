@@ -56,7 +56,7 @@ __global__ void PSFvalidateondevice(int Nb_Rows_PSF, int Nb_Cols_PSF) {
 				max2PSF = *(PSF_valid + row * Nb_Cols_PSF + col);
 		}
 	if ((threadIdx.x == 0) && (threadIdx.y == 0))
-		printf("  SumPSF %f Sum2PSF %f maxPSF %f max2PSF %f ...  \n", SumPSF, Sum2PSF, maxPSF,
+		printf("  SumPSF %f Sum2PSF %f maxPSF %f max2PSF %f ...  \n\n", SumPSF, Sum2PSF, maxPSF,
 				max2PSF);
 	timer = clock64();
 }
@@ -201,7 +201,7 @@ __global__ void Recvalidate_device(int Nb_Rows_reconstruction, int Nb_Cols_recon
 		}
 	printf(
 			"REC \u277D DEVICE ----------------------------------------------------------------------------------------------------\n\n");
-	printf("REC \u277D DEVICE:  Sum reconstruction %f max reconstruction %f ...  \n", Sumreconstruction,
+	printf("REC \u277D DEVICE:  Sum reconstruction %f max reconstruction %f ...  \n\n", Sumreconstruction,
 			maxreconstruction);
 	__syncthreads();
 	if ((threadIdx.x == 0) && (threadIdx.y == 0))

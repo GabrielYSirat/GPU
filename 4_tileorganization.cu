@@ -40,13 +40,13 @@ bool tileorganization(void) {
 	/*************************Aggregates organization depending on MP*******/
 	TA.MP_perdistrib = TA.MP / Ndistrib;
 	printf("\n INIT PROG \u24FA Total number of MP per distribution %d  ", TA.MP_perdistrib);
-	printf("  organized as x:%d,  y:%d \n", organization_x[TA.MP_perdistrib],
-			organization_y[TA.MP_perdistrib]);
+	printf("  organized as (x*y*distributions): (%d*%d*%d) \n", organization_x[TA.MP_perdistrib],
+			organization_y[TA.MP_perdistrib], Ndistrib);
 
 	/************************Aggregates********************************************/
 	tile.NbAggregx = ceil((float) tile.NbTile0x / organization_x[TA.MP_perdistrib]);
 	tile.NbAggregy = ceil((float) tile.NbTile0y / organization_y[TA.MP_perdistrib]);
-	printf(" INIT PROG \u24FA Number of aggregates x:%d y:%d  \n", tile.NbAggregx, tile.NbAggregy);
+	printf(" INIT PROG \u24FA Number of aggregates organized as (x*y) (%d*%d)\n", tile.NbAggregx, tile.NbAggregy);
 
 	/**********************************Tiles****************************************/
 	if (tile.NbAggregx == 1) {
@@ -101,7 +101,7 @@ bool tileorganization(void) {
 	tile.startxdomain = TA.AminLaserx; //floor(pZOOM*((AminLaserx + AmaxLaserx)/2 - (tile.NbTilex * XTile)/2));
 	tile.startydomain = TA.AminLasery; //floor(pZOOM*((AminLasery + AmaxLasery)/2 - (tile.NbTiley * YTile)/2));
 	TA.reconstruction_size = TA.Nb_Rows_reconstruction * TA.Nb_Cols_reconstruction;
-	printf(" INIT PROG \u24FA Final number of tiles x: %d y: %d distrib %d  \n\n", tile.NbTilex, tile.NbTiley,
+	printf(" INIT PROG \u24FA Final number of tiles (x*y*distributions): (%d*%d*%d) \n\n", tile.NbTilex, tile.NbTiley,
 			Ndistrib);
 	verbosefile << " INIT PROG \u24FA Reconstruction size x: " << TA.Nb_Cols_reconstruction << " y: "
 			<< TA.Nb_Rows_reconstruction << endl;

@@ -50,9 +50,11 @@ __global__ void BigLoop(devicedata DD) {
 		distribpos0[apix] = center_distrib + ipixel[apix] - PSFZoomo2 + (jpixel[apix] - PSFZoomo2) * XDistrib;
 	}
 #include "8_testthreads.cu"
-{
+
+	int temp = PixZoomSquare;
 for (int apix = 0; apix < THreadsRatio; apix++)
-		printf("INITIATE: \u23f2 APIX DISTRIB: ithreads %d apix %d distribpos[apix] %d \n", ithreads, apix, distribpos0[apix]);
+	if(!ithreads && !itb){
+		printf("INITIATE: \u23f2 APIX DISTRIB: ithreads %d apix %d temp %d\n", ithreads, apix, temp);
 	}
 	/*************************************************************************************************/
 	/**O. Initialize zoomed distrib as calculated  by the preprocessing                               /

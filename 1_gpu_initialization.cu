@@ -39,6 +39,10 @@ void GPU_init::start(void) {
 	/*Laser positions and MicroImages*/
 	Nb_Rows_microimages = Npixel;
 	Nb_Cols_microimages = Npixel;
+	maxLaserx = 0.0;
+	maxLasery = 0.0;
+	minLaserx = 1.E6;
+	minLasery = 1.E6;
 
 }
 

@@ -65,7 +65,7 @@ bool biglaunch() {
 		verbosefile << "MAIN PROGRAM  ********Prepare data for GPU computation**************" << endl;
 		verbosefile << "******************************************************************" << endl;	bool testbig = FALSE;
 		verbosefile << "Number of laser positions " << onhost.Nb_LaserPositions << " number of tile XY " << onhost.NbTileXY
-				<< " imalimitpertile " << onhost.imalimitpertile << " ima limite per tile " << onhost.maxLaserintile << endl;
+				<<  " max number of lasers per tile " << onhost.maxLaserintile << endl;
 
 		/********************************************Launch Main loop ***************************************/
 	dim3 dimBlock(tile.tileperaggregatex, tile.tileperaggregatey, Ndistrib);
