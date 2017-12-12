@@ -1,11 +1,11 @@
-#define STARTDEVICE
-#define TESTTHREADS
-#define TESTDISTRIBDEVICE
-#define TESTSCRATCH
-#define DISTRIBPOS
+//#define STARTDEVICE	// 	OK
+//#define TESTTHREADS	// 	OK
+//#define TESTDISTRIBDEVICE	OK
+//#define TESTSCRATCH	// NOT WORKING
+//#define DISTRIBPOS
 #define OFFSET
-#define TESTAGG
+//#define TESTAGG
 #define PSCRATCHTEST
-#define TESTDISVAL
-#define DISTRIBVAL
-#define TESTSIMU
+//#define TESTDISVAL
+//#define DISTRIBVAL
+//#define TESTSIMU

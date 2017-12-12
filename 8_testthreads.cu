@@ -3,7 +3,13 @@
 	if (!iprint) printf("\n\u2461*******************************DEVICE:  THREADS *********************\n");
 		for (int apix = 0; apix < THreadsRatio; apix++)
 		if(!itb)
-			if ((ithreads == 0)|| (!ipixel[apix] && !jpixel[apix]))
+			if (   (ithreads == 0)
+				|| (!ipixel[apix] && !jpixel[apix])
+				|| (ithreads == (THREADSVAL - 1))
+				|| (tmpi[apix] == PixZoomSquare - 1)
+				|| (tmpi[apix] == PixZoomSquare)
+				|| (tmpi[apix] == (PixZoomSquare - 1))
+				|| (tmpi[apix] == PixZoomSquare))
 		{
 						printf("DEVICE: \u2461 : apix %d ithreads %d tmpi[apix] %d ipixel %d, jpixel %d  valid %d distribpos0 %d\n",
 								apix, ithreads, tmpi[apix], ipixel[apix], jpixel[apix], valid_pixel[apix], distribpos0[apix]);

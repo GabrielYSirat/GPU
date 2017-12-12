@@ -19,7 +19,7 @@
 #define X 0
 #define Y 1
 #define VERBOSE 1
-#define NOVERBOSE 0
+#define NOVERBOSE 1
 #define BUFFSIZE 80
 #define SPARSE 20
 

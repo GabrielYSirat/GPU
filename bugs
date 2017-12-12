@@ -32,3 +32,20 @@ SCRATCHPAD ⓽ position 11937, size XY (x*y), (260*244) xy position (x*y) (237*4
 SCRATCHPAD ⓽ position 21421, size XY (x*y), (260*244) xy position (x*y) (101*82) value 300
 SCRATCHPAD ⓽ position 44127, size XY (x*y), (260*244) xy position (x*y) (187*169) value 400
 +7 - lost pixels!!
+
+④ AGGREGATE x 0 y 0 ***************************************
+DEVICE: ④ SCRATCHPAD distrib_number 1 itb 5 delta 11862 position (x*y) (25*182) position in scratchpad 3869 value 100.000000 Sum 100.000000 max 100.000000
+DEVICE: ④ SCRATCHPAD distrib_number 0 itb 1 delta 11862 position (x*y) (25*182) position in scratchpad 3869 value 100.000000 Sum 100.000000 max 100.000000
+DEVICE: ④ SCRATCHPAD distrib_number 1 itb 5 delta 11930 position (x*y) (28*183) position in scratchpad 3937 value 200.000000 Sum 300.000000 max 200.000000
+DEVICE: ④ SCRATCHPAD distrib_number 0 itb 1 delta 11930 position (x*y) (28*183) position in scratchpad 3937 value 200.000000 Sum 300.000000 max 200.000000
+DEVICE: ④ SCRATCHPAD distrib_number 0 itb 3 delta 44120 position (x*y) (43*678) position in scratchpad 4127 value 400.000000 Sum 400.000000 max 400.000000
+DEVICE: ④ SCRATCHPAD distrib_number 1 itb 7 delta 44120 position (x*y) (43*678) position in scratchpad 4127 value 400.000000 Sum 400.000000 max 400.000000
+end ④**********DEVICE:  SCRATCHPAD *aggregate  (0*0) *****************
+
+④ AGGREGATE x 1 y 0 ***************************************
+④ TILES tile x device 2, tile y device 0 tile 2 MemoryOffset 16000
+④ AGGREGATE x 1 y 0 ***************************************
+DEVICE: ④ SCRATCHPAD distrib_number 0 itb 0 delta 21414 position (x*y) (87*164) position in scratchpad 5421 value 300.000000 Sum 300.000000 max 300.000000
+DEVICE: ④ SCRATCHPAD distrib_number 1 itb 4 delta 21414 position (x*y) (87*164) position in scratchpad 5421 value 300.000000 Sum 300.000000 max 300.000000
+end ④**********DEVICE:  SCRATCHPAD *aggregate  (1*0) *****************
+

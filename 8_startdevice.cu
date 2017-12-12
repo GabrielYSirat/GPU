@@ -22,17 +22,18 @@
 		printf("DEVICE: \u2460  TILES & AGGREGATES: Number of Tiles in x: %d in y:%d\n", DD.NbTilex, DD.NbTiley);
 		printf("DEVICE: \u2460  TILES & AGGREGATES: Max number of laser position in Tile: %d min value:%d Number of blocks %d\n",
 				DD.maxLaserintile, DD.minLaserintile, DD.blocks);
-		printf("\u2460*******************************PARAMETERS OF MEASUREMENT ***************\n");
 	}
 	__syncthreads();  // to be replaced for group synchronization of CUDA 9.0
 
 	if (!iprint) timer = clock64();
 	time_start = timer; time_init = timer;
 	if (!iprint)
-		printf( "DEVICE: \u23f1**DEVICE:  step %d   TIMING (msec) ** processing  %g this step  %g  total %g \n\n",
+		printf( "DEVICE: \u23f1**DEVICE:  step %d   TIMING (msec) ** processing  %g this step  %g  total %g \n",
 			DD.step, (float) (timer - time_start) / DD.clockRate,
 			(float) (  time_start - time_init) / DD.clockRate,
 			(float) (timer - time_init) / DD.clockRate);
+	if (!iprint)
+		printf("\u2460*******************************PARAMETERS OF MEASUREMENT ***************\n");
 	__syncthreads();  // to be replaced for group synchronization of CUDA 9.0
 
 	#endif

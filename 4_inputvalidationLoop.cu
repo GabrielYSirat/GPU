@@ -184,8 +184,8 @@ __global__ void Recvalidate_device(int Nb_Rows_reconstruction, int Nb_Cols_recon
 	int tempp;
 // calculate reconstruction Sum and max
 	time_start = clock64();
-	printf(
-			"REC \u277D DEVICE ----------------------------------------------------------------------------------------------------\n");
+	if(VERBOSE)
+		printf("REC \u277D DEVICE ----------------------------------------------------------------------------------------------------\n");
 	for (int row = 0; row < Nb_Rows_reconstruction; row++)
 		for (int col = 0; col < Nb_Cols_reconstruction; col++) {
 			tempp = row * Nb_Cols_reconstruction + col;
@@ -199,7 +199,8 @@ __global__ void Recvalidate_device(int Nb_Rows_reconstruction, int Nb_Cols_recon
 			if (maxreconstruction < *(original_rec + row * Nb_Cols_reconstruction + col))
 				maxreconstruction = *(original_rec + row * Nb_Cols_reconstruction + col);
 		}
-	printf(
+	if(VERBOSE)
+		printf(
 			"REC \u277D DEVICE ----------------------------------------------------------------------------------------------------\n\n");
 	printf("REC \u277D DEVICE:  Sum reconstruction %f max reconstruction %f ...  \n\n", Sumreconstruction,
 			maxreconstruction);
@@ -236,7 +237,8 @@ __global__ void Scratchvalidate_device(int NbTilex, int NbTiley, int dels) {
 
 	}
 	printf("SCRATCHPAD \u277E DEVICE:  Sum scratchpad %f max scratchpad %f ... \n", Sumscratchpad,maxscratchpad);
-			printf("SCRATCHPAD \u277E DEVICE ----------------------------------------------------------------------------------------------------\n\n");
+	if(VERBOSE)
+		printf("SCRATCHPAD \u277E DEVICE ----------------------------------------------------------------------------------------------------\n\n");
 
 	timer = clock64();
 	__syncthreads();

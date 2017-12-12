@@ -5,12 +5,150 @@ DISTRIBUTIONS ❷  device: Nb_Row 65, Nb_col 59, Nb_distrib 2 ... Sum distrib 2.
 DISTRIBUTIONS ②: validation max 0.00759884 Sum 2
 
 Laser ③ HOST : min and max x 15.4 5.4, min and max y 25.4 5.4 ... 
+ Laser ❸ DEVICE 1: laser position n° 0 original position x:5.400000 , y: 5.400000 ....
+ Laser ❸ DEVICE 2:  ....xREC1 16 temp 0 xREC 16 yREC 16 tilex 0 tiley 0 Scratchx 38 Scratchy 45 
+ Laser ❸ DEVICE 3: copy position: 5.400000 y: 5.400000
+Laser ❸ DEVICE laser position n°0 offset 2112 
+ Laser ❸ DEVICE 1: laser position n° 1 original position x:5.400000 , y: 15.400000 ....
+ Laser ❸ DEVICE 2:  ....xREC1 16 temp 0 xREC 16 yREC 46 tilex 0 tiley 0 Scratchx 38 Scratchy 75 
+ Laser ❸ DEVICE 3: copy position: 5.400000 y: 15.400000
+Laser ❸ DEVICE laser position n°1 offset 4062 
+ Laser ❸ DEVICE 1: laser position n° 2 original position x:5.400000 , y: 25.400000 ....
+ Laser ❸ DEVICE 2:  ....xREC1 16 temp 0 xREC 16 yREC 19 tilex 0 tiley 1 Scratchx 38 Scratchy 48 
+ Laser ❸ DEVICE 3: copy position: 5.400000 y: 25.400000
+Laser ❸ DEVICE laser position n°2 offset 2307 
+ Laser ❸ DEVICE 1: laser position n° 3 original position x:15.400000 , y: 5.400000 ....
+ Laser ❸ DEVICE 2:  ....xREC1 46 temp 42 xREC 4 yREC 16 tilex 2 tiley 0 Scratchx 26 Scratchy 45 
+ Laser ❸ DEVICE 3: copy position: 15.400000 y: 5.400000
+Laser ❸ DEVICE laser position n°3 offset 2100 
+ Laser ❸ DEVICE 1: laser position n° 4 original position x:15.400000 , y: 15.400000 ....
+ Laser ❸ DEVICE 2:  ....xREC1 46 temp 42 xREC 4 yREC 46 tilex 2 tiley 0 Scratchx 26 Scratchy 75 
+ Laser ❸ DEVICE 3: copy position: 15.400000 y: 15.400000
+Laser ❸ DEVICE laser position n°4 offset 4050 
+ Laser ❸ DEVICE 1: laser position n° 5 original position x:15.400000 , y: 25.400000 ....
+ Laser ❸ DEVICE 2:  ....xREC1 46 temp 42 xREC 4 yREC 19 tilex 2 tiley 1 Scratchx 26 Scratchy 48 
+ Laser ❸ DEVICE 3: copy position: 15.400000 y: 25.400000
+Laser ❸ DEVICE laser position n°5 offset 2295 
+ Laser ❸ DEVICE 1: laser position n° 6 original position x:5.400000 , y: 5.400000 ....
+ Laser ❸ DEVICE 2:  ....xREC1 16 temp 0 xREC 16 yREC 16 tilex 0 tiley 0 Scratchx 38 Scratchy 45 
+ Laser ❸ DEVICE 3: copy position: 5.400000 y: 5.400000
+Laser ❸ DEVICE laser position n°6 offset 2112 
+ Laser ❸ DEVICE 1: laser position n° 7 original position x:5.400000 , y: 15.400000 ....
+ Laser ❸ DEVICE 2:  ....xREC1 16 temp 0 xREC 16 yREC 46 tilex 0 tiley 0 Scratchx 38 Scratchy 75 
+ Laser ❸ DEVICE 3: copy position: 5.400000 y: 15.400000
+Laser ❸ DEVICE laser position n°7 offset 4062 
+ Laser ❸ DEVICE 1: laser position n° 8 original position x:5.400000 , y: 25.400000 ....
+ Laser ❸ DEVICE 2:  ....xREC1 16 temp 0 xREC 16 yREC 19 tilex 0 tiley 1 Scratchx 38 Scratchy 48 
+ Laser ❸ DEVICE 3: copy position: 5.400000 y: 25.400000
+Laser ❸ DEVICE laser position n°8 offset 2307 
+ Laser ❸ DEVICE 1: laser position n° 9 original position x:15.400000 , y: 5.400000 ....
+ Laser ❸ DEVICE 2:  ....xREC1 46 temp 42 xREC 4 yREC 16 tilex 2 tiley 0 Scratchx 26 Scratchy 45 
+ Laser ❸ DEVICE 3: copy position: 15.400000 y: 5.400000
+Laser ❸ DEVICE laser position n°9 offset 2100 
+ Laser ❸ DEVICE 1: laser position n° 10 original position x:15.400000 , y: 15.400000 ....
+ Laser ❸ DEVICE 2:  ....xREC1 46 temp 42 xREC 4 yREC 46 tilex 2 tiley 0 Scratchx 26 Scratchy 75 
+ Laser ❸ DEVICE 3: copy position: 15.400000 y: 15.400000
+Laser ❸ DEVICE laser position n°10 offset 4050 
+ Laser ❸ DEVICE 1: laser position n° 11 original position x:15.400000 , y: 25.400000 ....
+ Laser ❸ DEVICE 2:  ....xREC1 46 temp 42 xREC 4 yREC 19 tilex 2 tiley 1 Scratchx 26 Scratchy 48 
+ Laser ❸ DEVICE 3: copy position: 15.400000 y: 25.400000
+Laser ❸ DEVICE laser position n°11 offset 2295 
 Laser ❸  DEVICE: MAX & MIN: LaserPosition x max 15.400000 min 5.400000 ... LaserPositiony max 25.400000 min 5.400000 
+ Laser ③ ----------------------------------------------------------------------------------------------------
 
  INIT PROG ⓺ Total number of MP per distribution 5    organized as (x*y*distributions): (2*2*2) 
  INIT PROG ⓺ Number of aggregates organized as (x*y) (2*1)
+TEST full number of lasers 256 tile.maxLaserintile 16 tile.NbTileXYD 16
  INIT PROG ⓺ Final number of tiles (x*y*distributions): (4*2*2) 
 
+TILE ORG ⓺ POS IN TILE: iLaser 0,tilenumber 0 tile.posintile[iLaser]  0 A ilasertile 0 valid 1
+TILE ORG ⓺ POS IN SCRATCH: numeral 0 laser pos in x 5.400000 in y: 5.400000  tile x: 0 y: 0 
+TILE ORG ⓺ POS IN SCRATCH: deltile x: 16.200001 and y 16.200001 del scratch x:38.200001 y:48.200001
+TILE ORG ⓺ POS IN SCRATCH: ilasertile 0 SCRATCH POSITION 2112
+********************ilasertile 0 offset scratchpad interaction****************** 2112
+TILE ORG ⓺ POS IN SCRATCH: image number 0 tilenumber 0 position in tile 0
+TILE ORG ⓺ POS IN TILE: iLaser 1,tilenumber 0 tile.posintile[iLaser]  1 A ilasertile 1 valid 1
+TILE ORG ⓺ POS IN SCRATCH: numeral 1 laser pos in x 5.400000 in y: 15.400000  tile x: 0 y: 0 
+TILE ORG ⓺ POS IN SCRATCH: deltile x: 16.200001 and y 46.199997 del scratch x:38.200001 y:78.199997
+TILE ORG ⓺ POS IN SCRATCH: ilasertile 1 SCRATCH POSITION 4062
+********************ilasertile 1 offset scratchpad interaction****************** 4062
+TILE ORG ⓺ POS IN SCRATCH: image number 1 tilenumber 0 position in tile 1
+TILE ORG ⓺ POS IN TILE: iLaser 2,tilenumber 4 tile.posintile[iLaser]  0 A ilasertile 64 valid 1
+TILE ORG ⓺ POS IN SCRATCH: numeral 2 laser pos in x 5.400000 in y: 25.400000  tile x: 0 y: 1 
+TILE ORG ⓺ POS IN SCRATCH: deltile x: 16.200001 and y 19.199997 del scratch x:38.200001 y:51.199997
+TILE ORG ⓺ POS IN SCRATCH: ilasertile 64 SCRATCH POSITION 2307
+********************ilasertile 64 offset scratchpad interaction****************** 2307
+TILE ORG ⓺ POS IN SCRATCH: image number 2 tilenumber 4 position in tile 0
+TILE ORG ⓺ POS IN TILE: iLaser 3,tilenumber 2 tile.posintile[iLaser]  0 A ilasertile 32 valid 1
+TILE ORG ⓺ POS IN SCRATCH: numeral 3 laser pos in x 15.400000 in y: 5.400000  tile x: 2 y: 0 
+TILE ORG ⓺ POS IN SCRATCH: deltile x: 4.199997 and y 16.200001 del scratch x:26.199997 y:48.200001
+TILE ORG ⓺ POS IN SCRATCH: ilasertile 32 SCRATCH POSITION 2100
+********************ilasertile 32 offset scratchpad interaction****************** 2100
+TILE ORG ⓺ POS IN SCRATCH: image number 3 tilenumber 2 position in tile 0
+TILE ORG ⓺ POS IN TILE: iLaser 4,tilenumber 2 tile.posintile[iLaser]  1 A ilasertile 33 valid 1
+TILE ORG ⓺ POS IN SCRATCH: numeral 4 laser pos in x 15.400000 in y: 15.400000  tile x: 2 y: 0 
+TILE ORG ⓺ POS IN SCRATCH: deltile x: 4.199997 and y 46.199997 del scratch x:26.199997 y:78.199997
+TILE ORG ⓺ POS IN SCRATCH: ilasertile 33 SCRATCH POSITION 4050
+********************ilasertile 33 offset scratchpad interaction****************** 4050
+TILE ORG ⓺ POS IN SCRATCH: image number 4 tilenumber 2 position in tile 1
+TILE ORG ⓺ POS IN TILE: iLaser 5,tilenumber 6 tile.posintile[iLaser]  0 A ilasertile 96 valid 1
+TILE ORG ⓺ POS IN SCRATCH: numeral 5 laser pos in x 15.400000 in y: 25.400000  tile x: 2 y: 1 
+TILE ORG ⓺ POS IN SCRATCH: deltile x: 4.199997 and y 19.199997 del scratch x:26.199997 y:51.199997
+TILE ORG ⓺ POS IN SCRATCH: ilasertile 96 SCRATCH POSITION 2295
+********************ilasertile 96 offset scratchpad interaction****************** 2295
+TILE ORG ⓺ POS IN SCRATCH: image number 5 tilenumber 6 position in tile 0
+TILE ORG ⓺ POS IN TILE: iLaser 6,tilenumber 8 tile.posintile[iLaser]  0 A ilasertile 128 valid 1
+TILE ORG ⓺ POS IN SCRATCH: numeral 6 laser pos in x 5.400000 in y: 5.400000  tile x: 0 y: 0 
+TILE ORG ⓺ POS IN SCRATCH: deltile x: 16.200001 and y 16.200001 del scratch x:38.200001 y:48.200001
+TILE ORG ⓺ POS IN SCRATCH: ilasertile 128 SCRATCH POSITION 2112
+********************ilasertile 128 offset scratchpad interaction****************** 2112
+TILE ORG ⓺ POS IN SCRATCH: image number 6 tilenumber 8 position in tile 0
+TILE ORG ⓺ POS IN TILE: iLaser 7,tilenumber 8 tile.posintile[iLaser]  1 A ilasertile 129 valid 1
+TILE ORG ⓺ POS IN SCRATCH: numeral 7 laser pos in x 5.400000 in y: 15.400000  tile x: 0 y: 0 
+TILE ORG ⓺ POS IN SCRATCH: deltile x: 16.200001 and y 46.199997 del scratch x:38.200001 y:78.199997
+TILE ORG ⓺ POS IN SCRATCH: ilasertile 129 SCRATCH POSITION 4062
+********************ilasertile 129 offset scratchpad interaction****************** 4062
+TILE ORG ⓺ POS IN SCRATCH: image number 7 tilenumber 8 position in tile 1
+TILE ORG ⓺ POS IN TILE: iLaser 8,tilenumber 12 tile.posintile[iLaser]  0 A ilasertile 192 valid 1
+TILE ORG ⓺ POS IN SCRATCH: numeral 8 laser pos in x 5.400000 in y: 25.400000  tile x: 0 y: 1 
+TILE ORG ⓺ POS IN SCRATCH: deltile x: 16.200001 and y 19.199997 del scratch x:38.200001 y:51.199997
+TILE ORG ⓺ POS IN SCRATCH: ilasertile 192 SCRATCH POSITION 2307
+********************ilasertile 192 offset scratchpad interaction****************** 2307
+TILE ORG ⓺ POS IN SCRATCH: image number 8 tilenumber 12 position in tile 0
+TILE ORG ⓺ POS IN TILE: iLaser 9,tilenumber 10 tile.posintile[iLaser]  0 A ilasertile 160 valid 1
+TILE ORG ⓺ POS IN SCRATCH: numeral 9 laser pos in x 15.400000 in y: 5.400000  tile x: 2 y: 0 
+TILE ORG ⓺ POS IN SCRATCH: deltile x: 4.199997 and y 16.200001 del scratch x:26.199997 y:48.200001
+TILE ORG ⓺ POS IN SCRATCH: ilasertile 160 SCRATCH POSITION 2100
+********************ilasertile 160 offset scratchpad interaction****************** 2100
+TILE ORG ⓺ POS IN SCRATCH: image number 9 tilenumber 10 position in tile 0
+TILE ORG ⓺ POS IN TILE: iLaser 10,tilenumber 10 tile.posintile[iLaser]  1 A ilasertile 161 valid 1
+TILE ORG ⓺ POS IN SCRATCH: numeral 10 laser pos in x 15.400000 in y: 15.400000  tile x: 2 y: 0 
+TILE ORG ⓺ POS IN SCRATCH: deltile x: 4.199997 and y 46.199997 del scratch x:26.199997 y:78.199997
+TILE ORG ⓺ POS IN SCRATCH: ilasertile 161 SCRATCH POSITION 4050
+********************ilasertile 161 offset scratchpad interaction****************** 4050
+TILE ORG ⓺ POS IN SCRATCH: image number 10 tilenumber 10 position in tile 1
+TILE ORG ⓺ POS IN TILE: iLaser 11,tilenumber 14 tile.posintile[iLaser]  0 A ilasertile 224 valid 1
+TILE ORG ⓺ POS IN SCRATCH: numeral 11 laser pos in x 15.400000 in y: 25.400000  tile x: 2 y: 1 
+TILE ORG ⓺ POS IN SCRATCH: deltile x: 4.199997 and y 19.199997 del scratch x:26.199997 y:51.199997
+TILE ORG ⓺ POS IN SCRATCH: ilasertile 224 SCRATCH POSITION 2295
+********************ilasertile 224 offset scratchpad interaction****************** 2295
+TILE ORG ⓺ POS IN SCRATCH: image number 11 tilenumber 14 position in tile 0
+TILE ORG ⓺ Tile number 0 tile in x 0 tile in y 0 distrib 0 number of microimages 2
+TILE ORG ⓺ Tile number 1 tile in x 1 tile in y 0 distrib 0 number of microimages 0
+TILE ORG ⓺ Tile number 2 tile in x 2 tile in y 0 distrib 0 number of microimages 2
+TILE ORG ⓺ Tile number 3 tile in x 3 tile in y 0 distrib 0 number of microimages 0
+TILE ORG ⓺ Tile number 4 tile in x 0 tile in y 1 distrib 0 number of microimages 1
+TILE ORG ⓺ Tile number 5 tile in x 1 tile in y 1 distrib 0 number of microimages 0
+TILE ORG ⓺ Tile number 6 tile in x 2 tile in y 1 distrib 0 number of microimages 1
+TILE ORG ⓺ Tile number 7 tile in x 3 tile in y 1 distrib 0 number of microimages 0
+TILE ORG ⓺ Tile number 8 tile in x 0 tile in y 0 distrib 1 number of microimages 2
+TILE ORG ⓺ Tile number 9 tile in x 1 tile in y 0 distrib 1 number of microimages 0
+TILE ORG ⓺ Tile number 10 tile in x 2 tile in y 0 distrib 1 number of microimages 2
+TILE ORG ⓺ Tile number 11 tile in x 3 tile in y 0 distrib 1 number of microimages 0
+TILE ORG ⓺ Tile number 12 tile in x 0 tile in y 1 distrib 1 number of microimages 1
+TILE ORG ⓺ Tile number 13 tile in x 1 tile in y 1 distrib 1 number of microimages 0
+TILE ORG ⓺ Tile number 14 tile in x 2 tile in y 1 distrib 1 number of microimages 1
+TILE ORG ⓺ Tile number 15 tile in x 3 tile in y 1 distrib 1 number of microimages 0
 REC ❽ DEVICE ----------------------------------------------------------------------------------------------------
 REC ❽ DEVICE position 1396 position x: 52 y: 16 value 100.000000
 REC ❽ DEVICE position 1420 position x: 76 y: 16 value 200.000000
@@ -30,6 +168,14 @@ SCRATCHPAD PREPARE ⓼ position 1420, size, 9576 column width 84 xy position (x*
 SCRATCHPAD PREPARE ⓼ position 4480, size, 9576 column width 84 xy position (x*y) (28*53) value 300 normalized 191
 SCRATCHPAD PREPARE ⓼ position 6266, size, 9576 column width 84 xy position (x*y) (50*74) value 400 normalized 255
 ---------------------------------------
+SCRATCHPAD ⓼ itile 4480, iscratch 21421 iscratch2Dx 94, iscratch2Dy 82 iscratch2D 21414
+SCRATCHPAD ⓼ itile 4480, i_scratchpad[iscratch2D] 191 val_scratchpad[arg1D] 300.000000
+SCRATCHPAD ⓼ itile 1396, iscratch 11869 iscratch2Dx 162, iscratch2Dy 45 iscratch2D 11862
+SCRATCHPAD ⓼ itile 1396, i_scratchpad[iscratch2D] 63 val_scratchpad[arg1D] 100.000000
+SCRATCHPAD ⓼ itile 1420, iscratch 11937 iscratch2Dx 230, iscratch2Dy 45 iscratch2D 11930
+SCRATCHPAD ⓼ itile 1420, i_scratchpad[iscratch2D] 127 val_scratchpad[arg1D] 200.000000
+SCRATCHPAD ⓼ itile 6266, iscratch 44127 iscratch2Dx 160, iscratch2Dy 168 iscratch2D 43840
+SCRATCHPAD ⓼ itile 6266, i_scratchpad[iscratch2D] 255 val_scratchpad[arg1D] 400.000000
 SCRATCHPAD ❾ position 11869, size XY (x*y), (260*244) xy position (x*y) (162*45) value 100
 SCRATCHPAD ❾ position 11937, size XY (x*y), (260*244) xy position (x*y) (230*45) value 200
 SCRATCHPAD ❾ position 21421, size XY (x*y), (260*244) xy position (x*y) (94*82) value 300
@@ -46,6 +192,14 @@ SCRATCHPAD ⓽ position 11869, size XY (x*y), (260*244) xy position (x*y) (169*4
 SCRATCHPAD ⓽ position 11937, size XY (x*y), (260*244) xy position (x*y) (237*45) value 200
 SCRATCHPAD ⓽ position 21421, size XY (x*y), (260*244) xy position (x*y) (101*82) value 300
 SCRATCHPAD ⓽ position 44127, size XY (x*y), (260*244) xy position (x*y) (187*169) value 400
+SCRATCHPAD ⓼ itile 4480, iscratch 21421 iscratch2Dx 94, iscratch2Dy 82 iscratch2D 21414
+SCRATCHPAD ⓼ itile 4480, i_scratchpad[iscratch2D] 191 val_scratchpad[arg1D] 300.000000
+SCRATCHPAD ⓼ itile 1396, iscratch 11869 iscratch2Dx 162, iscratch2Dy 45 iscratch2D 11862
+SCRATCHPAD ⓼ itile 1396, i_scratchpad[iscratch2D] 63 val_scratchpad[arg1D] 100.000000
+SCRATCHPAD ⓼ itile 1420, iscratch 11937 iscratch2Dx 230, iscratch2Dy 45 iscratch2D 11930
+SCRATCHPAD ⓼ itile 1420, i_scratchpad[iscratch2D] 127 val_scratchpad[arg1D] 200.000000
+SCRATCHPAD ⓼ itile 6266, iscratch 44127 iscratch2Dx 160, iscratch2Dy 168 iscratch2D 43840
+SCRATCHPAD ⓼ itile 6266, i_scratchpad[iscratch2D] 255 val_scratchpad[arg1D] 400.000000
 
 HOST: ⓪ Npixel 11 pZOOM 3, pPSF 9
 HOST: ⓪ pPSF 9 XDistrib 59 YDistrib 59
@@ -54,155 +208,42 @@ HOST: ⓪ Number of pixels calculated in parallel 1280 Number of threads used 32
 
 HOST: ⓪ ************************BigLoop start   *******************************
 HOST: ⓪ ***********************************************************************
-DEVICE: ① BLOCK x 0 y 0 z 0 distrib number 0 threads + block position in grid 0 block position in grid 0
-DEVICE: ① BLOCK x 0 y 1 z 1 distrib number 1 threads + block position in grid 6 block position in grid 6
-DEVICE: ① BLOCK x 0 y 0 z 1 distrib number 1 threads + block position in grid 4 block position in grid 4
-DEVICE: ① BLOCK x 0 y 1 z 0 distrib number 0 threads + block position in grid 2 block position in grid 2
-DEVICE: ① BLOCK x 1 y 0 z 0 distrib number 0 threads + block position in grid 1 block position in grid 1
-DEVICE: ① BLOCK x 1 y 1 z 1 distrib number 1 threads + block position in grid 7 block position in grid 7
-DEVICE: ① BLOCK x 1 y 0 z 1 distrib number 1 threads + block position in grid 5 block position in grid 5
-DEVICE: ① BLOCK x 1 y 1 z 0 distrib number 0 threads + block position in grid 3 block position in grid 3
-
-①********************************** START *****************************
-DEVICE: ①****************PARAMETERS OF MEASUREMENT *******************
-DEVICE: ① PARAMETERS  NThreads 1280 Npixel 11 pZOOM 3, pPSF 9
-DEVICE: ① PARAMETERS dimBlock  x: 320 y: 1 z: 1   ...   dimGrid  x: 2 y: 2 z: 2
-DEVICE: ① PARAMETERS pPSF 9 XDistrib 59 YDistrib 59 ADistrib 3840
-DEVICE: ① PARAMETERS XSCRATCH 65 YSCRATCH 122 XTILE 21 YTILE 57
-DEVICE: ① PARAMETERS Number of pixels calculated in parallel 1280 Number of threads used 320 loop on threads 4
-DEVICE: ①  TILES: XSCRATCH 65, YSCRATCH 122  iprint 0XTILE 21, YTILE 57
-DEVICE: ①  TILES & AGGREGATES: Number of Aggregates in x: 2 in y:1
-DEVICE: ①  TILES & AGGREGATES: Number of Tiles per aggregates in x: 2 in y:2
-DEVICE: ①  TILES & AGGREGATES: Number of Tiles in x: 4 in y:2
-DEVICE: ①  TILES & AGGREGATES: Max number of laser position in Tile: 16 min value:0 Number of blocks 1
-①*******************************PARAMETERS OF MEASUREMENT ***************
-DEVICE: ⏱**DEVICE:  step 1   TIMING (msec) ** processing  0 this step  0  total 0 
-
-
-②*******************************DEVICE:  THREADS *********************
-DEVICE: ② : apix 1 ithreads 224 tmpi[apix] 544 ipixel 0, jpixel 0  valid 1 distribpos0 960
-DEVICE: ② : apix 0 ithreads 0 tmpi[apix] 0 ipixel -16, jpixel -16  valid 1 distribpos0 0
-DEVICE: ② : apix 1 ithreads 0 tmpi[apix] 320 ipixel 7, jpixel -7  valid 1 distribpos0 554
-DEVICE: ② : apix 2 ithreads 0 tmpi[apix] 640 ipixel -3, jpixel 3  valid 1 distribpos0 1134
-DEVICE: ② : apix 3 ithreads 0 tmpi[apix] 960 ipixel -13, jpixel 13  valid 1 distribpos0 1714
-DEVICE: ⏱**DEVICE:  step 2   TIMING (msec) ** processing  -0.20132 this step  0.20132  total 0 
-② **********************************DEVICE:  THREADS  ********************
-
-INITIATE: ⏲ APIX DISTRIB: ithreads 0 apix 0 temp 1089
-INITIATE: ⏲ APIX DISTRIB: ithreads 0 apix 1 temp 1089
-INITIATE: ⏲ APIX DISTRIB: ithreads 0 apix 2 temp 1089
-INITIATE: ⏲ APIX DISTRIB: ithreads 0 apix 3 temp 1089
-DEVICE: ⏱**DEVICE: MaxDistribution2 0.007599      MaxPSF2 0.014641 
-DEVICE: ⏱**DEVICE:  step 3   TIMING (msec) ** processing  -0.542081 this step  0.542081  total 0 
-② **********************************DEVICE:  DISTRIBUTIONS  ********************
-
-
-④****************************DEVICE:  AGGREGATES & TILES****************
-④ AGGREGATE x 0 y 0 ***************************************
-④ TILES tilexdevice 0, tileydevice 0 tile 0 MemoryOffset 0
-④ AGGREGATE x 0 y 0 ***************************************
-
-DEVICE: ④ SCRATCHPAD distrib_number 1 itb 5 delta 11862 x 25 y 182 position in scratchpad 3869 value 100.000000 Sum 100.000000 max 100.000000
-DEVICE: ④ SCRATCHPAD distrib_number 0 itb 1 delta 11862 x 25 y 182 position in scratchpad 3869 value 100.000000 Sum 100.000000 max 100.000000
-DEVICE: ④ SCRATCHPAD distrib_number 1 itb 5 delta 11930 x 28 y 183 position in scratchpad 3937 value 200.000000 Sum 300.000000 max 200.000000
-DEVICE: ④ SCRATCHPAD distrib_number 0 itb 1 delta 11930 x 28 y 183 position in scratchpad 3937 value 200.000000 Sum 300.000000 max 200.000000
-DEVICE: ④ SCRATCHPAD distrib_number 1 itb 7 delta 44120 x 43 y 678 position in scratchpad 4127 value 400.000000 Sum 400.000000 max 400.000000
-DEVICE: ④ SCRATCHPAD distrib_number 0 itb 3 delta 44120 x 43 y 678 position in scratchpad 4127 value 400.000000 Sum 400.000000 max 400.000000
-end ④****************DEVICE:  SCRATCHPAD ********************
-
-⑥ ipix jpix = iPSF jPSF zero ithreads 26 4:2970 offset 2112 value 0 
-⑥ values of pointer position pscratch iblockima 0: 0x7fe3b3001128 2: 0x7fe3b3001b28 3: 0x7fe3b3002528 4:0x7fe3b3002ea8 
-⑥ ipix jpix = iPSF jPSF zero ithreads 26 4:4920 offset 4062 value 0 
-⑥ values of pointer position pscratch iblockima 1: 0x7fe3b3002fa0 2: 0x7fe3b30039a0 3: 0x7fe3b30043a0 4:0x7fe3b3004d20 
+⏳ ** OFFSET:aggregx 0 aggregy 0 tileXY 4 iblockima 0 offset 2307 iglobal 0
+⏳ ** OFFSET:aggregx 0 aggregy 0 tileXY 4 iblockima 0 offset 2307 iglobal 0
 ⏳ ** OFFSET:aggregx 0 aggregy 0 tileXY 0 iblockima 0 offset 2112 iglobal 0
+⏳ ** OFFSET:aggregx 0 aggregy 0 tileXY 0 iblockima 0 offset 2112 iglobal 0
+⑥ ipix jpix = iPSF jPSF zero ithreads 26 4:2970 offset 2112 value 0 
+⑥ ipix jpix = iPSF jPSF zero ithreads 26 4:3165 offset 2307 value 0 
+⑥ ipix jpix = iPSF jPSF zero ithreads 26 4:3165 offset 2307 value 0 
+⑥ ipix jpix = iPSF jPSF zero ithreads 26 4:2970 offset 2112 value 0 
+⑥ values of pointer position pscratch iblockima 0: 0x7fb660001128 2: 0x7fb660001b28 3: 0x7fb660002528 4:0x7fb660002ea8 
+⑥ values of pointer position pscratch iblockima 0: 0x7fb660001434 2: 0x7fb660001e34 3: 0x7fb660002834 4:0x7fb6600031b4 
+⑥ values of pointer position pscratch iblockima 0: 0x7fb660001128 2: 0x7fb660001b28 3: 0x7fb660002528 4:0x7fb660002ea8 
+⑥ values of pointer position pscratch iblockima 0: 0x7fb660001434 2: 0x7fb660001e34 3: 0x7fb660002834 4:0x7fb6600031b4 
 ⏳ ** OFFSET:aggregx 0 aggregy 0 tileXY 0 iblockima 1 offset 4062 iglobal 0
-⑥ ipix jpix = iPSF jPSF zero ithreads 26 4:2970 offset 2112 value 0 
-⑥ values of pointer position pscratch iblockima 0: 0x7fe3b3001128 2: 0x7fe3b3001b28 3: 0x7fe3b3002528 4:0x7fe3b3002ea8 
-⑥ ipix jpix = iPSF jPSF zero ithreads 26 4:2970 offset 2112 value 0 
-⑥ values of pointer position pscratch iblockima 0: 0x7fe3b3001128 2: 0x7fe3b3001b28 3: 0x7fe3b3002528 4:0x7fe3b3002ea8 
-⑥ ipix jpix = iPSF jPSF zero ithreads 26 4:4920 offset 4062 value 0 
-⑥ ipix jpix = iPSF jPSF zero ithreads 26 4:2970 offset 2112 value 0 
-⑥ ipix jpix = iPSF jPSF zero ithreads 26 4:2970 offset 2112 value 0 
-⑥ ipix jpix = iPSF jPSF zero ithreads 26 4:2970 offset 2112 value 0 
-⑥ ipix jpix = iPSF jPSF zero ithreads 26 4:2970 offset 2112 value 0 
-⑥ values of pointer position pscratch iblockima 1: 0x7fe3b3002fa0 2: 0x7fe3b30039a0 3: 0x7fe3b30043a0 4:0x7fe3b3004d20 
-⑥ ipix jpix = iPSF jPSF zero ithreads 26 4:4920 offset 4062 value 0 
-⑥ values of pointer position pscratch iblockima 0: 0x7fe3b3001128 2: 0x7fe3b3001b28 3: 0x7fe3b3002528 4:0x7fe3b3002ea8 
-⑥ values of pointer position pscratch iblockima 0: 0x7fe3b3001128 2: 0x7fe3b3001b28 3: 0x7fe3b3002528 4:0x7fe3b3002ea8 
-⑥ values of pointer position pscratch iblockima 0: 0x7fe3b3001128 2: 0x7fe3b3001b28 3: 0x7fe3b3002528 4:0x7fe3b3002ea8 
-⑥ values of pointer position pscratch iblockima 0: 0x7fe3b3001128 2: 0x7fe3b3001b28 3: 0x7fe3b3002528 4:0x7fe3b3002ea8 
-⑥ values of pointer position pscratch iblockima 1: 0x7fe3b3002fa0 2: 0x7fe3b30039a0 3: 0x7fe3b30043a0 4:0x7fe3b3004d20 
-⑥ ipix jpix = iPSF jPSF zero ithreads 26 4:4920 offset 4062 value 0 
-⑥ ipix jpix = iPSF jPSF zero ithreads 26 4:4920 offset 4062 value 0 
-⑥ ipix jpix = iPSF jPSF zero ithreads 26 4:4920 offset 4062 value 0 
-⑥ values of pointer position pscratch iblockima 1: 0x7fe3b3002fa0 2: 0x7fe3b30039a0 3: 0x7fe3b30043a0 4:0x7fe3b3004d20 
-⑥ values of pointer position pscratch iblockima 1: 0x7fe3b3002fa0 2: 0x7fe3b30039a0 3: 0x7fe3b30043a0 4:0x7fe3b3004d20 
-⑥ values of pointer position pscratch iblockima 1: 0x7fe3b3002fa0 2: 0x7fe3b30039a0 3: 0x7fe3b30043a0 4:0x7fe3b3004d20 
-⑥ ipix jpix = iPSF jPSF zero ithreads 26 4:4920 offset 4062 value 0 
-⑥ ipix jpix = iPSF jPSF zero ithreads 26 4:2970 offset 2112 value 0 
-⑥ values of pointer position pscratch iblockima 1: 0x7fe3b3002fa0 2: 0x7fe3b30039a0 3: 0x7fe3b30043a0 4:0x7fe3b3004d20 
-⏳ ** OFFSET:aggregx 0 aggregy 0 tileXY 0 iblockima 0 offset 2112 iglobal 0
-⑥ values of pointer position pscratch iblockima 0: 0x7fe3b3001128 2: 0x7fe3b3001b28 3: 0x7fe3b3002528 4:0x7fe3b3002ea8 
 ⏳ ** OFFSET:aggregx 0 aggregy 0 tileXY 0 iblockima 1 offset 4062 iglobal 0
 ⑥ ipix jpix = iPSF jPSF zero ithreads 26 4:4920 offset 4062 value 0 
-⏳ ** OFFSET:aggregx 0 aggregy 0 tileXY 4 iblockima 0 offset 2112 iglobal 0
-⏳ ** OFFSET:aggregx 0 aggregy 0 tileXY 4 iblockima 0 offset 2112 iglobal 0
-⑥ values of pointer position pscratch iblockima 1: 0x7fe3b3002fa0 2: 0x7fe3b30039a0 3: 0x7fe3b30043a0 4:0x7fe3b3004d20 
-④ AGGREGATE x 1 y 0 ***************************************
-④ TILES tilexdevice 2, tileydevice 0 tile 2 MemoryOffset 16000
-④ AGGREGATE x 1 y 0 ***************************************
-
-DEVICE: ④ SCRATCHPAD distrib_number 0 itb 0 delta 21414 x 87 y 164 position in scratchpad 5421 value 300.000000 Sum 300.000000 max 300.000000
-DEVICE: ④ SCRATCHPAD distrib_number 1 itb 4 delta 21414 x 87 y 164 position in scratchpad 5421 value 300.000000 Sum 300.000000 max 300.000000
-end ④****************DEVICE:  SCRATCHPAD ********************
-
-DEVICE: ⑤ SUM SCRATCHPAD: Sum of scratchpad 300.0 Max of Scratchpad 300.0 
-DEVICE: ⏱**DEVICE:  step 8   TIMING (msec) ** processing  312.883667 this step  0.542081  total 313.426 
-end ⑤****************DEVICE:  SCRATCHPAD & AGGREGATES & TILES ********************
-
-DEVICE: ⏲ APIX DISTRIB: apix 0 distribpos[apix] 0 
-DEVICE: ⏲ APIX DISTRIB: apix 1 distribpos[apix] 554 
-DEVICE: ⏲ APIX DISTRIB: apix 2 distribpos[apix] 1134 
-DEVICE: ⏲ APIX DISTRIB: apix 3 distribpos[apix] 1714 
-DEVICE: ⏱**DEVICE:  step 9   TIMING (msec) ** processing  313.312958 this step  0.542081  total 313.855 
-⑥ ipix jpix = iPSF jPSF zero ithreads 26 4:2970 offset 2112 value 0 
-⑥ values of pointer position pscratch iblockima 0: 0x7fe3b3001128 2: 0x7fe3b3001b28 3: 0x7fe3b3002528 4:0x7fe3b3002ea8 
 ⑥ ipix jpix = iPSF jPSF zero ithreads 26 4:4920 offset 4062 value 0 
-⑥ values of pointer position pscratch iblockima 1: 0x7fe3b3002fa0 2: 0x7fe3b30039a0 3: 0x7fe3b30043a0 4:0x7fe3b3004d20 
-⏳ ** OFFSET:aggregx 1 aggregy 0 tileXY 2 iblockima 0 offset 2112 iglobal 0
-⏳ ** OFFSET:aggregx 1 aggregy 0 tileXY 2 iblockima 1 offset 4062 iglobal 0
-⑥ ipix jpix = iPSF jPSF zero ithreads 26 4:2970 offset 2112 value 0 
-⑥ values of pointer position pscratch iblockima 0: 0x7fe3b3001128 2: 0x7fe3b3001b28 3: 0x7fe3b3002528 4:0x7fe3b3002ea8 
-⑥ ipix jpix = iPSF jPSF zero ithreads 26 4:2970 offset 2112 value 0 
-⑥ ipix jpix = iPSF jPSF zero ithreads 26 4:4920 offset 4062 value 0 
-⑥ values of pointer position pscratch iblockima 0: 0x7fe3b3001128 2: 0x7fe3b3001b28 3: 0x7fe3b3002528 4:0x7fe3b3002ea8 
-⑥ values of pointer position pscratch iblockima 1: 0x7fe3b3002fa0 2: 0x7fe3b30039a0 3: 0x7fe3b30043a0 4:0x7fe3b3004d20 
-⑥ ipix jpix = iPSF jPSF zero ithreads 26 4:4920 offset 4062 value 0 
-⑥ values of pointer position pscratch iblockima 1: 0x7fe3b3002fa0 2: 0x7fe3b30039a0 3: 0x7fe3b30043a0 4:0x7fe3b3004d20 
-⏳ ** OFFSET:aggregx 1 aggregy 0 tileXY 2 iblockima 0 offset 2112 iglobal 0
-⏳ ** OFFSET:aggregx 1 aggregy 0 tileXY 2 iblockima 1 offset 4062 iglobal 0
-⑥ ipix jpix = iPSF jPSF zero ithreads 26 4:2970 offset 2112 value 0 
-⑥ ipix jpix = iPSF jPSF zero ithreads 26 4:2970 offset 2112 value 0 
-⑥ values of pointer position pscratch iblockima 0: 0x7fe3b3001128 2: 0x7fe3b3001b28 3: 0x7fe3b3002528 4:0x7fe3b3002ea8 
-⑥ values of pointer position pscratch iblockima 0: 0x7fe3b3001128 2: 0x7fe3b3001b28 3: 0x7fe3b3002528 4:0x7fe3b3002ea8 
-⑥ ipix jpix = iPSF jPSF zero ithreads 26 4:4920 offset 4062 value 0 
-⑥ ipix jpix = iPSF jPSF zero ithreads 26 4:4920 offset 4062 value 0 
-⑥ values of pointer position pscratch iblockima 1: 0x7fe3b3002fa0 2: 0x7fe3b30039a0 3: 0x7fe3b30043a0 4:0x7fe3b3004d20 
-⑥ values of pointer position pscratch iblockima 1: 0x7fe3b3002fa0 2: 0x7fe3b30039a0 3: 0x7fe3b30043a0 4:0x7fe3b3004d20 
-⑥ ipix jpix = iPSF jPSF zero ithreads 26 4:2970 offset 2112 value 0 
-⑥ ipix jpix = iPSF jPSF zero ithreads 26 4:2970 offset 2112 value 0 
-⑥ values of pointer position pscratch iblockima 0: 0x7fe3b3001128 2: 0x7fe3b3001b28 3: 0x7fe3b3002528 4:0x7fe3b3002ea8 
-⑥ values of pointer position pscratch iblockima 0: 0x7fe3b3001128 2: 0x7fe3b3001b28 3: 0x7fe3b3002528 4:0x7fe3b3002ea8 
-⑥ ipix jpix = iPSF jPSF zero ithreads 26 4:4920 offset 4062 value 0 
-⑥ ipix jpix = iPSF jPSF zero ithreads 26 4:4920 offset 4062 value 0 
-⏳ ** OFFSET:aggregx 1 aggregy 0 tileXY 6 iblockima 0 offset 2112 iglobal 0
-⑥ values of pointer position pscratch iblockima 1: 0x7fe3b3002fa0 2: 0x7fe3b30039a0 3: 0x7fe3b30043a0 4:0x7fe3b3004d20 
-⑥ values of pointer position pscratch iblockima 1: 0x7fe3b3002fa0 2: 0x7fe3b30039a0 3: 0x7fe3b30043a0 4:0x7fe3b3004d20 
-⏳ ** OFFSET:aggregx 1 aggregy 0 tileXY 6 iblockima 0 offset 2112 iglobal 0
-⑥ ipix jpix = iPSF jPSF zero ithreads 26 4:2970 offset 2112 value 0 
-⑥ values of pointer position pscratch iblockima 0: 0x7fe3b3001128 2: 0x7fe3b3001b28 3: 0x7fe3b3002528 4:0x7fe3b3002ea8 
-⑥ ipix jpix = iPSF jPSF zero ithreads 26 4:4920 offset 4062 value 0 
-⑥ values of pointer position pscratch iblockima 1: 0x7fe3b3002fa0 2: 0x7fe3b30039a0 3: 0x7fe3b30043a0 4:0x7fe3b3004d20 
+⑥ values of pointer position pscratch iblockima 1: 0x7fb660002fa0 2: 0x7fb6600039a0 3: 0x7fb6600043a0 4:0x7fb660004d20 
+⑥ values of pointer position pscratch iblockima 1: 0x7fb660002fa0 2: 0x7fb6600039a0 3: 0x7fb6600043a0 4:0x7fb660004d20 
+⏳ ** OFFSET:aggregx 1 aggregy 0 tileXY 2 iblockima 0 offset 2100 iglobal 0
+⑥ ipix jpix = iPSF jPSF zero ithreads 26 4:2958 offset 2100 value 0 
+⑥ values of pointer position pscratch iblockima 0: 0x7fb6600010f8 2: 0x7fb660001af8 3: 0x7fb6600024f8 4:0x7fb660002e78 
+⏳ ** OFFSET:aggregx 1 aggregy 0 tileXY 6 iblockima 0 offset 2295 iglobal 0
+⏳ ** OFFSET:aggregx 1 aggregy 0 tileXY 2 iblockima 1 offset 4050 iglobal 0
+⑥ ipix jpix = iPSF jPSF zero ithreads 26 4:4908 offset 4050 value 0 
+⑥ values of pointer position pscratch iblockima 1: 0x7fb660002f70 2: 0x7fb660003970 3: 0x7fb660004370 4:0x7fb660004cf0 
+⏳ ** OFFSET:aggregx 1 aggregy 0 tileXY 2 iblockima 0 offset 2100 iglobal 0
+⑥ ipix jpix = iPSF jPSF zero ithreads 26 4:2958 offset 2100 value 0 
+⑥ values of pointer position pscratch iblockima 0: 0x7fb6600010f8 2: 0x7fb660001af8 3: 0x7fb6600024f8 4:0x7fb660002e78 
+⑥ ipix jpix = iPSF jPSF zero ithreads 26 4:3153 offset 2295 value 0 
+⏳ ** OFFSET:aggregx 1 aggregy 0 tileXY 2 iblockima 1 offset 4050 iglobal 0
+⑥ values of pointer position pscratch iblockima 0: 0x7fb660001404 2: 0x7fb660001e04 3: 0x7fb660002804 4:0x7fb660003184 
+⑥ ipix jpix = iPSF jPSF zero ithreads 26 4:4908 offset 4050 value 0 
+⑥ values of pointer position pscratch iblockima 1: 0x7fb660002f70 2: 0x7fb660003970 3: 0x7fb660004370 4:0x7fb660004cf0 
+⏳ ** OFFSET:aggregx 1 aggregy 0 tileXY 6 iblockima 0 offset 2295 iglobal 0
+⑥ ipix jpix = iPSF jPSF zero ithreads 26 4:3153 offset 2295 value 0 
+⑥ values of pointer position pscratch iblockima 0: 0x7fb660001404 2: 0x7fb660001e04 3: 0x7fb660002804 4:0x7fb660003184 
 Energy 0.000000 absolute difference 0.000000
 
 Energy 0.000000 absolute difference 0.061985

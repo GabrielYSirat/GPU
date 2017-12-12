@@ -51,11 +51,6 @@ __global__ void BigLoop(devicedata DD) {
 	}
 #include "8_testthreads.cu"
 
-	int temp = PixZoomSquare;
-for (int apix = 0; apix < THreadsRatio; apix++)
-	if(!ithreads && !itb){
-		printf("INITIATE: \u23f2 APIX DISTRIB: ithreads %d apix %d temp %d\n", ithreads, apix, temp);
-	}
 	/*************************************************************************************************/
 	/**O. Initialize zoomed distrib as calculated  by the preprocessing                               /
 	 /************************************************************************************************/
@@ -103,7 +98,8 @@ for (int apix = 0; apix < THreadsRatio; apix++)
 				// C_1. Transfer from global to shared memory the relative position of the beginning of the scratchpad for each image
 				// C.2 initialize the scratch position for each image for each pixel of the group dealt in this thread
 				for (int iblockima = 0; iblockima < NIMAGESPARALLEL; iblockima++) {
-					*(image_to_scratchpad_offset_tile + iblockima) = *(image_to_scratchpad_offset+ iglobal + iblockima);
+					*(image_to_scratchpad_offset_tile + iblockima) = *(image_to_scratchpad_offset+ iglobal + iblockima + tileXYD*DD.maxLaserintile);
+#include "8_offset.cu"
 					int pos_0 = image_to_scratchpad_offset_tile[iblockima] + ipixel[0] + jpixel[0] * XSCRATCH;
 					int pos_1 = image_to_scratchpad_offset_tile[iblockima] + ipixel[1] + jpixel[1] * XSCRATCH;
 					int pos_2 = image_to_scratchpad_offset_tile[iblockima] + ipixel[2] + jpixel[2] * XSCRATCH;
@@ -114,7 +110,7 @@ for (int apix = 0; apix < THreadsRatio; apix++)
 					pscratch_3[iblockima] = (Scratchpad + pos_3);
 #include "8_pscratchtest.cu"
 				} // end of blockima small loop
-#include "8_offset.cu"
+
 
 				/**************************************/
 				/******D. SIMUS CALCULATION************/

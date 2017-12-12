@@ -14,12 +14,12 @@ float Maxdistrib2 = 0.0f, MaxPSF2 = 0.0f;
 		__syncthreads();
 //    timer = clock64();
 		if (!iprint)
-			printf("DEVICE: \u23f1**DEVICE: MaxDistribution2 %f      MaxPSF2 %f \n", Maxdistrib2, MaxPSF2);
+			printf("DEVICE: \u2462 DEVICE: MaxDistribution2 %f      MaxPSF2 %f \n", Maxdistrib2, MaxPSF2);
 	if (!iprint)
 		printf( "DEVICE: \u23f1**DEVICE:  step %d   TIMING (msec) ** processing  %f this step  %g  total %g \n",
 			DD.step, (float) (timer - time_start) / DD.clockRate,
 			(float) (  time_start - time_init) / DD.clockRate,
 			(float) (timer - time_init) / DD.clockRate);
-	if (!iprint) printf("\u2461 **********************************DEVICE:  DISTRIBUTIONS  ********************\n\n");
+	if (!iprint) printf("\u2462 **********************************DEVICE:  DISTRIBUTIONS  ********************\n\n");
 	__syncthreads();
 #endif
