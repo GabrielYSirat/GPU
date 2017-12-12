@@ -160,7 +160,7 @@ void Scratchprepare(void) {
 				if (i_tilerec[itemp] > 1)
 					if (VERBOSE)
 						printf(
-								"SCRATCHPAD VALIDATION \u24FC position %d, size, %d column width %d xy position (x*y) (%d*%d) "
+								"SCRATCHPAD PREPARE \u24FC position %d, size, %d column width %d xy position (x*y) (%d*%d) "
 								"value %g normalized %d\n",
 								itemp, TA.reconstruction_size, TA.Nb_Cols_reconstruction, itemp % TA.Nb_Cols_reconstruction,
 								itemp / TA.Nb_Cols_reconstruction, tile_rec[itemp], i_tilerec[itemp]);
@@ -210,11 +210,13 @@ bool Scratchvalidate_host(void) {
 	Maxscratch = 0.0f;
 
 	for (int idistrib = 0; idistrib < Ndistrib; idistrib++)
-		for (int i = 0; i < ASCRATCH * tile.NbTileXY; i++) {
-			if (val_scratchpad[i] > 1. && VERBOSE)
-				printf("SCRATCHPAD \u24FC i %d x position in scratch %d y position %d val %f\n", i,
-						i % XSCRATCH, i / XSCRATCH, val_scratchpad[i]);
-			Maxscratch = max(Maxscratch, val_scratchpad[i]); // sanity check, check max
+		for (int iscratch = 0; iscratch < ASCRATCH * tile.NbTileXY; iscratch++) {
+			if (val_scratchpad[iscratch] !=0.0 && VERBOSE)
+				printf(
+						"SCRATCHPAD \u24FD position %d, size XY (x*y), (%d*%d) xy position (x*y) (%d*%d) value %g\n",
+						iscratch, XSCRATCH*tile.NbTilex, YSCRATCH*tile.NbTiley, iscratch % (XSCRATCH*tile.NbTilex),
+						iscratch / (XSCRATCH*tile.NbTilex), val_scratchpad[iscratch]);
+			Maxscratch = max(Maxscratch, val_scratchpad[iscratch]); // sanity check, check max
 		}
 	verbosefile << "max device =" << Maxscratch << "\n";
 

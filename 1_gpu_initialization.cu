@@ -219,7 +219,7 @@ float scratchreaddisplay(float * reconstructiondata, float * scratchdata, const 
 					int iscratch = lostpixels + iix + dxSCRo2; 		// contribution of x in the 1D SCRATCH
 					iscratch += ix * XSCRATCH; 					// contribution of previous tiles in x
 					iscratch += (iiy + dySCRo2) * XSCRATCH * tile.NbTilex; 	// contribution of y in 1D SCRATCH
-					iscratch += iy * YSCRATCH * XSCRATCH * tile.NbTilex; // contribution of previous tiles in y
+					iscratch += iy * ASCRATCH * tile.NbTilex; // contribution of previous tiles in y
 
 					int itile = iix;  // contribution of x in the TILE
 					itile += ix * XTile; // contribution of previous tile in x

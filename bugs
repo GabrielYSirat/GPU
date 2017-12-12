@@ -7,3 +7,28 @@ Bug:
 		TA.AminLasery = 0.; //floor(TA.minLasery);
 if not an eror in 
 1_gpu_initialization.cu
+
+SCRATCHPAD error
+SCRATCHPAD ❾ DEVICE TEST:  position 11869 position x: 162 y: 45 value 100.000000 OK
+SCRATCHPAD ❾ DEVICE TEST:  position 11937 position x: 230 y: 45 value 200.000000 Ok
+SCRATCHPAD ❾ DEVICE TEST:  position 21421 position x: 94 y: 82 value 300.000000 OK
+SCRATCHPAD ❾ DEVICE TEST:  position 44127 position x: 180 y: 169 value 400.000000 wrong !!??
+SCRATCHPAD ❾ DEVICE:  Sum scratchpad 1000.000000 max scratchpad 400.000000 ... 
+
+SCRATCHPAD ❾ position 11869, size XY (x*y), (260*244) xy position (x*y) (162*45) value 100
+SCRATCHPAD ❾ position 11937, size XY (x*y), (260*244) xy position (x*y) (230*45) value 200
+SCRATCHPAD ❾ position 21421, size XY (x*y), (260*244) xy position (x*y) (94*82) value 300
+SCRATCHPAD ❾ position 44127, size XY (x*y), (260*244) xy position (x*y) (180*169) value 400
+SCRATCHPAD ❾ DEVICE:  Sum scratchpad 1000.000000 max scratchpad 400.000000 ... 
+SCRATCHPAD ❾ DEVICE ---------------------------------------------------------------------------------------
+
+SCRATCHPAD ⓼ Sum3Scratchpad  1000.000000 max3Scratchpad 400.000000   
+SCRATCHPAD ⓽ position 11869, size XY (x*y), (260*244) xy position (x*y) (169*45) value 100
+SCRATCHPAD ⓽ position 11937, size XY (x*y), (260*244) xy position (x*y) (237*45) value 200
+SCRATCHPAD ⓽ position 21421, size XY (x*y), (260*244) xy position (x*y) (101*82) value 300
+SCRATCHPAD ⓽ position 44127, size XY (x*y), (260*244) xy position (x*y) (187*169) value 400
+SCRATCHPAD ⓽ position 11869, size XY (x*y), (260*244) xy position (x*y) (169*45) value 100
+SCRATCHPAD ⓽ position 11937, size XY (x*y), (260*244) xy position (x*y) (237*45) value 200
+SCRATCHPAD ⓽ position 21421, size XY (x*y), (260*244) xy position (x*y) (101*82) value 300
+SCRATCHPAD ⓽ position 44127, size XY (x*y), (260*244) xy position (x*y) (187*169) value 400
++7 - lost pixels!!

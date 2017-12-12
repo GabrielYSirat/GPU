@@ -25,27 +25,27 @@ REC VALIDATION ⓼ position 1420, size, 9576 column width 84 xy position (x*y) (
 REC VALIDATION ⓼ position 4480, size, 9576 column width 84 xy position (x*y) (28*53) value 300 normalized 191
 REC VALIDATION ⓼ position 6266, size, 9576 column width 84 xy position (x*y) (50*74) value 400 normalized 255
 ---------------------------------------
-SCRATCHPAD VALIDATION ⓼ position 1396, size, 9576 column width 84 xy position (x*y) (52*16) value 100 normalized 63
-SCRATCHPAD VALIDATION ⓼ position 1420, size, 9576 column width 84 xy position (x*y) (76*16) value 200 normalized 127
-SCRATCHPAD VALIDATION ⓼ position 4480, size, 9576 column width 84 xy position (x*y) (28*53) value 300 normalized 191
-SCRATCHPAD VALIDATION ⓼ position 6266, size, 9576 column width 84 xy position (x*y) (50*74) value 400 normalized 255
+SCRATCHPAD PREPARE ⓼ position 1396, size, 9576 column width 84 xy position (x*y) (52*16) value 100 normalized 63
+SCRATCHPAD PREPARE ⓼ position 1420, size, 9576 column width 84 xy position (x*y) (76*16) value 200 normalized 127
+SCRATCHPAD PREPARE ⓼ position 4480, size, 9576 column width 84 xy position (x*y) (28*53) value 300 normalized 191
+SCRATCHPAD PREPARE ⓼ position 6266, size, 9576 column width 84 xy position (x*y) (50*74) value 400 normalized 255
 ---------------------------------------
-SCRATCHPAD ❾ DEVICE TEST:  position 11869 position x: 162 y: 45 value 100.000000
-SCRATCHPAD ❾ DEVICE TEST:  position 11937 position x: 230 y: 45 value 200.000000
-SCRATCHPAD ❾ DEVICE TEST:  position 21421 position x: 94 y: 82 value 300.000000
-SCRATCHPAD ❾ DEVICE TEST:  position 43847 position x: 160 y: 168 value 400.000000
+SCRATCHPAD ❾ position 11869, size XY (x*y), (260*244) xy position (x*y) (162*45) value 100
+SCRATCHPAD ❾ position 11937, size XY (x*y), (260*244) xy position (x*y) (230*45) value 200
+SCRATCHPAD ❾ position 21421, size XY (x*y), (260*244) xy position (x*y) (94*82) value 300
+SCRATCHPAD ❾ position 44127, size XY (x*y), (260*244) xy position (x*y) (180*169) value 400
 SCRATCHPAD ❾ DEVICE:  Sum scratchpad 1000.000000 max scratchpad 400.000000 ... 
 SCRATCHPAD ❾ DEVICE ----------------------------------------------------------------------------------------------------
 
 SCRATCHPAD ⓼ Sum3Scratchpad  1000.000000 max3Scratchpad 400.000000   
-SCRATCHPAD ⓼ i 11869 x position in scratch 39 y position 182 val 100.000000
-SCRATCHPAD ⓼ i 11937 x position in scratch 42 y position 183 val 200.000000
-SCRATCHPAD ⓼ i 21421 x position in scratch 36 y position 329 val 300.000000
-SCRATCHPAD ⓼ i 43847 x position in scratch 37 y position 674 val 400.000000
-SCRATCHPAD ⓼ i 11869 x position in scratch 39 y position 182 val 100.000000
-SCRATCHPAD ⓼ i 11937 x position in scratch 42 y position 183 val 200.000000
-SCRATCHPAD ⓼ i 21421 x position in scratch 36 y position 329 val 300.000000
-SCRATCHPAD ⓼ i 43847 x position in scratch 37 y position 674 val 400.000000
+SCRATCHPAD ⓽ position 11869, size XY (x*y), (260*244) xy position (x*y) (169*45) value 100
+SCRATCHPAD ⓽ position 11937, size XY (x*y), (260*244) xy position (x*y) (237*45) value 200
+SCRATCHPAD ⓽ position 21421, size XY (x*y), (260*244) xy position (x*y) (101*82) value 300
+SCRATCHPAD ⓽ position 44127, size XY (x*y), (260*244) xy position (x*y) (187*169) value 400
+SCRATCHPAD ⓽ position 11869, size XY (x*y), (260*244) xy position (x*y) (169*45) value 100
+SCRATCHPAD ⓽ position 11937, size XY (x*y), (260*244) xy position (x*y) (237*45) value 200
+SCRATCHPAD ⓽ position 21421, size XY (x*y), (260*244) xy position (x*y) (101*82) value 300
+SCRATCHPAD ⓽ position 44127, size XY (x*y), (260*244) xy position (x*y) (187*169) value 400
 
 HOST: ⓪ Npixel 11 pZOOM 3, pPSF 9
 HOST: ⓪ pPSF 9 XDistrib 59 YDistrib 59
@@ -54,47 +54,19 @@ HOST: ⓪ Number of pixels calculated in parallel 1280 Number of threads used 32
 
 HOST: ⓪ ************************BigLoop start   *******************************
 HOST: ⓪ ***********************************************************************
-DEVICE: ① BLOCK x 1 y 0 z 0 distrib number 0 itc 1 itb 1
-DEVICE: ① BLOCK x 1 y 1 z 1 distrib number 1 itc 7 itb 7
-DEVICE: ① BLOCK x 1 y 1 z 0 distrib number 0 itc 3 itb 3
-DEVICE: ① BLOCK x 1 y 0 z 1 distrib number 1 itc 5 itb 5
-DEVICE: ① BLOCK x 0 y 0 z 0 distrib number 0 itc 0 itb 0
-DEVICE: ① BLOCK x 0 y 1 z 1 distrib number 1 itc 6 itb 6
-DEVICE: ① BLOCK x 0 y 0 z 1 distrib number 1 itc 4 itb 4
-DEVICE: ① BLOCK x 0 y 1 z 0 distrib number 0 itc 2 itb 2
+DEVICE: ① BLOCK x 0 y 0 z 0 distrib number 0 threads + block position in grid 0 block position in grid 0
+DEVICE: ① BLOCK x 0 y 1 z 1 distrib number 1 threads + block position in grid 6 block position in grid 6
+DEVICE: ① BLOCK x 0 y 0 z 1 distrib number 1 threads + block position in grid 4 block position in grid 4
+DEVICE: ① BLOCK x 0 y 1 z 0 distrib number 0 threads + block position in grid 2 block position in grid 2
+DEVICE: ① BLOCK x 1 y 0 z 0 distrib number 0 threads + block position in grid 1 block position in grid 1
+DEVICE: ① BLOCK x 1 y 1 z 1 distrib number 1 threads + block position in grid 7 block position in grid 7
+DEVICE: ① BLOCK x 1 y 0 z 1 distrib number 1 threads + block position in grid 5 block position in grid 5
+DEVICE: ① BLOCK x 1 y 1 z 0 distrib number 0 threads + block position in grid 3 block position in grid 3
 
 ①********************************** START *****************************
-DEVICE: ② : apix 0 ithreads 32
-DEVICE: ② : apix 0 ithreads 32
-DEVICE: ② : apix 0 ithreads 32
-DEVICE: ② : apix 0 ithreads 32
-DEVICE: ② : apix 0 ithreads 32
-DEVICE: ② : apix 0 ithreads 32
-DEVICE: ② : apix 0 ithreads 32
 DEVICE: ①****************PARAMETERS OF MEASUREMENT *******************
-DEVICE: ② : apix 1 ithreads 32
-DEVICE: ② : apix 1 ithreads 32
-DEVICE: ② : apix 1 ithreads 32
-DEVICE: ② : apix 1 ithreads 32
-DEVICE: ② : apix 1 ithreads 32
-DEVICE: ② : apix 1 ithreads 32
-DEVICE: ② : apix 1 ithreads 32
 DEVICE: ① PARAMETERS  NThreads 1280 Npixel 11 pZOOM 3, pPSF 9
-DEVICE: ② : apix 2 ithreads 32
-DEVICE: ② : apix 2 ithreads 32
-DEVICE: ② : apix 2 ithreads 32
-DEVICE: ② : apix 2 ithreads 32
-DEVICE: ② : apix 2 ithreads 32
-DEVICE: ② : apix 2 ithreads 32
-DEVICE: ② : apix 2 ithreads 32
-DEVICE: ① PARAMETERS dimBlock  x: 320 y: 1 z: 1   ...   DEVICE: ② : apix 3 ithreads 32
-DEVICE: ② : apix 3 ithreads 32
-DEVICE: ② : apix 3 ithreads 32
-DEVICE: ② : apix 3 ithreads 32
-DEVICE: ② : apix 3 ithreads 32
-DEVICE: ② : apix 3 ithreads 32
-DEVICE: ② : apix 3 ithreads 32
-dimGrid  x: 2 y: 2 z: 2
+DEVICE: ① PARAMETERS dimBlock  x: 320 y: 1 z: 1   ...   dimGrid  x: 2 y: 2 z: 2
 DEVICE: ① PARAMETERS pPSF 9 XDistrib 59 YDistrib 59 ADistrib 3840
 DEVICE: ① PARAMETERS XSCRATCH 65 YSCRATCH 122 XTILE 21 YTILE 57
 DEVICE: ① PARAMETERS Number of pixels calculated in parallel 1280 Number of threads used 320 loop on threads 4
@@ -108,19 +80,20 @@ DEVICE: ⏱**DEVICE:  step 1   TIMING (msec) ** processing  0 this step  0  tota
 
 
 ②*******************************DEVICE:  THREADS *********************
-DEVICE: ② : apix 0 ithreads 32
-DEVICE: ⏱**DEVICE:  step 2   TIMING (msec) ** processing  -0.187642 this step  0.187642  total 0 
-DEVICE: ② : apix 1 ithreads 32
+DEVICE: ② : apix 1 ithreads 224 tmpi[apix] 544 ipixel 0, jpixel 0  valid 1 distribpos0 960
+DEVICE: ② : apix 0 ithreads 0 tmpi[apix] 0 ipixel -16, jpixel -16  valid 1 distribpos0 0
+DEVICE: ② : apix 1 ithreads 0 tmpi[apix] 320 ipixel 7, jpixel -7  valid 1 distribpos0 554
+DEVICE: ② : apix 2 ithreads 0 tmpi[apix] 640 ipixel -3, jpixel 3  valid 1 distribpos0 1134
+DEVICE: ② : apix 3 ithreads 0 tmpi[apix] 960 ipixel -13, jpixel 13  valid 1 distribpos0 1714
+DEVICE: ⏱**DEVICE:  step 2   TIMING (msec) ** processing  -0.20132 this step  0.20132  total 0 
 ② **********************************DEVICE:  THREADS  ********************
 
-DEVICE: ② : apix 2 ithreads 32
-DEVICE: ② : apix 3 ithreads 32
 INITIATE: ⏲ APIX DISTRIB: ithreads 0 apix 0 temp 1089
 INITIATE: ⏲ APIX DISTRIB: ithreads 0 apix 1 temp 1089
 INITIATE: ⏲ APIX DISTRIB: ithreads 0 apix 2 temp 1089
 INITIATE: ⏲ APIX DISTRIB: ithreads 0 apix 3 temp 1089
 DEVICE: ⏱**DEVICE: MaxDistribution2 0.007599      MaxPSF2 0.014641 
-DEVICE: ⏱**DEVICE:  step 3   TIMING (msec) ** processing  -0.364680 this step  0.36468  total 0 
+DEVICE: ⏱**DEVICE:  step 3   TIMING (msec) ** processing  -0.542081 this step  0.542081  total 0 
 ② **********************************DEVICE:  DISTRIBUTIONS  ********************
 
 
@@ -129,52 +102,52 @@ DEVICE: ⏱**DEVICE:  step 3   TIMING (msec) ** processing  -0.364680 this step 
 ④ TILES tilexdevice 0, tileydevice 0 tile 0 MemoryOffset 0
 ④ AGGREGATE x 0 y 0 ***************************************
 
-DEVICE: ④ SCRATCHPAD distrib_number 1 itb 7 delta 43840 x 23 y 674 position in scratchpad 3847 value 400.000000 Sum 400.000000 max 400.000000
-DEVICE: ④ SCRATCHPAD distrib_number 0 itb 3 delta 43840 x 23 y 674 position in scratchpad 3847 value 400.000000 Sum 400.000000 max 400.000000
 DEVICE: ④ SCRATCHPAD distrib_number 1 itb 5 delta 11862 x 25 y 182 position in scratchpad 3869 value 100.000000 Sum 100.000000 max 100.000000
 DEVICE: ④ SCRATCHPAD distrib_number 0 itb 1 delta 11862 x 25 y 182 position in scratchpad 3869 value 100.000000 Sum 100.000000 max 100.000000
 DEVICE: ④ SCRATCHPAD distrib_number 1 itb 5 delta 11930 x 28 y 183 position in scratchpad 3937 value 200.000000 Sum 300.000000 max 200.000000
 DEVICE: ④ SCRATCHPAD distrib_number 0 itb 1 delta 11930 x 28 y 183 position in scratchpad 3937 value 200.000000 Sum 300.000000 max 200.000000
+DEVICE: ④ SCRATCHPAD distrib_number 1 itb 7 delta 44120 x 43 y 678 position in scratchpad 4127 value 400.000000 Sum 400.000000 max 400.000000
+DEVICE: ④ SCRATCHPAD distrib_number 0 itb 3 delta 44120 x 43 y 678 position in scratchpad 4127 value 400.000000 Sum 400.000000 max 400.000000
 end ④****************DEVICE:  SCRATCHPAD ********************
 
 ⑥ ipix jpix = iPSF jPSF zero ithreads 26 4:2970 offset 2112 value 0 
-⑥ values of pointer position pscratch iblockima 0: 0x7fbc47001128 2: 0x7fbc47001b28 3: 0x7fbc47002528 4:0x7fbc47002ea8 
+⑥ values of pointer position pscratch iblockima 0: 0x7fe3b3001128 2: 0x7fe3b3001b28 3: 0x7fe3b3002528 4:0x7fe3b3002ea8 
 ⑥ ipix jpix = iPSF jPSF zero ithreads 26 4:4920 offset 4062 value 0 
-⑥ values of pointer position pscratch iblockima 1: 0x7fbc47002fa0 2: 0x7fbc470039a0 3: 0x7fbc470043a0 4:0x7fbc47004d20 
+⑥ values of pointer position pscratch iblockima 1: 0x7fe3b3002fa0 2: 0x7fe3b30039a0 3: 0x7fe3b30043a0 4:0x7fe3b3004d20 
 ⏳ ** OFFSET:aggregx 0 aggregy 0 tileXY 0 iblockima 0 offset 2112 iglobal 0
 ⏳ ** OFFSET:aggregx 0 aggregy 0 tileXY 0 iblockima 1 offset 4062 iglobal 0
 ⑥ ipix jpix = iPSF jPSF zero ithreads 26 4:2970 offset 2112 value 0 
+⑥ values of pointer position pscratch iblockima 0: 0x7fe3b3001128 2: 0x7fe3b3001b28 3: 0x7fe3b3002528 4:0x7fe3b3002ea8 
 ⑥ ipix jpix = iPSF jPSF zero ithreads 26 4:2970 offset 2112 value 0 
-⑥ values of pointer position pscratch iblockima 0: 0x7fbc47001128 2: 0x7fbc47001b28 3: 0x7fbc47002528 4:0x7fbc47002ea8 
-⑥ values of pointer position pscratch iblockima 0: 0x7fbc47001128 2: 0x7fbc47001b28 3: 0x7fbc47002528 4:0x7fbc47002ea8 
+⑥ values of pointer position pscratch iblockima 0: 0x7fe3b3001128 2: 0x7fe3b3001b28 3: 0x7fe3b3002528 4:0x7fe3b3002ea8 
+⑥ ipix jpix = iPSF jPSF zero ithreads 26 4:4920 offset 4062 value 0 
+⑥ ipix jpix = iPSF jPSF zero ithreads 26 4:2970 offset 2112 value 0 
+⑥ ipix jpix = iPSF jPSF zero ithreads 26 4:2970 offset 2112 value 0 
+⑥ ipix jpix = iPSF jPSF zero ithreads 26 4:2970 offset 2112 value 0 
+⑥ ipix jpix = iPSF jPSF zero ithreads 26 4:2970 offset 2112 value 0 
+⑥ values of pointer position pscratch iblockima 1: 0x7fe3b3002fa0 2: 0x7fe3b30039a0 3: 0x7fe3b30043a0 4:0x7fe3b3004d20 
+⑥ ipix jpix = iPSF jPSF zero ithreads 26 4:4920 offset 4062 value 0 
+⑥ values of pointer position pscratch iblockima 0: 0x7fe3b3001128 2: 0x7fe3b3001b28 3: 0x7fe3b3002528 4:0x7fe3b3002ea8 
+⑥ values of pointer position pscratch iblockima 0: 0x7fe3b3001128 2: 0x7fe3b3001b28 3: 0x7fe3b3002528 4:0x7fe3b3002ea8 
+⑥ values of pointer position pscratch iblockima 0: 0x7fe3b3001128 2: 0x7fe3b3001b28 3: 0x7fe3b3002528 4:0x7fe3b3002ea8 
+⑥ values of pointer position pscratch iblockima 0: 0x7fe3b3001128 2: 0x7fe3b3001b28 3: 0x7fe3b3002528 4:0x7fe3b3002ea8 
+⑥ values of pointer position pscratch iblockima 1: 0x7fe3b3002fa0 2: 0x7fe3b30039a0 3: 0x7fe3b30043a0 4:0x7fe3b3004d20 
 ⑥ ipix jpix = iPSF jPSF zero ithreads 26 4:4920 offset 4062 value 0 
 ⑥ ipix jpix = iPSF jPSF zero ithreads 26 4:4920 offset 4062 value 0 
-⑥ values of pointer position pscratch iblockima 1: 0x7fbc47002fa0 2: 0x7fbc470039a0 3: 0x7fbc470043a0 4:0x7fbc47004d20 
-⑥ values of pointer position pscratch iblockima 1: 0x7fbc47002fa0 2: 0x7fbc470039a0 3: 0x7fbc470043a0 4:0x7fbc47004d20 
-⑥ ipix jpix = iPSF jPSF zero ithreads 26 4:2970 offset 2112 value 0 
-⑥ ipix jpix = iPSF jPSF zero ithreads 26 4:2970 offset 2112 value 0 
-⑥ ipix jpix = iPSF jPSF zero ithreads 26 4:2970 offset 2112 value 0 
-⑥ values of pointer position pscratch iblockima 0: 0x7fbc47001128 2: 0x7fbc47001b28 3: 0x7fbc47002528 4:0x7fbc47002ea8 
-⑥ ipix jpix = iPSF jPSF zero ithreads 26 4:2970 offset 2112 value 0 
-⑥ values of pointer position pscratch iblockima 0: 0x7fbc47001128 2: 0x7fbc47001b28 3: 0x7fbc47002528 4:0x7fbc47002ea8 
-⑥ values of pointer position pscratch iblockima 0: 0x7fbc47001128 2: 0x7fbc47001b28 3: 0x7fbc47002528 4:0x7fbc47002ea8 
-⑥ values of pointer position pscratch iblockima 0: 0x7fbc47001128 2: 0x7fbc47001b28 3: 0x7fbc47002528 4:0x7fbc47002ea8 
 ⑥ ipix jpix = iPSF jPSF zero ithreads 26 4:4920 offset 4062 value 0 
+⑥ values of pointer position pscratch iblockima 1: 0x7fe3b3002fa0 2: 0x7fe3b30039a0 3: 0x7fe3b30043a0 4:0x7fe3b3004d20 
+⑥ values of pointer position pscratch iblockima 1: 0x7fe3b3002fa0 2: 0x7fe3b30039a0 3: 0x7fe3b30043a0 4:0x7fe3b3004d20 
+⑥ values of pointer position pscratch iblockima 1: 0x7fe3b3002fa0 2: 0x7fe3b30039a0 3: 0x7fe3b30043a0 4:0x7fe3b3004d20 
 ⑥ ipix jpix = iPSF jPSF zero ithreads 26 4:4920 offset 4062 value 0 
+⑥ ipix jpix = iPSF jPSF zero ithreads 26 4:2970 offset 2112 value 0 
+⑥ values of pointer position pscratch iblockima 1: 0x7fe3b3002fa0 2: 0x7fe3b30039a0 3: 0x7fe3b30043a0 4:0x7fe3b3004d20 
 ⏳ ** OFFSET:aggregx 0 aggregy 0 tileXY 0 iblockima 0 offset 2112 iglobal 0
-⑥ values of pointer position pscratch iblockima 1: 0x7fbc47002fa0 2: 0x7fbc470039a0 3: 0x7fbc470043a0 4:0x7fbc47004d20 
-⑥ values of pointer position pscratch iblockima 1: 0x7fbc47002fa0 2: 0x7fbc470039a0 3: 0x7fbc470043a0 4:0x7fbc47004d20 
-⑥ ipix jpix = iPSF jPSF zero ithreads 26 4:4920 offset 4062 value 0 
-⑥ ipix jpix = iPSF jPSF zero ithreads 26 4:4920 offset 4062 value 0 
-⑥ ipix jpix = iPSF jPSF zero ithreads 26 4:2970 offset 2112 value 0 
+⑥ values of pointer position pscratch iblockima 0: 0x7fe3b3001128 2: 0x7fe3b3001b28 3: 0x7fe3b3002528 4:0x7fe3b3002ea8 
 ⏳ ** OFFSET:aggregx 0 aggregy 0 tileXY 0 iblockima 1 offset 4062 iglobal 0
-⑥ values of pointer position pscratch iblockima 1: 0x7fbc47002fa0 2: 0x7fbc470039a0 3: 0x7fbc470043a0 4:0x7fbc47004d20 
-⑥ values of pointer position pscratch iblockima 1: 0x7fbc47002fa0 2: 0x7fbc470039a0 3: 0x7fbc470043a0 4:0x7fbc47004d20 
-⑥ values of pointer position pscratch iblockima 0: 0x7fbc47001128 2: 0x7fbc47001b28 3: 0x7fbc47002528 4:0x7fbc47002ea8 
 ⑥ ipix jpix = iPSF jPSF zero ithreads 26 4:4920 offset 4062 value 0 
-⑥ values of pointer position pscratch iblockima 1: 0x7fbc47002fa0 2: 0x7fbc470039a0 3: 0x7fbc470043a0 4:0x7fbc47004d20 
 ⏳ ** OFFSET:aggregx 0 aggregy 0 tileXY 4 iblockima 0 offset 2112 iglobal 0
 ⏳ ** OFFSET:aggregx 0 aggregy 0 tileXY 4 iblockima 0 offset 2112 iglobal 0
+⑥ values of pointer position pscratch iblockima 1: 0x7fe3b3002fa0 2: 0x7fe3b30039a0 3: 0x7fe3b30043a0 4:0x7fe3b3004d20 
 ④ AGGREGATE x 1 y 0 ***************************************
 ④ TILES tilexdevice 2, tileydevice 0 tile 2 MemoryOffset 16000
 ④ AGGREGATE x 1 y 0 ***************************************
@@ -184,52 +157,52 @@ DEVICE: ④ SCRATCHPAD distrib_number 1 itb 4 delta 21414 x 87 y 164 position in
 end ④****************DEVICE:  SCRATCHPAD ********************
 
 DEVICE: ⑤ SUM SCRATCHPAD: Sum of scratchpad 300.0 Max of Scratchpad 300.0 
-DEVICE: ⏱**DEVICE:  step 8   TIMING (msec) ** processing  308.546234 this step  0.36468  total 308.911 
+DEVICE: ⏱**DEVICE:  step 8   TIMING (msec) ** processing  312.883667 this step  0.542081  total 313.426 
 end ⑤****************DEVICE:  SCRATCHPAD & AGGREGATES & TILES ********************
 
 DEVICE: ⏲ APIX DISTRIB: apix 0 distribpos[apix] 0 
 DEVICE: ⏲ APIX DISTRIB: apix 1 distribpos[apix] 554 
 DEVICE: ⏲ APIX DISTRIB: apix 2 distribpos[apix] 1134 
 DEVICE: ⏲ APIX DISTRIB: apix 3 distribpos[apix] 1714 
-DEVICE: ⏱**DEVICE:  step 9   TIMING (msec) ** processing  308.963867 this step  0.36468  total 309.329 
+DEVICE: ⏱**DEVICE:  step 9   TIMING (msec) ** processing  313.312958 this step  0.542081  total 313.855 
 ⑥ ipix jpix = iPSF jPSF zero ithreads 26 4:2970 offset 2112 value 0 
-⑥ values of pointer position pscratch iblockima 0: 0x7fbc47001128 2: 0x7fbc47001b28 3: 0x7fbc47002528 4:0x7fbc47002ea8 
+⑥ values of pointer position pscratch iblockima 0: 0x7fe3b3001128 2: 0x7fe3b3001b28 3: 0x7fe3b3002528 4:0x7fe3b3002ea8 
 ⑥ ipix jpix = iPSF jPSF zero ithreads 26 4:4920 offset 4062 value 0 
-⑥ values of pointer position pscratch iblockima 1: 0x7fbc47002fa0 2: 0x7fbc470039a0 3: 0x7fbc470043a0 4:0x7fbc47004d20 
+⑥ values of pointer position pscratch iblockima 1: 0x7fe3b3002fa0 2: 0x7fe3b30039a0 3: 0x7fe3b30043a0 4:0x7fe3b3004d20 
 ⏳ ** OFFSET:aggregx 1 aggregy 0 tileXY 2 iblockima 0 offset 2112 iglobal 0
 ⏳ ** OFFSET:aggregx 1 aggregy 0 tileXY 2 iblockima 1 offset 4062 iglobal 0
 ⑥ ipix jpix = iPSF jPSF zero ithreads 26 4:2970 offset 2112 value 0 
-⑥ values of pointer position pscratch iblockima 0: 0x7fbc47001128 2: 0x7fbc47001b28 3: 0x7fbc47002528 4:0x7fbc47002ea8 
-⑥ ipix jpix = iPSF jPSF zero ithreads 26 4:4920 offset 4062 value 0 
-⑥ values of pointer position pscratch iblockima 1: 0x7fbc47002fa0 2: 0x7fbc470039a0 3: 0x7fbc470043a0 4:0x7fbc47004d20 
+⑥ values of pointer position pscratch iblockima 0: 0x7fe3b3001128 2: 0x7fe3b3001b28 3: 0x7fe3b3002528 4:0x7fe3b3002ea8 
 ⑥ ipix jpix = iPSF jPSF zero ithreads 26 4:2970 offset 2112 value 0 
-⑥ values of pointer position pscratch iblockima 0: 0x7fbc47001128 2: 0x7fbc47001b28 3: 0x7fbc47002528 4:0x7fbc47002ea8 
 ⑥ ipix jpix = iPSF jPSF zero ithreads 26 4:4920 offset 4062 value 0 
-⑥ values of pointer position pscratch iblockima 1: 0x7fbc47002fa0 2: 0x7fbc470039a0 3: 0x7fbc470043a0 4:0x7fbc47004d20 
+⑥ values of pointer position pscratch iblockima 0: 0x7fe3b3001128 2: 0x7fe3b3001b28 3: 0x7fe3b3002528 4:0x7fe3b3002ea8 
+⑥ values of pointer position pscratch iblockima 1: 0x7fe3b3002fa0 2: 0x7fe3b30039a0 3: 0x7fe3b30043a0 4:0x7fe3b3004d20 
+⑥ ipix jpix = iPSF jPSF zero ithreads 26 4:4920 offset 4062 value 0 
+⑥ values of pointer position pscratch iblockima 1: 0x7fe3b3002fa0 2: 0x7fe3b30039a0 3: 0x7fe3b30043a0 4:0x7fe3b3004d20 
 ⏳ ** OFFSET:aggregx 1 aggregy 0 tileXY 2 iblockima 0 offset 2112 iglobal 0
 ⏳ ** OFFSET:aggregx 1 aggregy 0 tileXY 2 iblockima 1 offset 4062 iglobal 0
 ⑥ ipix jpix = iPSF jPSF zero ithreads 26 4:2970 offset 2112 value 0 
-⑥ values of pointer position pscratch iblockima 0: 0x7fbc47001128 2: 0x7fbc47001b28 3: 0x7fbc47002528 4:0x7fbc47002ea8 
 ⑥ ipix jpix = iPSF jPSF zero ithreads 26 4:2970 offset 2112 value 0 
+⑥ values of pointer position pscratch iblockima 0: 0x7fe3b3001128 2: 0x7fe3b3001b28 3: 0x7fe3b3002528 4:0x7fe3b3002ea8 
+⑥ values of pointer position pscratch iblockima 0: 0x7fe3b3001128 2: 0x7fe3b3001b28 3: 0x7fe3b3002528 4:0x7fe3b3002ea8 
 ⑥ ipix jpix = iPSF jPSF zero ithreads 26 4:4920 offset 4062 value 0 
-⑥ values of pointer position pscratch iblockima 0: 0x7fbc47001128 2: 0x7fbc47001b28 3: 0x7fbc47002528 4:0x7fbc47002ea8 
-⑥ values of pointer position pscratch iblockima 1: 0x7fbc47002fa0 2: 0x7fbc470039a0 3: 0x7fbc470043a0 4:0x7fbc47004d20 
+⑥ ipix jpix = iPSF jPSF zero ithreads 26 4:4920 offset 4062 value 0 
+⑥ values of pointer position pscratch iblockima 1: 0x7fe3b3002fa0 2: 0x7fe3b30039a0 3: 0x7fe3b30043a0 4:0x7fe3b3004d20 
+⑥ values of pointer position pscratch iblockima 1: 0x7fe3b3002fa0 2: 0x7fe3b30039a0 3: 0x7fe3b30043a0 4:0x7fe3b3004d20 
 ⑥ ipix jpix = iPSF jPSF zero ithreads 26 4:2970 offset 2112 value 0 
-⑥ ipix jpix = iPSF jPSF zero ithreads 26 4:4920 offset 4062 value 0 
-⑥ values of pointer position pscratch iblockima 0: 0x7fbc47001128 2: 0x7fbc47001b28 3: 0x7fbc47002528 4:0x7fbc47002ea8 
-⑥ values of pointer position pscratch iblockima 1: 0x7fbc47002fa0 2: 0x7fbc470039a0 3: 0x7fbc470043a0 4:0x7fbc47004d20 
-⑥ ipix jpix = iPSF jPSF zero ithreads 26 4:4920 offset 4062 value 0 
 ⑥ ipix jpix = iPSF jPSF zero ithreads 26 4:2970 offset 2112 value 0 
-⑥ values of pointer position pscratch iblockima 1: 0x7fbc47002fa0 2: 0x7fbc470039a0 3: 0x7fbc470043a0 4:0x7fbc47004d20 
-⑥ values of pointer position pscratch iblockima 0: 0x7fbc47001128 2: 0x7fbc47001b28 3: 0x7fbc47002528 4:0x7fbc47002ea8 
+⑥ values of pointer position pscratch iblockima 0: 0x7fe3b3001128 2: 0x7fe3b3001b28 3: 0x7fe3b3002528 4:0x7fe3b3002ea8 
+⑥ values of pointer position pscratch iblockima 0: 0x7fe3b3001128 2: 0x7fe3b3001b28 3: 0x7fe3b3002528 4:0x7fe3b3002ea8 
+⑥ ipix jpix = iPSF jPSF zero ithreads 26 4:4920 offset 4062 value 0 
+⑥ ipix jpix = iPSF jPSF zero ithreads 26 4:4920 offset 4062 value 0 
 ⏳ ** OFFSET:aggregx 1 aggregy 0 tileXY 6 iblockima 0 offset 2112 iglobal 0
-⑥ ipix jpix = iPSF jPSF zero ithreads 26 4:4920 offset 4062 value 0 
-⑥ values of pointer position pscratch iblockima 1: 0x7fbc47002fa0 2: 0x7fbc470039a0 3: 0x7fbc470043a0 4:0x7fbc47004d20 
+⑥ values of pointer position pscratch iblockima 1: 0x7fe3b3002fa0 2: 0x7fe3b30039a0 3: 0x7fe3b30043a0 4:0x7fe3b3004d20 
+⑥ values of pointer position pscratch iblockima 1: 0x7fe3b3002fa0 2: 0x7fe3b30039a0 3: 0x7fe3b30043a0 4:0x7fe3b3004d20 
 ⏳ ** OFFSET:aggregx 1 aggregy 0 tileXY 6 iblockima 0 offset 2112 iglobal 0
 ⑥ ipix jpix = iPSF jPSF zero ithreads 26 4:2970 offset 2112 value 0 
-⑥ values of pointer position pscratch iblockima 0: 0x7fbc47001128 2: 0x7fbc47001b28 3: 0x7fbc47002528 4:0x7fbc47002ea8 
+⑥ values of pointer position pscratch iblockima 0: 0x7fe3b3001128 2: 0x7fe3b3001b28 3: 0x7fe3b3002528 4:0x7fe3b3002ea8 
 ⑥ ipix jpix = iPSF jPSF zero ithreads 26 4:4920 offset 4062 value 0 
-⑥ values of pointer position pscratch iblockima 1: 0x7fbc47002fa0 2: 0x7fbc470039a0 3: 0x7fbc470043a0 4:0x7fbc47004d20 
+⑥ values of pointer position pscratch iblockima 1: 0x7fe3b3002fa0 2: 0x7fe3b30039a0 3: 0x7fe3b30043a0 4:0x7fe3b3004d20 
 Energy 0.000000 absolute difference 0.000000
 
 Energy 0.000000 absolute difference 0.061985

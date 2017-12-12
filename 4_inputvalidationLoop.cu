@@ -216,18 +216,22 @@ __global__ void Scratchvalidate_device(int NbTilex, int NbTiley, int dels) {
 	int NbTileXY = NbTilex * NbTiley; // local copy ??
 // calculate scratchpad Sum and max
 	time_start = clock64();
-	for (int tempp = 0; tempp < ASCRATCH * NbTileXY; tempp++) {
-		tempv = *(scratchpad_matrix + tempp);
-		*(val_scratchpad + tempp) = tempv;
-		Sumscratchpad += *(val_scratchpad + tempp);
-		maxscratchpad = max(maxscratchpad, *(val_scratchpad + tempp));
+	for (int iscratch = 0; iscratch < ASCRATCH * NbTileXY; iscratch++) {
+		tempv = *(scratchpad_matrix + iscratch);
+		*(val_scratchpad + iscratch) = tempv;
+		Sumscratchpad += *(val_scratchpad + iscratch);
+		maxscratchpad = max(maxscratchpad, *(val_scratchpad + iscratch));
 
-		if ((*(val_scratchpad + tempp) != 0.0f) && (TEST)) {
-			int positionx = (tempp - dels) % (XSCRATCH * NbTilex);
-			int positiony = (tempp - dels) / (XSCRATCH * NbTilex);
+
+		if ((*(val_scratchpad + iscratch) != 0.0f) && (TEST)) {
+			int positionx = (iscratch - dels) % (XSCRATCH * NbTilex);
+			int positiony = (iscratch - dels) / (XSCRATCH * NbTilex);
 			if (VERBOSE)
-				printf("SCRATCHPAD \u277E DEVICE TEST:  position %d position x: %d y: %d value %f\n", tempp,
-						positionx, positiony, tempv);
+				printf(
+						"SCRATCHPAD \u277E position %d, size XY (x*y), (%d*%d) xy position (x*y) (%d*%d) value %g\n",
+						iscratch, XSCRATCH*NbTilex, YSCRATCH*NbTiley, positionx,
+						positiony, val_scratchpad[iscratch]);
+			Maxscratch = max(Maxscratch, val_scratchpad[iscratch]); // sanity check, check max
 		}
 
 	}
