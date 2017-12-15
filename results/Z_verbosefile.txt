@@ -41,7 +41,7 @@ START STEP	*************  step 1  PSF  *************
  PSF ⓵ Sum3PSF 1.00073 max3PSF 0.0146406
  PSF ⓵ Path to pPSF validation ...results/A_PSFDevice.pgm
  PSF ⓵  Comparing files ... 
-+++PSF   Test validated++++ PASS ⏱ msec  device  4.104726  total 4.104300
++++PSF   Test validated++++ PASS ⏱ msec  device  4.237145  total 4.236720
 END STEP	*******end of step  1  PSF  **********************************
 
 START STEP	*************  step 2   distrib  *************
@@ -57,7 +57,7 @@ DISTRIBUTIONS ②: idistrib 1 Original max 0.007599 Sumdistrib 1.999995
 DISTRIBUTIONS ② function read: Path to distrib original results/B_distributions.pgm
 DISTRIBUTIONS ② Path to distrib validation results/B_distributionsdevice.pgm
 DISTRIBUTIONS ② Comparing files ... Sumdel[1]  0.000000testdistrib = 1
-+++ distrib   Test validated++++ PASS ⏱ msec  device  36.000809  total 41.613976
++++ distrib   Test validated++++ PASS ⏱ msec  device  39.058994  total 44.973915
 END STEP	*******end of step  2   distrib  **********************************
 
 START STEP	*************  step 3   Laser positions*************
@@ -128,11 +128,11 @@ Laser ③: filename /home/gabriel/cuda-workspace2/NewGPU/resources/1039/lambda_4
  Laser ③ ***************SCRATCHPAD FULL OFFSET 2295 **************
  Laser ③ ----------------------------------------------------------------------------------------------------
  Laser ③ delx 0.000000 dely 0.000000 Sumdel[2] 0.000000
-+++ Laser positions Test validated++++ PASS ⏱ msec  device  0.537552  total 43.433861
++++ Laser positions Test validated++++ PASS ⏱ msec  device  0.562949  total 46.795692
 END STEP	*******end of step  3   Laser positions**********************************
 
 START STEP	*************  step 4   Measurement ROI  *************
-+++ Measurement ROI   Test validated++++ PASS ⏱ msec  device  0.537552  total 43.433861
++++ Measurement ROI   Test validated++++ PASS ⏱ msec  device  0.562949  total 46.795692
 END STEP	*******end of step  4   Measurement ROI  **********************************
 
 START STEP	*************  step 5   microimages  *************
@@ -152,7 +152,7 @@ MICROIMAGES ⑤ Copy from device: Average 0.000015max3microimages 0.000763
 MICROIMAGES ⑤ Copy from device: zoomed image Average 0.000015max3microimages 0.000763
 MICROIMAGES ⑤ Comparing files ... Sumdel[4] 0.000000testmicroimages = 1
 MICROIMAGES ⑤ host: Path to microimages copy results/C_microimagesdevice.pgm .....
-+++ microimages   Test validated++++ PASS ⏱ msec  device  48.659050  total 92.949944
++++ microimages   Test validated++++ PASS ⏱ msec  device  47.712044  total 95.337067
 END STEP	*******end of step  5   microimages  **********************************
 
 START STEP	*************  step 6   laser in tile  *************
@@ -173,7 +173,7 @@ images offset
 
  position 2112 @ 0 |  position 4062 @ 1 |  position 2100 @ 32 |  position 4050 @ 33 |  position 2307 @ 64 |  position 2295 @ 96 |  position 2112 @ 128 |  position 4062 @ 129 |  position 2100 @ 160 |  position 4050 @ 161 |  position 2307 @ 192 |  position 2295 @ 224 | 
  TILE ORG ⓺ Max  16 and Min 0 Max Laser in tile rounded to next multiple of NIMAGESPARALLEL  ..16 
-+++ laser in tile   Test validated++++ PASS ⏱ msec  device  48.659050  total 92.949944
++++ laser in tile   Test validated++++ PASS ⏱ msec  device  47.712044  total 95.337067
 END STEP	*******end of step  6   laser in tile  **********************************
 
 START STEP	*************  step 7   microimages in tile  *************
@@ -223,7 +223,7 @@ TILE ORG ⓺ idistrib 1  10 iLaser 10 tilenumber 10 ilasertile 161
 TILE ORG ⓺ idistrib 1  11 iLaser 11 tilenumber 14 ilasertile 224
 HOST: ⓻  7 ******************************************
 
---- microimages in tile   Test not validated++++  Sumdel =  0.000000 ⏱ msec  device  48.659050  total 92.949944
+--- microimages in tile   Test not validated++++  Sumdel =  0.000000 ⏱ msec  device  47.712044  total 95.337067
 END STEP	*******end of step  7   microimages in tile  **********************************
 
 START STEP	*************  step 8   reconstruction  *************
@@ -238,7 +238,7 @@ max device =400.000000
 REC ⓼ Path to rec validation results/D_reconstructiondevice.pgm
 REC ⓼ Comparing files ... Sumdel[1] 0.000000 ... 
 testrec = 1
-+++ reconstruction   Test validated++++ PASS ⏱ msec  device  31.232870  total 185.442368
++++ reconstruction   Test validated++++ PASS ⏱ msec  device  30.027336  total 186.471298
 END STEP	*******end of step  8   reconstruction  **********************************
 
 START STEP	*************  step 9   scratchpad    *************
@@ -253,14 +253,14 @@ SCRATCHPAD ⓼ Path to Scratchpad validation results/E_Scratchpaddevice.pgm ....
 SCRATCHPAD ⓼ Comparing files ... 
 Sumdel[8] 0.000000
 testScratchpad = 1
-+++ scratchpad     Test validated++++ PASS ⏱ msec  device  212.882904  total 404.142914
++++ scratchpad     Test validated++++ PASS ⏱ msec  device  213.282196  total 405.576782
 END STEP	*******end of step  9   scratchpad    **********************************
 
 START STEP	*************  step 10   bigLoop  *************
 
 ******************Completion of GPU initialization ***************
 ******************************************************************
-used MB =  977.875000   Free MB = 5089.750000 Total MB = 6067.625000
+used MB =  1069.687500   Free MB = 4997.937500 Total MB = 6067.625000
 MAIN PROGRAM  ❶ End of data preparation in device memory ...
 HOST: ⓪  
 tile n° 0 #laser 2 || tile n° 1 #laser 0 || tile n° 2 #laser 2 || tile n° 3 #laser 0 || tile n° 4 #laser 1 || tile n° 5 #laser 0 || tile n° 6 #laser 1 || tile n° 7 #laser 0 || tile n° 8 #laser 2 || tile n° 9 #laser 0 || tile n° 10 #laser 2 || tile n° 11 #laser 0 || tile n° 12 #laser 1 || tile n° 13 #laser 0 || tile n° 14 #laser 1 || tile n° 15 #laser 0 || 
@@ -281,11 +281,11 @@ dimBlock  x: 2 y: 2 z: 2  ...  dimGrid  x: 320 y: 1 z: 1
 HOST: ⓪ ************************BigLoop start   *******************************
 HOST: ⓪ ***********************************************************************
 HOST: ⓪ *** SHARED MEMORY SIZE 46.312500 KBytes
-+++ bigLoop   Test validated++++ PASS ⏱ msec  device  0.000391  total 0.000786
++++ bigLoop   Test validated++++ PASS ⏱ msec  device  0.000391  total 0.000784
 END STEP	*******end of step  10   bigLoop  **********************************
 
 START STEP	*************  step 11   end bigloop  *************
---- end bigloop   Test not validated++++  Sumdel =  0.000000 ⏱ msec  device  0.000391  total 0.000786
+--- end bigloop   Test not validated++++  Sumdel =  0.000000 ⏱ msec  device  0.000391  total 0.000784
 END STEP	*******end of step  11   end bigloop  **********************************
 
 START STEP	*************  step 12   bigloop results  *************
@@ -351,5 +351,10 @@ SCRATCHPAD ⓬ Path to DistribPos validation .....results/B_DistributionsLoopint
 Max PSF Loop 0.014641
 Max Distrib Validation 0.007599
 Max Distrib Test 0.007599 ratio 33557.746094
-HOST: ⓯ parameters: n_rowintern 528n_colintern 528MaxSimusD 0.001970 MinSimusD 0.000000 Simulations call program biginspect.cu 
+HOST: ⓯ parameters: n_rowintern 528n_colintern 264MaxSimusD 0.001970 MinSimusD 0.000000 Simulations call program biginspect.cu 
 file results/F_simus0.pgm
+file results/F_simus1.pgm
+--- bigloop results   Test not validated++++  Sumdel =  0.000000 ⏱ msec  device  0.000391  total 0.000784
+END STEP	*******end of step  12   bigloop results  **********************************
+
+START STEP	*************  step 13  *************

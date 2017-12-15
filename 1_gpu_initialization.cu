@@ -206,10 +206,10 @@ float displaydata(float * datavalues, int stepval) {
 	}
 	return (MaxData);
 }
-int sizesimus = tile.maxLaserintile * tile.NbTileXY * NThreads;
 
 float displaySimus(float * simusvalues) {
-/*	float MaxSimusD = 0.0f, MinSimusD = 1.E6;
+	int sizesimus = tile.maxLaserintile * tile.NbTileXY * NThreads;
+	float MaxSimusD = 0.0f, MinSimusD = 1.E6;
 	unsigned char *i_simus = (unsigned char *) calloc(sizesimus, sizeof(unsigned char)); // on host
 	string filebase, file;
 	int n_colintern = PixZoom * tile.NbTileXY;
@@ -219,12 +219,13 @@ float displaySimus(float * simusvalues) {
 
 	for (int i = 0; i < datafullsize; i++) MaxSimusD = max(MaxSimusD, *(simusvalues + i)); // all distributions!!
 	for (int i = 0; i < datafullsize; i++) MinSimusD = min(MinSimusD, *(simusvalues + i));
-	float ratio = 255. / (MaxSimusD - MinSimusD);*/
+	float ratio = 255. / (MaxSimusD - MinSimusD);
 
-/*	verbosefile << "HOST: \u24EF parameters: n_rowintern " << n_rowintern << "n_colintern " << n_colintern
+	verbosefile << "HOST: \u24EF parameters: n_rowintern " << n_rowintern << "n_colintern " << n_colintern
 			<< "MaxSimusD " << MaxSimusD << " MinSimusD " << MinSimusD << " Simulations call program biginspect.cu " << endl;
 
-/*	for (int idistrib = 0; idistrib < Ndistrib; idistrib++) {
+
+	for (int idistrib = 0; idistrib < Ndistrib; idistrib++) {
 		file = filebase + to_string(idistrib) + ".pgm";
 		verbosefile << "file " << file << endl;
 
@@ -238,7 +239,7 @@ float displaySimus(float * simusvalues) {
 			}
 		}
 		sdkSavePGM(file.c_str(), i_simus, PixZoom, PixZoom*fullnumberoflasers);
-	}*/
+	}
 
 	return (TRUE);
 }
