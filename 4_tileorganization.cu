@@ -128,7 +128,8 @@ bool tileorganization(void) {
 			valid_image[ilasertile] = 1;
 
 			if (NOVERBOSE)
-			printf("TILE ORG \u24FA POS IN TILE: iLaser %d,tilenumber %d tile.posintile[iLaser]  %d A ilasertile %d valid %d\n",
+			printf("TILE ORG \u24FA POS IN TILE: iLaser %d,tilenumber %d tile.posintile[iLaser]  %d A ilasertile %d valid %d\n"
+					"____________________\n",
 					iLaser, tilenumber, tile.posintile[iLaser], ilasertile, valid_image[ilasertile]);
 			image_to_scratchpad_offset[ilasertile] = *(offsetFULL + iLaser);
 			tile.maxLaserintile = max(tile.maxLaserintile, tile.NbLaserpertile[tilenumber]); // acquiring the max value per tile

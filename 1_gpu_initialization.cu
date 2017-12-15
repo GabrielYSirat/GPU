@@ -206,10 +206,45 @@ float displaydata(float * datavalues, int stepval) {
 	}
 	return (MaxData);
 }
+int sizesimus = tile.maxLaserintile * tile.NbTileXY * NThreads;
+
+float displaySimus(float * simusvalues) {
+/*	float MaxSimusD = 0.0f, MinSimusD = 1.E6;
+	unsigned char *i_simus = (unsigned char *) calloc(sizesimus, sizeof(unsigned char)); // on host
+	string filebase, file;
+	int n_colintern = PixZoom * tile.NbTileXY;
+	int n_rowintern = PixZoom * tile.maxLaserintile;
+
+	filebase.append("results/F_simus");
+
+	for (int i = 0; i < datafullsize; i++) MaxSimusD = max(MaxSimusD, *(simusvalues + i)); // all distributions!!
+	for (int i = 0; i < datafullsize; i++) MinSimusD = min(MinSimusD, *(simusvalues + i));
+	float ratio = 255. / (MaxSimusD - MinSimusD);*/
+
+/*	verbosefile << "HOST: \u24EF parameters: n_rowintern " << n_rowintern << "n_colintern " << n_colintern
+			<< "MaxSimusD " << MaxSimusD << " MinSimusD " << MinSimusD << " Simulations call program biginspect.cu " << endl;
+
+/*	for (int idistrib = 0; idistrib < Ndistrib; idistrib++) {
+		file = filebase + to_string(idistrib) + ".pgm";
+		verbosefile << "file " << file << endl;
+
+		for (int isimus = 0; isimus < sizesimus; isimus++) {
+			int imicro = isimus / NThreads; // number of microimage
+			int ipixel = isimus % NThreads; // pixel number in microimage
+			if (ipixel < PixZoomSquare) {
+				int ix = ipixel % PixZoom + PixZoom * imicro % tile.maxLaserintile;
+				int iy = ipixel / PixZoom + imicro/tile.maxLaserintile *PixZoomSquare;
+				i_simus[isimus] = ratio * (simusvalues[ix + iy * PixZoom] - MinSimusD);
+			}
+		}
+		sdkSavePGM(file.c_str(), i_simus, PixZoom, PixZoom*fullnumberoflasers);
+	}*/
+
+	return (TRUE);
+}
 
 float scratchreaddisplay(float * reconstructiondata, float * scratchdata, const char * filename, bool readtile) {
-	unsigned char *i_scratchpad = (unsigned char *) calloc(tile.NbTileXY * XSCRATCH * YSCRATCH,
-			sizeof(unsigned char)); // on host
+	unsigned char *i_scratchpad = (unsigned char *) calloc(tile.NbTileXY * XSCRATCH * YSCRATCH, sizeof(unsigned char));
 	float MaxScratchlocal = 0.0f;
 	for (int iy = 0; iy < tile.NbTiley; iy++)
 		for (int ix = 0; ix < tile.NbTilex; ix++)
@@ -245,4 +280,79 @@ float scratchreaddisplay(float * reconstructiondata, float * scratchdata, const 
 				}
 	sdkSavePGM(filename, i_scratchpad, XSCRATCH * tile.NbTilex, YSCRATCH * tile.NbTiley);
 	return (MaxScratchlocal);
+}
+
+float scratch2D2tile(float * fscratch2D, float * ftile, int fxtile, int fytile, int fXscratch, int fYscratch)
+{
+	float maxtile = 0.0f;
+
+	int del = fXscratch - fxtile + (fYscratch - fytile)*fXscratch;
+
+	for (int itile=0; itile < fxtile*fytile; itile++) {
+			ftile[itile] = fscratch2D[itile+del];
+			maxtile = max(maxtile, fscratch2D[itile+del]);
+		}
+
+	return maxtile;
+}
+
+float tile2scratch2D(float * fscratch2D, float * ftile, int fxtile, int fytile, int fXscratch, int fYscratch)
+{
+	float maxscratch = 0.0f;
+
+	for(int iscratch=0; iscratch < fXscratch*fYscratch; iscratch++)
+		fscratch2D[iscratch]=0.0f;
+
+	int del = fXscratch - fxtile + (fYscratch - fytile)*fXscratch;
+
+	for (int itile=0; itile < fxtile*fytile; itile++) {
+		fscratch2D[itile+del] = ftile[itile];
+		maxscratch = max(maxscratch, fscratch2D[itile+del]);
+		}
+
+	return maxscratch;
+}
+
+float scratch2D2scratch1D(float * fscratch2D, float * fscratch1D, int fXscratch, int fYscratch, int fAscratch, int flostpixels)
+{
+	float maxscratch1D = 0.0f;
+/* first lost pixels to zero
+ *
+ */
+	for (int iscratch = 0; iscratch < flostpixels; iscratch++) fscratch1D[iscratch] = 0.0f;
+/* fXscratch * fYscratch real pixels
+ *
+ */
+	for (int iscratch2D=0; iscratch2D < fXscratch*fYscratch; iscratch2D++) {
+			fscratch1D[flostpixels+iscratch2D] = fscratch2D[iscratch2D];
+			maxscratch1D = max(maxscratch1D, fscratch2D[iscratch2D]);
+		}
+	/* last pixels
+	 *
+	 */
+	for (int iscratch = fXscratch*fYscratch+flostpixels; iscratch < fAscratch; iscratch++)
+		fscratch1D[iscratch] = 0.0f;
+
+	return maxscratch1D;
+}
+
+float scratch1D2scratch2D(float * fscratch2D, float * fscratch1D, const char * filename, int fXscratch,
+		int fYscratch, int flostpixels) {
+	float maxscratch2D = 0.0f;
+	unsigned char *i_scratch2D = (unsigned char *) calloc(fXscratch * fYscratch, sizeof(unsigned char));
+	/* fXscratch * fYscratch real pixels
+	 *
+	 */
+	for (int iscratch2D = 0; iscratch2D < fXscratch * fYscratch; iscratch2D++) {
+		fscratch2D[iscratch2D] = fscratch1D[flostpixels + iscratch2D];
+		maxscratch2D = max(maxscratch2D, *(fscratch2D + iscratch2D));
+	}
+	float ratio = 255. / maxscratch2D;
+
+	for (int iscratch2D = 0; iscratch2D < fXscratch * fYscratch; iscratch2D++)
+		i_scratch2D[iscratch2D] = ratio * fscratch2D[iscratch2D];
+
+	if (filename != NULL)
+		sdkSavePGM(filename, i_scratch2D, fXscratch, fYscratch);
+	return maxscratch2D;
 }

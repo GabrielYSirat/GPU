@@ -31,7 +31,7 @@ __managed__ float *original_distrib, *val_distrib, *test_distrib, *test2_distrib
 __managed__ double *double_distrib;
 __managed__ float *original_microimages, *valmicroimages, *zoomed_microimages;
 __managed__ float *original_rec, *val_rec;
-__managed__ float *scratchpad_matrix, *val_scratchpad, *val2_scratchpad;
+__managed__ float *scratchpad_matrix, *val_scratchpad, *val2_scratchpad, *scratch1D;
 
 __managed__ float *Sumdevmicroimages, *Maxdevmicroimages, *Sumdevzoommicroimages, *Maxdevzoommicroimages;
 
@@ -114,6 +114,7 @@ __global__ void validateLaserPositions_device(int Nb_LaserPositions) {
 					yREC, tilex, tiley, PosxScratch[ipos], PosyScratch[ipos]);
 			printf(" Laser \u2778 DEVICE 3: copy position: %f y: %f\n", d_PosLaserx[ipos], d_PosLasery[ipos]);
 			printf("Laser \u2778 DEVICE laser position n°%d offset %d \n",ipos, *(offsetFULL + ipos));
+			printf("__________________________\n");
 		}
 
 		minLaserPositionx = min(minLaserPositionx, PosLaserx[ipos]);

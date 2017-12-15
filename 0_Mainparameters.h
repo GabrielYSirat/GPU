@@ -47,9 +47,12 @@ extern  Ctile tile;
 void report_gpu_mem();
 bool initparameters(int argc, char **argv);
 void stepinit(int test, int & stepval);
+float displaySimus(float * simusvalues);
 int retrieveargv(string argvdata);
 bool T4Dto2D( unsigned char *matrix4D, unsigned char *matrix2D,  int dimension1, int dimension2, int dimension3, int dimension4);
 float scratchreaddisplay (float * reconstructiondata, float * scratchdata, const char * filename, bool readtile);
+float scratch2D2scratch1D(float * fscratch2D, float * scratch1D, int fXscratch, int fYscratch, int fAscratch, int flostpixels);
+float scratch1D2scratch2D(float * fscratch2D, float * scratch1D, const char * filename, int fXscratch, int fYscratch, int flostpixels);
 /************************pPSF *******************/
 void PSFprepare(void);
 bool PSFinitondevice(void);
@@ -109,7 +112,7 @@ extern __managed__ double *double_distrib;
 extern __managed__ float *original_microimages,  *valmicroimages, *zoomed_microimages;
 extern __managed__ float *original_rec,  *val_rec;
 //extern double *double_rec;
-extern __managed__ float *scratchpad_matrix,  *val_scratchpad, *val2_scratchpad;
+extern __managed__ float *scratchpad_matrix,  *val_scratchpad, *val2_scratchpad, *scratch1D;
 extern __managed__ float *PSFARRAY;
 
 extern __managed__ float *PosLaserx, *PosLasery, *d_PosLaserx, *d_PosLasery;

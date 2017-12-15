@@ -13,6 +13,7 @@ const char * recValImagefile = "results/D_reconstructiondevice.pgm";
 const char * rectilereconstructionfile = "results/D_reconstructionreorganized.pgm";
 const char * scratchpadImagefile = "results/E_scratchpad.pgm";
 const char * ScratchpadValImagefile = "results/E_Scratchpaddevice.pgm";
+const char * Scratchpad1D22D = "results/E_Scratch1D22D.pgm";
 float MaxRec = 0.0f, SumRec = 0.0f;
 __managed__ float Maxscratch = 0.0f, Sumscratch = 0.0f, maxTile = 0.0f, SumTile = 0.0f;
 double *double_rec;
@@ -106,8 +107,8 @@ bool Recvalidate_host(void) {
 			if (i_rec[i] > 1)
 				printf(
 						"REC VALIDATION \u24FC position %d, size, %d column width %d xy position (x*y) (%d*%d) "
-						"value %g normalized %d\n",
-						i, TA.reconstruction_size, TA.Nb_Cols_reconstruction, i % TA.Nb_Cols_reconstruction,
+								"value %g normalized %d\n", i, TA.reconstruction_size,
+						TA.Nb_Cols_reconstruction, i % TA.Nb_Cols_reconstruction,
 						i / TA.Nb_Cols_reconstruction, val_rec[i], i_rec[i]);
 	}
 	verbosefile << "REC \u24FC Path to rec validation " << recValImagefile << endl;
@@ -161,8 +162,8 @@ void Scratchprepare(void) {
 					if (VERBOSE)
 						printf(
 								"SCRATCHPAD PREPARE \u24FC position %d, size, %d column width %d xy position (x*y) (%d*%d) "
-								"value %g normalized %d\n",
-								itemp, TA.reconstruction_size, TA.Nb_Cols_reconstruction, itemp % TA.Nb_Cols_reconstruction,
+										"value %g normalized %d\n", itemp, TA.reconstruction_size,
+								TA.Nb_Cols_reconstruction, itemp % TA.Nb_Cols_reconstruction,
 								itemp / TA.Nb_Cols_reconstruction, tile_rec[itemp], i_tilerec[itemp]);
 		}
 
@@ -184,14 +185,16 @@ void Scratchprepare(void) {
 
 bool Scratchvalidate_host(void) {
 	bool testScratchpad;
-	float Sum3Scratchpad = 0.0f, max3Scratchpad = 0.0f;
+	float Sum3Scratchpad = 0.0f, max3Scratchpad = 0.0f, Sumdiffscratch=0.0f;
 	float * dummy = { 0 };
 
 	// write Scratchpad in memory and validate
 	unsigned char *i_scratchpad = (unsigned char *) calloc(tile.NbTileXY * XSCRATCH * YSCRATCH,
 			sizeof(unsigned char)); // on host
 	cudaMallocManaged(&val_scratchpad, tile.NbTileXY * ASCRATCH * sizeof(float));
+	cudaMallocManaged(&scratch1D, tile.NbTileXY * ASCRATCH * sizeof(float));
 	cudaMallocManaged(&val2_scratchpad, tile.NbTileXY * ASCRATCH * Ndistrib * sizeof(float));
+
 
 	dim3 dimBlock(1, 1, 1);
 	dim3 dimGrid(1, 1, 1);
@@ -204,18 +207,29 @@ bool Scratchvalidate_host(void) {
 		max3Scratchpad = max(max3Scratchpad, *(val_scratchpad + arg));
 	}
 	printf("SCRATCHPAD \u24FC Sum3Scratchpad  %f max3Scratchpad %f   \n", Sum3Scratchpad, max3Scratchpad);
+	float max1D = 0.0f; 	float max2D = 0.0f;
+		float *fscratch2D = (float *) calloc(XSCRATCH * tile.NbTilex * YSCRATCH * tile.NbTiley, sizeof(float)); // on host
+	max2D = scratch1D2scratch2D(fscratch2D, val_scratchpad, Scratchpad1D22D, XSCRATCH * tile.NbTilex,
+			YSCRATCH * tile.NbTiley, lostpixels);
+	max1D = scratch2D2scratch1D(fscratch2D, scratch1D, XSCRATCH * tile.NbTilex,
+			YSCRATCH * tile.NbTiley, ASCRATCH * tile.NbTileXY, lostpixels);
 
+	cout << "SCRATCHPAD \u24FC Max 1D " << max1D << " max2D " << max2D << endl;
+	for ( int is = 0; is < ASCRATCH*tile.NbTileXY; is++)
+		Sumdiffscratch += abs(scratch1D[is] - val_scratchpad[is]);
+	printf("Sumdiffscratch %f \n", Sumdiffscratch);
 	// write Scratchpad image validation to disk
 	/////////////////////////////////
 	Maxscratch = 0.0f;
 
 	for (int idistrib = 0; idistrib < Ndistrib; idistrib++)
 		for (int iscratch = 0; iscratch < ASCRATCH * tile.NbTileXY; iscratch++) {
-			if (val_scratchpad[iscratch] !=0.0 && VERBOSE)
+			if (val_scratchpad[iscratch] != 0.0 && VERBOSE)
 				printf(
 						"SCRATCHPAD \u24FD position %d, size XY (x*y), (%d*%d) xy position (x*y) (%d*%d) value %g\n",
-						iscratch, XSCRATCH*tile.NbTilex, YSCRATCH*tile.NbTiley, iscratch % (XSCRATCH*tile.NbTilex),
-						iscratch / (XSCRATCH*tile.NbTilex), val_scratchpad[iscratch]);
+						iscratch, XSCRATCH * tile.NbTilex, YSCRATCH * tile.NbTiley,
+						iscratch % (XSCRATCH * tile.NbTilex), iscratch / (XSCRATCH * tile.NbTilex),
+						val_scratchpad[iscratch]);
 			Maxscratch = max(Maxscratch, val_scratchpad[iscratch]); // sanity check, check max
 		}
 	verbosefile << "max device =" << Maxscratch << "\n";

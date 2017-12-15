@@ -37,6 +37,7 @@ __global__ void BigLoop(devicedata DD) {
 	int center_distrib = ((YDistrib / 2) * XDistrib) + XDistrib / 2;
 	int center_microimage = (PixZoomo2) * PixZoom + PixZoomo2;
 	DD.step = 1;
+
 	time_init = clock64(); time_start = clock64(); timer = clock64();
 #include "8_startdevice.cu"
 
@@ -110,7 +111,6 @@ __global__ void BigLoop(devicedata DD) {
 					pscratch_3[iblockima] = (Scratchpad + pos_3);
 #include "8_pscratchtest.cu"
 				} // end of blockima small loop
-
 
 				/**************************************/
 				/******D. SIMUS CALCULATION************/
