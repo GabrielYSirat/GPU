@@ -13,12 +13,10 @@
 class COS {
 public:
 	float offsetLaserx, offsetLasery;
-	float offsetROIx, offsetROIy;
 	float offsetmicroimagesx, offsetmicroimagesy;
 	float offsetPSFx, offsetPSFy;
 	float offsetdistribx, offsetdistriby;
 	float scaleLaserx, scaleLasery;
-	float scaleROIx, scaleROIy;
 	float scalemicroimagesx, scalemicroimagesy;
 	float scalePSFx, scalePSFy;
 	float scaledistribx, scaledistriby;
@@ -47,7 +45,6 @@ public:
 	unsigned int Nb_Cols_microimages;
 	uint Nb_LaserPositions;
 
-	int maxROIx, maxROIy, minROIx, minROIy;
 	double maxLaserx, minLaserx, maxLasery, minLasery;
 	int AmaxLaserx, AmaxLasery, AminLaserx, AminLasery;
 

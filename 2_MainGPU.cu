@@ -9,6 +9,7 @@
 #include <iostream>
 #include <fstream>
 ofstream verbosefile;
+std::string filebase;
 
 /************* Classes and structures*******/
 GPU_init TA;
@@ -49,8 +50,7 @@ int main(int argc, char **argv) {
 
 	/*step 4 **ROI data from preprocessing not used*Cropped ROI*/
 //	readstoreCroppedROI();
-	bool TestROI = TRUE; //validateCroppedROI_control();
-	stepinit(TestROI, stepval);
+	stepinit(TRUE, stepval);
 
 	/*step 5 *********************microimages  ****************/
 	readstoremicroimages();
@@ -97,10 +97,10 @@ Energy_global = EnergyCal();
 	/*step 12 *********************Inspect results  ***********/
 
 	bool testinspect = biginspect(stepval);
-	float MaxSimus_main = displaySimus(new_simus);
+
+	filebase.append("results/F_simus");
+	float MaxSimus_main = displaySimus(new_simus, filebase);
 	stepinit(testinspect, stepval);
 	verbosefile.close();
-
-
 }
 

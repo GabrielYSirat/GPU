@@ -49,8 +49,6 @@ void GPU_init::start(void) {
 void COS::start(void) {
 	offsetLaserx = 0.0;
 	offsetLasery = 0.0;
-	offsetROIx = 0.0;
-	offsetROIy = 0.0;
 	offsetmicroimagesx = 0.0;
 	offsetmicroimagesy = 0.0;
 	offsetPSFx = 0.0;
@@ -59,8 +57,6 @@ void COS::start(void) {
 	offsetdistriby = 0.0;
 	scaleLaserx = 1.0;
 	scaleLasery = 1.0;
-	scaleROIx = 1.0;
-	scaleROIy = 1.0;
 	scalemicroimagesx = 1.0;
 	scalemicroimagesy = 1.0;
 	scalePSFx = 1.0;
@@ -205,43 +201,6 @@ float displaydata(float * datavalues, int stepval) {
 				<< " ******************************************\n\n";
 	}
 	return (MaxData);
-}
-
-float displaySimus(float * simusvalues) {
-	int sizesimus = tile.maxLaserintile * tile.NbTileXY * NThreads;
-	float MaxSimusD = 0.0f, MinSimusD = 1.E6;
-	unsigned char *i_simus = (unsigned char *) calloc(sizesimus, sizeof(unsigned char)); // on host
-	string filebase, file;
-	int n_colintern = PixZoom * tile.NbTileXY;
-	int n_rowintern = PixZoom * tile.maxLaserintile;
-
-	filebase.append("results/F_simus");
-
-	for (int i = 0; i < datafullsize; i++) MaxSimusD = max(MaxSimusD, *(simusvalues + i)); // all distributions!!
-	for (int i = 0; i < datafullsize; i++) MinSimusD = min(MinSimusD, *(simusvalues + i));
-	float ratio = 255. / (MaxSimusD - MinSimusD);
-
-	verbosefile << "HOST: \u24EF parameters: n_rowintern " << n_rowintern << "n_colintern " << n_colintern
-			<< "MaxSimusD " << MaxSimusD << " MinSimusD " << MinSimusD << " Simulations call program biginspect.cu " << endl;
-
-
-	for (int idistrib = 0; idistrib < Ndistrib; idistrib++) {
-		file = filebase + to_string(idistrib) + ".pgm";
-		verbosefile << "file " << file << endl;
-
-		for (int isimus = 0; isimus < sizesimus; isimus++) {
-			int imicro = isimus / NThreads; // number of microimage
-			int ipixel = isimus % NThreads; // pixel number in microimage
-			if (ipixel < PixZoomSquare) {
-				int ix = ipixel % PixZoom + PixZoom * imicro % tile.maxLaserintile;
-				int iy = ipixel / PixZoom + imicro/tile.maxLaserintile *PixZoomSquare;
-				i_simus[isimus] = ratio * (simusvalues[ix + iy * PixZoom] - MinSimusD);
-			}
-		}
-		sdkSavePGM(file.c_str(), i_simus, PixZoom, PixZoom*fullnumberoflasers);
-	}
-
-	return (TRUE);
 }
 
 float scratchreaddisplay(float * reconstructiondata, float * scratchdata, const char * filename, bool readtile) {

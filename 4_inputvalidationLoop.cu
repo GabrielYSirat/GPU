@@ -23,10 +23,6 @@ __managed__ int *posxREC, *posyREC, *offsetFULL;
 __managed__ int *d_PosxScratch = NULL, *d_PosyScratch = NULL;
 __managed__ int *d_posxREC, *d_posyREC, *d_offsetFULL;
 
-__managed__ int *ROIx, *ROIy;
-__managed__ int *d_ROIx, *d_ROIy;
-__managed__ int *ROIxScratch, *ROIyScratch, *offsetROI;
-__managed__ float *microimages, *d_microimages;
 __managed__ float *original_distrib, *val_distrib, *test_distrib, *test2_distrib;
 __managed__ double *double_distrib;
 __managed__ float *original_microimages, *valmicroimages, *zoomed_microimages;
@@ -128,22 +124,6 @@ __global__ void validateLaserPositions_device(int Nb_LaserPositions) {
 
 }
 
-__global__ void validateCroppedROI_device(int Nb_ROI) {
-	int maxROIx = 0, max2ROIx = 0; // in ROI the max in x is xmax
-	int maxROIy = 0, max2ROIy = 0; // in ROI the max in y is ymax
-// calculate pPSF Sum and max
-	time_start = clock64();
-	for (uint row = 0; row < Nb_ROI; row++) {
-		d_ROIx[row] = ROIx[row];
-		d_ROIy[row] = ROIy[row];
-
-		maxROIx = max(maxROIx, d_ROIx[row]);
-		max2ROIx = max(max2ROIx, ROIx[row]);
-		maxROIy = max(maxROIy, d_ROIy[row]);
-		max2ROIy = max(max2ROIy, ROIy[row]);
-	}
-	timer = clock64();
-}
 __managed__ float * SumMI;
 
 __global__ void validate_microimages(int Nb_LaserPositions) {

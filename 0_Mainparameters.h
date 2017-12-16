@@ -47,7 +47,7 @@ extern  Ctile tile;
 void report_gpu_mem();
 bool initparameters(int argc, char **argv);
 void stepinit(int test, int & stepval);
-float displaySimus(float * simusvalues);
+float displaySimus(float * simusvalues, std::string filebase);
 int retrieveargv(string argvdata);
 bool T4Dto2D( unsigned char *matrix4D, unsigned char *matrix2D,  int dimension1, int dimension2, int dimension3, int dimension4);
 float scratchreaddisplay (float * reconstructiondata, float * scratchdata, const char * filename, bool readtile);
@@ -64,12 +64,6 @@ void readstoreLaserPositions(void);
 bool validateLaserPositions_control(void);
 bool tileorganization(void);
 __global__ void validateLaserPositions_device( int Nb_LaserPositions);
-
-/**************************ROI********************/
-void readstoreCroppedROI(void);
-bool validateCroppedROI_control(void);
-__global__ void validateCroppedROI_device( int Nb_ROI);
-
 
 /************************distrib *********/
 void readstoredistrib(void);
@@ -104,9 +98,6 @@ float EnergyCal(void);
 bool tile_organization(void);
 extern __managed__ float *PSF_valid;
 extern __managed__ float  *original_PSF, *test2_psf;
-extern __managed__ int *ROIx, *ROIy, *d_ROIx, *d_ROIy;
-extern __managed__ int *ROIxScratch, *ROIyScratch, *offsetROI;
-extern __managed__ float *microimages, *d_microimages;
 extern __managed__ float *original_distrib,  *val_distrib, *test_distrib, *test2_distrib;
 extern __managed__ double *double_distrib;
 extern __managed__ float *original_microimages,  *valmicroimages, *zoomed_microimages;

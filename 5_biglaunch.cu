@@ -42,7 +42,7 @@ bool biglaunch() {
 	/*********************************DOCUMENT ***************************************************************/
 		verbosefile << "TESTS RETURN:  " << "initialization:  " << Stepdiag[0] << ";  pPSF:  " << Stepdiag[1];
 		verbosefile << ";  distrib: " << Stepdiag[2] << endl;
-		verbosefile << "TESTS RETURN: laser positions: " << Stepdiag[3] << "; ROI:  " << Stepdiag[4];
+		verbosefile << "TESTS RETURN: laser positions: " << Stepdiag[3] << "; ";
 		verbosefile << "; microimages:  " << Stepdiag[5] << ";  Reconstruction:  " << Stepdiag[6] << endl;
 		verbosefile << "MAIN PROGRAM  **********ready for GPU computation*****************" << endl;
 		verbosefile << "******************************************************************" << endl << endl;
