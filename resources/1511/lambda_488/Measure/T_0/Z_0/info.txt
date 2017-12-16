@@ -1,0 +1,19 @@
+[ TYPE ]
+data_type = 2D
+
+[ REDUCED_DATA_INFO ]
+crop_nx = 11
+crop_ny = 11
+n_distributions = 2
+stimulation_wavelength = 488.000000
+emission_wavelength = 520.000000
+NA = 0.950000
+used_distrib = [1 2]
+res_images = [100.000000 100.000000]
+nb_images_distrib = [9 9 9 9]
+
+[ 3D_INFO_(nm) ]
+z_value = 0.000000
+
+[ TIME_INFO_(s) ]
+time = 0.000000

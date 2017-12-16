@@ -1,8 +1,0 @@
-#define STARTDEVICE
-#define TESTTHREADS
-#define TESTDISTRIB
-#define TESTAGG
-//#define PSCRATCHTEST
-//#define TESTDISVAL
-#define TILESANDAGGREGATES
-#define TESTSIMU
